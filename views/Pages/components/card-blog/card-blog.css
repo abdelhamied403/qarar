@@ -1,0 +1,27 @@
+.card-blog .card-header {
+  padding: 0;
+}
+.card-blog .card-header img {
+  height: 100px;
+  object-fit: cover;
+}
+.card-blog .header span,
+.card-blog .tag {
+  color: var(--dark-gray);
+}
+.card-blog .header span {
+  font-size: 12px;
+}
+.card-blog .card-body h5 {
+  font-size: 18px;
+}
+.card-blog .card-body {
+  padding-top: 32px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 16px;
+}
+
+.card-blog .header {
+  margin-bottom: 16px;
+}

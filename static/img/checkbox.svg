@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="checkbox" clip-path="url(#clip-path)">
+    <g id="checkbox-2" data-name="checkbox" fill="none" stroke="#828a93" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1">
+      <rect width="16" height="16" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="15" height="15" rx="2.5" fill="none"/>
+    </g>
+  </g>
+</svg>

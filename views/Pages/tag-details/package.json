@@ -1,0 +1,6 @@
+{
+  "name": "TagDetails",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./tag-details.js"
+}

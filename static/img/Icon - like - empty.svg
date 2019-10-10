@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="30" height="30" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_like_empty" data-name="Icon / like / empty" clip-path="url(#clip-path)">
+    <g id="icon_arrow" data-name="icon / arrow">
+      <rect id="Rectangle" width="30" height="30" fill="#d8d8d8" opacity="0"/>
+    </g>
+    <path id="_" data-name="" d="M10,17.143a.689.689,0,0,1-.491-.2L2.544,10.223C2.519,10.2,0,7.955,0,5.224,0,1.953,1.994,0,5.335,0,7.27,0,9.088,1.511,10,2.411,10.912,1.511,12.732,0,14.665,0,18.006,0,20,1.953,20,5.224c0,2.389-1.94,4.432-2.534,5l-.022.021-6.953,6.7A.689.689,0,0,1,10,17.143ZM5.335,1.428c-1.782,0-3.907.658-3.907,3.8C1.428,7.16,3.3,8.979,3.51,9.18l.005,0L10,15.435,16.474,9.2l.008-.007c.349-.331,2.09-2.077,2.09-3.965,0-3.137-2.124-3.8-3.906-3.8-1.666,0-3.538,1.8-4.118,2.489a.739.739,0,0,1-1.094,0C8.873,3.225,7,1.428,5.335,1.428Z" transform="translate(5 7.286)" fill="rgba(49,49,49,0.6)"/>
+  </g>
+</svg>

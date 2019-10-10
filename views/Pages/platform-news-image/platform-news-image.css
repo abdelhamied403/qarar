@@ -1,0 +1,40 @@
+.decisionHeader {
+  background-color: white;
+  position: relative;
+}
+.carousel-indicators {
+  width: 100% !important;
+  margin: 0;
+  padding: 20px 0;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  align-items: flex-end;
+  padding-bottom: 75px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-size: 50%;
+  height: 30px;
+  border: 1px solid white;
+  width: 30px;
+  padding: 10px;
+  border-radius: 50%;
+}
+.carousel-indicators li {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.carousel-indicators li.active {
+  background-color: var(--primary-blue) !important;
+}
+.carousel-item {
+  /* height: 70vh; */
+}
+.carousel-item img {
+  object-fit: contain;
+}
+.carousel-body .card-header {
+  padding: 0;
+}

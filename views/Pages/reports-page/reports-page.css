@@ -1,0 +1,27 @@
+.active-users .card-points .card-body {
+  display: none;
+}
+
+.card-points .user-info .points {
+  margin: 0 20px;
+}
+
+.card-users-part .name {
+  padding-top: 10px;
+  padding-right: 6px;
+}
+.break {
+  max-width: 50%;
+  /* word-break: break-all; */
+  margin-bottom: 20px;
+}
+.active-drafts-card {
+  background-color: var(--normal-gray);
+  border-radius: 5px;
+  border-right: 5px solid var(--primary-blue);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.reports-page {
+  margin-top: 50px;
+}

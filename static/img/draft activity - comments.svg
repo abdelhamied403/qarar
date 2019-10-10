@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37" height="37" viewBox="0 0 37 37">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="37" height="37" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="draft_activity_comments" data-name="draft activity / comments" clip-path="url(#clip-path)">
+    <g id="draft_activity_comments-2" data-name="draft activity / comments" opacity="0.166" clip-path="url(#clip-path)">
+      <rect id="Rectangle" width="37" height="37" fill="#d8d8d8" opacity="0"/>
+      <path id="_" data-name="" d="M0,9.634c0,5.329,5.692,9.634,12.719,9.634a18.464,18.464,0,0,0,2.058-.12,15.3,15.3,0,0,0,6.53,3.643,11.067,11.067,0,0,0,1.618.331.664.664,0,0,0,.681-.572v-.015c.071-.376-.17-.6-.383-.873a9.647,9.647,0,0,1-2.583-4.486c2.924-1.761,4.8-4.486,4.8-7.542C25.438,4.32,19.745,0,12.719,0S0,4.305,0,9.634Z" transform="translate(4.625 6.938)" fill="#9d9d9d"/>
+    </g>
+  </g>
+</svg>

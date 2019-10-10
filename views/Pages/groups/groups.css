@@ -1,0 +1,26 @@
+.groups {
+  background-color: white !important;
+  padding: 50px 0;
+  margin-bottom: -100px;
+  padding-bottom: 100px;
+}
+.groups .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.groups .groups-card {
+  background-color: var(--normal-gray);
+  height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+.card-not > div {
+  margin: 10px 0;
+}
+
+.groups .card {
+  border: none;
+  background-color: #f4f4f4;
+  margin-bottom: 50px;
+}

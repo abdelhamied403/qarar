@@ -2,7 +2,8 @@
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
-		"prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "jsx-a11y/anchor-is-valid": 0
 	},
   "globals": {
     "fetch": true,

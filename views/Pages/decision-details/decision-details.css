@@ -1,0 +1,57 @@
+.dc-details-header {
+  padding: 50px 0;
+}
+.description h5 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.flex-box-header h6 {
+  font-size: 18px;
+}
+
+.dc-details-header .sub-header {
+  color: var(--dark-gray);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.dc-details-header .header-content h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+.cards {
+  margin: 10px 0;
+}
+.dropdown-toggle {
+  background-color: #f4f4f4;
+
+  color: rgba(35, 35, 35, 0.6);
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active {
+  color: rgba(35, 35, 35, 0.6);
+  border: none;
+  background-color: #f4f4f4;
+}
+
+.btn-secondary:focus,
+.btn-secondary.focus {
+  box-shadow: none;
+}
+
+.show > .btn-secondary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.users .card-small .icon img {
+  max-width: 60px;
+  height: auto;
+}
+
+.dc-details-header .cards-info {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.dc-details-header .cards-info .card {
+  margin-bottom: 10px;
+}

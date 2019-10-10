@@ -1,0 +1,75 @@
+.contact {
+  padding: 50px 0;
+  margin-bottom: -100px;
+}
+
+.contact,
+.contact > * {
+  padding-bottom: 0;
+}
+
+.contact .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.tabs-content .nav {
+  justify-content: center !important;
+}
+
+.contact .tabs-content .nav h6 {
+  font-size: 16px;
+  color: #000 !important;
+}
+
+.contact .contact-header {
+  padding-top: 100px;
+  padding-bottom: 72px;
+}
+
+.contact .contact-header .sub-header {
+  margin-bottom: 8px !important;
+}
+.tabs-content .nav-tabs .nav-link {
+  border-bottom: 3px solid transparent !important;
+
+  padding-bottom: 5px;
+}
+.contact-tab-content {
+  padding-top: 72px;
+  padding-bottom: 100px;
+}
+.contact input {
+  min-height: 42px;
+  border: 1px solid #ccc !important;
+  font-weight: 500 !important;
+  color: #232323 !important;
+}
+.form-control {
+  background-color: white;
+  transition: all 0.8s !important;
+}
+.form-control:focus {
+  box-shadow: none !important;
+  background-color: rgba(255, 41, 75, 0.1);
+  transition: all 0.8s !important;
+}
+.contact .contact-tab-content h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+textarea.form-control {
+  font-weight: 500;
+}
+
+.contact .button-group {
+  margin-top: 32px;
+  align-items: center;
+}
+.contact .button-group > * {
+  margin: 0px;
+}
+.contact .button-group p {
+  margin-left: 18px;
+}

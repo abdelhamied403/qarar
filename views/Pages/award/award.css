@@ -1,0 +1,40 @@
+.award {
+  background-color: white !important;
+  padding: 50px 0;
+  margin-bottom: -100px;
+  padding-bottom: 100px;
+}
+.award .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.award .award-card {
+  background-color: var(--normal-gray);
+  height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+.card-not > div {
+  margin: 10px 0;
+}
+
+.icon-primary {
+  /* padding: 0px 10px; */
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+  color: white;
+}
+
+.award .card {
+  border: none;
+  background-color: #f4f4f4;
+  margin-bottom: 50px;
+}

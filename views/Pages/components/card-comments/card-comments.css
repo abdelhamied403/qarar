@@ -1,0 +1,83 @@
+.card-comments {
+  padding: 20px;
+  color: var(--dark-gray);
+  font-size: 13px;
+}
+.card-comments .comment-container {
+  margin: 20px 0;
+}
+.card-comments .flex-header-comments {
+  display: flex;
+  align-items: center;
+}
+.card-comments .flex-header-comments img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.flex-contet-comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.comment {
+  padding-right: 70px;
+}
+.primary-icon {
+  color: var(--primary-blue);
+}
+.sub-comment {
+  padding-right: 50px;
+}
+.flex-contet-comment p {
+  margin-left: 30px;
+}
+.space-between {
+  justify-content: space-between !important;
+}
+.card-comments .user-info {
+  display: flex;
+  flex-flow: column;
+}
+.card-comments .user-info .name {
+  margin: 0 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.card-comments .user-info .comments {
+  color: var(--dark-gray);
+}
+
+.card-comments .icons-cont {
+  display: flex;
+  align-items: center;
+  color: var(--dark-gray);
+}
+.card-comments .icons-cont > * {
+  margin: 0px 10px;
+}
+
+.dark-card,
+.dark-card .card-header {
+  background-color: #f4f4f4;
+  border: none;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+.m-20 {
+  margin: 20px 0;
+}
+.input-container .form-control,
+.input-container .form-control:focus {
+  background-color: #f4f4f4;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}

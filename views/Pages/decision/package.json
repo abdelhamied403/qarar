@@ -1,0 +1,6 @@
+{
+  "name": "Decision",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./decision.js"
+}

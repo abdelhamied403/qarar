@@ -1,0 +1,8 @@
+.drop-header a.dropdown-toggle:hover {
+  background-color: transparent !important;
+  color: #313131 !important;
+}
+
+.notifications .sub-header {
+  margin-bottom: 0px !important;
+}

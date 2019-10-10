@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="radio" clip-path="url(#clip-path)">
+    <g id="radio-2" data-name="radio" fill="#fff" stroke="#00aaba" stroke-miterlimit="10" stroke-width="6">
+      <circle cx="8" cy="8" r="8" stroke="none"/>
+      <circle cx="8" cy="8" r="5" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+.about-update {
+  background-color: white;
+}
+.about-update .form-control {
+  width: 80%;
+}
+.about-update .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.about-update .about-update-card {
+  background-color: var(--normal-gray);
+  min-height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+.red {
+  color: crimson !important;
+}

@@ -1,0 +1,43 @@
+.draftHeader {
+  background-color: white;
+  padding: 70px 0;
+  position: relative;
+}
+
+.filter {
+  position: absolute;
+  bottom: 15px;
+}
+.filter > * {
+  color: var(--dark-gray);
+  border-bottom: 2px solid var(--dark-gray);
+  padding-bottom: 15px;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  /* padding: 0 5px; */
+}
+.filter .active-link {
+  border-color: var(--primary-blue);
+  margin: 0px 30px;
+}
+
+.drafts .tabs-content {
+  margin-top: -48px;
+}
+.drafts .tabs-content,
+.drafts .tabs-content > * {
+  border: none;
+}
+.drafts .table-content {
+  margin: 15px 0;
+  padding: 15px;
+}
+.drafts .tab-pane.active {
+  background-color: #f4f4f4 !important;
+}
+.drafts .nav-tabs .nav-link {
+  border: none;
+  padding-left: 30px;
+  border-bottom: 1px solid #cccccc !important;
+}

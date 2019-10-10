@@ -1,0 +1,24 @@
+.GroupDetailsheader {
+  background-color: white;
+  padding: 70px 0;
+  position: relative;
+}
+
+.filter {
+  position: absolute;
+  bottom: 15px;
+}
+
+.filter > * {
+  color: var(--dark-gray);
+  border-bottom: 2px solid var(--dark-gray);
+  padding-bottom: 15px;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  /* padding: 0 5px; */
+}
+.filter .active-link {
+  border-color: var(--primary-blue);
+  margin: 0px 30px;
+}

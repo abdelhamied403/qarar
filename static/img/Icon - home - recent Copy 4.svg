@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="20" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_home_recent_Copy_4" data-name="Icon / home / recent Copy 4" clip-path="url(#clip-path)">
+    <rect id="Rectangle" width="20" height="20" fill="#d8d8d8" opacity="0"/>
+    <path id="_" data-name="" d="M15,8.839a10.63,10.63,0,0,1-1.063,3.775,4.465,4.465,0,0,1-.31.636.265.265,0,0,1-.234.142.271.271,0,0,1-.268-.293c0-.134.033-.285.042-.419.025-.343.042-.686.042-1.03,0-3.993-2.369-4.688-5.977-4.688H5.357V9.107a.539.539,0,0,1-.536.536.533.533,0,0,1-.377-.159L.159,5.2a.526.526,0,0,1,0-.753L4.445.159A.533.533,0,0,1,4.821,0a.539.539,0,0,1,.536.536V2.679H7.232c2.746,0,6.161.485,7.324,3.373A7.545,7.545,0,0,1,15,8.839Z" transform="translate(2.5 3.75)" fill="#9d9d9d"/>
+  </g>
+</svg>
