@@ -52,7 +52,7 @@ class Decision extends Component {
               header="سياسة السماح باستيراد السيارات الكهربائية"
               subHeader="يغلق التصويت بتاريخ 25/8/2019"
               content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              link="/client/decision-details"
+              link="/decision-details/decisionId"
               tags={[{ tag: 'نقل', id: 1 }]}
               subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             />
@@ -62,7 +62,7 @@ class Decision extends Component {
               header="سياسة السماح باستيراد السيارات الكهربائية"
               subHeader="يغلق التصويت بتاريخ 25/8/2019"
               content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              link="/client/decision-details"
+              link="/decision-details/decisionId"
               tags={[{ tag: 'نقل', id: 1 }]}
               subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             />
@@ -72,47 +72,7 @@ class Decision extends Component {
               header="سياسة السماح باستيراد السيارات الكهربائية"
               subHeader="يغلق التصويت بتاريخ 25/8/2019"
               content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              link="/client/decision-details"
-              tags={[{ tag: 'نقل', id: 1 }]}
-              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            />
-          </Col>
-          <Col xs="12" md="6">
-            <CardDraft
-              header="سياسة السماح باستيراد السيارات الكهربائية"
-              subHeader="يغلق التصويت بتاريخ 25/8/2019"
-              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              tags={[{ tag: 'نقل', id: 1 }]}
-              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-              link="/client/decision-details"
-            />
-          </Col>
-          <Col xs="12" md="6">
-            <CardDraft
-              header="سياسة السماح باستيراد السيارات الكهربائية"
-              subHeader="يغلق التصويت بتاريخ 25/8/2019"
-              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              link="/client/decision-details"
-              tags={[{ tag: 'نقل', id: 1 }]}
-              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            />
-          </Col>
-          <Col xs="12" md="6">
-            <CardDraft
-              header="سياسة السماح باستيراد السيارات الكهربائية"
-              subHeader="يغلق التصويت بتاريخ 25/8/2019"
-              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              link="/client/decision-details"
-              tags={[{ tag: 'نقل', id: 1 }]}
-              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            />
-          </Col>
-          <Col xs="12" md="6">
-            <CardDraft
-              header="سياسة السماح باستيراد السيارات الكهربائية"
-              subHeader="يغلق التصويت بتاريخ 25/8/2019"
-              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-              link="/client/decision-details"
+              link="/decision-details/decisionId"
               tags={[{ tag: 'نقل', id: 1 }]}
               subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             />
@@ -124,7 +84,47 @@ class Decision extends Component {
               content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
               tags={[{ tag: 'نقل', id: 1 }]}
               subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-              link="/client/decision-details"
+              link="/decision-details/decisionId"
+            />
+          </Col>
+          <Col xs="12" md="6">
+            <CardDraft
+              header="سياسة السماح باستيراد السيارات الكهربائية"
+              subHeader="يغلق التصويت بتاريخ 25/8/2019"
+              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+              link="/decision-details/decisionId"
+              tags={[{ tag: 'نقل', id: 1 }]}
+              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            />
+          </Col>
+          <Col xs="12" md="6">
+            <CardDraft
+              header="سياسة السماح باستيراد السيارات الكهربائية"
+              subHeader="يغلق التصويت بتاريخ 25/8/2019"
+              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+              link="/decision-details/decisionId"
+              tags={[{ tag: 'نقل', id: 1 }]}
+              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            />
+          </Col>
+          <Col xs="12" md="6">
+            <CardDraft
+              header="سياسة السماح باستيراد السيارات الكهربائية"
+              subHeader="يغلق التصويت بتاريخ 25/8/2019"
+              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+              link="/decision-details/decisionId"
+              tags={[{ tag: 'نقل', id: 1 }]}
+              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            />
+          </Col>
+          <Col xs="12" md="6">
+            <CardDraft
+              header="سياسة السماح باستيراد السيارات الكهربائية"
+              subHeader="يغلق التصويت بتاريخ 25/8/2019"
+              content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+              tags={[{ tag: 'نقل', id: 1 }]}
+              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+              link="/decision-details/decisionId"
             />
           </Col>
         </Row>
@@ -140,7 +140,7 @@ class Decision extends Component {
             header="سياسة السماح باستيراد السيارات الكهربائية"
             subHeader=" تم الأرشفة بتاريخ 25/8/2019"
             content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            link="/client/decision-draft-details"
+            link="/decision-details/decisionId"
             tags={[{ tag: 'نقل', id: 1 }]}
             subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             date=" "
@@ -152,7 +152,7 @@ class Decision extends Component {
             header="سياسة السماح باستيراد السيارات الكهربائية"
             subHeader=" تم الأرشفة بتاريخ 25/8/2019"
             content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            link="/client/decision-draft-details"
+            link="/decision-details/decisionId"
             tags={[{ tag: 'نقل', id: 1 }]}
             subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             date=" "
@@ -164,55 +164,7 @@ class Decision extends Component {
             header="سياسة السماح باستيراد السيارات الكهربائية"
             subHeader=" تم الأرشفة بتاريخ 25/8/2019"
             content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            link="/client/decision-draft-details"
-            tags={[{ tag: 'نقل', id: 1 }]}
-            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            date=" "
-            borderColor="#9D9D9D"
-          />
-        </Col>
-        <Col xs="12" md="6">
-          <CardDraft
-            header="سياسة السماح باستيراد السيارات الكهربائية"
-            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
-            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            tags={[{ tag: 'نقل', id: 1 }]}
-            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            date=" "
-            borderColor="#9D9D9D"
-            link="/client/decision-draft-details"
-          />
-        </Col>
-        <Col xs="12" md="6">
-          <CardDraft
-            header="سياسة السماح باستيراد السيارات الكهربائية"
-            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
-            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            link="/client/decision-draft-details"
-            tags={[{ tag: 'نقل', id: 1 }]}
-            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            date=" "
-            borderColor="#9D9D9D"
-          />
-        </Col>
-        <Col xs="12" md="6">
-          <CardDraft
-            header="سياسة السماح باستيراد السيارات الكهربائية"
-            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
-            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            link="/client/decision-draft-details"
-            tags={[{ tag: 'نقل', id: 1 }]}
-            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-            date=" "
-            borderColor="#9D9D9D"
-          />
-        </Col>
-        <Col xs="12" md="6">
-          <CardDraft
-            header="سياسة السماح باستيراد السيارات الكهربائية"
-            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
-            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-            link="/client/decision-draft-details"
+            link="/decision-details/decisionId"
             tags={[{ tag: 'نقل', id: 1 }]}
             subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             date=" "
@@ -228,7 +180,55 @@ class Decision extends Component {
             subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
             date=" "
             borderColor="#9D9D9D"
-            link="/client/decision-draft-details"
+            link="/decision-details/decisionId"
+          />
+        </Col>
+        <Col xs="12" md="6">
+          <CardDraft
+            header="سياسة السماح باستيراد السيارات الكهربائية"
+            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
+            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+            link="/decision-details/decisionId"
+            tags={[{ tag: 'نقل', id: 1 }]}
+            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            date=" "
+            borderColor="#9D9D9D"
+          />
+        </Col>
+        <Col xs="12" md="6">
+          <CardDraft
+            header="سياسة السماح باستيراد السيارات الكهربائية"
+            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
+            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+            link="/decision-details/decisionId"
+            tags={[{ tag: 'نقل', id: 1 }]}
+            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            date=" "
+            borderColor="#9D9D9D"
+          />
+        </Col>
+        <Col xs="12" md="6">
+          <CardDraft
+            header="سياسة السماح باستيراد السيارات الكهربائية"
+            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
+            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+            link="/decision-details/decisionId"
+            tags={[{ tag: 'نقل', id: 1 }]}
+            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            date=" "
+            borderColor="#9D9D9D"
+          />
+        </Col>
+        <Col xs="12" md="6">
+          <CardDraft
+            header="سياسة السماح باستيراد السيارات الكهربائية"
+            subHeader=" تم الأرشفة بتاريخ 25/8/2019"
+            content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
+            tags={[{ tag: 'نقل', id: 1 }]}
+            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+            date=" "
+            borderColor="#9D9D9D"
+            link="/decision-details/decisionId"
           />
         </Col>
       </Row>

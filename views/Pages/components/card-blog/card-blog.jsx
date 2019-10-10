@@ -18,7 +18,6 @@ const CardBlog = ({
   tag,
   blogId,
   tagId,
-  subHeader,
   subHeaderIcon
 }) => (
   <Card className="card-blog">
@@ -41,21 +40,14 @@ const CardBlog = ({
       </div>
       <div className="content">
         {content}...
-        <Button
-          href={`/client/platform-news-image/${blogId}`}
-          tag={Link}
-          color="link"
-        >
-          <a>المزيد</a>
-        </Button>
+        <Link href={`/news-details/${blogId}`}>
+          <Button className="text-decoration-none" color="link">
+            المزيد
+          </Button>
+        </Link>
       </div>
-      <Link
-        className="tag sub-header"
-        exact
-        href={`/client/tag/${tagId}`}
-        tag={Link}
-      >
-        <a>#{tag}</a>
+      <Link href={`/tag/${tagId}`}>
+        <a className="tag sub-header">#{tag}</a>
       </Link>
     </CardBody>
   </Card>

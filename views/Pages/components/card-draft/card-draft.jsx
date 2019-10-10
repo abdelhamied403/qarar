@@ -131,9 +131,9 @@ class CardDraft extends Component {
                 <p>
                   {this.setContent()}
                   {link ? (
-                    <Button href={link} tag={Link} color="link">
-                      <a className="btn btn-link">المزيد</a>
-                    </Button>
+                    <Link href={link}>
+                      <Button color="link">المزيد</Button>
+                    </Link>
                   ) : (
                     ''
                   )}
@@ -188,7 +188,7 @@ class CardDraft extends Component {
             <div className="tags">
               {tags.map(t => {
                 return (
-                  <Link href={`/client/tag/${t.id}`}>
+                  <Link href={`/tag/${t.id}`}>
                     <a className="sub-header">#{t.tag}</a>
                   </Link>
                   // <span></span>
@@ -198,8 +198,10 @@ class CardDraft extends Component {
             {date ? (
               <span className="date">{date}</span>
             ) : (
-              <Link href="/" color="link">
-                <a className="btn btn-link">طلب تعديل</a>
+              <Link href="/">
+                <a color="link" className="btn btn-link">
+                  طلب تعديل
+                </a>
               </Link>
             )}
           </div>

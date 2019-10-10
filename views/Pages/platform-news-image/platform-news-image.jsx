@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { NavLink as RRNavLink, Link } from 'react-router-dom';
+import Link from 'next/link';
 
-import './platform-news-image.css';
-import carouselImage from '../../../assets/img/GB-main-2.jpg';
 import {
   Container,
-  Col,
-  Row,
   Carousel,
   CarouselCaption,
   CarouselControl,
@@ -16,22 +12,22 @@ import {
   CardBody,
   CardHeader
 } from 'reactstrap';
-const Breadcrumb = React.lazy(() =>
-  import('../../../views/Pages/components/breadcrumb/breadcrumb')
-);
+
+import Breadcrumb from '../components/breadcrumb/breadcrumb';
+import './platform-news-image.css';
 
 const items = [
   {
-    src: carouselImage
+    src: '/static/img/GB-main-2.jpg'
   },
   {
-    src: carouselImage
+    src: '/static/img/GB-main-2.jpg'
   },
   {
-    src: carouselImage
+    src: '/static/img/GB-main-2.jpg'
   },
   {
-    src: carouselImage
+    src: '/static/img/GB-main-2.jpg'
   }
 ];
 class DecisionDraft extends Component {
@@ -95,7 +91,7 @@ class DecisionDraft extends Component {
       );
     });
     return (
-      <React.Fragment>
+      <>
         <Breadcrumb title="اخبار المنصة" link="/client/platform-news" />
 
         <section>
@@ -132,7 +128,7 @@ class DecisionDraft extends Component {
                 <div className="header">
                   <h5>ثلاثة رواد اعمال يحصلون علي لابلاب لا</h5>
                   <span className="sub-header">
-                    <i className="fa fa-calendar"></i>
+                    <i className="fa fa-calendar" />
                     25/8/2019
                   </span>
                 </div>
@@ -177,14 +173,18 @@ class DecisionDraft extends Component {
                   نايهايل موليستايا كونسيكيواتيو,فيلايليوم كيواي دولوريم أ
                 </p>
                 <div>
-                  <Link className="sub-header"># طاقة</Link>
-                  <Link className="sub-header"># طاقة</Link>
+                  <Link href="/tag/tagId">
+                    <a className="sub-header"># طاقة</a>
+                  </Link>
+                  <Link href="/tag/tagId">
+                    <a className="sub-header"># طاقة</a>
+                  </Link>
                 </div>
               </CardBody>
             </Card>
           </Container>
         </section>
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -141,6 +141,7 @@ const Landing = () => (
               arrayOfContnt={[
                 {
                   header: 'تقليل حوادث السير في الرياض',
+                  link: '/draft-details/draftId',
                   social: [
                     {
                       icon: '/static/img/Icon - most active - views Copy 2.svg',
@@ -158,6 +159,7 @@ const Landing = () => (
                 },
                 {
                   header: 'تقليل حوادث السير في الرياض',
+                  link: '/draft-details/draftId',
                   social: [
                     {
                       icon: '/static/img/Icon - most active - views Copy 2.svg',
@@ -183,6 +185,7 @@ const Landing = () => (
               arrayOfContnt={[
                 {
                   header: 'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدا…',
+                  link: '/draft-details/draftId',
                   description: [
                     {
                       icon: '/static/img/Icon - most active - views Copy 3.svg',
@@ -192,6 +195,7 @@ const Landing = () => (
                 },
                 {
                   header: 'السماح باستيراد السيارات الكهربائية',
+                  link: '/draft-details/draftId',
                   description: [
                     {
                       icon: '/static/img/Icon - most active - views Copy 3.svg',
@@ -209,6 +213,7 @@ const Landing = () => (
               arrayOfContnt={[
                 {
                   header: 'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدا…',
+                  link: '/draft-details/draftId',
                   description: [
                     {
                       icon: '/static/img/Icon - most active - views Copy 3.svg',
@@ -218,6 +223,7 @@ const Landing = () => (
                 },
                 {
                   header: 'السماح باستيراد السيارات الكهربائية',
+                  link: '/draft-details/draftId',
                   description: [
                     {
                       icon: '/static/img/Icon - most active - views Copy 3.svg',
@@ -230,15 +236,11 @@ const Landing = () => (
           </Col>
         </Row>
         <div className="text-center">
-          <Button
-            outline
-            color="primary"
-            size="md"
-            href="/client/drafts"
-            tag={Link}
-          >
-            كل المسودات
-          </Button>
+          <Link href="/drafts">
+            <Button outline color="primary" size="md">
+              كل المسودات
+            </Button>
+          </Link>
         </div>
       </Container>
     </section>
@@ -285,31 +287,22 @@ const Landing = () => (
           </Col>
         </Row>
         <div className="text-center">
-          <Button
-            outline
-            color="primary"
-            size="md"
-            href="/client/platform-news"
-            tag={Link}
-          >
-            كل الاخبار
-          </Button>
+          <Link href="/news">
+            <Button outline color="primary" size="md">
+              كل الاخبار
+            </Button>
+          </Link>
         </div>
       </Container>
     </section>
     <section className="args">
       <Container>
         <p className="content">رأيك يهمنا…ارفع صوتك</p>
-        <Button
-          className="scale-hover "
-          color="primary"
-          outline
-          size="md"
-          href="/client/drafts"
-          tag={Link}
-        >
-          اكتشف قائمة المسودات
-        </Button>
+        <Link href="/drafts">
+          <Button className="scale-hover" color="primary" outline size="md">
+            اكتشف قائمة المسودات
+          </Button>
+        </Link>
       </Container>
     </section>
   </div>

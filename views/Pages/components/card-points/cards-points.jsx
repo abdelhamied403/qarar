@@ -26,7 +26,7 @@ const CardPoints = ({
       <div className="flex-header-points">
         <CardImg top width="100%" src={avatar} alt="Card image cap" />
         <div className="user-info">
-          <Link href="/client/user-info">
+          <Link href="/user-profile/userid">
             <a className="sub-header name">{name}</a>
           </Link>
           <span className="points">{points} نقطة</span>
@@ -38,8 +38,10 @@ const CardPoints = ({
         <p>
           {content}
           {link ? (
-            <Button exact href={link} tag={Link} color="link">
-              <a>المزيد</a>
+            <Button color="link">
+              <Link href={link}>
+                <a>المزيد</a>
+              </Link>
             </Button>
           ) : (
             ''

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Media } from 'reactstrap';
-// import Link from 'next/Link';
+import Link from 'next/link';
 
 import './card-description.css';
 
@@ -21,7 +21,9 @@ const CardDescription = ({ header, type, arrayOfContnt, points }) => (
         if (type === 'social') {
           return (
             <div className="socail-item">
-              <a className="h6">{content.header}</a>
+              <Link href={content.link}>
+                <a className="h6">{content.header}</a>
+              </Link>
               <div className="flex-icons">
                 {content.social.map(s => {
                   return (
@@ -39,7 +41,9 @@ const CardDescription = ({ header, type, arrayOfContnt, points }) => (
         }
         return (
           <div className="desc-item">
-            <a className="h6">{content.header}</a>
+            <Link href={content.link}>
+              <a className="h6">{content.header}</a>
+            </Link>
             {content.description.map(s => {
               return (
                 <span className="desc-content">

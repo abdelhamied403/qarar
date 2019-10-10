@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
-import './decision-details.css';
 import { Container, Col, Row, Media } from 'reactstrap';
 
-import userActivity from '../../../assets/img/Icon - draft activity - users.svg';
-import commentDraft from '../../../assets/img/draft activity - comments.svg';
-import likeHand from '../../../assets/img/draft activity -.svg';
-import calender from '../../../assets/img/Icon - most active - views Copy 3.svg';
-import file from '../../../assets/img/vote-closed.svg';
-
 import CardDraftDetails from '../components/card-draft-details/card-draft-details';
-const Breadcrumb = React.lazy(() =>
-  import('../components/breadcrumb/breadcrumb')
-);
-const CardInfo = React.lazy(() => import('../components/card-info/card-info'));
-const TextBox = React.lazy(() => import('../components/text-box/text-box'));
+import Breadcrumb from '../components/breadcrumb/breadcrumb';
+import CardInfo from '../components/card-info/card-info';
+import TextBox from '../components/text-box/text-box';
+
+import './decision-details.css';
+
 class DecisionDetails extends Component {
   render() {
     const content = `
@@ -29,10 +23,10 @@ class DecisionDetails extends Component {
     يت, سيد كيواي نون نيومكيوام ايايوس موداي تيمبورا انكايديونت يوت لابوري أيت دولار ماجنام
     `;
     return (
-      <React.Fragment>
+      <>
         <Breadcrumb
           title="كل القرارات التي يتم العمل بها حاليا"
-          link="/client/decision"
+          link="/decisions"
         />
         <Container>
           <div className="dc-details-header">
@@ -41,12 +35,20 @@ class DecisionDetails extends Component {
                 <div className="header-content">
                   <h2>سياسة السماح باستيراد السيارات الكهربائية</h2>
                   <div className="sub-header">
-                    <Media object src={file} className="icon-small" />
+                    <Media
+                      object
+                      src="/static/img/vote-closed.svg"
+                      className="icon-small"
+                    />
                     {/* <i className="fa fa-stop-circle "></i> */}
                     <span>أغلق التصويت بتاريخ 25/8/2019</span>
                   </div>
                   <div className="sub-header">
-                    <Media object src={calender} className="icon-small" />
+                    <Media
+                      object
+                      src="/static/img/Icon - most active - views Copy 3.svg"
+                      className="icon-small"
+                    />
                     {/* <i className="fa fa-calendar "></i> */}
                     <span>أتم إقراره بتاريخ 25/8/2019</span>
                   </div>
@@ -56,20 +58,24 @@ class DecisionDetails extends Component {
                 <div className="cards">
                   <Row>
                     <Col xs="6">
-                      <CardInfo type="صوت" number="5523" icon={likeHand} />
+                      <CardInfo
+                        type="صوت"
+                        number="5523"
+                        icon="/static/img/draft activity -.svg"
+                      />
                     </Col>
                     <Col xs="6">
                       <CardInfo
                         type="تعليق"
                         number="5523"
-                        icon={commentDraft}
+                        icon="/static/img/draft activity - comments.svg"
                       />
                     </Col>
                     <Col xs="12" className="users">
                       <CardInfo
                         type="مشترك"
                         number="5523"
-                        icon={userActivity}
+                        icon="/static/img/Icon - draft activity - users.svg"
                       />
                     </Col>
                   </Row>
@@ -99,7 +105,7 @@ class DecisionDetails extends Component {
             primary="إرسال الاقتراح"
           />
         </Container>
-      </React.Fragment>
+      </>
     );
   }
 }

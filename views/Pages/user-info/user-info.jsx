@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
+import { Container, Card, CardBody, Button, Row, Col, Media } from 'reactstrap';
+import Link from 'next/link';
+
 import './user-info.css';
-import {
-  Container,
-  Breadcrumb,
-  BreadcrumbItem,
-  Card,
-  CardBody,
-  Button,
-  Row,
-  Col,
-  Media
-} from 'reactstrap';
-import { NavLink as RRNavLink, Link } from 'react-router-dom';
-import avatar from '../../../assets/img/avatar.png';
 
 class UserInfo extends Component {
   render() {
     return (
-      <React.Fragment>
-        <div className="user-info">
+      <>
+        <div className="user-profile">
           <Container>
             <Row>
               <Col xs="12">
@@ -26,7 +16,11 @@ class UserInfo extends Component {
                   <CardBody className="card-not">
                     <div className="flex flex-justifiy-sp">
                       <div className="userinfo flex flex-align-center">
-                        <Media object src={avatar} className="image-avatar" />
+                        <Media
+                          object
+                          src="/static/img/avatar.png"
+                          className="image-avatar"
+                        />
                         <div className="felx flex-col">
                           <h3>كامل حمد</h3>
                           <span className="sub-header">@kamelA</span>
@@ -44,7 +38,7 @@ class UserInfo extends Component {
                         </div>
                       </div>
                       <Button color="primary" outline>
-                        الغاء المتابعة{' '}
+                        الغاء المتابعة
                       </Button>
                     </div>
                   </CardBody>
@@ -57,15 +51,11 @@ class UserInfo extends Component {
                       <h6 className="sub-header">
                         الافكار التي قام بالتصويت عليها
                       </h6>
-                      <Button
-                        exact
-                        to="/client/landing"
-                        tag={RRNavLink}
-                        color="primary"
-                        outline
-                      >
-                        عرض الكل
-                      </Button>
+                      <Link href="/">
+                        <Button color="primary" outline>
+                          عرض الكل
+                        </Button>
+                      </Link>
                     </div>
                     <div className="flex flex-col">
                       <p>فكرة تطوير المناطق السياحية</p>
@@ -84,15 +74,11 @@ class UserInfo extends Component {
                       <h6 className="sub-header">
                         الافكار التي قام بالتصويت عليها
                       </h6>
-                      <Button
-                        exact
-                        to="/client/landing"
-                        tag={RRNavLink}
-                        color="primary"
-                        outline
-                      >
-                        عرض الكل
-                      </Button>
+                      <Link href="/">
+                        <Button color="primary" outline>
+                          عرض الكل
+                        </Button>
+                      </Link>
                     </div>
                     <div className="flex flex-col">
                       <p>فكرة تطوير المناطق السياحية</p>
@@ -109,39 +95,35 @@ class UserInfo extends Component {
                   <CardBody className="card-not">
                     <div className="flex flex-justifiy-sp m-25-b">
                       <h6 className="sub-header">الأوسمة</h6>
-                      <Button
-                        exact
-                        to="/client/landing"
-                        tag={RRNavLink}
-                        color="primary"
-                        outline
-                      >
-                        عرض الكل
-                      </Button>
+                      <Link href="/">
+                        <Button color="primary" outline>
+                          عرض الكل
+                        </Button>
+                      </Link>
                     </div>
                     <div className="flex flex-col">
                       <div className="flex flex-nowrap flex-align-base">
                         <span className="icon-primary">
-                          <i className="fa fa-money fa-lg "></i>
+                          <i className="fa fa-money fa-lg " />
                         </span>
                         <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
                       </div>
                       <div className="flex flex-nowrap flex-align-base">
                         <span className="icon-primary">
-                          <i className="fa fa-money fa-lg "></i>
+                          <i className="fa fa-money fa-lg " />
                         </span>
                         <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
                       </div>
                       <div className="flex flex-nowrap flex-align-base">
                         <span className="icon-primary">
-                          <i className="fa fa-money fa-lg "></i>
+                          <i className="fa fa-money fa-lg " />
                         </span>
                         <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
                       </div>
                       <div className="flex flex-nowrap flex-align-base">
                         <span className="icon-primary">
                           {' '}
-                          <i className="fa fa-money fa-lg "></i>{' '}
+                          <i className="fa fa-money fa-lg " />{' '}
                         </span>
                         <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
                       </div>
@@ -154,15 +136,11 @@ class UserInfo extends Component {
                   <CardBody className="card-not">
                     <div className="flex flex-justifiy-sp m-25-b">
                       <h6 className="sub-header">الجوائز</h6>
-                      <Button
-                        exact
-                        to="/client/landing"
-                        tag={RRNavLink}
-                        color="primary"
-                        outline
-                      >
-                        عرض الكل
-                      </Button>
+                      <Link href="/">
+                        <Button color="primary" outline>
+                          عرض الكل
+                        </Button>
+                      </Link>
                     </div>
                     <div className="flex flex-col">
                       <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
@@ -177,7 +155,7 @@ class UserInfo extends Component {
             </Row>
           </Container>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import withReduxStore from '../redux/with-redux-store';
 import ClientLayout from '../layout';
 import Loading from '../components/loading';
+
 import 'simple-line-icons/css/simple-line-icons.css';
 import 'flag-icon-css/css/flag-icon.min.css';
 import './main.css';
@@ -127,6 +128,10 @@ class MyApp extends App {
                 rel="stylesheet"
                 integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
                 crossOrigin="anonymous"
+              />
+              <link
+                rel="stylesheet"
+                href="https://unpkg.com/@coreui/icons/css/free.min.css"
               />
             </Head>
             <ClientLayout>

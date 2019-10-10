@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardFooter, CardBody, Button, Col } from 'reactstrap';
-import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import {
+  Card,
+  CardFooter,
+  CardBody,
+  Button,
+  Col,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle
 } from 'reactstrap';
+import Link from 'next/link';
 
 import './card-draft-details.css';
+
 const propTypes = {
   children: PropTypes.node
 };
@@ -34,6 +39,7 @@ class CardDraftDetails extends Component {
       dropdownOpen: newArray
     });
   }
+
   render() {
     // eslint-disable-next-line
     const {
@@ -78,7 +84,7 @@ class CardDraftDetails extends Component {
                   <h4>{header}</h4>
                   {subHeader ? (
                     <div>
-                      <i className="icon-like icons "></i>
+                      <i className="icon-like icons " />
                       <span>{subHeader} </span>
                     </div>
                   ) : (
@@ -88,7 +94,7 @@ class CardDraftDetails extends Component {
               </Col>
               <div className="moaad">
                 <Col xs="12" md="10">
-                  <p dangerouslySetInnerHTML={{ __html: content }}></p>
+                  <p dangerouslySetInnerHTML={{ __html: content }} />
                 </Col>
               </div>
             </div>
@@ -100,12 +106,8 @@ class CardDraftDetails extends Component {
               <div className="tags">
                 {tags.map(t => {
                   return (
-                    <Link
-                      className="sub-header"
-                      exact
-                      to={'/client/tag/' + t.id}
-                    >
-                      #{t.tag}
+                    <Link href={`/tag/${t.id}`}>
+                      <a className="sub-header">#{t.tag}</a>
                     </Link>
                   );
                 })}
@@ -115,9 +117,9 @@ class CardDraftDetails extends Component {
             {date ? (
               <span className="date">{date}</span>
             ) : (
-              <Button exact to="/client/landing" tag={RRNavLink} color="link">
-                طلب تعديل
-              </Button>
+              <Link href="/">
+                <Button color="link">طلب تعديل</Button>
+              </Link>
             )}
           </div>
         </CardFooter>

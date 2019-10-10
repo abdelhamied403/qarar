@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
 import './draft-details.css';
 import { Container, Col, Row, Button, Media } from 'reactstrap';
+import Link from 'next/link';
 import CardDraft from '../components/card-draft/card-draft';
-import { NavLink as RRNavLink } from 'react-router-dom';
-import logo from '../../../assets/img/avatar.png';
+import Breadcrumb from '../components/breadcrumb/breadcrumb';
+import CardInfo from '../components/card-info/card-info';
+import TextBox from '../components/text-box/text-box';
+import CardComments from '../components/card-comments/card-comments';
 
-import likeIcon from '../../../assets/img/like-icon.svg';
-import commentDraft from '../../../assets/img/draft activity - comments.svg';
-import usersDraft from '../../../assets/img/Icon - draft activity - users.svg';
-
-import calender from '../../../assets/img/Icon - most active - views Copy 3.svg';
-
-const Breadcrumb = React.lazy(() =>
-  import('../components/breadcrumb/breadcrumb')
-);
-const CardInfo = React.lazy(() => import('../components/card-info/card-info'));
-const TextBox = React.lazy(() => import('../components/text-box/text-box'));
-const CardComments = React.lazy(() =>
-  import('../components/card-comments/card-comments')
-);
 class DraftDetails extends Component {
   render() {
     return (
-      <React.Fragment>
+      <>
         <Breadcrumb title="المسودات المطروحة للنقاش" link="/client/drafts" />
         <Container>
           <div className="dc-details-header">
@@ -31,7 +20,11 @@ class DraftDetails extends Component {
                 <div className="header-content">
                   <h2>سياسة السماح باسترجاع السيارات الالكترونية</h2>
                   <div className="sub-header">
-                    <Media object src={calender} className="icon-small" />
+                    <Media
+                      object
+                      src="/static/img/Icon - most active - views Copy 3.svg"
+                      className="icon-small"
+                    />
 
                     {/* <i className="fa fa-clock-o "></i> */}
                     <span>أغلق التصويت بتاريخ 25/8/2019</span>
@@ -48,17 +41,25 @@ class DraftDetails extends Component {
                 <div className="cards">
                   <Row>
                     <Col xs="6">
-                      <CardInfo type="مشترك" number="5523" icon={likeIcon} />
+                      <CardInfo
+                        type="مشترك"
+                        number="5523"
+                        icon="/static/img/like-icon.svg"
+                      />
                     </Col>
                     <Col xs="6">
                       <CardInfo
                         type="تعليق"
                         number="5523"
-                        icon={commentDraft}
+                        icon="/static/img/draft activity - comments.svg"
                       />
                     </Col>
                     <Col xs="12">
-                      <CardInfo type="صوت" number="5523" icon={usersDraft} />
+                      <CardInfo
+                        type="صوت"
+                        number="5523"
+                        icon="/static/img/Icon - draft activity - users.svg"
+                      />
                     </Col>
                   </Row>
                 </div>
@@ -87,10 +88,10 @@ class DraftDetails extends Component {
           </div>
           <div className="moaad-open">
             <h6 className="flex flex-align-center no-p-m">
-              3 مواد مفتوحة للنقاش{' '}
-              <Button exact to="/client/landing" tag={RRNavLink} color="link">
-                من اصل ١٨٧ مادة
-              </Button>{' '}
+              3 مواد مفتوحة للنقاش
+              <Link href="/client/landing">
+                <Button color="link">من اصل ١٨٧ مادة</Button>
+              </Link>
             </h6>
             <CardDraft
               header="المادة ٢.٦ الاستخدام لمشروط للسيارات التي تعمل بالديزل"
@@ -98,7 +99,7 @@ class DraftDetails extends Component {
               content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
               votes="200"
               date=" "
-              link="/client/landing"
+              link="/"
               tags={[{ tag: 'نقل', id: 1 }]}
               dropdownList={[
                 'المادة ٢.٦ الاستخدام لمشروط للسيارات التي تعمل بالديزل',
@@ -118,7 +119,7 @@ class DraftDetails extends Component {
           <CardComments
             commentsArray={[
               {
-                avatar: logo,
+                avatar: '/static/img/avatar.png',
                 name: 'كامل حمد',
                 like: '33',
                 share: '2',
@@ -126,7 +127,7 @@ class DraftDetails extends Component {
                   'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس.',
                 comments: [
                   {
-                    avatar: logo,
+                    avatar: '/static/img/avatar.png',
                     name: 'كامل حمد',
                     like: '33',
                     share: '2',
@@ -134,7 +135,7 @@ class DraftDetails extends Component {
                       'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس.'
                   },
                   {
-                    avatar: logo,
+                    avatar: '/static/img/avatar.png',
                     name: 'كامل حمد',
                     like: '33',
                     share: '2',
@@ -144,7 +145,7 @@ class DraftDetails extends Component {
                 ]
               },
               {
-                avatar: logo,
+                avatar: '/static/img/avatar.png',
                 name: 'كامل حمد',
                 like: '33',
                 share: '2',
@@ -155,7 +156,7 @@ class DraftDetails extends Component {
             ]}
           />
         </Container>
-      </React.Fragment>
+      </>
     );
   }
 }

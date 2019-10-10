@@ -33,7 +33,7 @@ class Drafts extends Component {
           content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
           votes="200"
           date="12/4/2019"
-          link="/client/draft-detials"
+          link="/draft-details/draftId"
           tags={[{ tag: 'نقل', id: 1 }]}
           subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
         />
@@ -44,7 +44,7 @@ class Drafts extends Component {
           content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
           votes="200"
           date="12/4/2019"
-          link="/client/draft-detials"
+          link="/draft-details/draftId"
           tags={[{ tag: 'نقل', id: 1 }]}
           subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
         />
@@ -55,7 +55,7 @@ class Drafts extends Component {
           content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
           votes="200"
           date="12/4/2019"
-          link="/client/draft-detials"
+          link="/draft-details/draftId"
           tags={[{ tag: 'نقل', id: 1 }]}
           subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
         />
@@ -66,7 +66,7 @@ class Drafts extends Component {
           content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
           votes="200"
           date="12/4/2019"
-          link="/client/draft-detials"
+          link="/draft-details/draftId"
           tags={[{ tag: 'نقل', id: 1 }]}
           subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
         />

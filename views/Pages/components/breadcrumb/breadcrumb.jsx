@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Media } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import breadcrumb from '../../../../assets/img/breadcrumbs-icon.svg';
+import Link from 'next/link';
 
 import './breadcrumb.css';
+
 const propTypes = {
   children: PropTypes.node
 };
@@ -20,9 +20,15 @@ class Breadcrumb extends Component {
       <div className="breadcrumb ">
         <Container>
           <div className="flex-bread">
-            <Link className="sub-header" exact to={link || '/client/landing'}>
-              <Media className="image-icon" object src={breadcrumb} />
-              {title}
+            <Link href={link || '/'}>
+              <a className="sub-header">
+                <Media
+                  className="image-icon"
+                  object
+                  src="/static/img/breadcrumbs-icon.svg"
+                />
+                {title}
+              </a>
             </Link>
           </div>
         </Container>
