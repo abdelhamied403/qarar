@@ -9,8 +9,11 @@ import {
   DropdownToggle,
   ButtonDropdown
 } from 'reactstrap';
+import moment from 'moment';
 import CardBlog from '../components/card-blog/card-blog';
 import './platform-news.css';
+
+import Api from '../../../api';
 
 class DecisionDraft extends Component {
   constructor(props) {
@@ -18,9 +21,27 @@ class DecisionDraft extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: new Array(19).fill(false)
+      dropdownOpen: new Array(19).fill(false),
+      news: [],
+      page: 1,
+      newsPageSize: 10
     };
   }
+
+  componentDidMount() {
+    this.getNews();
+  }
+
+  getNews = async () => {
+    const { page, newsPageSize } = this.state;
+    const newsResponse = await Api.get(
+      `/qarar_api/data/news/${newsPageSize}/DESC/${page}?_format=json`
+    );
+    if (newsResponse.ok) {
+      this.setState({ news: newsResponse.data });
+    }
+    console.log(newsResponse);
+  };
 
   toggle(i) {
     const newArray = this.state.dropdownOpen.map((element, index) => {
@@ -32,6 +53,7 @@ class DecisionDraft extends Component {
   }
 
   render() {
+    const { news } = this.state;
     return (
       <>
         <div className="decisionHeader">
@@ -61,46 +83,20 @@ class DecisionDraft extends Component {
               </ButtonDropdown>
             </div>
             <Row>
-              <Col xs="12" md="6">
-                <CardBlog
-                  image="/static/img/bg.jpg"
-                  header="تم إقرار مسودة تصاريح العمل للوا…"
-                  date="12/4/2019"
-                  content="تقام هذه الجائزة السنوية منذ خمسة أعوام، بحيث أصبحت جزءاً رئيسياً من هويتنا. ونسعى من خلالها للاحتفال بروّاد الأعمال المميزين، والاستماع إلى قصص نجاحهم، ومساعدتهم على التعريف عن شركاتهم المزيد …لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج ,سيت دو أيوسمود"
-                  tag="عمالةـوافدة"
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                />
-              </Col>
-              <Col xs="12" md="6">
-                <CardBlog
-                  image="/static/img/bg.jpg"
-                  header="تم إقرار مسودة تصاريح العمل للوا…"
-                  date="12/4/2019"
-                  content="تقام هذه الجائزة السنوية منذ خمسة أعوام، بحيث أصبحت جزءاً رئيسياً من هويتنا. ونسعى من خلالها للاحتفال بروّاد الأعمال المميزين، والاستماع إلى قصص نجاحهم، ومساعدتهم على التعريف عن شركاتهم المزيد …لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج ,سيت دو أيوسمود"
-                  tag="عمالةـوافدة"
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                />
-              </Col>
-              <Col xs="12" md="6">
-                <CardBlog
-                  image="/static/img/bg.jpg"
-                  header="تم إقرار مسودة تصاريح العمل للوا…"
-                  date="12/4/2019"
-                  content="تقام هذه الجائزة السنوية منذ خمسة أعوام، بحيث أصبحت جزءاً رئيسياً من هويتنا. ونسعى من خلالها للاحتفال بروّاد الأعمال المميزين، والاستماع إلى قصص نجاحهم، ومساعدتهم على التعريف عن شركاتهم المزيد …لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج ,سيت دو أيوسمود"
-                  tag="عمالةـوافدة"
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                />
-              </Col>
-              <Col xs="12" md="6">
-                <CardBlog
-                  image="/static/img/bg.jpg"
-                  header="تم إقرار مسودة تصاريح العمل للوا…"
-                  date="12/4/2019"
-                  content="تقام هذه الجائزة السنوية منذ خمسة أعوام، بحيث أصبحت جزءاً رئيسياً من هويتنا. ونسعى من خلالها للاحتفال بروّاد الأعمال المميزين، والاستماع إلى قصص نجاحهم، ومساعدتهم على التعريف عن شركاتهم المزيد …لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج ,سيت دو أيوسمود"
-                  tag="عمالةـوافدة"
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                />
-              </Col>
+              {news.map(newsItem => (
+                <Col xs="12" md="6">
+                  <CardBlog
+                    image={newsItem.image}
+                    header={newsItem.title}
+                    date={moment(newsItem.creatednode * 1000).format(
+                      'DD/MM/YYYY'
+                    )}
+                    content={newsItem.body.substr(0, 200)}
+                    tag="عمالةـوافدة"
+                    subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                  />
+                </Col>
+              ))}
             </Row>
 
             <div className="button-group center">

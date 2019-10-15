@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Button, Col, Row, Media } from 'reactstrap';
 import Link from 'next/link';
+import moment from 'moment';
 
 import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
@@ -272,7 +273,9 @@ const Landing = () => {
                   tagId="1"
                   blogId={newsItem.id}
                   header={newsItem.title}
-                  date="12/4/2019"
+                  date={moment(newsItem.creatednode * 1000).format(
+                    'DD/MM/YYYY'
+                  )}
                   content={newsItem.body.substr(0, 60)}
                   tag="عمالةـوافدة"
                 />

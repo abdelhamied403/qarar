@@ -35,7 +35,7 @@ const CardBlog = ({
             ''
           )}
 
-          <span>{date} </span>
+          <span>{date}</span>
         </div>
       </div>
       <div className="content">
