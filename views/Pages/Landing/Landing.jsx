@@ -13,12 +13,35 @@ import './Landing.css';
 import Api from '../../../api';
 
 const Landing = () => {
+  const [mostActiveUserComment, setMAUC] = useState({});
+  const [mostActiveUserAword, setMAUA] = useState({});
+  const [mostActiveUserLike, setMAUL] = useState({});
   const [userCount, setUserCount] = useState('');
   const [draftCount, setDraftCount] = useState('');
   const [drafts, setDrafts] = useState([]);
   const [activeDrafts, setActiveDrafts] = useState([]);
   const [soonCloseDrafts, setSoonCloseDrafts] = useState([]);
   const [news, setNews] = useState([]);
+  const getActiveUsers = async () => {
+    const userACResponse = await Api.get(
+      '/api/users/comments?limit=1&_format=json'
+    );
+    if (userACResponse.ok) {
+      setMAUC(userACResponse.data ? userACResponse.data[0] : {});
+    }
+    const userAAResponse = await Api.get(
+      '/api/users/awards?limit=1&_format=json'
+    );
+    if (userAAResponse.ok) {
+      setMAUA(userAAResponse.data ? userAAResponse.data[0] : {});
+    }
+    const userALResponse = await Api.get(
+      '/api/users/likes?limit=1&_format=json'
+    );
+    if (userALResponse.ok) {
+      setMAUL(userALResponse.data ? userALResponse.data[0] : {});
+    }
+  };
   const getUserCount = async () => {
     const userCountResponse = await Api.get(
       '/qarar_api/count/users?_format=json'
@@ -64,6 +87,7 @@ const Landing = () => {
     }
   };
   useEffect(() => {
+    getActiveUsers();
     getUserCount();
     getDraftCount();
     getDrafts();
@@ -133,43 +157,46 @@ const Landing = () => {
             المشاركة المجتمعية…من الأكثر تأثيراً؟
           </h2>
           <Row>
-            <Col xs="12" md="6" lg="3">
+            <Col xs="12" md="6" lg="4">
               <CardPoints
                 avatar="/static/img/avatar.png"
-                name="كامل حمد"
+                // avatar={mostActiveUserAword.picture}
+                name={
+                  mostActiveUserAword.full_name || mostActiveUserAword.username
+                }
                 points="1200"
-                number="2000"
+                uid={mostActiveUserAword.uid}
+                number={mostActiveUserAword.awards}
                 icon="/static/img/trophy-icon.svg"
               />
             </Col>
-            <Col xs="12" md="6" lg="3">
+            <Col xs="12" md="6" lg="4">
               <CardPoints
                 avatar="/static/img/avatar.png"
-                name="كامل حمد"
+                // avatar={mostActiveUserComment.picture}
+                name={
+                  mostActiveUserComment.full_name ||
+                  mostActiveUserComment.username
+                }
                 points="1200"
-                number="2000"
+                uid={mostActiveUserComment.uid}
+                number={mostActiveUserComment.comments}
                 icon="/static/img/Icon - most active - views Copy 2.svg"
               />
             </Col>
-            <Col xs="12" md="6" lg="3">
+            <Col xs="12" md="6" lg="4">
               <CardPoints
                 avatar="/static/img/avatar.png"
-                name="كامل حمد"
+                // avatar={mostActiveUserLike.picture}
+                name={
+                  mostActiveUserLike.full_name || mostActiveUserLike.username
+                }
                 points="1200"
-                number="2000"
+                uid={mostActiveUserLike.uid}
+                number={mostActiveUserLike.likes}
                 icon="/static/img/Icon - most active - views Copy.svg"
               />
             </Col>
-            <Col xs="12" md="6" lg="3">
-              <CardPoints
-                avatar="/static/img/avatar.png"
-                name="كامل حمد"
-                points="1200"
-                number="2000"
-                icon="/static/img/Icon - most active - views Copy 2.svg"
-              />
-            </Col>
-
             <Col xs="12" md="6">
               <CardInfo
                 description="عدد مستخدمي المنصة الحالي"
@@ -270,14 +297,14 @@ const Landing = () => {
                 <CardBlog
                   image={newsItem.image}
                   subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                  tagId="1"
+                  tagId={newsItem.tags.length > 0 && newsItem.tags[0].id}
                   blogId={newsItem.id}
                   header={newsItem.title}
                   date={moment(newsItem.creatednode * 1000).format(
                     'DD/MM/YYYY'
                   )}
                   content={newsItem.body.substr(0, 60)}
-                  tag="عمالةـوافدة"
+                  tag={newsItem.tags.length > 0 && newsItem.tags[0].name}
                 />
               </Col>
             ))}

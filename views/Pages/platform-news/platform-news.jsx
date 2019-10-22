@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
   Container,
-  Button,
   Col,
   Row,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  ButtonDropdown
+  ButtonDropdown,
+  PaginationItem,
+  PaginationLink
 } from 'reactstrap';
+import Pagination from 'rc-pagination';
 import moment from 'moment';
 import CardBlog from '../components/card-blog/card-blog';
 import './platform-news.css';
@@ -24,7 +26,9 @@ class DecisionDraft extends Component {
       dropdownOpen: new Array(19).fill(false),
       news: [],
       page: 1,
-      newsPageSize: 10
+      newsPageSize: 4,
+      sortMode: 'DESC',
+      sortLabel: 'أحدث الأخبار'
     };
   }
 
@@ -33,14 +37,19 @@ class DecisionDraft extends Component {
   }
 
   getNews = async () => {
-    const { page, newsPageSize } = this.state;
+    const { page, newsPageSize, sortMode } = this.state;
+    const newsCountResponse = await Api.get(
+      `/qarar_api/count/news?_format=json`
+    );
+    if (newsCountResponse.ok) {
+      this.setState({ newsCount: newsCountResponse.data });
+    }
     const newsResponse = await Api.get(
-      `/qarar_api/data/news/${newsPageSize}/DESC/${page}?_format=json`
+      `/qarar_api/data/news/${newsPageSize}/${sortMode}/${page}?_format=json`
     );
     if (newsResponse.ok) {
       this.setState({ news: newsResponse.data });
     }
-    console.log(newsResponse);
   };
 
   toggle(i) {
@@ -52,8 +61,35 @@ class DecisionDraft extends Component {
     });
   }
 
+  paginagtionItemRender = (current, type, element) => {
+    const { page } = this.state;
+
+    if (type === 'page') {
+      return (
+        <PaginationItem active={current === page}>
+          <PaginationLink tag="button">{current}</PaginationLink>
+        </PaginationItem>
+      );
+    }
+    if (type === 'prev') {
+      return (
+        <PaginationItem>
+          <PaginationLink previous tag="button" />
+        </PaginationItem>
+      );
+    }
+    if (type === 'next') {
+      return (
+        <PaginationItem>
+          <PaginationLink next tag="button" />
+        </PaginationItem>
+      );
+    }
+    return element;
+  };
+
   render() {
-    const { news } = this.state;
+    const { news, sortLabel, page, newsPageSize, newsCount } = this.state;
     return (
       <>
         <div className="decisionHeader">
@@ -72,13 +108,35 @@ class DecisionDraft extends Component {
                 }}
               >
                 <DropdownToggle caret color="primary">
-                  احدث الاخبار
+                  {sortLabel}
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem>احدث الاخبار</DropdownItem>
-                  <DropdownItem>احدث الاخبار</DropdownItem>
-                  <DropdownItem>احدث الاخبار</DropdownItem>
-                  <DropdownItem>احدث الاخبار</DropdownItem>
+                  <DropdownItem
+                    onClick={() =>
+                      this.setState(
+                        {
+                          sortMode: 'DESC',
+                          sortLabel: 'احدث الاخبار'
+                        },
+                        () => this.getNews()
+                      )
+                    }
+                  >
+                    احدث الاخبار
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() =>
+                      this.setState(
+                        {
+                          sortMode: 'ASC',
+                          sortLabel: 'أقدم الاخبار'
+                        },
+                        () => this.getNews()
+                      )
+                    }
+                  >
+                    أقدم الاخبار
+                  </DropdownItem>
                 </DropdownMenu>
               </ButtonDropdown>
             </div>
@@ -88,19 +146,29 @@ class DecisionDraft extends Component {
                   <CardBlog
                     image={newsItem.image}
                     header={newsItem.title}
+                    tagId={newsItem.tags.length > 0 && newsItem.tags[0].id}
                     date={moment(newsItem.creatednode * 1000).format(
                       'DD/MM/YYYY'
                     )}
                     content={newsItem.body.substr(0, 200)}
-                    tag="عمالةـوافدة"
+                    tag={newsItem.tags.length > 0 && newsItem.tags[0].name}
                     subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                   />
                 </Col>
               ))}
             </Row>
 
-            <div className="button-group center">
-              <Button color="primary">تحميل المزيد</Button>
+            <div className="pagination-container">
+              <Pagination
+                total={newsCount}
+                pageSize={newsPageSize}
+                current={page}
+                onChange={pageCurrent =>
+                  this.setState({ page: pageCurrent }, () => this.getNews())
+                }
+                className="pagination"
+                itemRender={this.paginagtionItemRender}
+              />
             </div>
           </Container>
         </div>

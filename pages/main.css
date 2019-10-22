@@ -17538,3 +17538,55 @@ textarea.form-control {
   font-size: 14px;
   line-height: 1.8;
 }
+
+.reports-page .card-points:hover {
+  box-shadow: 0px 3px 9px -3px #332233;
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+.reports-page .card {
+  border-radius: 3px !important;
+}
+.reports-page .card-header {
+  padding: 20px 16px;
+}
+.reports-page .card-points .flex-header-points {
+  display: flex;
+}
+.reports-page .card-points .flex-header-points img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+.reports-page .card-points .user-info {
+  display: flex;
+  flex-flow: column;
+  margin-right: 16px;
+}
+.reports-page .card-points .user-info .name {
+  color: #232323 !important;
+  font-weight: 500;
+}
+.reports-page .sub-header {
+  margin-bottom: 0px !important;
+}
+.reports-page .card-points .user-info .points {
+  color: #828a93;
+  font-size: 12px;
+}
+
+.reports-page .card-points .icons-cont {
+  display: flex;
+  align-items: center;
+  color: #828a93;
+}
+.reports-page .card-points .icons-cont > * {
+  margin-left: 12px;
+}
+
+.reports-page .dark-card,
+.reports-page .dark-card .card-header {
+  background-color: #f4f4f4;
+  border: none;
+}

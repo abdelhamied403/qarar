@@ -13,6 +13,7 @@ import Router from 'next/router';
 import { connect } from 'react-redux';
 
 import './Register.css';
+import Api from '../../../api';
 
 class Register extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Register extends Component {
     this.nextStep = this.nextStep.bind(this);
     this.PreviousStep = this.PreviousStep.bind(this);
 
-    this.state = { currentStep: 0 };
+    this.state = { currentStep: 0, user: {} };
   }
 
   componentDidMount() {
@@ -31,20 +32,21 @@ class Register extends Component {
   }
 
   async nextStep() {
-    await this.setState({
+    this.setState({
       currentStep: this.state.currentStep + 1
     });
     console.log(this.state.currentStep);
   }
 
   async PreviousStep() {
-    await this.setState({
+    this.setState({
       currentStep: this.state.currentStep - 1
     });
     console.log(this.state.currentStep);
   }
 
   step1() {
+    const { user } = this.state;
     return (
       <div className="form-horizontal">
         <FormGroup row>
@@ -57,6 +59,11 @@ class Register extends Component {
               id="hf-username"
               name="hf-username"
               placeholder="الاسم الاول اسم العائلة"
+              onChange={e =>
+                this.setState({
+                  user: { ...user, name: e.target.value }
+                })
+              }
             />
           </Col>
         </FormGroup>
@@ -71,6 +78,11 @@ class Register extends Component {
               name="hf-email"
               placeholder="name@test.com"
               autoComplete="email"
+              onChange={e =>
+                this.setState({
+                  user: { ...user, email: e.target.value }
+                })
+              }
             />
           </Col>
         </FormGroup>
@@ -85,6 +97,11 @@ class Register extends Component {
               name="hf-password"
               placeholder="ادخل كلمة المرور هنا"
               autoComplete="current-password"
+              onChange={e =>
+                this.setState({
+                  user: { ...user, password: e.target.value }
+                })
+              }
             />
             <FormText className="help-block sub-header">
               *يستغرق الرد عادة ٣-٥ ايام عمل
@@ -101,6 +118,7 @@ class Register extends Component {
   }
 
   step2() {
+    const { user } = this.state;
     return (
       <div className="form-horizontal">
         <FormGroup row>
@@ -115,6 +133,11 @@ class Register extends Component {
                 id="radio1"
                 name="radios"
                 value="option1"
+                onChange={e =>
+                  this.setState({
+                    user: { ...user, gender: e.target.value }
+                  })
+                }
               />
               <Label check className="form-check-label" htmlFor="radio1">
                 ذكر

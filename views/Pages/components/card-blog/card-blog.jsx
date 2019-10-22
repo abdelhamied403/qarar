@@ -46,9 +46,11 @@ const CardBlog = ({
           </Button>
         </Link>
       </div>
-      <Link href={`/tag/${tagId}`}>
-        <a className="tag sub-header">#{tag}</a>
-      </Link>
+      {tagId && (
+        <Link href={`/tag/${tagId}`}>
+          <a className="tag sub-header">#{tag}</a>
+        </Link>
+      )}
     </CardBody>
   </Card>
 );

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Container,
-  Pagination as PaginationStrap,
   PaginationItem,
   PaginationLink,
   Nav,
@@ -26,12 +25,17 @@ class Drafts extends Component {
       drafts: [],
       page: 1,
       draftCount: 0,
-      draftsPageSize: 10
+      draftsPageSize: 10,
+      items: [],
+      itemsPage: 1,
+      itemsCount: 0,
+      itemsPageSize: 10
     };
   }
 
   componentDidMount() {
     this.getDrafts();
+    this.getItems();
   }
 
   getDrafts = async () => {
@@ -43,10 +47,26 @@ class Drafts extends Component {
       this.setState({ draftCount: draftCountResponse.data });
     }
     const draftsResponse = await Api.get(
-      `/qarar_api/data/draft/${draftsPageSize}/DESC/${page}?_format=json`
+      `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
     );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data });
+    }
+  };
+
+  getItems = async () => {
+    const { itemsPage, itemsPageSize } = this.state;
+    const itemsCountResponse = await Api.get(
+      `/qarar_api/count/item?_format=json`
+    );
+    if (itemsCountResponse.ok) {
+      this.setState({ itemsCount: itemsCountResponse.data });
+    }
+    const itemsResponse = await Api.get(
+      `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
+    );
+    if (itemsResponse.ok) {
+      this.setState({ items: itemsResponse.data });
     }
   };
 
@@ -146,7 +166,16 @@ class Drafts extends Component {
   };
 
   render() {
-    const { drafts, draftCount, draftsPageSize, page } = this.state;
+    const {
+      drafts,
+      draftCount,
+      draftsPageSize,
+      page,
+      items,
+      itemsCount,
+      itemsPage,
+      itemsPageSize
+    } = this.state;
     return (
       <div className="drafts">
         <div className="draftHeader">
@@ -189,40 +218,79 @@ class Drafts extends Component {
           </Nav>
           <TabContent activeTab={this.state.activeTab[0]}>
             <TabPane tabId="1">
-              <section>
-                {drafts.map(draft => (
-                  <CardDraft
-                    key={draft.id}
-                    header={draft.title}
-                    subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
-                    content={draft.body.substr(0, 100)}
-                    votes={
-                      parseInt(draft.likes, 10) +
-                        parseInt(draft.dislikes, 10) || '0'
+              <>
+                <section>
+                  {drafts.map(draft => (
+                    <CardDraft
+                      key={draft.id}
+                      header={draft.title}
+                      subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
+                      content={draft.body.substr(0, 100)}
+                      votes={
+                        parseInt(draft.likes, 10) +
+                          parseInt(draft.dislikes, 10) || '0'
+                      }
+                      date={draft.end_date}
+                      link={`/draft-details/${draft.id}`}
+                      tags={[{ tag: 'نقل', id: 1 }]}
+                      subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                    />
+                  ))}
+                </section>
+                <div className="pagination-container">
+                  <Pagination
+                    total={draftCount}
+                    pageSize={draftsPageSize}
+                    current={page}
+                    onChange={pageCurrent =>
+                      this.setState({ page: pageCurrent }, () =>
+                        this.getDrafts()
+                      )
                     }
-                    date={draft.end_date}
-                    link={`/draft-details/${draft.id}`}
-                    tags={[{ tag: 'نقل', id: 1 }]}
-                    subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                    className="pagination"
+                    itemRender={this.paginagtionItemRender}
                   />
-                ))}
-              </section>
+                </div>
+              </>
             </TabPane>
             <TabPane tabId="2">{this.tab1()}</TabPane>
-            <TabPane tabId="3">{this.tab1()}</TabPane>
+            <TabPane tabId="3">
+              <>
+                <section>
+                  {items.map(item => (
+                    <CardDraft
+                      key={item.id}
+                      header={item.title}
+                      subHeader={`يغلق التصويت بتاريخ ${item.end_date}`}
+                      content={item.body.substr(0, 100)}
+                      votes={
+                        parseInt(item.likes, 10) +
+                          parseInt(item.dislikes, 10) || '0'
+                      }
+                      date={item.end_date}
+                      link={`/item-details/${item.id}`}
+                      tags={[{ tag: 'نقل', id: 1 }]}
+                      subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                    />
+                  ))}
+                </section>
+                <div className="pagination-container">
+                  <Pagination
+                    total={itemsCount}
+                    pageSize={itemsPageSize}
+                    current={itemsPage}
+                    onChange={pageCurrent =>
+                      this.setState({ itemsPage: pageCurrent }, () =>
+                        this.getItems()
+                      )
+                    }
+                    className="pagination"
+                    itemRender={this.paginagtionItemRender}
+                  />
+                </div>
+              </>
+            </TabPane>
           </TabContent>
-          <div className="pagination-container">
-            <Pagination
-              total={draftCount}
-              pageSize={draftsPageSize}
-              current={page}
-              onChange={pageCurrent =>
-                this.setState({ page: pageCurrent }, () => this.getDrafts())
-              }
-              className="pagination"
-              itemRender={this.paginagtionItemRender}
-            />
-          </div>
         </Container>
       </div>
     );

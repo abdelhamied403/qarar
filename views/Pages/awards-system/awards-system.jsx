@@ -2,11 +2,39 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
 import CardDescription from '../components/card-description/card-description';
 import CardIcon from '../components/card-icon/card-icon';
-
+import Api from '../../../api';
 import './awards-system.css';
 
 class About extends Component {
+  constructor() {
+    super();
+    this.state = {
+      awards: [],
+      badges: []
+    };
+  }
+
+  componentDidMount() {
+    this.getAwards();
+  }
+
+  getAwards = async () => {
+    const badgesResponse = await Api.get(
+      `/qarar_api/data/badge/0/DESC/1?_format=json`
+    );
+    if (badgesResponse.ok) {
+      this.setState({ badges: badgesResponse.data });
+    }
+    const awardsResponse = await Api.get(
+      `/qarar_api/data/award/0/DESC/1?_format=json`
+    );
+    if (awardsResponse.ok) {
+      this.setState({ awards: awardsResponse.data });
+    }
+  };
+
   render() {
+    const { awards, badges, showAllBadges, showAll } = this.state;
     return (
       <>
         <div className="primary-header">
@@ -45,96 +73,41 @@ class About extends Component {
                 </div>
               </Col>
               <Col xs="12" md="4" className="text-center">
-                <Button outline color="primary" size="md">
-                  عرض الكل{' '}
+                <Button
+                  onClick={() =>
+                    this.setState({ showAllBadges: !showAllBadges })
+                  }
+                  outline
+                  color="primary"
+                  size="md"
+                >
+                  عرض الكل
                 </Button>
               </Col>
             </Row>
             <Row>
-              <Col xs="12" md="6" lg="4">
-                <CardDescription
-                  header="اسم الجائزة"
-                  type="social"
-                  points="1500 نقطة"
-                  arrayOfContnt={[
-                    {
-                      header:
-                        'وصف الجائزة لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيم. لوريم ايبسوم دولار سيت .',
-                      social: []
-                    }
-                  ]}
-                />
-              </Col>
-              <Col xs="12" md="6" lg="4">
-                <CardDescription
-                  header="اسم الجائزة"
-                  type="social"
-                  points="1500 نقطة"
-                  arrayOfContnt={[
-                    {
-                      header:
-                        'وصف الجائزة لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيم. لوريم ايبسوم دولار سيت .',
-                      social: []
-                    }
-                  ]}
-                />
-              </Col>
-              <Col xs="12" md="6" lg="4">
-                <CardDescription
-                  header="اسم الجائزة"
-                  type="social"
-                  points="1500 نقطة"
-                  arrayOfContnt={[
-                    {
-                      header:
-                        'وصف الجائزة لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيم. لوريم ايبسوم دولار سيت .',
-                      social: []
-                    }
-                  ]}
-                />
-              </Col>
-              <Col xs="12" md="6" lg="4">
-                <CardDescription
-                  header="اسم الجائزة"
-                  type="social"
-                  points="1500 نقطة"
-                  arrayOfContnt={[
-                    {
-                      header:
-                        'وصف الجائزة لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيم. لوريم ايبسوم دولار سيت .',
-                      social: []
-                    }
-                  ]}
-                />
-              </Col>
-              <Col xs="12" md="6" lg="4">
-                <CardDescription
-                  header="اسم الجائزة"
-                  type="social"
-                  points="1500 نقطة"
-                  arrayOfContnt={[
-                    {
-                      header:
-                        'وصف الجائزة لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيم. لوريم ايبسوم دولار سيت .',
-                      social: []
-                    }
-                  ]}
-                />
-              </Col>
-              <Col xs="12" md="6" lg="4">
-                <CardDescription
-                  header="اسم الجائزة"
-                  type="social"
-                  points="1500 نقطة"
-                  arrayOfContnt={[
-                    {
-                      header:
-                        'وصف الجائزة لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيم. لوريم ايبسوم دولار سيت .',
-                      social: []
-                    }
-                  ]}
-                />
-              </Col>
+              {badges
+                .map(badge => (
+                  <Col key={badge.id} xs="12" md="6" lg="4">
+                    <CardDescription
+                      header={badge.title}
+                      type="social"
+                      points={`${badge.target} نقطة`}
+                      arrayOfContnt={[
+                        {
+                          header: badge.body.substr(0, 100),
+                          social: []
+                        }
+                      ]}
+                    />
+                  </Col>
+                ))
+                .filter((item, index) => {
+                  if (!showAllBadges) {
+                    return index < 3;
+                  }
+                  return true;
+                })}
             </Row>
           </div>
 
@@ -146,41 +119,34 @@ class About extends Component {
                 </div>
               </Col>
               <Col xs="12" md="4" className="text-center">
-                <Button outline color="primary" size="md">
-                  عرض الكل{' '}
+                <Button
+                  outline
+                  onClick={() => this.setState({ showAll: !showAll })}
+                  color="primary"
+                  size="md"
+                >
+                  عرض الكل
                 </Button>
               </Col>
             </Row>
 
             <Row>
-              <Col xs="12" md="6" lg="3">
-                <CardIcon
-                  image="/static/img/Most Likes.svg"
-                  header="اسم الجائزة"
-                  content="فكرة ذات جدوى"
-                />
-              </Col>
-              <Col xs="12" md="6" lg="3">
-                <CardIcon
-                  image="/static/img/Most Likes.svg"
-                  header="اسم الجائزة"
-                  content="فكرة ذات جدوى"
-                />
-              </Col>
-              <Col xs="12" md="6" lg="3">
-                <CardIcon
-                  image="/static/img/Most Likes.svg"
-                  header="اسم الجائزة"
-                  content="فكرة ذات جدوى"
-                />
-              </Col>
-              <Col xs="12" md="6" lg="3">
-                <CardIcon
-                  image="/static/img/Most Likes.svg"
-                  header="اسم الجائزة"
-                  content="فكرة ذات جدوى"
-                />
-              </Col>
+              {awards
+                .map(award => (
+                  <Col key={award.id} xs="12" md="6" lg="3">
+                    <CardIcon
+                      image={award.image}
+                      header="اسم الجائزة"
+                      content={award.title}
+                    />
+                  </Col>
+                ))
+                .filter((item, index) => {
+                  if (!showAll) {
+                    return index < 4;
+                  }
+                  return true;
+                })}
             </Row>
           </div>
         </Container>
