@@ -164,7 +164,7 @@ const Landing = () => {
                 name={
                   mostActiveUserAword.full_name || mostActiveUserAword.username
                 }
-                points="1200"
+                points={mostActiveUserAword.awards}
                 uid={mostActiveUserAword.uid}
                 number={mostActiveUserAword.awards}
                 icon="/static/img/trophy-icon.svg"
@@ -178,7 +178,7 @@ const Landing = () => {
                   mostActiveUserComment.full_name ||
                   mostActiveUserComment.username
                 }
-                points="1200"
+                points={mostActiveUserAword.awards}
                 uid={mostActiveUserComment.uid}
                 number={mostActiveUserComment.comments}
                 icon="/static/img/Icon - most active - views Copy 2.svg"
@@ -191,7 +191,7 @@ const Landing = () => {
                 name={
                   mostActiveUserLike.full_name || mostActiveUserLike.username
                 }
-                points="1200"
+                points={mostActiveUserAword.awards}
                 uid={mostActiveUserLike.uid}
                 number={mostActiveUserLike.likes}
                 icon="/static/img/Icon - most active - views Copy.svg"

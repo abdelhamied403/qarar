@@ -17590,3 +17590,51 @@ textarea.form-control {
   background-color: #f4f4f4;
   border: none;
 }
+
+.active-users .card-points .card-body {
+  display: none;
+}
+
+.card-points .user-info .points {
+  margin: 0 20px;
+}
+
+.card-users-part .name {
+  padding-top: 10px;
+  padding-right: 6px;
+}
+.break {
+  max-width: 50%;
+  /* word-break: break-all; */
+  margin-bottom: 20px;
+}
+.active-drafts-card {
+  background-color: var(--normal-gray);
+  border-radius: 5px;
+  border-right: 5px solid var(--primary-blue);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.reports-page {
+  margin-top: 50px;
+}
+
+.card-icon {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.card-icon .card-header {
+  padding: 0;
+}
+.card-icon .card-header img {
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 48px;
+}
+.card-icon .header span,
+.card-icon .tag {
+  color: var(--dark-gray);
+}

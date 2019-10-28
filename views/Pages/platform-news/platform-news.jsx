@@ -151,6 +151,7 @@ class DecisionDraft extends Component {
                       'DD/MM/YYYY'
                     )}
                     content={newsItem.body.substr(0, 200)}
+                    blogId={newsItem.id}
                     tag={newsItem.tags.length > 0 && newsItem.tags[0].name}
                     subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                   />

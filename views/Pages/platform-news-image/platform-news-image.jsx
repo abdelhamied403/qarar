@@ -16,6 +16,8 @@ import {
 import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import './platform-news-image.css';
 
+import Api from '../../../api';
+
 const items = [
   {
     src: '/static/img/GB-main-2.jpg'
@@ -33,12 +35,16 @@ const items = [
 class DecisionDraft extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 };
+    this.state = { activeIndex: 0, newsItem: {} };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
+  }
+
+  componentDidMount() {
+    this.getNews();
   }
 
   onExiting() {
@@ -48,6 +54,19 @@ class DecisionDraft extends Component {
   onExited() {
     this.animating = false;
   }
+
+  getNews = async () => {
+    const { newsId } = this.props;
+    const newsResponse = await Api.get(
+      `/qarar_api/load/node/${newsId}?_format=json`
+    );
+    console.log(newsResponse);
+
+    if (newsResponse.ok) {
+      const { data } = newsResponse.data;
+      this.setState({ newsItem: data });
+    }
+  };
 
   next() {
     if (this.animating) return;
@@ -73,39 +92,39 @@ class DecisionDraft extends Component {
   }
 
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex, newsItem } = this.state;
 
-    const SLIDER = items.map(item => {
-      return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={item.src}
-        >
-          <img className="d-block w-100" src={item.src} alt={item.altText} />
-          <CarouselCaption
-            captionText={item.caption}
-            captionHeader={item.caption}
-          />
-        </CarouselItem>
-      );
-    });
+    /* const SLIDER = [
+      <CarouselItem
+        onExiting={this.onExiting}
+        onExited={this.onExited}
+        key={newsItem.image}
+      >
+        <img
+          className="d-block w-100"
+          src={newsItem.image}
+          alt={newsItem.title}
+        />
+        <CarouselCaption captionHeader={newsItem.title} />
+      </CarouselItem>
+    ];
+    */
     return (
       <>
-        <Breadcrumb title="اخبار المنصة" link="/client/platform-news" />
+        <Breadcrumb title="اخبار المنصة" link="/news" />
 
         <section>
           <Container className="carousel-body">
             <Card>
               <CardHeader>
-                <Carousel
+                {/* <Carousel
                   activeIndex={activeIndex}
                   next={this.next}
                   previous={this.previous}
                   ride="carousel"
                 >
                   <CarouselIndicators
-                    items={items}
+                    items={[1]}
                     activeIndex={activeIndex}
                     onClickHandler={this.goToIndex}
                   />
@@ -122,63 +141,29 @@ class DecisionDraft extends Component {
                     directionText="Next"
                     onClickHandler={this.next}
                   />
-                </Carousel>
+                </Carousel> */}
+                <img
+                  className="d-block w-100"
+                  src={newsItem.image}
+                  alt={newsItem.title}
+                />
               </CardHeader>
               <CardBody>
                 <div className="header">
-                  <h5>ثلاثة رواد اعمال يحصلون علي لابلاب لا</h5>
+                  <h5>{newsItem.title}</h5>
                   <span className="sub-header">
                     <i className="fa fa-calendar" />
-                    25/8/2019
+                    {newsItem.date}
                   </span>
                 </div>
-                <p className="bg-font">
-                  لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج
-                  أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار
-                  ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير
-                  سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو
-                  كونسيكيوات . ديواس أيوتي أريري دولار إن ريبريهينديرأيت
-                  فوليوبتاتي فيلايت أيسسي كايلليوم دولار أيو فيجايت نيولا
-                  باراياتيور. أيكسسيبتيور ساينت أوككايكات كيوبايداتات نون
-                  بروايدينت ,سيونت ان كيولبا كيو أوفيسيا ديسيريونتموليت انيم
-                  أيدي ايست لابوريوم. دولاريمكيو لايودانتيوم,توتام ريم
-                  أبيرأم,أيكيو أبسا كيواي أب أللو أنفينتوري فيرأتاتيس ايت كياسي
-                  أرشيتيكتو بيتاي فيتاي ديكاتا سيونت أكسبليكابو. نيمو أنيم أبسام
-                  فوليوباتاتيم كيواي فوليوبتاس سايت أسبيرناتشر أيوت أودايت أيوت
-                  فيوجايت, سيد كيواي كونسيكيونتشر ماجناي دولارس أيوس كيواي
-                  راتاشن فوليوبتاتيم سيكيواي نيسكايونت. نيكيو بوررو كيوايسكيوم
-                  ايست,كيواي دولوريم ايبسيوم كيوا دولار سايت أميت,
-                  كونسيكتيتيور,أديبايسكاي فيلايت, سيد كيواي نون نيومكيوام ايايوس
-                  موداي تيمبورا انكايديونت يوت لابوري أيت دولار ماجنام ألايكيوام
-                  كيوايرات فوليوبتاتيم. يوت اينايم أد مينيما فينيام, كيواس
-                  نوستريوم أكسيركايتاشيم يلامكوربوريس سيوسكايبيت لابورايوسام,
-                  نايساي يوت ألايكيوايد أكس أيا كوموداي كونسيكيواتشر؟ كيوايس
-                  أيوتيم فيل أيوم أيوري ريبريهينديرايت كيواي ان إيا فوليوبتاتي
-                  فيلايت ايسسي كيوم نايهايل موليستايا كونسيكيواتيو,فيلايليوم
-                  كيواي دولوريم أ كيوبايداتات نون بروايدينت ,سيونت ان كيولبا كيو
-                  أوفيسيا ديسيريونتموليت انيم أيدي ايست لابوريوم. دولاريمكيو
-                  لايودانتيوم,توتام ريم أبيرأم,أيكيو أبسا كيواي أب أللو
-                  أنفينتوري فيرأتاتيس ايت كياسي أرشيتيكتو بيتاي فيتاي ديكاتا
-                  سيونت أكسبليكابو. نيمو أنيم أبسام فوليوباتاتيم كيواي فوليوبتاس
-                  سايت أسبيرناتشر أيوت أودايت أيوت فيوجايت, سيد كيواي
-                  كونسيكيونتشر ماجناي دولارس أيوس كيواي راتاشن فوليوبتاتيم
-                  سيكيواي نيسكايونت. نيكيو بوررو كيوايسكيوم ايست,كيواي دولوريم
-                  ايبسيوم كيوا دولار سايت أميت, كونسيكتيتيور,أديبايسكاي فيلايت,
-                  سيد كيواي نون نيومكيوام ايايوس موداي تيمبورا انكايديونت يوت
-                  لابوري أيت دولار ماجنام ألايكيوام كيوايرات فوليوبتاتيم. يوت
-                  اينايم أد مينيما فينيام, كيواس نوستريوم أكسيركايتاشيم
-                  يلامكوربوريس سيوسكايبيت لابورايوسام, نايساي يوت ألايكيوايد أكس
-                  أيا كوموداي كونسيكيواتشر؟ كيوايس أيوتيم فيل أيوم أيوري
-                  ريبريهينديرايت كيواي ان إيا فوليوبتاتي فيلايت ايسسي كيوم
-                  نايهايل موليستايا كونسيكيواتيو,فيلايليوم كيواي دولوريم أ
-                </p>
+                <p className="bg-font">{newsItem.body}</p>
                 <div>
-                  <Link href="/tag/tagId">
-                    <a className="sub-header"># طاقة</a>
-                  </Link>
-                  <Link href="/tag/tagId">
-                    <a className="sub-header"># طاقة</a>
-                  </Link>
+                  {newsItem.tags &&
+                    newsItem.tags.map(tag => (
+                      <Link href={`/tag/${tag.id}`}>
+                        <a className="sub-header"># {tag.name}</a>
+                      </Link>
+                    ))}
                 </div>
               </CardBody>
             </Card>

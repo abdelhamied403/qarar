@@ -1,16 +1,20 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import NewsDetailsPage from '../../views/Pages/platform-news-image/platform-news-image';
 
-const NewsDetails = () => (
-  <div>
+const NewsDetails = () => {
+  const router = useRouter();
+  const { newsId } = router.query;
+  return (
     <div>
-      <Head>
-        <title> خبر - قرار- وزارة العمل</title>
-      </Head>
-      <NewsDetailsPage />
+      <div>
+        <Head>
+          <title> خبر - قرار- وزارة العمل</title>
+        </Head>
+        <NewsDetailsPage newsId={newsId} />
+      </div>
     </div>
-  </div>
-);
-
+  );
+};
 export default NewsDetails;

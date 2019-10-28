@@ -6,22 +6,44 @@ import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
 
+import Api from '../../../api';
+
 import './decision-details.css';
 
 class DecisionDetails extends Component {
+  constructor() {
+    super();
+    this.state = {
+      draft: {
+        tags: []
+      },
+      items: [],
+      comments: []
+    };
+  }
+
+  componentDidMount() {
+    this.getDraft();
+    this.getComments();
+  }
+
+  getDraft = async () => {
+    const { draftId } = this.props;
+    const draftResponse = await Api.get(
+      `/qarar_api/load/node/${draftId}?_format=json`
+    );
+    console.log(draftResponse);
+
+    if (draftResponse.ok) {
+      const { items, data } = draftResponse.data;
+      this.setState({ draft: data, items });
+    }
+  };
+
+  getComments = async () => {};
+
   render() {
-    const content = `
-    لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور
-     أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا 
-    . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي. سيت يتبيرس<br /><br />
-    بايكياتيس يوندي أومنيس أستي ناتيس أيررور سيت فوليبتاتيم أكيسأنتييوم دولاريمكيو لايود
-    انتيوم,توتام ريم أبيرأم,أيكيو أبسا كيواي أب أللو أنفينتوري فيرأتاتيس #نقل ايت كياسي
-     أرشيتيكتو بيتاي فيتاي ديكاتا سيونت أكسبليكابو. نيمو أنيم أبسام فوليوباتاتيم كيواي
-     فوليوبتاس سايت أسبيرناتشر أيوت أودايت أيوت فيوجايت, سيد كيواي كونسيكيونتشر ماجناي<br /><br />
-     دولارس أيوس كيواي راتاشن فوليوبتاتيم سيكيواي نيسكايونت. نيكيو بوررو#نقل كيوايسكيوم
-     ايست,كيواي دولوريم ايبسيوم كيوا دولار #طاقة سايت أميت, كونسيكتيتيور,أديبايسكاي فيلا
-    يت, سيد كيواي نون نيومكيوام ايايوس موداي تيمبورا انكايديونت يوت لابوري أيت دولار ماجنام
-    `;
+    const { draft, items } = this.state;
     return (
       <>
         <Breadcrumb
@@ -33,7 +55,7 @@ class DecisionDetails extends Component {
             <Row>
               <Col sm="12" md="8" lg="9">
                 <div className="header-content">
-                  <h2>سياسة السماح باستيراد السيارات الكهربائية</h2>
+                  <h2>{draft.title}</h2>
                   <div className="sub-header">
                     <Media
                       object
@@ -41,7 +63,13 @@ class DecisionDetails extends Component {
                       className="icon-small"
                     />
                     {/* <i className="fa fa-stop-circle "></i> */}
-                    <span>أغلق التصويت بتاريخ 25/8/2019</span>
+                    {draft.archived_date && (
+                      <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
+                    )}
+                    {draft.end_date &&
+                      !(draft.applied_date || draft.archived_date) && (
+                        <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                      )}
                   </div>
                   <div className="sub-header">
                     <Media
@@ -50,7 +78,9 @@ class DecisionDetails extends Component {
                       className="icon-small"
                     />
                     {/* <i className="fa fa-calendar "></i> */}
-                    <span>أتم إقراره بتاريخ 25/8/2019</span>
+                    {draft.applied_date && (
+                      <span>أتم إقراره بتاريخ {draft.applied_date}</span>
+                    )}
                   </div>
                 </div>
               </Col>
@@ -67,14 +97,14 @@ class DecisionDetails extends Component {
                     <Col xs="6">
                       <CardInfo
                         type="تعليق"
-                        number="5523"
+                        number={draft.comments}
                         icon="/static/img/draft activity - comments.svg"
                       />
                     </Col>
                     <Col xs="12" className="users">
                       <CardInfo
                         type="مشترك"
-                        number="5523"
+                        number={draft.likes - draft.dislikes}
                         icon="/static/img/Icon - draft activity - users.svg"
                       />
                     </Col>
@@ -86,15 +116,11 @@ class DecisionDetails extends Component {
           <div className="description">
             <h5>الوصف</h5>
             <CardDraftDetails
-              header="المادة ٢.٦ الاستخدام لمشروط للسيارات التي تعمل بالديزل"
-              content={content}
-              tags={[{ tag: 'نقل', id: 1 }, { tag: 'نقل', id: 1 }]}
+              header={draft.title}
+              content={draft.body}
+              tags={draft.tags.map(item => ({ tag: item.name, id: item.id }))}
               date="12/4/2019"
-              dropdownList={[
-                'المادة ٢.٦ الاستخدام لمشروط للسيارات التي تعمل بالديزل',
-                'المادة ٢.٦ الاستخدام لمشروط للسيارات التي تعمل بالديزل',
-                'المادة ٢.٦ الاستخدام لمشروط للسيارات التي تعمل بالديزل'
-              ]}
+              dropdownList={items.map(item => item.title)}
             />
           </div>
           <TextBox

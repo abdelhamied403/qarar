@@ -264,12 +264,15 @@ class Drafts extends Component {
                       subHeader={`يغلق التصويت بتاريخ ${item.end_date}`}
                       content={item.body.substr(0, 100)}
                       votes={
-                        parseInt(item.likes, 10) +
+                        parseInt(item.likes, 10) -
                           parseInt(item.dislikes, 10) || '0'
                       }
                       date={item.end_date}
                       link={`/item-details/${item.id}`}
-                      tags={[{ tag: 'نقل', id: 1 }]}
+                      tags={item.tags.map(tag => ({
+                        tag: tag.name.substr(0, 20),
+                        id: tag.id
+                      }))}
                       subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                     />
                   ))}

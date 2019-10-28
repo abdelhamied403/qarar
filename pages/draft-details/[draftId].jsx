@@ -1,16 +1,20 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import DraftDetailsPage from '../../views/Pages/draft-details/draft-details';
 
-const DraftDetails = () => (
-  <div>
+const DraftDetails = () => {
+  const router = useRouter();
+  const { draftId } = router.query;
+  return (
     <div>
-      <Head>
-        <title>مسودة عمل - قرار- وزارة العمل</title>
-      </Head>
-      <DraftDetailsPage />
+      <div>
+        <Head>
+          <title>مسودة عمل - قرار- وزارة العمل</title>
+        </Head>
+        <DraftDetailsPage draftId={draftId} />
+      </div>
     </div>
-  </div>
-);
-
+  );
+};
 export default DraftDetails;

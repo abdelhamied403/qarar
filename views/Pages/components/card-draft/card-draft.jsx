@@ -143,38 +143,35 @@ class CardDraft extends Component {
             {votes ? (
               <div className="side">
                 <h5>أبدِ رأيك</h5>
-                {!this.state.isVoted ? (
-                  <div className="like-dis">
-                    <div
-                      onClick={() => this.vote('up')}
-                      className={this.state.voting.up ? 'voting' : ''}
-                    >
-                      <Media
-                        object
-                        src={
-                          this.state.voting.up
-                            ? '/static/img/Icon - dropdown - arrow down-white.svg'
-                            : '/static/img/Icon - dropdown - arrow down.svg'
-                        }
-                      />
-                    </div>
-                    <div
-                      onClick={() => this.vote('down')}
-                      className={this.state.voting.down ? 'voting' : ''}
-                    >
-                      <Media
-                        object
-                        src={
-                          this.state.voting.down
-                            ? '/static/img/Icon - dropdown - arrow down Copy-white.svg'
-                            : '/static/img/Icon - dropdown - arrow down Copy.svg'
-                        }
-                      />
-                    </div>
+
+                <div className="like-dis">
+                  <div
+                    onClick={() => this.vote('up')}
+                    className={this.state.voting.up ? 'voting' : ''}
+                  >
+                    <Media
+                      object
+                      src={
+                        this.state.voting.up
+                          ? '/static/img/Icon - dropdown - arrow down-white.svg'
+                          : '/static/img/Icon - dropdown - arrow down.svg'
+                      }
+                    />
                   </div>
-                ) : (
-                  ''
-                )}
+                  <div
+                    onClick={() => this.vote('down')}
+                    className={this.state.voting.down ? 'voting' : ''}
+                  >
+                    <Media
+                      object
+                      src={
+                        this.state.voting.down
+                          ? '/static/img/Icon - dropdown - arrow down Copy-white.svg'
+                          : '/static/img/Icon - dropdown - arrow down Copy.svg'
+                      }
+                    />
+                  </div>
+                </div>
 
                 <span className="vote">{this.state.count} صوت</span>
               </div>
