@@ -16309,14 +16309,6 @@ section.p100 {
   padding: 0;
 }
 
-.alert-primary {
-  -webkit-animation-name: slideRight;
-  animation-name: slideRight;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  margin-right: 20px;
-}
-
 .icon-small {
   margin-left: 10px;
 }

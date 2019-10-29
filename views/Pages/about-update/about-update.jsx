@@ -13,20 +13,18 @@ import {
   Label,
   FormText
 } from 'reactstrap';
-import { NavLink as RRNavLink, Link } from 'react-router-dom';
-
-import avatar from '../../../assets/img/avatar.png';
+import Link from 'next/link';
 
 class AboutUpdate extends Component {
   render() {
     return (
-      <React.Fragment>
+      <>
         <div className="about-update">
           <Container>
             <Breadcrumb>
               <BreadcrumbItem>
-                <Link exact to="/client/landing" tag={RRNavLink}>
-                  لوحة التحكم
+                <Link href="/me/about">
+                  <a>لوحة التحكم</a>
                 </Link>
               </BreadcrumbItem>
               <BreadcrumbItem active>معلوماتي الشخصية</BreadcrumbItem>
@@ -41,7 +39,11 @@ class AboutUpdate extends Component {
               </div>
             </div>
             <div className="userinfo flex flex-align-center m-50-b">
-              <Media object src={avatar} className="image-avatar" />
+              <Media
+                object
+                src="/static/img/avatar.png"
+                className="image-avatar"
+              />
               <div className="felx flex-col">
                 <h3>كامل حمد</h3>
                 <Input
@@ -260,7 +262,7 @@ class AboutUpdate extends Component {
             </Row>
           </Container>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

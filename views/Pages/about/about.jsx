@@ -8,7 +8,7 @@ import {
   Media,
   Row,
   Col,
-  Alert
+  UncontrolledAlert
 } from 'reactstrap';
 import Link from 'next/link';
 import ClientSidebar from '../../../layout/ClientSidebar';
@@ -40,18 +40,13 @@ class About extends Component {
               </BreadcrumbItem>
               <BreadcrumbItem active>معلوماتي الشخصية</BreadcrumbItem>
             </Breadcrumb>
-            <Alert
-              className="slide-right"
-              color="primary"
-              isOpen={this.state.isOpen}
-              toggle={this.onclose}
-            >
+            <UncontrolledAlert color="primary">
               مرحبا بك في ملفك الشخصي
-            </Alert>
+            </UncontrolledAlert>
             <div className="flex flex-justifiy-sp m-50-b">
               <h2>معلوماتي الشخصية</h2>
               <Button exact color="primary" outline>
-                <Link href="me/update">
+                <Link href="/me/update">
                   <a>تعديل المعلومات</a>
                 </Link>
               </Button>
