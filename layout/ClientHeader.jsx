@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
+import { connect } from 'react-redux';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -61,12 +62,12 @@ class ClientHeader extends React.Component {
   };
 
   userDropdown() {
-    const { signOut, router } = this.props;
+    const { signOut, router, name } = this.props;
     return (
       <div className="m-right-auto flex drop-header">
         <UncontrolledDropdown>
           <DropdownToggle tag="a" className="nav-link" caret>
-            كامل حمد
+            {name}
           </DropdownToggle>
           <DropdownMenu>
             <Link href="/me/about">
@@ -245,5 +246,5 @@ class ClientHeader extends React.Component {
 
 ClientHeader.propTypes = propTypes;
 ClientHeader.defaultProps = defaultProps;
-
-export default withRouter(ClientHeader);
+const mapStateToProps = ({ name }) => ({ name });
+export default connect(mapStateToProps)(withRouter(ClientHeader));

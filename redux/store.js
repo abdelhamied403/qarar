@@ -4,7 +4,10 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const initialState = {
-  token: ''
+  token: '',
+  logoutToken: '',
+  name: '',
+  uid: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,13 +15,13 @@ const reducer = (state = initialState, action) => {
     case 'LOGIN':
       return {
         ...state,
-        token: action.token
+        token: action.token,
+        logoutToken: action.logoutToken,
+        name: action.name,
+        uid: action.uid
       };
     case 'LOGOUT':
-      return {
-        ...state,
-        token: ''
-      };
+      return initialState;
     default:
       return state;
   }

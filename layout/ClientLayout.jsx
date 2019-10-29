@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 import CLientFooter from './ClientFooter';
 import ClientHeader from './ClientHeader';
-
 import './client.css';
+
+import Api from '../api';
 
 class ClientLayout extends Component {
   signOut = () => {
-    const { dispatch } = this.props;
+    const { dispatch, logoutToken } = this.props;
+    Api.post(`/user/logout?logout_token=${logoutToken}`);
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -32,5 +34,5 @@ class ClientLayout extends Component {
   }
 }
 
-const mapStateToProps = ({ token }) => ({ token });
+const mapStateToProps = ({ token, logoutToken }) => ({ token, logoutToken });
 export default connect(mapStateToProps)(ClientLayout);

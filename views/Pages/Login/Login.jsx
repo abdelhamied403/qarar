@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
-import { Button, Col, Input, Media, FormGroup, Label } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Input, Media, FormGroup, Label, Alert } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import Router from 'next/router';
 
 import '../Register/Register.css';
+import Api from '../../../api';
 
 const Login = () => {
+  const [user, setUser] = useState({});
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
   useEffect(() => {
@@ -14,21 +17,38 @@ const Login = () => {
       Router.push('/me/about');
     }
   }, [token]);
-  const login = () => {
-    dispatch({ type: 'LOGIN', token: 'myToken' });
+  const login = async () => {
+    setError('');
+    const response = await Api.post('/user/login?_format=json', user);
+    if (response.ok) {
+      dispatch({
+        type: 'LOGIN',
+        uid: response.data.current_user.uid,
+        name: response.data.current_user.name,
+        token: response.data.csrf_token,
+        logoutToken: response.data.logout_token
+      });
+    } else {
+      setError(response.data.message);
+    }
   };
   return (
     <div className="register-container flex flex-justifiy-center flex-align-stretch">
       <div className="register-content">
         <div className="custom-container">
           <div className="register-header m-tb-50">
-            <Link>انا مستخدم جديد</Link>
+            <Link href="/register">
+              <a>انا مستخدم جديد</a>
+            </Link>
             <h3>تسجيل الدخول</h3>
             <p className="sub-header">
               سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
               والمشاريع التي تتابعها.{' '}
             </p>
           </div>
+          <Alert isOpen={error} color="danger">
+            {error}
+          </Alert>
           <div>
             <div className="form-horizontal">
               <FormGroup row>
@@ -40,7 +60,9 @@ const Login = () => {
                     type="username"
                     id="hf-username"
                     name="hf-username"
-                    placeholder="الاسم الاول اسم العائلة"
+                    value={user.name}
+                    onChange={e => setUser({ ...user, name: e.target.value })}
+                    placeholder="إسم المستخدم"
                   />
                 </Col>
               </FormGroup>
@@ -55,12 +77,16 @@ const Login = () => {
                     name="hf-password"
                     placeholder="ادخل كلمة المرور هنا"
                     autoComplete="current-password"
+                    value={user.pass}
+                    onChange={e => setUser({ ...user, pass: e.target.value })}
                   />
                 </Col>
               </FormGroup>
               <div className="button-group flex flex-justifiy-sp">
-                <Link>نسيت كلمت المرور</Link>
-                <Button color="primary" onClick={login}>
+                <Link href="/forgot-password">
+                  <a>نسيت كلمت المرور</a>
+                </Link>
+                <Button color="primary" onClick={() => login()}>
                   دخول
                 </Button>
               </div>
