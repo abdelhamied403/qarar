@@ -6,14 +6,21 @@ import {
   Media,
   FormGroup,
   Label,
-  FormText
+  FormText,
+  Alert
 } from 'reactstrap';
 import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
 
 import './Register.css';
+import { isThisISOWeek } from 'date-fns';
 import Api from '../../../api';
+
+const gendersLabel = {
+  male: 'ذكر',
+  female: 'أنثي'
+};
 
 class Register extends Component {
   constructor(props) {
@@ -21,7 +28,16 @@ class Register extends Component {
     this.nextStep = this.nextStep.bind(this);
     this.PreviousStep = this.PreviousStep.bind(this);
 
-    this.state = { currentStep: 0, user: {} };
+    this.state = {
+      currentStep: 0,
+      user: {},
+      cities: [],
+      eLevel: {},
+      errorMessage: '',
+      successMessage: '',
+      disableSubmit: false,
+      agree: false
+    };
   }
 
   componentDidMount() {
@@ -29,20 +45,48 @@ class Register extends Component {
     if (token) {
       Router.push('/me/about');
     }
+    this.getCities();
+    this.getELevels();
+    this.getGenders();
   }
 
-  async nextStep() {
+  getCities = async () => {
+    const citiesResponse = await Api.get(
+      '/qarar_api/load/vocabulary/city?_format=json'
+    );
+    if (citiesResponse.ok) {
+      this.setState({ cities: citiesResponse.data });
+    }
+  };
+
+  getELevels = async () => {
+    const eLevelsResponse = await Api.get(
+      '/qarar_api/field-options/user/field_educational_level?_format=json'
+    );
+    if (eLevelsResponse.ok) {
+      this.setState({ eLevel: eLevelsResponse.data });
+    }
+  };
+
+  getGenders = async () => {
+    const gendersResponse = await Api.get(
+      '/qarar_api/field-options/user/field_gender?_format=json'
+    );
+    if (gendersResponse.ok) {
+      this.setState({ genders: gendersResponse.data });
+    }
+  };
+
+  nextStep() {
     this.setState({
       currentStep: this.state.currentStep + 1
     });
-    console.log(this.state.currentStep);
   }
 
   async PreviousStep() {
     this.setState({
       currentStep: this.state.currentStep - 1
     });
-    console.log(this.state.currentStep);
   }
 
   step1() {
@@ -58,10 +102,37 @@ class Register extends Component {
               type="username"
               id="hf-username"
               name="hf-username"
-              placeholder="الاسم الاول اسم العائلة"
+              placeholder="إسم المستخدم"
+              value={user && user.name ? user.name[0].value : ''}
               onChange={e =>
                 this.setState({
-                  user: { ...user, name: e.target.value }
+                  user: { ...user, name: [{ value: e.target.value }] }
+                })
+              }
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Col md="4">
+            <Label htmlFor="hf-username">الإسم</Label>
+          </Col>
+          <Col xs="12" md="8">
+            <Input
+              type="name"
+              id="hf-name"
+              name="hf-name"
+              placeholder="الاسم الاول اسم العائلة"
+              value={
+                user && user.field_full_name
+                  ? user.field_full_name[0].value
+                  : ''
+              }
+              onChange={e =>
+                this.setState({
+                  user: {
+                    ...user,
+                    field_full_name: [{ value: e.target.value }]
+                  }
                 })
               }
             />
@@ -78,9 +149,13 @@ class Register extends Component {
               name="hf-email"
               placeholder="name@test.com"
               autoComplete="email"
+              value={user && user.mail ? user.mail[0].value : ''}
               onChange={e =>
                 this.setState({
-                  user: { ...user, email: e.target.value }
+                  user: {
+                    ...user,
+                    mail: [{ value: e.target.value }]
+                  }
                 })
               }
             />
@@ -97,9 +172,13 @@ class Register extends Component {
               name="hf-password"
               placeholder="ادخل كلمة المرور هنا"
               autoComplete="current-password"
+              value={user && user.pass ? user.pass[0].value : ''}
               onChange={e =>
                 this.setState({
-                  user: { ...user, password: e.target.value }
+                  user: {
+                    ...user,
+                    pass: [{ value: e.target.value }]
+                  }
                 })
               }
             />
@@ -118,7 +197,7 @@ class Register extends Component {
   }
 
   step2() {
-    const { user } = this.state;
+    const { user, cities, eLevel, genders } = this.state;
     return (
       <div className="form-horizontal">
         <FormGroup row>
@@ -126,35 +205,33 @@ class Register extends Component {
             <Label>الجنس</Label>
           </Col>
           <Col md="9" className="flex">
-            <FormGroup check className="radio">
-              <Input
-                className="form-check-input"
-                type="radio"
-                id="radio1"
-                name="radios"
-                value="option1"
-                onChange={e =>
-                  this.setState({
-                    user: { ...user, gender: e.target.value }
-                  })
-                }
-              />
-              <Label check className="form-check-label" htmlFor="radio1">
-                ذكر
-              </Label>
-            </FormGroup>
-            <FormGroup check className="radio">
-              <Input
-                className="form-check-input"
-                type="radio"
-                id="radio2"
-                name="radios"
-                value="option2"
-              />
-              <Label check className="form-check-label" htmlFor="radio2">
-                أنثى
-              </Label>
-            </FormGroup>
+            {Object.keys(genders).map(gender => (
+              <FormGroup key={gender} check className="radio">
+                <Input
+                  className="form-check-input"
+                  type="radio"
+                  id={gender}
+                  name="radios"
+                  value={gender}
+                  onChange={e =>
+                    this.setState({
+                      user: {
+                        ...user,
+                        field_gender: [{ value: e.target.value }]
+                      }
+                    })
+                  }
+                  checked={
+                    user &&
+                    user.field_gender &&
+                    user.field_gender[0].value === gender
+                  }
+                />
+                <Label check className="form-check-label" htmlFor={gender}>
+                  {gendersLabel[gender]}
+                </Label>
+              </FormGroup>
+            ))}
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -162,11 +239,30 @@ class Register extends Component {
             <Label htmlFor="select">المستوى التعليمي</Label>
           </Col>
           <Col xs="12" md="9">
-            <Input type="select" name="select" id="select">
-              <option value="0">Please select</option>
-              <option value="1">بكالوريوس</option>
-              <option value="2">بكالوريوس</option>
-              <option value="3">بكالوريوس</option>
+            <Input
+              value={
+                user && user.field_educational_level
+                  ? user.field_educational_level[0].value
+                  : ''
+              }
+              onChange={e =>
+                this.setState({
+                  user: {
+                    ...user,
+                    field_educational_level: [{ value: e.target.value }]
+                  }
+                })
+              }
+              type="select"
+              name="select"
+              id="select"
+            >
+              <option value="">اختر</option>
+              {Object.keys(eLevel).map(level => (
+                <option key={level} value={level}>
+                  {eLevel[level]}
+                </option>
+              ))}
             </Input>
           </Col>
         </FormGroup>
@@ -175,11 +271,26 @@ class Register extends Component {
             <Label htmlFor="select">المدينة</Label>
           </Col>
           <Col xs="12" md="9">
-            <Input type="select" name="select" id="select">
-              <option value="0">الرياض</option>
-              <option value="1">الرياض</option>
-              <option value="2">الرياض</option>
-              <option value="3">الرياض</option>
+            <Input
+              value={user && user.field_city ? user.field_city[0].value : ''}
+              onChange={e =>
+                this.setState({
+                  user: {
+                    ...user,
+                    field_city: [{ value: e.target.value }]
+                  }
+                })
+              }
+              type="select"
+              name="select"
+              id="select"
+            >
+              <option value="">اختر</option>
+              {cities.map(city => (
+                <option key={city.id} value={city.id}>
+                  {city.name}
+                </option>
+              ))}
             </Input>
           </Col>
         </FormGroup>
@@ -195,25 +306,46 @@ class Register extends Component {
     );
   }
 
-  register = () => {
-    const { dispatch } = this.props;
-    dispatch({ type: 'LOGIN', token: 'myToken' });
-    Router.push('/me/about');
+  register = async () => {
+    const { agree } = this.state;
+    if (!agree) {
+      this.setState({ errorMessage: 'لم تقم بالموافقة علي الشروط' });
+      return;
+    }
+    this.setState({ errorMessage: '', disableSubmit: true });
+    const { user } = this.state;
+    const response = await Api.post('/user/register?_format=json', user);
+    if (response.ok) {
+      this.setState({
+        successMessage: 'تم التسجيل بنجاح بإمكانك تسجيل الدخول'
+      });
+    } else {
+      this.setState({
+        disableSubmit: false,
+        errorMessage:
+          response.data && response.data.message ? response.data.message : ''
+      });
+    }
   };
 
   step3() {
+    const { disableSubmit, agree } = this.state;
     return (
       <div className="step3 flex flex-col flex-justifiy-sp">
         <div className="flex flex-col ">
           <h6 className="m-50-b">هذا كل شئ</h6>
           <h6>
-            {' '}
             يمكنك العودة للصفحات السابقة لتعديل معلوماتك. عند الانتهاء اضغط
             تأكيد انشاء حساب.
           </h6>
         </div>
         <div className="flex flex flex-justifiy-sp flex-align-end">
-          <Button color="primary" outline onClick={this.PreviousStep}>
+          <Button
+            disabled={disableSubmit}
+            color="primary"
+            outline
+            onClick={this.PreviousStep}
+          >
             السابق
           </Button>
           <div className="flex flex-col">
@@ -224,14 +356,19 @@ class Register extends Component {
                   type="checkbox"
                   id="checkbox1"
                   name="checkbox1"
-                  value="option1"
+                  checked={agree}
+                  onChange={() => this.setState({ agree: !agree })}
                 />
                 <Label check className="form-check-label" htmlFor="checkbox1">
                   اوافق على شروط الاستخدام
                 </Label>
               </FormGroup>
             </div>
-            <Button color="primary" onClick={this.register}>
+            <Button
+              disabled={disableSubmit}
+              color="primary"
+              onClick={this.register}
+            >
               تأكيد إنشاء الحساب
             </Button>
           </div>
@@ -241,6 +378,7 @@ class Register extends Component {
   }
 
   render() {
+    const { successMessage, errorMessage } = this.state;
     let currentEleme = this.step1();
     const circleState = ['', '', ''];
     const lineState = ['', ''];
@@ -277,6 +415,16 @@ class Register extends Component {
                 القرارات التي تمس حياتك.
               </p>
             </div>
+            <Alert
+              isOpen={errorMessage}
+              toggle={() => this.setState({ errorMessage: '' })}
+              color="danger"
+            >
+              {errorMessage}
+            </Alert>
+            <Alert isOpen={successMessage} color="success">
+              {successMessage}
+            </Alert>
             <div className="flex">
               <div className="abs-states">
                 <span className={circleState[0]}>1</span>

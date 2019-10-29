@@ -6,3 +6,8 @@
 .notifications .sub-header {
   margin-bottom: 0px !important;
 }
+
+input[type='radio'],
+input[type='checkbox'] {
+  min-height: auto;
+}
