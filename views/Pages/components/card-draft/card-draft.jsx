@@ -12,7 +12,9 @@ import {
   Media
 } from 'reactstrap';
 import Link from 'next/link';
+import { connect } from 'react-redux';
 
+import Api from '../../../../api';
 import './card-draft.css';
 
 const propTypes = {
@@ -50,22 +52,24 @@ class CardDraft extends Component {
     });
   }
 
-  async vote(v) {
-    await this.setState({
-      voting: { [v]: true }
+  vote = async type => {
+    const { id, uid, token, refetch } = this.props;
+    const item = {
+      type,
+      action: 'flag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { 'X-CSRF-Token': token }
     });
-    const voteCounter = v === 'up' ? 1 : -1;
-    setTimeout(async () => {
-      await this.setState({
-        isVoted: true,
-        count: this.state.count + voteCounter
-      });
-      await this.setState({
-        voting: { [v]: false }
-      });
-    }, 300);
-    console.log(this.state.voting);
-  }
+    if (response.ok) {
+      if (refetch) {
+        refetch();
+      }
+    }
+    console.log(response);
+  };
 
   render() {
     // eslint-disable-next-line
@@ -146,7 +150,7 @@ class CardDraft extends Component {
 
                 <div className="like-dis">
                   <div
-                    onClick={() => this.vote('up')}
+                    onClick={() => this.vote('like')}
                     className={this.state.voting.up ? 'voting' : ''}
                   >
                     <Media
@@ -159,7 +163,7 @@ class CardDraft extends Component {
                     />
                   </div>
                   <div
-                    onClick={() => this.vote('down')}
+                    onClick={() => this.vote('dislike')}
                     className={this.state.voting.down ? 'voting' : ''}
                   >
                     <Media
@@ -211,4 +215,5 @@ class CardDraft extends Component {
 CardDraft.propTypes = propTypes;
 CardDraft.defaultProps = defaultProps;
 
-export default CardDraft;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(CardDraft);

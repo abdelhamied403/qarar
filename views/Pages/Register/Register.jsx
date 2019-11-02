@@ -32,7 +32,7 @@ class Register extends Component {
       currentStep: 0,
       user: {},
       cities: [],
-      eLevel: {},
+      eLevels: {},
       errorMessage: '',
       successMessage: '',
       disableSubmit: false,
@@ -64,7 +64,7 @@ class Register extends Component {
       '/qarar_api/field-options/user/field_educational_level?_format=json'
     );
     if (eLevelsResponse.ok) {
-      this.setState({ eLevel: eLevelsResponse.data });
+      this.setState({ eLevels: eLevelsResponse.data });
     }
   };
 
@@ -197,7 +197,7 @@ class Register extends Component {
   }
 
   step2() {
-    const { user, cities, eLevel, genders } = this.state;
+    const { user, cities, eLevels, genders } = this.state;
     return (
       <div className="form-horizontal">
         <FormGroup row>
@@ -258,9 +258,9 @@ class Register extends Component {
               id="select"
             >
               <option value="">اختر</option>
-              {Object.keys(eLevel).map(level => (
+              {Object.keys(eLevels).map(level => (
                 <option key={level} value={level}>
-                  {eLevel[level]}
+                  {eLevels[level]}
                 </option>
               ))}
             </Input>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardBody, CardImg, Button, Input } from 'reactstrap';
 
 import './card-comments.css';
+
 const propTypes = {
   children: PropTypes.node
 };
@@ -36,14 +37,14 @@ class CardComments extends Component {
                     <div className="flex-contet-comment">
                       <p>{ca.content}</p>
                       <div>
-                        <i className="fa fa-heart primary-icon"></i>
+                        <i className="fa fa-heart primary-icon" />
                       </div>
                     </div>
                     <div>
                       {ca.like || 0}
-                      <i className="fa fa-heart"></i>
+                      <i className="fa fa-heart" />
                       {ca.share || 0}
-                      <i className="fa fa-share"></i>
+                      <i className="fa fa-share" />
                     </div>
                   </div>
                 </div>
@@ -65,12 +66,12 @@ class CardComments extends Component {
                         <div className="flex-contet-comment">
                           <p>{caShild.content}</p>
                           <div>
-                            <i className="fa fa-heart"></i>
+                            <i className="fa fa-heart" />
                           </div>
                         </div>
                         <div>
-                          {caShild.like || 0} <i className="fa fa-heart"></i>
-                          {caShild.share || 0} <i className="fa fa-share"></i>
+                          {caShild.like || 0} <i className="fa fa-heart" />
+                          {caShild.share || 0} <i className="fa fa-share" />
                         </div>
                       </div>
                     </div>
@@ -90,7 +91,7 @@ class CardComments extends Component {
                     <div className="text-center">
                       <Button color="link">
                         إخفاء التفاصيل
-                        <i className="cui-arrow-top icons "></i>
+                        <i className="cui-arrow-top icons " />
                       </Button>
                     </div>
                   </div>
@@ -101,11 +102,6 @@ class CardComments extends Component {
             </Card>
           );
         })}
-        <div className="text-center m-20">
-          <Button color="primary" outline>
-            كل التعليقات
-          </Button>
-        </div>
       </div>
     );
   }

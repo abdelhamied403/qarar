@@ -11,9 +11,34 @@ import {
 import Link from 'next/link';
 import ClientSidebar from '../../../layout/ClientSidebar';
 import './groups.css';
+import api from '../../../api';
 
 class Groups extends Component {
+  constructor() {
+    super();
+    this.state = {
+      groups: []
+    };
+  }
+
+  componentDidMount() {
+    this.getGroups();
+  }
+
+  getGroups = async () => {
+    const { uid } = this.props;
+    const response = await api.get(
+      `/qarar_api/profile/${uid}/groups/10/DESC/1?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ groups: response.data });
+    }
+  };
+
   render() {
+    const { groups } = this.state;
+    console.log(groups);
+
     return (
       <>
         <ClientSidebar />

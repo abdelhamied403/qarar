@@ -7,18 +7,58 @@ import {
   CardBody
 } from 'reactstrap';
 import Link from 'next/link';
+import { connect } from 'react-redux';
 import ClientSidebar from '../../../layout/ClientSidebar';
+
+import Api from '../../../api';
 
 import './shared.css';
 
 class Shared extends Component {
+  constructor() {
+    super();
+    this.state = {
+      votes: [],
+      comments: [],
+      likes: []
+    };
+  }
+
+  componentDidMount() {
+    this.getVotes();
+    this.getComments();
+    this.getLikes();
+  }
+
+  getVotes = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(
+      `qarar_api/flag/entities/like/draft/5/DESC/1?_format=json`
+    );
+    console.log(response);
+  };
+
+  getComments = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(
+      `qarar_api/flag/entities/like/draft/5/DESC/1?_format=json`
+    );
+  };
+
+  getLikes = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(
+      `qarar_api/flag/entities/like/comment/5/DESC/1?_format=json`
+    );
+  };
+
   render() {
     return (
       <>
         <ClientSidebar />
         <div className="shared">
           <Container>
-            <Breadcrumb>
+            <Breadcrumb className="px-0" listClassName="px-0">
               <BreadcrumbItem>
                 <Link href="/client/landing">
                   <a>لوحة التحكم</a>
@@ -119,5 +159,5 @@ class Shared extends Component {
     );
   }
 }
-
-export default Shared;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(Shared);

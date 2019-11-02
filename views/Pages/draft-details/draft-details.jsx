@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './draft-details.css';
 import { Container, Col, Row, Button, Media } from 'reactstrap';
 import Link from 'next/link';
+import { connect } from 'react-redux';
+import Pagination from 'rc-pagination';
 import CardDraft from '../components/card-draft/card-draft';
 import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import CardInfo from '../components/card-info/card-info';
@@ -18,7 +20,8 @@ class DraftDetails extends Component {
         tags: []
       },
       items: [],
-      comments: []
+      comments: [],
+      commentPage: 1
     };
   }
 
@@ -32,18 +35,47 @@ class DraftDetails extends Component {
     const draftResponse = await Api.get(
       `/qarar_api/load/node/${draftId}?_format=json`
     );
-    console.log(draftResponse);
-
     if (draftResponse.ok) {
       const { items, data } = draftResponse.data;
       this.setState({ draft: data, items });
     }
   };
 
-  getComments = async () => {};
+  getComments = async () => {
+    const { draftId } = this.props;
+    const { commentPage } = this.state;
+    const response = await Api.get(
+      `/qarar_api/comments/${draftId}/5/DESC/${commentPage}?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ comments: response.data });
+    }
+  };
+
+  saveComment = async () => {
+    const { draftId, uid, token } = this.props;
+    const { comment } = this.state;
+    console.log(comment);
+
+    const data = {
+      entity_id: [{ target_id: draftId }],
+      entity_type: [{ value: 'node' }],
+      comment_type: [{ target_id: 'draft_comments' }],
+      field_name: [{ value: 'field_comments' }],
+      subject: [{ value: 'parent comment' }],
+      comment_body: [{ value: comment }],
+      uid: [{ target_id: uid }],
+      pid: [{ target_id: '0' }],
+      status: [{ value: 1 }]
+    };
+    const response = await Api.post(`/en/comment?_format=json`, data, {
+      headers: { 'X-CSRF-Token': token }
+    });
+    console.log(response);
+  };
 
   render() {
-    const { draft, items } = this.state;
+    const { draft, items, comments } = this.state;
     return (
       <>
         <Breadcrumb title="المسودات المطروحة للنقاش" link="/drafts" />
@@ -158,51 +190,34 @@ class DraftDetails extends Component {
             placeholder="أضف تعليقك هنا"
             outline="شروط المشاركة"
             primary="إرسال التعليق"
+            onInputChange={e => this.setState({ comment: e.target.value })}
+            onPrimaryButtonClick={() => this.saveComment()}
           />
 
           <CardComments
-            commentsArray={[
-              {
-                avatar: '/static/img/avatar.png',
-                name: 'كامل حمد',
-                like: '33',
-                share: '2',
-                content:
-                  'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس.',
-                comments: [
-                  {
-                    avatar: '/static/img/avatar.png',
-                    name: 'كامل حمد',
+            commentsArray={comments.map(comment => ({
+              id: comment.cid,
+              avatar: comment.owner_image,
+              name: comment.full_name,
+              like: '33',
+              share: '2',
+              content: comment.comment_body,
+              comments: comment.children
+                ? comment.children.map(childComment => ({
+                    id: childComment.cid,
+                    avatar: childComment.owner_image,
+                    name: childComment.full_name,
                     like: '33',
                     share: '2',
-                    content:
-                      'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس.'
-                  },
-                  {
-                    avatar: '/static/img/avatar.png',
-                    name: 'كامل حمد',
-                    like: '33',
-                    share: '2',
-                    content:
-                      'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس.'
-                  }
-                ]
-              },
-              {
-                avatar: '/static/img/avatar.png',
-                name: 'كامل حمد',
-                like: '33',
-                share: '2',
-                content:
-                  'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديو ',
-                comments: []
-              }
-            ]}
+                    content: childComment.comment_body
+                  }))
+                : []
+            }))}
           />
         </Container>
       </>
     );
   }
 }
-
-export default DraftDetails;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(DraftDetails);

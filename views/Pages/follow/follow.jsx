@@ -15,8 +15,35 @@ import ClientSidebar from '../../../layout/ClientSidebar';
 import CardPointsEdit from '../components/card-points-edit/cards-points-edit';
 import TagItem from '../components/tag-item/tag-item';
 import ListItem from '../components/list-item/list-item';
+import Api from '../../../api';
 
 class Follow extends Component {
+  constructor() {
+    super();
+    this.state = {
+      drafts: [],
+      tags: [],
+      users: []
+    };
+  }
+
+  componentDidMount() {
+    this.getDrafts();
+    this.getUsers();
+    this.getTags();
+  }
+
+  getDrafts = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(
+      `/qarar_api/flag/entities/follow/draft/0/DESC/1?_format=json`
+    );
+  };
+
+  getUsers = async () => {};
+
+  getTags = async () => {};
+
   render() {
     return (
       <>

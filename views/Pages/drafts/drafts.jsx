@@ -10,6 +10,7 @@ import {
   TabPane
 } from 'reactstrap';
 import Pagination from 'rc-pagination';
+
 import './drafts.css';
 import CardDraft from '../components/card-draft/card-draft';
 
@@ -223,7 +224,9 @@ class Drafts extends Component {
                   {drafts.map(draft => (
                     <CardDraft
                       key={draft.id}
+                      id={draft.id}
                       header={draft.title}
+                      refetch={() => this.getDrafts()}
                       subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
                       content={draft.body.substr(0, 100)}
                       votes={
@@ -260,6 +263,8 @@ class Drafts extends Component {
                   {items.map(item => (
                     <CardDraft
                       key={item.id}
+                      id={item.id}
+                      refetch={() => this.getItems()}
                       header={item.title}
                       subHeader={`يغلق التصويت بتاريخ ${item.end_date}`}
                       content={item.body.substr(0, 100)}

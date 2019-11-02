@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './about.css';
 import {
   Container,
   Breadcrumb,
@@ -10,29 +9,40 @@ import {
   Col,
   UncontrolledAlert
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import Link from 'next/link';
 import ClientSidebar from '../../../layout/ClientSidebar';
+
+import Api from '../../../api';
 
 class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: true
+      user: {}
     };
-    this.onclose = this.onclose.bind(this);
   }
 
-  onclose() {
-    this.setState({ isOpen: false });
+  componentDidMount() {
+    this.getUser();
   }
+
+  getUser = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(`/qarar_api/load/user/${uid}?_format=json`);
+    if (response.ok) {
+      this.setState({ user: response.data });
+    }
+  };
 
   render() {
+    const { user } = this.state;
     return (
       <>
         <ClientSidebar />
         <div className="aboutpage">
           <Container>
-            <Breadcrumb>
+            <Breadcrumb className="px-0" listClassName="px-0">
               <BreadcrumbItem>
                 <Link href="/me/about">
                   <a> لوحة التحكم</a>
@@ -45,30 +55,29 @@ class About extends Component {
             </UncontrolledAlert>
             <div className="flex flex-justifiy-sp m-50-b">
               <h2>معلوماتي الشخصية</h2>
-              <Button exact color="primary" outline>
-                <Link href="/me/update">
-                  <a>تعديل المعلومات</a>
-                </Link>
-              </Button>
+
+              <Link href="/me/update">
+                <Button exact color="primary" outline>
+                  تعديل المعلومات
+                </Button>
+              </Link>
             </div>
             <div className="userinfo flex flex-align-center m-50-b">
-              <Media
-                object
-                src="/static/img/profile.jpg"
-                className="image-avatar"
-              />
+              <Media object src={user.picture} className="image-avatar" />
               <div className="felx flex-col">
-                <h3>كامل حمد</h3>
-                <span className="sub-header">@kamelA</span>
+                <h3>{user.full_name}</h3>
+                <span className="sub-header">@{user.name}</span>
                 <div className="flex">
                   <div className="m-20-lr">
-                    12345 <span className="sub-header">صوت</span>
+                    {user.likes || 0} <span className="sub-header">صوت</span>
                   </div>
                   <div className="m-20-lr">
-                    12345 <span className="sub-header">تعليق</span>
+                    {user.comments || 0}{' '}
+                    <span className="sub-header">تعليق</span>
                   </div>
                   <div className="m-20-lr">
-                    12345 <span className="sub-header">متابع</span>
+                    {user.followers || 0}{' '}
+                    <span className="sub-header">متابع</span>
                   </div>
                 </div>
               </div>
@@ -77,58 +86,58 @@ class About extends Component {
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">البريد الالكتروني</h6>
-                  <h4>m234@gmail.com</h4>
+                  <h4>{user.mail || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">البلد </h6>
-                  <h4>المملكة العربية السعودية</h4>
+                  <h4>{user.country || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">المدينة</h6>
-                  <h4>الرياض</h4>
+                  <h4>{user.city || '--'}</h4>
                 </div>
               </Col>
 
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">منطقة السكن</h6>
-                  <h4>-</h4>
+                  <h4>{user.neighborhood || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">أعلى مستوى تعليمي</h6>
-                  <h4>بكالوريوس</h4>
+                  <h4>{user.educational_level || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">الوظيفة</h6>
-                  <h4>مهندس</h4>
+                  <h4>{user.job || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">قطاع العمل</h6>
-                  <h4>القطاع الخاص</h4>
+                  <h4>{user.labor_sector || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">الحالة الاجتماعية</h6>
-                  <h4>متزوج</h4>
+                  <h4>{user.social_status || '--'}</h4>
                 </div>
               </Col>
-              <Col xs="12" md="6">
+              {/* <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">كلمة المرور</h6>
                   <h4>********j8</h4>
                 </div>
-              </Col>
+    </Col> */}
             </Row>
           </Container>
         </div>
@@ -136,5 +145,5 @@ class About extends Component {
     );
   }
 }
-
-export default About;
+const mapStateToProps = ({ uid }) => ({ uid });
+export default connect(mapStateToProps)(About);

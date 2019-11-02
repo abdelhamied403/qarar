@@ -17630,3 +17630,54 @@ textarea.form-control {
 .card-icon .tag {
   color: var(--dark-gray);
 }
+.aboutpage {
+  background-color: white;
+  padding: 50px 0;
+  margin-bottom: -100px;
+  padding-bottom: 100px;
+}
+.aboutpage .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.aboutpage .about-card {
+  background-color: var(--normal-gray);
+  height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+
+.about-update input {
+  min-height: auto;
+}
+
+.form-control:focus {
+  color: #5c6873 !important;
+  background-color: #fff !important;
+  border-color: #3beeff !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 170, 186, 0.25) !important;
+}
+
+.about-update {
+  background-color: white;
+}
+.about-update .form-control {
+  width: 80%;
+}
+.about-update .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.about-update .about-update-card {
+  background-color: var(--normal-gray);
+  min-height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+.red {
+  color: crimson !important;
+}
