@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardBody, CardImg, Button, Input } from 'reactstrap';
-
+import { connect } from 'react-redux';
+import Api from '../../../../api';
+import avatar from '../../../../static/img/avatar.png';
 import './card-comments.css';
 
 const propTypes = {
@@ -11,6 +13,27 @@ const propTypes = {
 const defaultProps = {};
 
 class CardComments extends Component {
+  componentDidMount() {
+    this.flagged();
+  }
+
+  flagged = async () => {
+    const { uid, draftId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/isflagged/follow/${draftId}/${uid}?_format=json`
+    );
+    // console.log(response);
+
+    if (response.ok) {
+      const {
+        data: {
+          data: { flagged }
+        }
+      } = response;
+      this.setState({ flagged });
+    }
+  };
+
   render() {
     // eslint-disable-next-line
     const { commentsArray } = this.props;
@@ -26,7 +49,7 @@ class CardComments extends Component {
                     <CardImg
                       top
                       width="100%"
-                      src={ca.owner_image}
+                      src={ca.owner_image || avatar}
                       alt="Card image cap"
                     />
                     <div className="user-info">
@@ -34,7 +57,7 @@ class CardComments extends Component {
                     </div>
                   </div>
                   <div className="comment">
-                    <div className="flex-contet-comment">
+                    <div className="d-flex align-items-start justify-content-between ">
                       <p>{ca.content}</p>
                       <div>
                         <i className="fa fa-heart primary-icon" />
@@ -55,8 +78,8 @@ class CardComments extends Component {
                         <CardImg
                           top
                           width="100%"
-                          src={caShild.owner_image}
-                          alt="Card image cap"
+                          src={caShild.owner_image || avatar}
+                          alt="user"
                         />
                         <div className="user-info">
                           <span className="name">{caShild.name}</span>

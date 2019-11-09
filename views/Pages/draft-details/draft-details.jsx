@@ -43,11 +43,11 @@ class DraftDetails extends Component {
     this.getComments();
     this.flagged();
     Events.scrollEvent.register('begin', function() {
-      console.log('begin', arguments);
+      // console.log('begin', arguments);
     });
 
     Events.scrollEvent.register('end', function() {
-      console.log('end', arguments);
+      // console.log('end', arguments);
     });
   }
 
@@ -119,7 +119,7 @@ class DraftDetails extends Component {
     const response = await Api.get(
       `/qarar_api/isflagged/follow/${draftId}/${uid}?_format=json`
     );
-    console.log(response);
+    // console.log(response);
 
     if (response.ok) {
       const {
@@ -153,16 +153,19 @@ class DraftDetails extends Component {
 
     const data = {
       entity_id: [{ target_id: draftId }],
-      entity_type: [{ value: 'node' }],
-      comment_type: [{ target_id: 'draft_comments' }],
-      field_name: [{ value: 'field_comments' }],
-      // subject: [{ value: 'parent comment' }],
+      subject: [{ value: 'comment' }],
       comment_body: [{ value: comment }],
       pid: [{ target_id: '0' }]
     };
-    const response = await Api.post(`/en/comment?_format=json`, data, {
-      headers: { 'X-CSRF-Token': token }
-    });
+    const response = await Api.post(
+      `/qarar_api/post-comment?_format=json`,
+      data,
+      {
+        headers: { 'X-CSRF-Token': token }
+      }
+    );
+    console.log(response);
+
     if (response.ok) {
       this.setState({ comment: '' });
       this.getDraft();
@@ -199,7 +202,9 @@ class DraftDetails extends Component {
       flagged
     } = this.state;
     const { uid } = this.props;
-    console.log(items, draft);
+    // console.log(items, draft);
+    console.log(comments);
+
     return (
       <>
         <Breadcrumb title="المسودات المطروحة للنقاش" link="/drafts" />
