@@ -26,7 +26,7 @@ class CardComments extends Component {
                     <CardImg
                       top
                       width="100%"
-                      src={ca.avatar}
+                      src={ca.owner_image}
                       alt="Card image cap"
                     />
                     <div className="user-info">
@@ -41,9 +41,9 @@ class CardComments extends Component {
                       </div>
                     </div>
                     <div>
-                      {ca.like || 0}
+                      {ca.likes || 0}
                       <i className="fa fa-heart" />
-                      {ca.share || 0}
+                      {(ca.comments && ca.comments.length) || 0}
                       <i className="fa fa-share" />
                     </div>
                   </div>
@@ -55,7 +55,7 @@ class CardComments extends Component {
                         <CardImg
                           top
                           width="100%"
-                          src={caShild.avatar}
+                          src={caShild.owner_image}
                           alt="Card image cap"
                         />
                         <div className="user-info">

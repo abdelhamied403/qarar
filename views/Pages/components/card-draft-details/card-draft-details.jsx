@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   DropdownToggle
 } from 'reactstrap';
+import renderHTML from 'react-render-html';
 import Link from 'next/link';
 
 import './card-draft-details.css';
@@ -94,7 +95,7 @@ class CardDraftDetails extends Component {
               </Col>
               <div className="moaad">
                 <Col xs="12" md="10">
-                  <p dangerouslySetInnerHTML={{ __html: content }} />
+                  {renderHTML(content)}
                 </Col>
               </div>
             </div>

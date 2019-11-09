@@ -5,17 +5,17 @@ import {
   CardFooter,
   CardBody,
   Button,
-  Dropdown,
+  UncontrolledDropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
   Media
 } from 'reactstrap';
+import renderHTML from 'react-render-html';
 import Link from 'next/link';
 import { connect } from 'react-redux';
-import renderHTML from 'react-render-html';
+
 import Api from '../../../../api';
-import './card-draft.css';
 
 const propTypes = {
   children: PropTypes.node
@@ -29,6 +29,7 @@ class CardDraft extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
+      selected: {},
       dropdownOpen: new Array(6).fill(false),
       isVoted: false,
       voting: {
@@ -71,6 +72,26 @@ class CardDraft extends Component {
     console.log(response);
   };
 
+  renderList = (list, className = '') => (
+    <ul className={`list-unstyled pb-0 mb-0 ${className}`}>
+      {list.map(item => (
+        <li>
+          <>
+            <DropdownItem
+              className="border-bottom"
+              onClick={() => this.setState({ selected: item })}
+              key={item.id}
+              value={item}
+            >
+              {item.title}
+            </DropdownItem>
+            {item.children && this.renderList(item.children)}
+          </>
+        </li>
+      ))}
+    </ul>
+  );
+
   render() {
     // eslint-disable-next-line
     const {
@@ -85,25 +106,20 @@ class CardDraft extends Component {
       dropdownList,
       subHeaderIcon
     } = this.props;
-
+    const { selected } = this.state;
     return (
       <Card className="card-draft" style={{ borderRightColor: borderColor }}>
         <CardBody>
           {dropdownList && dropdownList.length > 0 ? (
             <div className="dec-details">
-              <Dropdown
-                isOpen={this.state.dropdownOpen[0]}
-                toggle={() => {
-                  this.toggle(0);
-                }}
-              >
-                <DropdownToggle caret>{dropdownList[0]}</DropdownToggle>
+              <UncontrolledDropdown>
+                <DropdownToggle caret>
+                  {selected.title || dropdownList[0].title}
+                </DropdownToggle>
                 <DropdownMenu>
-                  {dropdownList.map(dl => {
-                    return <DropdownItem>{dl}</DropdownItem>;
-                  })}
+                  {this.renderList(dropdownList, 'p-0 m-0')}
                 </DropdownMenu>
-              </Dropdown>
+              </UncontrolledDropdown>
             </div>
           ) : (
             ''
@@ -133,7 +149,9 @@ class CardDraft extends Component {
               </div>
               <div className="moaad">
                 <p>
-                  {renderHTML(content || '')}
+                  {renderHTML(
+                    selected.body_value || dropdownList[0].body_value
+                  )}
                   {link ? (
                     <Link href={link}>
                       <Button color="link">المزيد</Button>

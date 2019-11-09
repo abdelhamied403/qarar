@@ -17681,3 +17681,45 @@ textarea.form-control {
 .red {
   color: crimson !important;
 }
+.no-access {
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  margin-top: 96px;
+  width: 100%;
+  max-width: 1110px;
+  height: 291px;
+}
+.no-access h2 {
+  text-align: center;
+}
+.no-access .fa {
+  color: var(--primary-blue);
+  font-size: 24px;
+  margin: 40px 0;
+}
+.no-access span {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.no-access::after {
+  /* Add the blur effect */
+
+  content: '';
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 1110px;
+  height: 291px;
+  filter: blur(0px);
+  background-image: url(/static/img/blur-2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.no-access .item-content {
+  z-index: 1000;
+}

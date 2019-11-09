@@ -21,7 +21,8 @@ class TextBox extends Component {
       outline,
       primary,
       onPrimaryButtonClick,
-      onInputChange
+      onInputChange,
+      inputValue
     } = this.props;
 
     return (
@@ -35,6 +36,7 @@ class TextBox extends Component {
             type="textarea"
             name="textarea-input"
             rows="9"
+            value={inputValue}
             placeholder={placeholder}
             onChange={onInputChange}
           />
