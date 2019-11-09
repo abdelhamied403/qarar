@@ -107,7 +107,7 @@ class DraftDetails extends Component {
     const { draftId } = this.props;
     const { commentPage } = this.state;
     const response = await Api.get(
-      `/qarar_api/comments/${draftId}/5/DESC/${commentPage}?_format=json`
+      `/qarar_api/comments/${draftId}/DESC?_format=json`
     );
     if (response.ok) {
       this.setState({ comments: response.data });
