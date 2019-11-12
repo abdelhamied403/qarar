@@ -31,28 +31,35 @@ class Shared extends Component {
   }
 
   getVotes = async () => {
-    const { uid } = this.props;
     const response = await Api.get(
-      `qarar_api/flag/entities/like/draft/5/DESC/1?_format=json`
+      `/qarar_api/flag/entities/like/draft/5/DESC/1?_format=json`
     );
-    console.log(response);
+    if (response.ok) {
+      this.setState({ votes: response.data });
+    }
   };
 
   getComments = async () => {
-    const { uid } = this.props;
     const response = await Api.get(
-      `qarar_api/flag/entities/like/draft/5/DESC/1?_format=json`
+      `/qarar_api/user/comments/draft/5/DESC/1?_format=json`
     );
+    if (response.ok) {
+      this.setState({ comments: response.data });
+    }
   };
 
   getLikes = async () => {
-    const { uid } = this.props;
     const response = await Api.get(
-      `qarar_api/flag/entities/like/comment/5/DESC/1?_format=json`
+      `/qarar_api/flag/entities/like_comment/draft/5/DESC/1`
     );
+    if (response.ok) {
+      this.setState({ likes: response.data });
+    }
   };
 
   render() {
+    const { votes, comments, likes } = this.state;
+    console.log(votes, comments, likes);
     return (
       <>
         <ClientSidebar />
@@ -80,21 +87,14 @@ class Shared extends Component {
                     </a>
                   </Link>
                 </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
+                {votes.map(vote => (
+                  <div
+                    key={vote.nid}
+                    className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center"
+                  >
+                    <div>{vote.parent_title}</div>
                   </div>
-                </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
-                  </div>
-                </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
-                  </div>
-                </div>
+                ))}
               </CardBody>
             </Card>
 
@@ -108,21 +108,14 @@ class Shared extends Component {
                     </a>
                   </Link>
                 </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
+                {comments.map(item => (
+                  <div
+                    key={item.cid}
+                    className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center"
+                  >
+                    <div>{item.parent_title}</div>
                   </div>
-                </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
-                  </div>
-                </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
-                  </div>
-                </div>
+                ))}
               </CardBody>
             </Card>
 
@@ -136,21 +129,14 @@ class Shared extends Component {
                     </a>
                   </Link>
                 </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
+                {likes.map(item => (
+                  <div
+                    key={item.nid}
+                    className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center"
+                  >
+                    <div>{item.parent_title}</div>
                   </div>
-                </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
-                  </div>
-                </div>
-                <div className="flex flex-no-wrap flex-justifiy-sp flex-aligen-center">
-                  <div>
-                    حصل أحمد سالم على وسام ذهبي لفوزة وادث السير في الشارع العام
-                  </div>
-                </div>
+                ))}
               </CardBody>
             </Card>
           </Container>

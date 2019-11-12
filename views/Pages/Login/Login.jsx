@@ -21,8 +21,16 @@ const Login = () => {
     setError('');
     const response = await Api.post('/user/login?_format=json', user);
     if (response.ok) {
+      let profileImage = '';
+      const response2 = await Api.get(
+        `/qarar_api/load/user/${response.data.current_user.uid}?_format=json`
+      );
+      if (response2.ok) {
+        profileImage = response2.data.picture;
+      }
       dispatch({
         type: 'LOGIN',
+        profileImage,
         uid: response.data.current_user.uid,
         name: response.data.current_user.name,
         token: response.data.csrf_token,

@@ -132,7 +132,8 @@ class DraftDetails extends Component {
   };
 
   flag = async () => {
-    const { uid, token, draftId, flagged } = this.props;
+    const { uid, token, draftId } = this.props;
+    const { flagged } = this.state;
     const data = {
       type: 'follow',
       action: flagged ? 'unflag' : 'flag',

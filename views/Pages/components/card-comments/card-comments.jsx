@@ -13,12 +13,8 @@ const propTypes = {
 const defaultProps = {};
 
 class CardComments extends Component {
-  componentDidMount() {
-    this.flagged();
-  }
-
-  flagged = async () => {
-    const { uid, draftId } = this.props;
+  flagged = async commentId => {
+    const { uid } = this.props;
     const response = await Api.get(
       `/qarar_api/isflagged/follow/${draftId}/${uid}?_format=json`
     );
@@ -30,7 +26,23 @@ class CardComments extends Component {
           data: { flagged }
         }
       } = response;
-      this.setState({ flagged });
+      return flagged;
+    }
+  };
+
+  flag = async (commentId, flagged) => {
+    const { uid, token } = this.props;
+    const data = {
+      type: 'like',
+      action: flagged ? 'unflag' : 'flag',
+      id: commentId,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, data, {
+      headers: { 'X-CSRF-Token': token }
+    });
+    if (response.ok) {
+      this.flagged();
     }
   };
 
@@ -93,7 +105,11 @@ class CardComments extends Component {
                           </div>
                         </div>
                         <div>
-                          {caShild.like || 0} <i className="fa fa-heart" />
+                          {caShild.like || 0}{' '}
+                          <i
+                            onClick={() => this.flag()}
+                            className="fa fa-heart"
+                          />
                           {caShild.share || 0} <i className="fa fa-share" />
                         </div>
                       </div>
@@ -132,5 +148,5 @@ class CardComments extends Component {
 
 CardComments.propTypes = propTypes;
 CardComments.defaultProps = defaultProps;
-
-export default CardComments;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(CardComments);

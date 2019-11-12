@@ -62,7 +62,7 @@ class ClientHeader extends React.Component {
   };
 
   userDropdown() {
-    const { signOut, router, name } = this.props;
+    const { signOut, router, name, profileImage } = this.props;
     return (
       <div className="m-right-auto flex drop-header">
         <UncontrolledDropdown>
@@ -125,7 +125,7 @@ class ClientHeader extends React.Component {
         </UncontrolledDropdown>
         <Media
           object
-          src="/static/img/profile.jpg"
+          src={profileImage || '/static/img/avatar.png'}
           className="image-avatar icon-image"
         />
       </div>
@@ -246,5 +246,5 @@ class ClientHeader extends React.Component {
 
 ClientHeader.propTypes = propTypes;
 ClientHeader.defaultProps = defaultProps;
-const mapStateToProps = ({ name }) => ({ name });
+const mapStateToProps = ({ name, profileImage }) => ({ name, profileImage });
 export default connect(mapStateToProps)(withRouter(ClientHeader));

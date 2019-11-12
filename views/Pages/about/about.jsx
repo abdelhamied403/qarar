@@ -63,7 +63,11 @@ class About extends Component {
               </Link>
             </div>
             <div className="userinfo flex flex-align-center m-50-b">
-              <Media object src={user.picture} className="image-avatar" />
+              <Media
+                object
+                src={user.picture || '/static/img/avatar.png'}
+                className="image-avatar"
+              />
               <div className="felx flex-col">
                 <h3>{user.full_name}</h3>
                 <span className="sub-header">@{user.name}</span>
