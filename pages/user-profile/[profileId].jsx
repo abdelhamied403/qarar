@@ -1,16 +1,21 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import ProfilePage from '../../views/Pages/user-info/user-info';
 
-const Profile = () => (
-  <div>
+const Profile = () => {
+  const router = useRouter();
+  const { profileId } = router.query;
+  return (
     <div>
-      <Head>
-        <title>الصفحة الشخصية - قرار- وزارة العمل</title>
-      </Head>
-      <ProfilePage />
+      <div>
+        <Head>
+          <title>الصفحة الشخصية - قرار- وزارة العمل</title>
+        </Head>
+        <ProfilePage profileId={profileId} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Profile;

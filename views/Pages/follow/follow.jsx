@@ -9,6 +9,7 @@ import {
   Button,
   Media
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import Link from 'next/link';
 
 import ClientSidebar from '../../../layout/ClientSidebar';
@@ -36,15 +37,35 @@ class Follow extends Component {
   getDrafts = async () => {
     const { uid } = this.props;
     const response = await Api.get(
-      `/qarar_api/flag/entities/follow/draft/0/DESC/1?_format=json`
+      `/qarar_api/flag/entities/${uid}/follow/draft/5/DESC/1?_format=json`
     );
+    if (response.ok) {
+      this.setState({ drafts: response.data });
+    }
   };
 
-  getUsers = async () => {};
+  getUsers = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(
+      `/qarar_api/flag/entities/${uid}/follow_user/user/5/DESC/1?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ users: response.data });
+    }
+  };
 
-  getTags = async () => {};
+  getTags = async () => {
+    const { uid } = this.props;
+    const response = await Api.get(
+      `/qarar_api/flag/entities/${uid}/follow_tag/tag/5/DESC/1?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ tags: response.data });
+    }
+  };
 
   render() {
+    const { users, tags, drafts } = this.state;
     return (
       <>
         <ClientSidebar />
@@ -76,26 +97,14 @@ class Follow extends Component {
                   </Button>
                 </div>
                 <div className="flex flex-col">
-                  <ListItem
-                    header="سياسة السماح باستيراد السيارات الكهربائية"
-                    btnText="ايقاف المتابعة"
-                    btnColor="danger"
-                  />
-                  <ListItem
-                    header="سياسة السماح باستيراد السيارات الكهربائية"
-                    btnText="ايقاف المتابعة"
-                    btnColor="danger"
-                  />
-                  <ListItem
-                    header="سياسة السماح باستيراد السيارات الكهربائية"
-                    btnText="ايقاف المتابعة"
-                    btnColor="danger"
-                  />
-                  <ListItem
-                    header="سياسة السماح باستيراد السيارات الكهربائية"
-                    btnText="ايقاف المتابعة"
-                    btnColor="danger"
-                  />
+                  {drafts.map(item => (
+                    <ListItem
+                      key={item.nid}
+                      header="سياسة السماح باستيراد السيارات الكهربائية"
+                      btnText="ايقاف المتابعة"
+                      btnColor="danger"
+                    />
+                  ))}
                 </div>
               </CardBody>
             </Card>
@@ -114,31 +123,14 @@ class Follow extends Component {
                   </Button>
                 </div>
                 <div className="flex flex-users-card-edit">
-                  <CardPointsEdit
-                    avatar="/static/img/avatar.png"
-                    name="كامل حمد"
-                    points="1200"
-                  />
-                  <CardPointsEdit
-                    avatar="/static/img/avatar.png"
-                    name="كامل حمد"
-                    points="1200"
-                  />
-                  <CardPointsEdit
-                    avatar="/static/img/avatar.png"
-                    name="كامل حمد"
-                    points="1200"
-                  />
-                  <CardPointsEdit
-                    avatar="/static/img/avatar.png"
-                    name="كامل حمد"
-                    points="1200"
-                  />
-                  <CardPointsEdit
-                    avatar="/static/img/avatar.png"
-                    name="كامل حمد"
-                    points="1200"
-                  />
+                  {users.map(item => (
+                    <CardPointsEdit
+                      key={item.uid}
+                      avatar="/static/img/avatar.png"
+                      name="كامل حمد"
+                      points="1200"
+                    />
+                  ))}
                 </div>
               </CardBody>
             </Card>
@@ -157,10 +149,9 @@ class Follow extends Component {
                   </Button>
                 </div>
                 <div className="tags-container flex flex-aligen-center">
-                  <TagItem tag="طاقة" />
-                  <TagItem tag="طاقة" />
-                  <TagItem tag="طاقة" />
-                  <TagItem tag="طاقة" />
+                  {tags.map(item => (
+                    <TagItem key={item.nid} tag={item.name} />
+                  ))}
                 </div>
               </CardBody>
             </Card>
@@ -171,4 +162,5 @@ class Follow extends Component {
   }
 }
 
-export default Follow;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(Follow);

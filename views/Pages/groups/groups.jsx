@@ -9,6 +9,7 @@ import {
   Media
 } from 'reactstrap';
 import Link from 'next/link';
+import { connect } from 'react-redux';
 import ClientSidebar from '../../../layout/ClientSidebar';
 import './groups.css';
 import api from '../../../api';
@@ -28,7 +29,7 @@ class Groups extends Component {
   getGroups = async () => {
     const { uid } = this.props;
     const response = await api.get(
-      `/qarar_api/profile/${uid}/groups/10/DESC/1?_format=json`
+      `/qarar_api/profile/${uid}/groups/5/DESC/1?_format=json`
     );
     if (response.ok) {
       this.setState({ groups: response.data });
@@ -37,8 +38,6 @@ class Groups extends Component {
 
   render() {
     const { groups } = this.state;
-    console.log(groups);
-
     return (
       <>
         <ClientSidebar />
@@ -56,74 +55,35 @@ class Groups extends Component {
               <h2>مجموعاتي</h2>
             </div>
 
-            <Card>
-              <CardBody className="card-not">
-                <div className="flex flex-justifiy-sp m-25-b">
-                  <Link exact to="/client/me/group-details">
-                    النقل و المواصلات
-                  </Link>
-                </div>
-                <div className="flex flex-col">
-                  <p>
-                    وصف المجموعة - لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور
-                    أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت
-                    لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم
-                    فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي.
-                  </p>
-                  <div className="flex flex-justifiy-sp flex-align-center">
-                    <p className="danger">
-                      تمت دعوتك من قبل الوزارة للاشتراك بنقاش هذه المجموعة
-                      المختصة المتعلق بسياسة (اسم السياسة). يغلق التصويت بتاريخ
-                      24/9/2019
-                    </p>
-                    <Button
-                      exact
-                      to="/client/me/invitaion"
-                      color="primary"
-                      outline
-                    >
-                      قبول الدعوة
-                    </Button>
+            {groups.map(item => (
+              <Card key={item.id}>
+                <CardBody className="card-not">
+                  <div className="flex flex-justifiy-sp m-25-b">
+                    <Link exact to="/client/me/group-details">
+                      {item.title}
+                    </Link>
                   </div>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardBody className="card-not">
-                <div className="flex flex-justifiy-sp m-25-b">
-                  <Link href="/me/group-details">
-                    <a>السياحة</a>
-                  </Link>
-                </div>
-                <div className="flex flex-col">
-                  <p>
-                    وصف المجموعة - لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور
-                    أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت
-                    لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم
-                    فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardBody className="card-not">
-                <div className="flex flex-justifiy-sp m-25-b">
-                  <Link href="/me/group-details">
-                    <a>السيارات</a>
-                  </Link>
-                </div>
-                <div className="flex flex-col">
-                  <p>
-                    وصف المجموعة - لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور
-                    أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت
-                    لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم
-                    فينايم,كيواس نوستريد أكسير سيتاشن يللأمكو لابورأس نيسي.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
+                  <div className="flex flex-col">
+                    <p>{item.body}</p>
+                    <div className="flex flex-justifiy-sp flex-align-center">
+                      <p className="danger">
+                        تمت دعوتك من قبل الوزارة للاشتراك بنقاش هذه المجموعة
+                        المختصة المتعلق بسياسة (اسم السياسة). يغلق التصويت
+                        بتاريخ 24/9/2019
+                      </p>
+                      <Button
+                        exact
+                        to="/client/me/invitaion"
+                        color="primary"
+                        outline
+                      >
+                        قبول الدعوة
+                      </Button>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
           </Container>
         </div>
       </>
@@ -131,4 +91,5 @@ class Groups extends Component {
   }
 }
 
-export default Groups;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(Groups);

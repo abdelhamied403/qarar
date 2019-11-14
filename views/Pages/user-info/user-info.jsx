@@ -1,11 +1,127 @@
 import React, { Component } from 'react';
 import { Container, Card, CardBody, Button, Row, Col, Media } from 'reactstrap';
 import Link from 'next/link';
-
+import { connect } from 'react-redux';
 import './user-info.css';
+import Api from '../../../api';
 
 class UserInfo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      profile: {},
+      followed: false,
+      voted: [],
+      commented: [],
+      awards: [],
+      badges: []
+    };
+  }
+
+  componentDidMount() {
+    this.getProfile();
+    this.getIsFollowed();
+    this.getVoted();
+    this.getCommented();
+    this.getBadges();
+    this.getAwards();
+  }
+
+  getProfile = async () => {
+    const { profileId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/load/user/${profileId}?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ profile: response.data });
+    }
+  };
+
+  getIsFollowed = async () => {
+    const { profileId, uid } = this.props;
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'follow_user',
+      id: profileId,
+      uid
+    });
+    if (response.ok) {
+      this.setState({ followed: response.data.data.flagged });
+    }
+  };
+
+  getVoted = async () => {
+    const { profileId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/flag/entities/${profileId}/like/draft/5/DESC/1?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ voted: response.data });
+    }
+  };
+
+  getCommented = async () => {
+    const { profileId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/flag/entities/${profileId}/like_comment/comment/5/DESC/1?_format=json`
+    );
+
+    if (response.ok) {
+      this.setState({ commented: response.data });
+    }
+  };
+
+  getBadges = async () => {
+    const { profileId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/profile/${profileId}/awards/user_badge/0/DESC/1?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ badges: response.data });
+    }
+  };
+
+  getAwards = async () => {
+    const { profileId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/profile/${profileId}/awards/user_award/0/DESC/1?_format=json`
+    );
+
+    if (response.ok) {
+      this.setState({ awards: response.data });
+    }
+  };
+
+  follow = async () => {
+    const { uid, profileId } = this.props;
+    const response = await Api.post(`/qarar_api/flag?_format=json`, {
+      type: 'follow_user',
+      action: 'flag',
+      id: profileId,
+      uid
+    });
+    if (response.ok) {
+      this.getIsFollowed();
+    }
+  };
+
+  unFollow = async () => {
+    const { uid, profileId } = this.props;
+    const response = await Api.post(`/qarar_api/flag?_format=json`, {
+      type: 'follow_user',
+      action: 'unflag',
+      id: profileId,
+      uid
+    });
+    if (response.ok) {
+      this.getIsFollowed();
+    }
+  };
+
   render() {
+    const { profile, followed, voted, commented, awards, badges } = this.state;
+    const { uid } = this.props;
+    console.log(awards, badges);
+
     return (
       <>
         <div className="user-profile">
@@ -22,24 +138,34 @@ class UserInfo extends Component {
                           className="image-avatar"
                         />
                         <div className="felx flex-col">
-                          <h3>كامل حمد</h3>
-                          <span className="sub-header">@kamelA</span>
+                          <h3>{profile.full_name}</h3>
+                          <span className="sub-header">@{profile.name}</span>
                           <div className="flex">
                             <div className="m-30-l">
-                              12345 <span className="sub-header">صوت</span>
+                              {profile.likes || 0}{' '}
+                              <span className="sub-header">صوت</span>
                             </div>
                             <div className="m-30-l">
-                              12345 <span className="sub-header">تعليق</span>
+                              {profile.comments || 0}{' '}
+                              <span className="sub-header">تعليق</span>
                             </div>
                             <div className="m-30-l">
-                              12345 <span className="sub-header">متابع</span>
+                              {profile.followers || 0}{' '}
+                              <span className="sub-header">متابع</span>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <Button color="primary" outline>
-                        الغاء المتابعة
-                      </Button>
+                      {uid && followed && (
+                        <Button onClick={this.unFollow} color="primary" outline>
+                          الغاء المتابعة
+                        </Button>
+                      )}
+                      {uid && !followed && (
+                        <Button onClick={this.follow} color="primary" outline>
+                          تابع
+                        </Button>
+                      )}
                     </div>
                   </CardBody>
                 </Card>
@@ -58,10 +184,11 @@ class UserInfo extends Component {
                       </Link>
                     </div>
                     <div className="flex flex-col">
-                      <p>فكرة تطوير المناطق السياحية</p>
-                      <p>فكرة تطوير المناطق السياحية</p>
-                      <p>فكرة تطوير المناطق السياحية</p>
-                      <p>فكرة تطوير المناطق السياحية</p>
+                      {voted.length > 0 ? (
+                        voted.map(item => <p key={item.nid}>{item.title}</p>)
+                      ) : (
+                        <p>لم يقم بالتصويت علي أي فكرة</p>
+                      )}
                     </div>
                   </CardBody>
                 </Card>
@@ -71,9 +198,7 @@ class UserInfo extends Component {
                 <Card>
                   <CardBody className="card-not">
                     <div className="flex flex-justifiy-sp m-25-b">
-                      <h6 className="sub-header">
-                        الافكار التي قام بالتصويت عليها
-                      </h6>
+                      <h6 className="sub-header">تعليقات تم الاعجاب عليها</h6>
                       <Link href="/">
                         <Button color="primary" outline>
                           عرض الكل
@@ -81,10 +206,13 @@ class UserInfo extends Component {
                       </Link>
                     </div>
                     <div className="flex flex-col">
-                      <p>فكرة تطوير المناطق السياحية</p>
-                      <p>فكرة تطوير المناطق السياحية</p>
-                      <p>فكرة تطوير المناطق السياحية</p>
-                      <p>فكرة تطوير المناطق السياحية</p>
+                      {commented.length > 0 ? (
+                        commented.map(item => (
+                          <p key={item.nid}>{item.title}</p>
+                        ))
+                      ) : (
+                        <p>لم يقم بالتعليق علي أي فكرة</p>
+                      )}
                     </div>
                   </CardBody>
                 </Card>
@@ -102,31 +230,21 @@ class UserInfo extends Component {
                       </Link>
                     </div>
                     <div className="flex flex-col">
-                      <div className="flex flex-nowrap flex-align-base">
-                        <span className="icon-primary">
-                          <i className="fa fa-money fa-lg " />
-                        </span>
-                        <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      </div>
-                      <div className="flex flex-nowrap flex-align-base">
-                        <span className="icon-primary">
-                          <i className="fa fa-money fa-lg " />
-                        </span>
-                        <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      </div>
-                      <div className="flex flex-nowrap flex-align-base">
-                        <span className="icon-primary">
-                          <i className="fa fa-money fa-lg " />
-                        </span>
-                        <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      </div>
-                      <div className="flex flex-nowrap flex-align-base">
-                        <span className="icon-primary">
-                          {' '}
-                          <i className="fa fa-money fa-lg " />{' '}
-                        </span>
-                        <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      </div>
+                      {badges.length > 0 ? (
+                        badges.map(item => (
+                          <div
+                            key={item.nid}
+                            className="flex flex-nowrap flex-align-base"
+                          >
+                            <span className="icon-primary">
+                              <i className="fa fa-money fa-lg " />
+                            </span>
+                            <p>{item.title}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <p>لم يحصل علي جوائز</p>
+                      )}
                     </div>
                   </CardBody>
                 </Card>
@@ -143,11 +261,11 @@ class UserInfo extends Component {
                       </Link>
                     </div>
                     <div className="flex flex-col">
-                      <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
-                      <p>جائزة قرار تقليل حوادث السير في الشارع العام</p>
+                      {awards.length > 0 ? (
+                        awards.map(item => <p key={item.nid}>{item.title}</p>)
+                      ) : (
+                        <p>لم يحصل علي جوائز</p>
+                      )}
                     </div>
                   </CardBody>
                 </Card>
@@ -160,4 +278,5 @@ class UserInfo extends Component {
   }
 }
 
-export default UserInfo;
+const mapStateToProps = ({ uid, token }) => ({ uid, token });
+export default connect(mapStateToProps)(UserInfo);

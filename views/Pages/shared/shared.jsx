@@ -59,7 +59,6 @@ class Shared extends Component {
 
   render() {
     const { votes, comments, likes } = this.state;
-    console.log(votes, comments, likes);
     return (
       <>
         <ClientSidebar />
@@ -145,5 +144,6 @@ class Shared extends Component {
     );
   }
 }
+
 const mapStateToProps = ({ uid, token }) => ({ uid, token });
 export default connect(mapStateToProps)(Shared);

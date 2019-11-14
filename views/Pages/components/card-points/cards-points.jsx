@@ -19,14 +19,15 @@ const CardPoints = ({
   icon,
   isDarkCard,
   content,
-  link
+  link,
+  uid
 }) => (
   <Card className={isDarkCard ? 'dark-card card-points' : 'card-points'}>
     <CardHeader>
       <div className="flex-header-points">
         <CardImg top width="100%" src={avatar} alt="Card image cap" />
         <div className="user-info">
-          <Link href="/user-profile/userid">
+          <Link href={`/user-profile/${uid}`}>
             <a className="sub-header name">{name}</a>
           </Link>
           <span className="points">{points} نقطة</span>

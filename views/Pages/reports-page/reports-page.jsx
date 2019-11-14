@@ -123,6 +123,7 @@ class About extends Component {
                         avatar={user.picture}
                         name={user.full_name || user.name}
                         points={user.awards}
+                        uid={user.uid}
                       />
                     </Col>
                   ))}
@@ -152,7 +153,7 @@ class About extends Component {
                         <div className="flex flex-justifiy-sp">
                           <span className="sub-header">{draft.end_date}</span>
                           <span className="sub-header">
-                            <i className="fa fa-comment" /> {draft.comments}
+                            <i className="fa fa-comment" /> {draft.comments}{' '}
                             تعليق
                           </span>
                         </div>
@@ -180,6 +181,7 @@ class About extends Component {
                         avatar={user.picture}
                         name={user.full_name || user.name}
                         points={user.awards}
+                        uid={user.uid}
                         content="اسم الجائزة"
                       />
                     </Col>
