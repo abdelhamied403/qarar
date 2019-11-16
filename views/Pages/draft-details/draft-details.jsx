@@ -41,7 +41,7 @@ class DraftDetails extends Component {
   componentDidMount() {
     this.getDraft();
     this.getComments();
-    this.flagged();
+    this.isFollowed();
     Events.scrollEvent.register('begin', function() {
       // console.log('begin', arguments);
     });
@@ -114,11 +114,13 @@ class DraftDetails extends Component {
     }
   };
 
-  flagged = async () => {
+  isFollowed = async () => {
     const { uid, draftId } = this.props;
-    const response = await Api.get(
-      `/qarar_api/isflagged/follow/${draftId}/${uid}?_format=json`
-    );
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'follow',
+      uid,
+      id: draftId
+    });
     // console.log(response);
 
     if (response.ok) {
@@ -131,7 +133,7 @@ class DraftDetails extends Component {
     }
   };
 
-  flag = async () => {
+  follow = async () => {
     const { uid, token, draftId } = this.props;
     const { flagged } = this.state;
     const data = {
@@ -144,7 +146,7 @@ class DraftDetails extends Component {
       headers: { 'X-CSRF-Token': token }
     });
     if (response.ok) {
-      this.flagged();
+      this.isFollowed();
     }
   };
 
@@ -248,7 +250,7 @@ class DraftDetails extends Component {
                     {uid && (
                       <Button
                         color="primary"
-                        onClick={() => this.flag()}
+                        onClick={() => this.follow()}
                         outline={!flagged}
                       >
                         {flagged ? 'إلغاء المتابعة' : 'متابعة'}

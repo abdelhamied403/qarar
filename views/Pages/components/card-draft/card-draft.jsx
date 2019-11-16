@@ -39,6 +39,10 @@ class CardDraft extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getIsFlagged();
+  }
+
   setContent() {
     return this.props.content;
   }
@@ -54,21 +58,58 @@ class CardDraft extends Component {
 
   vote = async type => {
     const { id, uid, token, refetch } = this.props;
+    const { voting } = this.state;
     const item = {
       type,
-      action: 'flag',
+      action: voting[type === 'like' ? 'up' : 'down'] ? 'unflag' : 'flag',
       id,
       uid
     };
+    const item2 = {
+      type: type === 'like' ? 'dislike' : 'like',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { 'X-CSRF-Token': token }
+    });
     const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
       headers: { 'X-CSRF-Token': token }
     });
     if (response.ok) {
-      if (refetch) {
-        refetch();
-      }
+      this.getIsFlagged();
     }
-    console.log(response);
+  };
+
+  getIsFlagged = async () => {
+    const { id, uid, token } = this.props;
+    const { voting } = this.state;
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'like',
+      uid,
+      id
+    });
+    const response2 = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'dislike',
+      uid,
+      id
+    });
+    if (response.ok && response2.ok) {
+      this.setState({
+        voting: {
+          ...voting,
+          up:
+            response.data && response.data.data
+              ? response.data.data.flagged
+              : false,
+          down:
+            response2.data && response2.data.data
+              ? response2.data.data.flagged
+              : false
+        }
+      });
+    }
   };
 
   render() {

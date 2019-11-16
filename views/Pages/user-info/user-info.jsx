@@ -120,8 +120,6 @@ class UserInfo extends Component {
   render() {
     const { profile, followed, voted, commented, awards, badges } = this.state;
     const { uid } = this.props;
-    console.log(awards, badges);
-
     return (
       <>
         <div className="user-profile">
