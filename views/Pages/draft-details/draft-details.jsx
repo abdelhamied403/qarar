@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './draft-details.css';
-import { Container, Col, Row, Button, Media } from 'reactstrap';
+import { Container, Col, Row, Button, Media, Alert } from 'reactstrap';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import Pagination from 'rc-pagination';
@@ -34,7 +34,8 @@ class DraftDetails extends Component {
       items: [],
       comments: [],
       commentPage: 1,
-      flagged: false
+      flagged: false,
+      successComment: false
     };
   }
 
@@ -167,12 +168,11 @@ class DraftDetails extends Component {
         headers: { 'X-CSRF-Token': token }
       }
     );
-    console.log(response);
-
     if (response.ok) {
-      this.setState({ comment: '' });
+      this.setState({ comment: '', successComment: true });
       this.getDraft();
       this.getComments();
+      setTimeout(() => this.setState({ successComment: false }), 3000);
     }
   };
 
@@ -202,11 +202,10 @@ class DraftDetails extends Component {
       items,
       comments,
       comment: commentText,
-      flagged
+      flagged,
+      successComment
     } = this.state;
     const { uid } = this.props;
-    // console.log(items, draft);
-    console.log(comments);
 
     return (
       <>
@@ -332,6 +331,11 @@ class DraftDetails extends Component {
             )}
           </div>
           <Element name="test1" className="element">
+            {successComment && (
+              <Alert color="success">
+                تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+              </Alert>
+            )}
             {!uid ? (
               this.noAccess()
             ) : (

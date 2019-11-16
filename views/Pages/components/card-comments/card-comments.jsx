@@ -13,27 +13,57 @@ const propTypes = {
 const defaultProps = {};
 
 class CardComments extends Component {
-  flagged = async commentId => {
+  constructor() {
+    super();
+    this.state = {
+      commentsArray: []
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { commentsArray } = prevProps;
+    if (commentsArray !== this.props.commentsArray) {
+      this.setState(
+        {
+          commentsArray: commentsArray.map(comment => ({
+            ...comment,
+            flagged: false
+          }))
+        },
+        () => commentsArray.map((cm, index) => this.flagged(cm.id, index))
+      );
+    }
+  }
+
+  flagged = async (commentId, index) => {
     const { uid } = this.props;
-    const response = await Api.get(
-      `/qarar_api/isflagged/follow/${draftId}/${uid}?_format=json`
-    );
-    // console.log(response);
+    const { commentsArray } = this.state;
+    let newComments = [];
+    newComments = commentsArray;
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'like_comment',
+      uid,
+      id: commentId
+    });
 
     if (response.ok) {
-      const {
-        data: {
-          data: { flagged }
-        }
-      } = response;
-      return flagged;
+      try {
+        const {
+          data: {
+            data: { flagged }
+          }
+        } = response;
+
+        newComments[index] = { ...newComments[index], flagged };
+        this.setState({ commentsArray: newComments });
+      } catch (error) {}
     }
   };
 
-  flag = async (commentId, flagged) => {
+  flag = async (commentId, index, flagged) => {
     const { uid, token } = this.props;
     const data = {
-      type: 'like',
+      type: 'like_comment',
       action: flagged ? 'unflag' : 'flag',
       id: commentId,
       uid
@@ -42,17 +72,17 @@ class CardComments extends Component {
       headers: { 'X-CSRF-Token': token }
     });
     if (response.ok) {
-      this.flagged();
+      this.flagged(commentId, index);
     }
   };
 
   render() {
     // eslint-disable-next-line
-    const { commentsArray } = this.props;
+    const { commentsArray } = this.state;
 
     return (
       <div>
-        {commentsArray.map(ca => {
+        {commentsArray.map((ca, index) => {
           return (
             <Card className="card-comments">
               <CardBody>
@@ -70,9 +100,21 @@ class CardComments extends Component {
                   </div>
                   <div className="comment">
                     <div className="d-flex align-items-start justify-content-between ">
-                      <p>{ca.content}</p>
+                      <div>{ca.content}</div>
                       <div>
-                        <i className="fa fa-heart primary-icon" />
+                        <a
+                          href=""
+                          style={{ color: '#C2C6CA' }}
+                          onClick={e => {
+                            this.flag(ca.id, index, ca.flagged);
+                            e.preventDefault();
+                          }}
+                        >
+                          <i
+                            className={`fa fa-heart ${ca.flagged &&
+                              'primary-icon'}`}
+                          />
+                        </a>
                       </div>
                     </div>
                     <div>
@@ -105,11 +147,7 @@ class CardComments extends Component {
                           </div>
                         </div>
                         <div>
-                          {caShild.like || 0}{' '}
-                          <i
-                            onClick={() => this.flag()}
-                            className="fa fa-heart"
-                          />
+                          {caShild.like || 0} <i className="fa fa-heart" />
                           {caShild.share || 0} <i className="fa fa-share" />
                         </div>
                       </div>

@@ -173,7 +173,7 @@ class CardDraft extends Component {
                 )}
               </div>
               <div className="moaad">
-                <p>
+                <div>
                   {renderHTML(content || '')}
                   {link ? (
                     <Link href={link}>
@@ -182,7 +182,7 @@ class CardDraft extends Component {
                   ) : (
                     ''
                   )}
-                </p>
+                </div>
               </div>
             </div>
             {votes ? (
