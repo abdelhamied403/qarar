@@ -20,19 +20,23 @@ class CardComments extends Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    const { commentsArray } = prevProps;
-    if (commentsArray !== this.props.commentsArray) {
-      this.setState(
-        {
-          commentsArray: commentsArray.map(comment => ({
-            ...comment,
-            flagged: false
-          }))
-        },
-        () => commentsArray.map((cm, index) => this.flagged(cm.id, index))
-      );
-    }
+  componentDidMount() {
+    this.setComments();
+  }
+
+  setComments() {
+    const { commentsArray } = this.props;
+    console.log('didMount');
+
+    this.setState(
+      {
+        commentsArray: commentsArray.map(comment => ({
+          ...comment,
+          flagged: false
+        }))
+      },
+      () => commentsArray.map((cm, index) => this.flagged(cm.id, index))
+    );
   }
 
   flagged = async (commentId, index) => {
@@ -79,6 +83,7 @@ class CardComments extends Component {
   render() {
     // eslint-disable-next-line
     const { commentsArray } = this.state;
+    console.log(commentsArray);
 
     return (
       <div>
@@ -118,7 +123,7 @@ class CardComments extends Component {
                       </div>
                     </div>
                     <div>
-                      {ca.likes || 0}
+                      {ca.like || 0}
                       <i className="fa fa-heart" />
                       {(ca.comments && ca.comments.length) || 0}
                       <i className="fa fa-share" />

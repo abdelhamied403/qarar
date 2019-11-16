@@ -351,26 +351,28 @@ class DraftDetails extends Component {
               />
             )}
           </Element>
-          <CardComments
-            commentsArray={comments.map(comment => ({
-              id: comment.cid,
-              avatar: comment.owner_image,
-              name: comment.full_name,
-              like: '33',
-              share: '2',
-              content: comment.comment_body,
-              comments: comment.children
-                ? comment.children.map(childComment => ({
-                    id: childComment.cid,
-                    avatar: childComment.owner_image,
-                    name: childComment.full_name,
-                    like: '33',
-                    share: '2',
-                    content: childComment.comment_body
-                  }))
-                : []
-            }))}
-          />
+          {comments && comments.length && (
+            <CardComments
+              commentsArray={comments.map(comment => ({
+                id: comment.cid,
+                avatar: comment.owner_image,
+                name: comment.full_name,
+                like: comment.likes,
+                share: '2',
+                content: comment.comment_body,
+                comments: comment.children
+                  ? comment.children.map(childComment => ({
+                      id: childComment.cid,
+                      avatar: childComment.owner_image,
+                      name: childComment.full_name,
+                      like: childComment.likes,
+                      share: '2',
+                      content: childComment.comment_body
+                    }))
+                  : []
+              }))}
+            />
+          )}
         </Container>
       </>
     );
