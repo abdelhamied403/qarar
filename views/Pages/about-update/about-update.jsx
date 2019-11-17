@@ -116,14 +116,14 @@ class AboutUpdate extends Component {
   };
 
   saveUser = async () => {
-    const { uid, token } = this.props;
+    const { uid, accessToken } = this.props;
     const { user } = this.state;
     const { field_full_name } = user;
     const response = await Api.patch(
       `/user/${uid}?_format=json`,
       { field_full_name },
       {
-        headers: { 'X-CSRF-Token': token }
+        headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
     console.log(response);
@@ -462,5 +462,5 @@ class AboutUpdate extends Component {
     );
   }
 }
-const mapStateToProps = ({ uid, token }) => ({ uid, token });
+const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
 export default connect(mapStateToProps)(AboutUpdate);

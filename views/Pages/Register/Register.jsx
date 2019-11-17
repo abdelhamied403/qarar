@@ -41,8 +41,8 @@ class Register extends Component {
   }
 
   componentDidMount() {
-    const { token } = this.props;
-    if (token) {
+    const { accessToken } = this.props;
+    if (accessToken) {
       Router.push('/me/about');
     }
     this.getCities();
@@ -448,5 +448,5 @@ class Register extends Component {
     );
   }
 }
-const mapStateToProps = ({ token }) => ({ token });
+const mapStateToProps = ({ accessToken }) => ({ accessToken });
 export default connect(mapStateToProps)(Register);

@@ -57,7 +57,7 @@ class CardDraft extends Component {
   }
 
   vote = async type => {
-    const { id, uid, token, refetch } = this.props;
+    const { id, uid, accessToken, refetch } = this.props;
     const { voting } = this.state;
     const item = {
       type,
@@ -72,10 +72,10 @@ class CardDraft extends Component {
       uid
     };
     await Api.post(`/qarar_api/flag?_format=json`, item2, {
-      headers: { 'X-CSRF-Token': token }
+      headers: { Authorization: `Bearer ${accessToken}` }
     });
     const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
-      headers: { 'X-CSRF-Token': token }
+      headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (response.ok) {
       this.getIsFlagged();
@@ -83,7 +83,7 @@ class CardDraft extends Component {
   };
 
   getIsFlagged = async () => {
-    const { id, uid, token } = this.props;
+    const { id, uid, accessToken } = this.props;
     const { voting } = this.state;
     const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
       type: 'like',
@@ -256,5 +256,5 @@ class CardDraft extends Component {
 CardDraft.propTypes = propTypes;
 CardDraft.defaultProps = defaultProps;
 
-const mapStateToProps = ({ uid, token }) => ({ uid, token });
+const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
 export default connect(mapStateToProps)(CardDraft);

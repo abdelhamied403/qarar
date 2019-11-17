@@ -11,7 +11,7 @@ const Login = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const token = useSelector(state => state.token);
+  const token = useSelector(state => state.accessToken);
   useEffect(() => {
     if (token) {
       Router.push('/me/about');
@@ -34,7 +34,8 @@ const Login = () => {
         uid: response.data.current_user.uid,
         name: response.data.current_user.name,
         token: response.data.csrf_token,
-        logoutToken: response.data.logout_token
+        logoutToken: response.data.logout_token,
+        accessToken: response.data.access_token
       });
     } else {
       setError(response.data.message);

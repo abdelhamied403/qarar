@@ -135,7 +135,7 @@ class DraftDetails extends Component {
   };
 
   follow = async () => {
-    const { uid, token, draftId } = this.props;
+    const { uid, accessToken, draftId } = this.props;
     const { flagged } = this.state;
     const data = {
       type: 'follow',
@@ -144,7 +144,7 @@ class DraftDetails extends Component {
       uid
     };
     const response = await Api.post(`/qarar_api/flag?_format=json`, data, {
-      headers: { 'X-CSRF-Token': token }
+      headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (response.ok) {
       this.isFollowed();
@@ -152,7 +152,7 @@ class DraftDetails extends Component {
   };
 
   saveComment = async () => {
-    const { draftId, token } = this.props;
+    const { draftId, accessToken } = this.props;
     const { comment } = this.state;
 
     const data = {
@@ -165,7 +165,7 @@ class DraftDetails extends Component {
       `/qarar_api/post-comment?_format=json`,
       data,
       {
-        headers: { 'X-CSRF-Token': token }
+        headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
     if (response.ok) {
@@ -378,5 +378,5 @@ class DraftDetails extends Component {
     );
   }
 }
-const mapStateToProps = ({ uid, token }) => ({ uid, token });
+const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
 export default connect(mapStateToProps)(DraftDetails);

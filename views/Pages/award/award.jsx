@@ -144,5 +144,5 @@ class Award extends Component {
     );
   }
 }
-const mapStateToProps = ({ uid, token }) => ({ uid, token });
+const mapStateToProps = ({ uid }) => ({ uid });
 export default connect(mapStateToProps)(Award);

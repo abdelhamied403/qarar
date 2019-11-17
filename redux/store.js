@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 const initialState = {
   token: '',
   logoutToken: '',
+  accessToken: '',
   name: '',
   uid: ''
 };
@@ -17,6 +18,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         token: action.token,
         logoutToken: action.logoutToken,
+        accessToken: action.accessToken,
         name: action.name,
         uid: action.uid
       };

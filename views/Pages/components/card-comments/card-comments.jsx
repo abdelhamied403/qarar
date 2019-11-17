@@ -65,7 +65,7 @@ class CardComments extends Component {
   };
 
   flag = async (commentId, index, flagged) => {
-    const { uid, token } = this.props;
+    const { uid, accessToken } = this.props;
     const data = {
       type: 'like_comment',
       action: flagged ? 'unflag' : 'flag',
@@ -73,7 +73,7 @@ class CardComments extends Component {
       uid
     };
     const response = await Api.post(`/qarar_api/flag?_format=json`, data, {
-      headers: { 'X-CSRF-Token': token }
+      headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (response.ok) {
       this.flagged(commentId, index);
@@ -191,5 +191,5 @@ class CardComments extends Component {
 
 CardComments.propTypes = propTypes;
 CardComments.defaultProps = defaultProps;
-const mapStateToProps = ({ uid, token }) => ({ uid, token });
+const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
 export default connect(mapStateToProps)(CardComments);
