@@ -37,6 +37,7 @@ const Login = () => {
         logoutToken: response.data.logout_token,
         accessToken: response.data.access_token
       });
+      Router.push('/me/about');
     } else {
       setError(response.data.message);
     }

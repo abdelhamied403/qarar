@@ -3,7 +3,6 @@ import './draft-details.css';
 import { Container, Col, Row, Button, Media, Alert } from 'reactstrap';
 import Link from 'next/link';
 import { connect } from 'react-redux';
-import Pagination from 'rc-pagination';
 import moment from 'moment';
 import {
   Link as ScrollLink,
@@ -11,7 +10,6 @@ import {
   Element,
   Events,
   animateScroll as scroll,
-  scrollSpy,
   scroller
 } from 'react-scroll';
 import CardDraft from '../components/card-draft/card-draft';

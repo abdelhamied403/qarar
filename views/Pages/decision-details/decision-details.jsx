@@ -15,7 +15,8 @@ class DecisionDetails extends Component {
     super();
     this.state = {
       draft: {
-        tags: []
+        tags: [],
+        body: ''
       },
       items: [],
       comments: []
@@ -32,7 +33,6 @@ class DecisionDetails extends Component {
     const draftResponse = await Api.get(
       `/qarar_api/load/node/${draftId}?_format=json`
     );
-    console.log(draftResponse);
 
     if (draftResponse.ok) {
       const { items, data } = draftResponse.data;
@@ -116,7 +116,7 @@ class DecisionDetails extends Component {
           <div className="description">
             <h5>الوصف</h5>
             <CardDraftDetails
-              header={draft.title}
+              header=""
               content={draft.body}
               tags={draft.tags.map(item => ({ tag: item.name, id: item.id }))}
               date="12/4/2019"
