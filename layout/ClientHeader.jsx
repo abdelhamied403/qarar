@@ -155,7 +155,7 @@ class ClientHeader extends React.Component {
           ) : (
             <div className="action-buttons">
               <Link href="/register">
-                <a className="white-link scale-hover">انشاء حساب</a>
+                <a className="white-link scale-hover">انشاء حساب </a>
               </Link>
               {/* <a href="#"></a> */}
               <Link href="/login">
