@@ -10,7 +10,8 @@ import {
   Input,
   FormGroup,
   Label,
-  FormText
+  FormText,
+  Alert
 } from 'reactstrap';
 import Link from 'next/link';
 import { connect } from 'react-redux';
@@ -25,7 +26,8 @@ class AboutUpdate extends Component {
       cities: [],
       eLevels: {},
       labors: {},
-      maritals: {}
+      maritals: {},
+      pass: [{ existing: '', value: '' }]
     };
   }
 
@@ -116,17 +118,40 @@ class AboutUpdate extends Component {
   };
 
   saveUser = async () => {
+    this.setState({ successSave: false, errorSave: false });
     const { uid, accessToken } = this.props;
     const { user } = this.state;
-    const { field_full_name } = user;
+    const response = await Api.patch(`/user/${uid}?_format=json`, user, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.setState({ successSave: true });
+    } else {
+      this.setState({ errorSave: true });
+    }
+  };
+
+  savePassword = async () => {
+    this.setState({ successSavePassword: false, errorSavePassword: false });
+    const { uid, accessToken } = this.props;
+    const { pass } = this.state;
+    console.log(pass);
+
     const response = await Api.patch(
       `/user/${uid}?_format=json`,
-      { field_full_name },
+      { pass },
       {
         headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
-    console.log(response);
+    if (response.ok) {
+      this.setState({
+        successSavePassword: true,
+        pass: [{ existing: '', value: '' }]
+      });
+    } else {
+      this.setState({ errorSavePassword: true });
+    }
   };
 
   render() {
@@ -137,7 +162,12 @@ class AboutUpdate extends Component {
       maritals,
       countries,
       cities,
-      eLevels
+      eLevels,
+      successSave,
+      errorSave,
+      successSavePassword,
+      errorSavePassword,
+      pass
     } = this.state;
     return (
       <>
@@ -166,6 +196,12 @@ class AboutUpdate extends Component {
                 </Button>
               </div>
             </div>
+            {successSave && (
+              <Alert color="success">تم حفظ البيانات بنجاح</Alert>
+            )}
+            {errorSave && (
+              <Alert color="danger">حدث خطأ ما أثناء حفظ البيانات</Alert>
+            )}
             <div className="userinfo flex flex-align-center m-50-b">
               <Media
                 object
@@ -415,6 +451,12 @@ class AboutUpdate extends Component {
                 </div>
               </Col>
               <Col xs="12">
+                {successSavePassword && (
+                  <Alert color="success">تم تغيير كلمة السر بنجاح</Alert>
+                )}
+                {errorSavePassword && (
+                  <Alert color="danger">حدث خطأ ما أثناء حفظ كلمة السر</Alert>
+                )}
                 <div className="about-update-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header m-50-b">تغيير كلمة المرور</h6>
                   <FormGroup row>
@@ -428,6 +470,12 @@ class AboutUpdate extends Component {
                         name="password-input"
                         placeholder="اكتب كلمة السر التي تود تغييرها هنا"
                         autoComplete="new-password"
+                        onChange={e =>
+                          this.setState({
+                            pass: [{ ...pass[0], existing: e.target.value }]
+                          })
+                        }
+                        value={pass && pass[0].existing}
                       />
                     </Col>
                   </FormGroup>
@@ -442,6 +490,12 @@ class AboutUpdate extends Component {
                         name="password-input"
                         placeholder="لوريم ايبسوم دولار سيت أميت"
                         autoComplete="new-password"
+                        onChange={e =>
+                          this.setState({
+                            pass: [{ ...pass[0], value: e.target.value }]
+                          })
+                        }
+                        value={pass && pass[0].value}
                       />
                       <FormText className="help-block red">
                         ٧ أحرف أو أكثر بالإضافة لرقم
@@ -449,7 +503,7 @@ class AboutUpdate extends Component {
                     </Col>
                   </FormGroup>
                   <div className="flex flex-justifiy-end">
-                    <Button color="primary" outline>
+                    <Button color="primary" onClick={this.savePassword} outline>
                       تغيير كلمة السر
                     </Button>
                   </div>
