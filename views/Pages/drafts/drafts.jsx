@@ -10,7 +10,7 @@ import {
   TabPane
 } from 'reactstrap';
 import Pagination from 'rc-pagination';
-
+import { connect } from 'react-redux';
 import './drafts.css';
 import CardDraft from '../components/card-draft/card-draft';
 
@@ -40,6 +40,7 @@ class Drafts extends Component {
   }
 
   getDrafts = async () => {
+    const { accessToken } = this.props;
     const { page, draftsPageSize } = this.state;
     const draftCountResponse = await Api.get(
       `/qarar_api/count/draft?_format=json`
@@ -47,15 +48,24 @@ class Drafts extends Component {
     if (draftCountResponse.ok) {
       this.setState({ draftCount: draftCountResponse.data });
     }
-    const draftsResponse = await Api.get(
-      `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
-    );
+    const draftsResponse = accessToken
+      ? await Api.get(
+          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
+      : await Api.get(
+          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
+        );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data });
     }
   };
 
   getItems = async () => {
+    const { accessToken } = this.props;
     const { itemsPage, itemsPageSize } = this.state;
     const itemsCountResponse = await Api.get(
       `/qarar_api/count/item?_format=json`
@@ -63,9 +73,17 @@ class Drafts extends Component {
     if (itemsCountResponse.ok) {
       this.setState({ itemsCount: itemsCountResponse.data });
     }
-    const itemsResponse = await Api.get(
-      `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
-    );
+    const itemsResponse = accessToken
+      ? await Api.get(
+          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
+      : await Api.get(
+          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
+        );
     if (itemsResponse.ok) {
       this.setState({ items: itemsResponse.data });
     }
@@ -177,6 +195,8 @@ class Drafts extends Component {
       itemsPage,
       itemsPageSize
     } = this.state;
+    console.log(drafts);
+
     return (
       <div className="drafts">
         <div className="draftHeader">
@@ -229,10 +249,12 @@ class Drafts extends Component {
                       refetch={() => this.getDrafts()}
                       subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
                       content={draft.body.substr(0, 100)}
-                      votes={parseInt(draft.likes, 10) || '0'}
+                      votes={draft.likes || '0'}
                       date={draft.end_date}
                       link={`/draft-details/${draft.id}`}
                       tags={[{ tag: 'نقل', id: 1 }]}
+                      liked={draft.liked}
+                      disliked={draft.disliked}
                       subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                     />
                   ))}
@@ -301,5 +323,5 @@ class Drafts extends Component {
     );
   }
 }
-
-export default Drafts;
+const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
+export default connect(mapStateToProps)(Drafts);

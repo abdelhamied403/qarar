@@ -40,7 +40,16 @@ class CardDraft extends Component {
   }
 
   componentDidMount() {
-    this.getIsFlagged();
+    // this.getIsFlagged();
+    const { liked, disliked } = this.props;
+    if (liked && disliked) {
+      this.setState({
+        voting: {
+          up: liked.flagged,
+          down: disliked.flagged
+        }
+      });
+    }
   }
 
   setContent() {
