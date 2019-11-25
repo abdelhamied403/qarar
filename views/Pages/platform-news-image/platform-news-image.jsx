@@ -60,7 +60,6 @@ class DecisionDraft extends Component {
     const newsResponse = await Api.get(
       `/qarar_api/load/node/${newsId}?_format=json`
     );
-    console.log(newsResponse);
 
     if (newsResponse.ok) {
       const { data } = newsResponse.data;

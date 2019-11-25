@@ -318,7 +318,6 @@ class Decision extends Component {
       archivedCount,
       archivedPageSize
     } = this.state;
-    console.log(appliedItems);
 
     return (
       <>

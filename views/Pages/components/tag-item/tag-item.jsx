@@ -19,7 +19,6 @@ class TagItem extends Component {
     await this.setState({
       isHovered: state
     });
-    console.log(this.state.isHovered);
   }
 
   render() {

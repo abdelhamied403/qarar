@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 
 import './card-points-edit.css';
+
 const propTypes = {
   children: PropTypes.node
 };
@@ -20,12 +21,12 @@ class CardPointsEdit extends Component {
     super(props);
     this.state = { isHovered: false };
   }
+
   async setButtonHovered(state) {
     if (this.props.noHover) return;
     await this.setState({
       isHovered: state
     });
-    console.log(this.state.isHovered);
   }
 
   render() {
@@ -56,36 +57,35 @@ class CardPointsEdit extends Component {
           </div>
         </div>
       );
-    } else {
-      return (
-        <>
-          <div className="flex flex-col card-dark-wait">
-            <h6>{name}</h6>
-            <span className="sub-header">بانتظار الموافقة</span>
-            <div className="flex flex-justifiy-end gray">
-              <InputGroupButtonDropdown
-                isOpen={this.state.fourth}
-                toggle={() => {
-                  this.setState({ fourth: !this.state.fourth });
-                }}
-              >
-                <DropdownToggle
-                  className="gray"
-                  color="link"
-                  style={{ height: 'auto', width: '5px' }}
-                >
-                  <i className="fa fa-ellipsis-h"></i>
-                </DropdownToggle>
-                <DropdownMenu className={this.state.fourth ? 'show' : ''}>
-                  <DropdownItem>اعادة ارسال</DropdownItem>
-                  <DropdownItem>الغاء الدعوة</DropdownItem>
-                </DropdownMenu>
-              </InputGroupButtonDropdown>
-            </div>
-          </div>
-        </>
-      );
     }
+    return (
+      <>
+        <div className="flex flex-col card-dark-wait">
+          <h6>{name}</h6>
+          <span className="sub-header">بانتظار الموافقة</span>
+          <div className="flex flex-justifiy-end gray">
+            <InputGroupButtonDropdown
+              isOpen={this.state.fourth}
+              toggle={() => {
+                this.setState({ fourth: !this.state.fourth });
+              }}
+            >
+              <DropdownToggle
+                className="gray"
+                color="link"
+                style={{ height: 'auto', width: '5px' }}
+              >
+                <i className="fa fa-ellipsis-h"></i>
+              </DropdownToggle>
+              <DropdownMenu className={this.state.fourth ? 'show' : ''}>
+                <DropdownItem>اعادة ارسال</DropdownItem>
+                <DropdownItem>الغاء الدعوة</DropdownItem>
+              </DropdownMenu>
+            </InputGroupButtonDropdown>
+          </div>
+        </div>
+      </>
+    );
   }
 }
 

@@ -44,7 +44,6 @@ class AboutUpdate extends Component {
   getUser = async () => {
     const { uid } = this.props;
     const response = await Api.get(`/qarar_api/load/user/${uid}?_format=json`);
-    console.log(response);
 
     if (response.ok) {
       const { data } = response;
@@ -54,8 +53,8 @@ class AboutUpdate extends Component {
         field_job: [{ value: data.job }],
         field_labor_sector: [{ value: data.labor_sector }],
         field_neighborhood: [{ value: data.neighborhood }],
-        field_country: [{ value: data.country }],
-        field_city: [{ value: data.city }],
+        field_country: [{ target_id: data.country }],
+        field_city: [{ target_id: data.city }],
         field_educational_level: [{ value: data.educational_level }],
         field_social_status: [{ value: data.social_status }]
       };
@@ -135,7 +134,6 @@ class AboutUpdate extends Component {
     this.setState({ successSavePassword: false, errorSavePassword: false });
     const { uid, accessToken } = this.props;
     const { pass } = this.state;
-    console.log(pass);
 
     const response = await Api.patch(
       `/user/${uid}?_format=json`,
@@ -260,7 +258,7 @@ class AboutUpdate extends Component {
                       this.setState({
                         user: {
                           ...user,
-                          field_country: [{ value: e.target.value }]
+                          field_country: [{ target_id: e.target.value }]
                         }
                       })
                     }
@@ -287,7 +285,7 @@ class AboutUpdate extends Component {
                       this.setState({
                         user: {
                           ...user,
-                          field_city: [{ value: e.target.value }]
+                          field_city: [{ target_id: e.target.value }]
                         }
                       })
                     }

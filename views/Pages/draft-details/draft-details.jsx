@@ -41,13 +41,9 @@ class DraftDetails extends Component {
     this.getDraft();
     this.getComments();
     this.isFollowed();
-    Events.scrollEvent.register('begin', function() {
-      // console.log('begin', arguments);
-    });
+    Events.scrollEvent.register('begin', function() {});
 
-    Events.scrollEvent.register('end', function() {
-      // console.log('end', arguments);
-    });
+    Events.scrollEvent.register('end', function() {});
   }
 
   scrollToTop() {
@@ -120,7 +116,6 @@ class DraftDetails extends Component {
       uid,
       id: draftId
     });
-    // console.log(response);
 
     if (response.ok) {
       const {

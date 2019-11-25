@@ -6,12 +6,6 @@ import { useRouter } from 'next/router';
 
 import './client.css';
 
-const propTypes = {
-  token: PropTypes.bool.isRequired
-};
-
-const defaultProps = {};
-
 const ClientSidebar = () => {
   const router = useRouter();
   return (
@@ -51,8 +45,5 @@ const ClientSidebar = () => {
     </div>
   );
 };
-
-ClientSidebar.propTypes = propTypes;
-ClientSidebar.defaultProps = defaultProps;
 
 export default ClientSidebar;

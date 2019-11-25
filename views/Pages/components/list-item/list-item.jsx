@@ -19,7 +19,6 @@ class ListItem extends Component {
     await this.setState({
       isHovered: state
     });
-    console.log(this.state.isHovered);
   }
 
   withoutContent(isWide, header, btnColor, btnText) {

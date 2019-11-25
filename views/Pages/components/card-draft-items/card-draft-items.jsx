@@ -69,7 +69,6 @@ class CardDraft extends Component {
         refetch();
       }
     }
-    console.log(response);
   };
 
   renderList = (list, className = '') => (

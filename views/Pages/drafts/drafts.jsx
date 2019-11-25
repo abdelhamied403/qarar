@@ -195,7 +195,6 @@ class Drafts extends Component {
       itemsPage,
       itemsPageSize
     } = this.state;
-    console.log(drafts);
 
     return (
       <div className="drafts">
