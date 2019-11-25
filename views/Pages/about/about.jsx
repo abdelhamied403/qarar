@@ -57,7 +57,7 @@ class About extends Component {
               <h2>معلوماتي الشخصية</h2>
 
               <Link href="/me/update">
-                <Button exact color="primary" outline>
+                <Button color="primary" outline>
                   تعديل المعلومات
                 </Button>
               </Link>

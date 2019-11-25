@@ -87,19 +87,14 @@ class Follow extends Component {
               <CardBody className="card-not">
                 <div className="flex flex-justifiy-sp m-25-b">
                   <h6>المسودات</h6>
-                  <Button
-                    exact
-                    to="/client/me/follow-item"
-                    color="primary"
-                    outline
-                  >
+                  <Button to="/client/me/follow-item" color="primary" outline>
                     عرض و تعديل
                   </Button>
                 </div>
                 <div className="flex flex-col">
                   {drafts.map(item => (
                     <ListItem
-                      key={item.nid}
+                      key={item.id}
                       header="سياسة السماح باستيراد السيارات الكهربائية"
                       btnText="ايقاف المتابعة"
                       btnColor="danger"
@@ -125,9 +120,9 @@ class Follow extends Component {
                 <div className="flex flex-users-card-edit">
                   {users.map(item => (
                     <CardPointsEdit
-                      key={item.uid}
-                      avatar="/static/img/avatar.png"
-                      name="كامل حمد"
+                      key={item.id}
+                      avatar={item.picture || '/static/img/avatar.png'}
+                      name={item.full_name}
                       points="1200"
                     />
                   ))}
@@ -150,7 +145,7 @@ class Follow extends Component {
                 </div>
                 <div className="tags-container flex flex-aligen-center">
                   {tags.map(item => (
-                    <TagItem key={item.nid} tag={item.name} />
+                    <TagItem key={item.id} tag={item.name} />
                   ))}
                 </div>
               </CardBody>

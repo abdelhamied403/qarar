@@ -91,7 +91,6 @@ class Award extends Component {
                     <div className="flex flex-justifiy-sp m-25-b">
                       <h6 className="sub-header">الأوسمة</h6>
                       <Button
-                        exact
                         to="/client/me/award-item"
                         color="primary"
                         outline

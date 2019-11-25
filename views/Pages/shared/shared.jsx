@@ -81,9 +81,7 @@ class Shared extends Component {
                 <div className="flex flex-justifiy-sp m-50-b">
                   <h6>المسودات التي قمت بالتصويت عليها</h6>
                   <Link href="/me/shared">
-                    <a color="primary" outline>
-                      عرض الكل
-                    </a>
+                    <a color="primary">عرض الكل</a>
                   </Link>
                 </div>
                 {votes.map(vote => (
@@ -102,9 +100,7 @@ class Shared extends Component {
                 <div className="flex flex-justifiy-sp m-50-b">
                   <h6>المسودات التي قمت بالتعليق عليها</h6>
                   <Link href="/me/shared">
-                    <a color="primary" outline>
-                      عرض الكل
-                    </a>
+                    <a color="primary">عرض الكل</a>
                   </Link>
                 </div>
                 {comments.map(item => (
@@ -123,9 +119,7 @@ class Shared extends Component {
                 <div className="flex flex-justifiy-sp m-50-b">
                   <h6>تعليقات أعجبتني</h6>
                   <Link href="/me/shared">
-                    <a color="primary" outline>
-                      عرض الكل
-                    </a>
+                    <a color="primary">عرض الكل</a>
                   </Link>
                 </div>
                 {likes.map(item => (

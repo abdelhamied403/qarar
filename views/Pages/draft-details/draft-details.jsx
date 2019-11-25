@@ -118,12 +118,16 @@ class DraftDetails extends Component {
     });
 
     if (response.ok) {
-      const {
-        data: {
-          data: { flagged }
-        }
-      } = response;
-      this.setState({ flagged });
+      try {
+        const {
+          data: {
+            data: { flagged }
+          }
+        } = response;
+        this.setState({ flagged });
+      } catch (error) {
+        this.setState({ flagged: false });
+      }
     }
   };
 
