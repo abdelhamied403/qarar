@@ -246,5 +246,8 @@ class ClientHeader extends React.Component {
 
 ClientHeader.propTypes = propTypes;
 ClientHeader.defaultProps = defaultProps;
-const mapStateToProps = ({ name, profileImage }) => ({ name, profileImage });
+const mapStateToProps = ({ auth: { name, profileImage } }) => ({
+  name,
+  profileImage
+});
 export default connect(mapStateToProps)(withRouter(ClientHeader));

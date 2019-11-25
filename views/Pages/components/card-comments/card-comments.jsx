@@ -189,5 +189,8 @@ class CardComments extends Component {
 
 CardComments.propTypes = propTypes;
 CardComments.defaultProps = defaultProps;
-const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
+const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
+  uid,
+  accessToken
+});
 export default connect(mapStateToProps)(CardComments);

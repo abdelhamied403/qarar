@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Loading from '../components/loading';
 
 const Auth = ({ children }) => {
-  const token = useSelector(state => state.token);
+  const token = useSelector(state => state.auth.accessToken);
   useEffect(() => {
     if (!token) {
       Router.push('/login');

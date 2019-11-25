@@ -149,5 +149,5 @@ class About extends Component {
     );
   }
 }
-const mapStateToProps = ({ uid }) => ({ uid });
+const mapStateToProps = ({ auth: { uid } }) => ({ uid });
 export default connect(mapStateToProps)(About);

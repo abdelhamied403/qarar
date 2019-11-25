@@ -34,5 +34,8 @@ class ClientLayout extends Component {
   }
 }
 
-const mapStateToProps = ({ token, logoutToken }) => ({ token, logoutToken });
+const mapStateToProps = ({ auth: { token, logoutToken } }) => ({
+  token,
+  logoutToken
+});
 export default connect(mapStateToProps)(ClientLayout);

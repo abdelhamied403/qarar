@@ -11,7 +11,7 @@ const Login = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const token = useSelector(state => state.accessToken);
+  const token = useSelector(state => state.auth.accessToken);
   useEffect(() => {
     if (token) {
       Router.push('/me/about');

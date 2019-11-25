@@ -232,5 +232,8 @@ class CardDraft extends Component {
 CardDraft.propTypes = propTypes;
 CardDraft.defaultProps = defaultProps;
 
-const mapStateToProps = ({ uid, accessToken }) => ({ uid, accessToken });
+const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
+  uid,
+  accessToken
+});
 export default connect(mapStateToProps)(CardDraft);

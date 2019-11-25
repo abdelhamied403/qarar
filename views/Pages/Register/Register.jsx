@@ -448,5 +448,5 @@ class Register extends Component {
     );
   }
 }
-const mapStateToProps = ({ accessToken }) => ({ accessToken });
+const mapStateToProps = ({ auth: { accessToken } }) => ({ accessToken });
 export default connect(mapStateToProps)(Register);
