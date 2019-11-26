@@ -250,4 +250,9 @@ const mapStateToProps = ({ auth: { name, profileImage } }) => ({
   name,
   profileImage
 });
-export default connect(mapStateToProps)(withRouter(ClientHeader));
+export default connect(
+  mapStateToProps,
+  null,
+  null,
+  { pure: false }
+)(withRouter(ClientHeader));
