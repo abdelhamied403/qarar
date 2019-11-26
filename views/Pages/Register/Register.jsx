@@ -12,11 +12,17 @@ import {
 import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
+import * as yup from 'yup';
 
 import './Register.css';
 import { isThisISOWeek } from 'date-fns';
 import Api from '../../../api';
 
+const messages = {
+  'No password provided.': 'لم تقم بكتابة كلمة المرور.',
+  'Unprocessable Entity: validation failed.\nname: \u064a\u062c\u0628 \u0623\u0646 \u062a\u062f\u062e\u0644 \u0627\u0633\u0645 \u0645\u0633\u062a\u062e\u062f\u0645.\nname: This value should not be null.\nmail: \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a field is required.\n':
+    'البريد الإلكتروني و الإسم حقول مطلوبة'
+};
 const gendersLabel = {
   male: 'ذكر',
   female: 'أنثي'
@@ -272,12 +278,14 @@ class Register extends Component {
           </Col>
           <Col xs="12" md="9">
             <Input
-              value={user && user.field_city ? user.field_city[0].value : ''}
+              value={
+                user && user.field_city ? user.field_city[0].target_id : ''
+              }
               onChange={e =>
                 this.setState({
                   user: {
                     ...user,
-                    field_city: [{ value: e.target.value }]
+                    field_city: [{ target_id: e.target.value }]
                   }
                 })
               }
@@ -314,17 +322,105 @@ class Register extends Component {
     }
     this.setState({ errorMessage: '', disableSubmit: true });
     const { user } = this.state;
+    const schema = yup.object().shape({
+      name: yup
+        .array()
+        .of(
+          yup.object().shape({
+            value: yup
+              .string()
+              .min(5, 'إسم المستخدم ينبغي أن لا يقل عن ٥ أحرف')
+              .required('حقل إسم المستخدم مطلوب')
+          })
+        )
+        .required('حقل إسم المستخدم مطلوب'),
+      field_full_name: yup
+        .array()
+        .of(
+          yup.object().shape({
+            value: yup
+              .string()
+              .min(5, 'الإسم  ينبغي أن لا يقل عن ٥ أحرف')
+              .required('حقل الإسم مطلوب')
+          })
+        )
+        .required('حقل الإسم مطلوب'),
+      mail: yup
+        .array()
+        .of(
+          yup.object().shape({
+            value: yup
+              .string()
+              .email('البريد الإلكتروني غير صحيح')
+              .required('حقل البريد الإلكتروني مطلوب')
+          })
+        )
+        .required('حقل البريد الإلكتروني مطلوب'),
+      pass: yup
+        .array()
+        .of(
+          yup.object().shape({
+            value: yup
+              .string()
+              .min(6, 'كلمة المرور  ينبغي أن لا يقل عن ٦ أحرف')
+              .required('حقل كلمة المرور مطلوب')
+          })
+        )
+        .required('حقل  كلمة المرور مطلوب'),
+      field_gender: yup
+        .array()
+        .of(
+          yup.object().shape({
+            value: yup.string().required('حقل الجنس مطلوب')
+          })
+        )
+        .required('حقل الجنس مطلوب'),
+      field_educational_level: yup
+        .array()
+        .of(
+          yup.object().shape({
+            value: yup.string().required('حقل المستوي التعليمي مطلوب')
+          })
+        )
+        .required('حقل المستوي التعليمي مطلوب'),
+      field_city: yup
+        .array()
+        .of(
+          yup.object().shape({
+            target_id: yup.number().required('حقل المدينة مطلوب')
+          })
+        )
+        .required('حقل المدينة مطلوب')
+    });
+
+    schema.validate(user).catch(err => {
+      this.setState({
+        errorMessage: err.message,
+        disableSubmit: false
+      });
+    });
+
+    if (!schema.isValidSync(user)) return;
+
     const response = await Api.post('/user/register?_format=json', user);
     if (response.ok) {
       this.setState({
         successMessage: 'تم التسجيل بنجاح بإمكانك تسجيل الدخول'
       });
     } else {
-      this.setState({
-        disableSubmit: false,
-        errorMessage:
-          response.data && response.data.message ? response.data.message : ''
-      });
+      const resMessage =
+        response.data && response.data.message ? response.data.message : '';
+      if (resMessage && messages.hasOwnProperty(resMessage)) {
+        this.setState({
+          disableSubmit: false,
+          errorMessage: messages[resMessage]
+        });
+      } else {
+        this.setState({
+          disableSubmit: false,
+          errorMessage: 'حدث خطأ ما أثناء التسجيل'
+        });
+      }
     }
   };
 
@@ -401,6 +497,8 @@ class Register extends Component {
       circleState[2] = 'active';
       lineState[2] = 'done';
     }
+    const { user } = this.state;
+    console.log(user);
     return (
       <div className="register-container flex flex-justifiy-center flex-align-stretch">
         <div className="register-content">

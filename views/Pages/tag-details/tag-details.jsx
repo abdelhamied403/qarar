@@ -14,6 +14,15 @@ import CardDraft from '../components/card-draft/card-draft';
 import './tag-details.css';
 
 class TagDetails extends Component {
+  componentDidMount() {
+    this.getTag();
+    this.getDrafts();
+  }
+
+  getTag = async () => {};
+
+  getDrafts = async () => {};
+
   render() {
     return (
       <>
