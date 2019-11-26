@@ -96,13 +96,13 @@ class About extends Component {
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">البلد </h6>
-                  <h4>{user.country || '--'}</h4>
+                  <h4>{(user.country && user.country.name) || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">المدينة</h6>
-                  <h4>{user.city || '--'}</h4>
+                  <h4>{(user.city && user.city.name) || '--'}</h4>
                 </div>
               </Col>
 

@@ -497,8 +497,6 @@ class Register extends Component {
       circleState[2] = 'active';
       lineState[2] = 'done';
     }
-    const { user } = this.state;
-    console.log(user);
     return (
       <div className="register-container flex flex-justifiy-center flex-align-stretch">
         <div className="register-content">

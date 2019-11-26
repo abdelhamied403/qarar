@@ -251,7 +251,14 @@ class Drafts extends Component {
                       votes={draft.likes || '0'}
                       date={draft.end_date}
                       link={`/draft-details/${draft.id}`}
-                      tags={[{ tag: 'نقل', id: 1 }]}
+                      tags={
+                        draft.tags
+                          ? draft.tags.map(tagItem => ({
+                              tag: tagItem.name,
+                              id: tagItem.id
+                            }))
+                          : []
+                      }
                       liked={draft.liked}
                       disliked={draft.disliked}
                       subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"

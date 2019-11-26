@@ -53,8 +53,8 @@ class AboutUpdate extends Component {
         field_job: [{ value: data.job }],
         field_labor_sector: [{ value: data.labor_sector }],
         field_neighborhood: [{ value: data.neighborhood }],
-        field_country: [{ target_id: data.country }],
-        field_city: [{ target_id: data.city }],
+        field_country: [{ target_id: data.country ? data.country.id : '' }],
+        field_city: [{ target_id: data.city ? data.city.id : '' }],
         field_educational_level: [{ value: data.educational_level }],
         field_social_status: [{ value: data.social_status }]
       };
@@ -262,7 +262,9 @@ class AboutUpdate extends Component {
                         }
                       })
                     }
-                    value={user.field_country && user.field_country[0].value}
+                    value={
+                      user.field_country && user.field_country[0].target_id
+                    }
                   >
                     {countries.map(country => (
                       <option key={country.id} value={country.id}>
@@ -289,7 +291,7 @@ class AboutUpdate extends Component {
                         }
                       })
                     }
-                    value={user.field_city && user.field_city[0].value}
+                    value={user.field_city && user.field_city[0].target_id}
                   >
                     {cities.map(city => (
                       <option key={city.id} value={city.id}>
