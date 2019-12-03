@@ -348,7 +348,7 @@ class DraftDetails extends Component {
               />
             )}
           </Element>
-          {comments && comments.length && (
+          {comments && comments.length ? (
             <CardComments
               commentsArray={comments.map(comment => ({
                 id: comment.cid,
@@ -369,7 +369,7 @@ class DraftDetails extends Component {
                   : []
               }))}
             />
-          )}
+          ) : null}
         </Container>
       </>
     );

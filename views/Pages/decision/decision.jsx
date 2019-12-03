@@ -168,7 +168,7 @@ class Decision extends Component {
                           <CardDraft
                             header={item.title}
                             subHeader={`تم التطبيق بتاريخ ${item.applied_date}`}
-                            content={item.body.substr(0, 100)}
+                            content={item.body}
                             tags={item.tags.map(tag => ({
                               tag: tag.name.substr(0, 20),
                               id: tag.id
@@ -207,7 +207,7 @@ class Decision extends Component {
                           <CardDraft
                             header={item.title}
                             subHeader={`تم الأرشفة بتاريخ ${item.archived_date}`}
-                            content={item.body.substr(0, 100)}
+                            content={item.body}
                             tags={
                               item.tags
                                 ? item.tags.map(tag => ({

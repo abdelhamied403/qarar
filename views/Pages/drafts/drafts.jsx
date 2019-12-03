@@ -247,7 +247,7 @@ class Drafts extends Component {
                       header={draft.title}
                       refetch={() => this.getDrafts()}
                       subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
-                      content={draft.body.substr(0, 100)}
+                      content={draft.body}
                       votes={draft.likes || '0'}
                       date={draft.end_date}
                       link={`/draft-details/${draft.id}`}
@@ -292,7 +292,7 @@ class Drafts extends Component {
                       refetch={() => this.getItems()}
                       header={item.title}
                       subHeader={`يغلق التصويت بتاريخ ${item.end_date}`}
-                      content={item.body && item.body.substr(0, 100)}
+                      content={item.body}
                       votes={
                         parseInt(item.likes, 10) +
                           parseInt(item.dislikes, 10) || '0'
