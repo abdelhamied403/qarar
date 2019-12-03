@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './draft-details.css';
 import { Container, Col, Row, Button, Media, Alert } from 'reactstrap';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -33,11 +34,66 @@ class DraftDetails extends Component {
       comments: [],
       commentPage: 1,
       flagged: false,
-      successComment: false
+      successComment: false,
+      loadingDraft: true,
+      skeleton: null
     };
   }
 
   componentDidMount() {
+    const Skeleton = dynamic(() => import('react-loading-skeleton'));
+
+    this.setState({
+      skeleton: (
+        <>
+          <Container className="mt-5 pt-5">
+            <div className="dc-details-header">
+              <Row>
+                <Col sm="12" md="8" lg="9">
+                  <div className="header-content">
+                    <h2>
+                      <Skeleton height={40} count={1} />
+                    </h2>
+                    <div className="sub-header">
+                      <Skeleton count={1} width={200} />
+                    </div>
+                    <div className="button-group">
+                      <Button color="transparent">
+                        <Skeleton count={1} />
+                      </Button>
+                      <Button color="transparent">
+                        <Skeleton count={1} />
+                      </Button>
+                    </div>
+                  </div>
+                </Col>
+                <Col sm="12" md="4" lg="3">
+                  <div className="cards">
+                    <Row>
+                      <Col xs="6">
+                        <Skeleton height={40} count={1} />
+                      </Col>
+                      <Col xs="6">
+                        <Skeleton height={40} count={1} />
+                      </Col>
+                      <Col xs="12">
+                        <Skeleton height={40} count={1} />
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div className="description">
+              <h5>
+                <Skeleton width={500} height={40} count={1} />
+              </h5>
+              <Skeleton count={10} />
+            </div>
+          </Container>
+        </>
+      )
+    });
     this.getDraft();
     this.getComments();
     this.isFollowed();
@@ -94,7 +150,7 @@ class DraftDetails extends Component {
     );
     if (draftResponse.ok) {
       const { items, data } = draftResponse.data;
-      this.setState({ draft: data, items });
+      this.setState({ draft: data, items, loadingDraft: false });
     }
   };
 
@@ -200,10 +256,14 @@ class DraftDetails extends Component {
       comments,
       comment: commentText,
       flagged,
-      successComment
+      successComment,
+      loadingDraft,
+      skeleton
     } = this.state;
     const { uid } = this.props;
-
+    if (loadingDraft) {
+      return skeleton;
+    }
     return (
       <>
         <Breadcrumb title="المسودات المطروحة للنقاش" link="/drafts" />

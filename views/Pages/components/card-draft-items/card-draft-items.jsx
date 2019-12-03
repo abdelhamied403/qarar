@@ -9,7 +9,8 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Media
+  Media,
+  UncontrolledCollapse
 } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import Link from 'next/link';
@@ -91,6 +92,30 @@ class CardDraft extends Component {
     </ul>
   );
 
+  renderItems = list => {
+    console.log(list);
+
+    return list.map(item => (
+      <>
+        <Button
+          block
+          className="text-right justify-content-start"
+          color="primary"
+          id={`i-${item.nid}`}
+          style={{ marginBottom: '1rem' }}
+        >
+          {item.title}
+        </Button>
+        <UncontrolledCollapse toggler={`#i-${item.nid}`}>
+          <Card>
+            <CardBody>{renderHTML(item.body_value || '')}</CardBody>
+            {item.children && this.renderItems(item.children)}
+          </Card>
+        </UncontrolledCollapse>
+      </>
+    ));
+  };
+
   render() {
     // eslint-disable-next-line
     const {
@@ -109,7 +134,7 @@ class CardDraft extends Component {
     return (
       <Card className="card-draft" style={{ borderRightColor: borderColor }}>
         <CardBody>
-          {dropdownList && dropdownList.length > 0 ? (
+          {/* dropdownList && dropdownList.length > 0 ? (
             <div className="dec-details">
               <UncontrolledDropdown>
                 <DropdownToggle caret>
@@ -122,8 +147,10 @@ class CardDraft extends Component {
             </div>
           ) : (
             ''
-          )}
+          ) */}
+          {this.renderItems(dropdownList)}
           <div className="flex-card">
+            {/* 
             <div className="content">
               <div className="header">
                 <h4>{header}</h4>
@@ -160,7 +187,7 @@ class CardDraft extends Component {
                   )}
                 </p>
               </div>
-            </div>
+            </div> */}
             {votes ? (
               <div className="side">
                 <h5>أبدِ رأيك</h5>
