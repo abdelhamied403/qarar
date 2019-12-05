@@ -5,7 +5,7 @@ import FAQsPage from '../views/Pages/questions/questions';
 const FAQs = () => (
   <div>
     <Head>
-      <title>الأسئلة الشائعة - قرار - وزارة العمل</title>
+      <title>الأسئلة الشائعة - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <FAQsPage />
   </div>

@@ -7,7 +7,7 @@ const Awards = () => (
   <Auth>
     <div>
       <Head>
-        <title>أوسمتي - قرار - وزارة العمل</title>
+        <title>أوسمتي - قرار - وزارة الشؤون البلدية والقروية</title>
       </Head>
       <AwardsPage />
     </div>

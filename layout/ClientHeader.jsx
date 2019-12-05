@@ -138,7 +138,7 @@ class ClientHeader extends React.Component {
     return (
       <div className="fixed-navbar">
         <div className="header-nav">
-          <div>قرار - وزارة العمل</div>
+          <div>قرار - وزارة الشؤون البلدية والقروية</div>
           {isAuthentcated ? (
             <div>
               <div

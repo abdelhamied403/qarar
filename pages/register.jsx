@@ -5,7 +5,7 @@ import RegisterPage from '../views/Pages/Register/Register';
 const Register = () => (
   <div>
     <Head>
-      <title>التسجيل - قرار - وزارة العمل</title>
+      <title>التسجيل - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <RegisterPage />
   </div>

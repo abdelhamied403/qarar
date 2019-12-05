@@ -15,7 +15,7 @@ const ClientFooter = ({ isAuthentcated }) => (
     className={isAuthentcated ? 'client-footer user-loggedin' : 'client-footer'}
   >
     <img src="/static/img/brand/logo-footer.svg" alt="qarar" />
-    <h3>قرار - وزارة العمل</h3>
+    <h3>قرار - وزارة الشؤون البلدية والقروية</h3>
     <div className="footer-links">
       <Link href="/about">
         <a>عن قرار</a>

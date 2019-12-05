@@ -10,7 +10,7 @@ const Tag = () => {
     <div>
       <div>
         <Head>
-          <title> وسم - قرار- وزارة العمل</title>
+          <title> وسم - قرار- وزارة الشؤون البلدية والقروية</title>
         </Head>
         <TagPage tagId={tagId} />
       </div>

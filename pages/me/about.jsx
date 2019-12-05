@@ -7,7 +7,7 @@ const About = () => (
   <Auth>
     <div>
       <Head>
-        <title>عن المستخدم - قرار- وزارة العمل</title>
+        <title>عن المستخدم - قرار- وزارة الشؤون البلدية والقروية</title>
       </Head>
       <AboutPage />
     </div>

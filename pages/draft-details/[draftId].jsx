@@ -10,7 +10,7 @@ const DraftDetails = () => {
     <div>
       <div>
         <Head>
-          <title>مسودة عمل - قرار- وزارة العمل</title>
+          <title>مسودة عمل - قرار- وزارة الشؤون البلدية والقروية</title>
         </Head>
         <DraftDetailsPage draftId={draftId} />
       </div>

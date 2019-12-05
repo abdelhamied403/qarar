@@ -7,7 +7,7 @@ const Groups = () => (
   <Auth>
     <div>
       <Head>
-        <title>مجموعاتي - قرار - وزارة العمل</title>
+        <title>مجموعاتي - قرار - وزارة الشؤون البلدية والقروية</title>
       </Head>
       <GroupsPage />
     </div>

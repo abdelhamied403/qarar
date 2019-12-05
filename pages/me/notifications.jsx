@@ -7,7 +7,7 @@ const Notifications = () => (
   <Auth>
     <div>
       <Head>
-        <title>إشعاراتي - قرار - وزارة العمل</title>
+        <title>إشعاراتي - قرار - وزارة الشؤون البلدية والقروية</title>
       </Head>
       <NotificationsPage />
     </div>

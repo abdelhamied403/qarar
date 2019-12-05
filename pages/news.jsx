@@ -5,7 +5,7 @@ import NewsPage from '../views/Pages/platform-news/platform-news';
 const News = () => (
   <div>
     <Head>
-      <title>الأخبار - قرار - وزارة العمل</title>
+      <title>الأخبار - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <NewsPage />
   </div>

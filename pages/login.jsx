@@ -5,7 +5,7 @@ import LoginPage from '../views/Pages/Login/Login';
 const Login = () => (
   <div>
     <Head>
-      <title>تسجيل الدخول - قرار - وزارة العمل</title>
+      <title>تسجيل الدخول - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <LoginPage />
   </div>

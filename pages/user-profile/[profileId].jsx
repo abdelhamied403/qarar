@@ -10,7 +10,7 @@ const Profile = () => {
     <div>
       <div>
         <Head>
-          <title>الصفحة الشخصية - قرار- وزارة العمل</title>
+          <title>الصفحة الشخصية - قرار- وزارة الشؤون البلدية والقروية</title>
         </Head>
         <ProfilePage profileId={profileId} />
       </div>

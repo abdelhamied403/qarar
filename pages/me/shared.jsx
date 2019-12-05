@@ -7,7 +7,7 @@ const Shared = () => (
   <Auth>
     <div>
       <Head>
-        <title>مشاركاتي - قرار - وزارة العمل</title>
+        <title>مشاركاتي - قرار - وزارة الشؤون البلدية والقروية</title>
       </Head>
       <SharedPage />
     </div>

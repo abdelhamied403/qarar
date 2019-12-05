@@ -7,7 +7,7 @@ const Follow = () => (
   <Auth>
     <div>
       <Head>
-        <title>متابعاتي - قرار - وزارة العمل</title>
+        <title>متابعاتي - قرار - وزارة الشؤون البلدية والقروية</title>
       </Head>
       <FollowPage />
     </div>

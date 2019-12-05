@@ -5,7 +5,7 @@ import DecisionPage from '../views/Pages/decision/decision';
 const Decisions = () => (
   <div>
     <Head>
-      <title>قرارات - قرار - وزارة العمل</title>
+      <title>قرارات - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <DecisionPage />
   </div>

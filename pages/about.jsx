@@ -5,7 +5,7 @@ import AboutPage from '../views/Pages/about-qarar/about-qarar';
 const About = () => (
   <div>
     <Head>
-      <title>عن قرار - وزارة العمل</title>
+      <title>عن قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <AboutPage />
   </div>

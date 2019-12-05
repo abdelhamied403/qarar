@@ -10,7 +10,7 @@ const NewsDetails = () => {
     <div>
       <div>
         <Head>
-          <title> خبر - قرار- وزارة العمل</title>
+          <title> خبر - قرار- وزارة الشؤون البلدية والقروية</title>
         </Head>
         <NewsDetailsPage newsId={newsId} />
       </div>

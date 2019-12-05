@@ -7,7 +7,9 @@ const Update = () => (
   <Auth>
     <div>
       <Head>
-        <title>تعديل بيانات المستخدم - قرار- وزارة العمل</title>
+        <title>
+          تعديل بيانات المستخدم - قرار- وزارة الشؤون البلدية والقروية
+        </title>
       </Head>
       <UpdatePage />
     </div>

@@ -5,7 +5,7 @@ import HomePage from '../views/Pages/Landing/Landing';
 const Home = () => (
   <div>
     <Head>
-      <title>الرئيسية - قرار - وزارة العمل</title>
+      <title>الرئيسية - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <HomePage />
   </div>

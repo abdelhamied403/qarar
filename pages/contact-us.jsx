@@ -5,7 +5,7 @@ import ContactPage from '../views/Pages/contact/contact';
 const Contact = () => (
   <div>
     <Head>
-      <title>إتصل بنا - قرار - وزارة العمل</title>
+      <title>إتصل بنا - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <ContactPage />
   </div>
