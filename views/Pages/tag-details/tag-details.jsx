@@ -8,6 +8,7 @@ import {
   Button
 } from 'reactstrap';
 import { connect } from 'react-redux';
+import dynamic from 'next/dynamic';
 import Pagination from 'rc-pagination';
 import moment from 'moment';
 
@@ -26,11 +27,52 @@ class TagDetails extends Component {
       data: [],
       page: 1,
       pageSize: 10,
-      flagged: false
+      flagged: false,
+      loading: true,
+      skeleton: null
     };
   }
 
   componentDidMount() {
+    const Skeleton = dynamic(() => import('react-loading-skeleton'));
+
+    this.setState({
+      skeleton: (
+        <>
+          <Container className="mt-5 pt-5">
+            <div className="dc-details-header">
+              <Row>
+                <Col sm="12" md="8" lg="8">
+                  <div className="header-content">
+                    <h2>
+                      <Skeleton height={20} count={1} />
+                    </h2>
+                  </div>
+                </Col>
+                <Col sm="12" md="12" lg="12">
+                  <div className="cards">
+                    <Row>
+                      <Col xs="12">
+                        <Skeleton count={5} />
+                      </Col>
+                      <Col xs="12">
+                        <Skeleton count={5} />
+                      </Col>
+                      <Col xs="12">
+                        <Skeleton count={5} />
+                      </Col>
+                      <Col xs="12">
+                        <Skeleton count={5} />
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Container>
+        </>
+      )
+    });
     this.getTag();
     this.getData();
     this.isFollowed();
@@ -54,6 +96,7 @@ class TagDetails extends Component {
     );
     if (response.ok) {
       this.setState({
+        loading: false,
         count: response.data ? response.data.count : 0,
         data: response.data ? response.data.data : []
       });
@@ -127,9 +170,20 @@ class TagDetails extends Component {
   };
 
   render() {
-    const { tag, page, pageSize, count, data, flagged } = this.state;
+    const {
+      tag,
+      page,
+      pageSize,
+      count,
+      data,
+      flagged,
+      loading,
+      skeleton
+    } = this.state;
     const { uid } = this.props;
-    console.log(tag, count, data);
+    if (loading) {
+      return skeleton;
+    }
 
     return (
       <>
