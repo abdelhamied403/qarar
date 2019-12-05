@@ -3,7 +3,7 @@ import { Container, Row, Col, CardBody, CardHeader, Card } from 'reactstrap';
 import CardInfoIcon from '../components/card-info-icon/card-info-icon';
 import CardPoints from '../components/card-points/cards-points';
 import './reports-page.css';
-
+import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 
 class About extends Component {
@@ -14,7 +14,8 @@ class About extends Component {
       draftCount: 0,
       awardedUsers: [],
       awardedUsers2: [],
-      activeDrafts: []
+      activeDrafts: [],
+      loading: true
     };
   }
 
@@ -63,6 +64,7 @@ class About extends Component {
     );
     if (activeDraftsResponse.ok) {
       this.setState({
+        loading: false,
         activeDrafts: activeDraftsResponse.data.filter(
           (item, index) => index < 4
         )
@@ -76,8 +78,12 @@ class About extends Component {
       draftCount,
       awardedUsers,
       awardedUsers2,
-      activeDrafts
+      activeDrafts,
+      loading
     } = this.state;
+    if (loading) {
+      return <Skeleton />;
+    }
     return (
       <>
         <div className="primary-header">

@@ -5,6 +5,7 @@ import CardDraftDetails from '../components/card-draft-details/card-draft-detail
 import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
+import Skeleton from '../components/skeleton/skeleton';
 
 import Api from '../../../api';
 
@@ -19,7 +20,8 @@ class DecisionDetails extends Component {
         body: ''
       },
       items: [],
-      comments: []
+      comments: [],
+      loading: true
     };
   }
 
@@ -36,14 +38,17 @@ class DecisionDetails extends Component {
 
     if (draftResponse.ok) {
       const { items, data } = draftResponse.data;
-      this.setState({ draft: data, items });
+      this.setState({ draft: data, items, loading: false });
     }
   };
 
   getComments = async () => {};
 
   render() {
-    const { draft, items } = this.state;
+    const { draft, items, loading } = this.state;
+    if (loading) {
+      return <Skeleton details />;
+    }
     return (
       <>
         <Breadcrumb

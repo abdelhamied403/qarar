@@ -3,6 +3,8 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import CardDescription from '../components/card-description/card-description';
 import CardIcon from '../components/card-icon/card-icon';
 import Api from '../../../api';
+import Skeleton from '../components/skeleton/skeleton';
+
 import './awards-system.css';
 
 class About extends Component {
@@ -10,7 +12,8 @@ class About extends Component {
     super();
     this.state = {
       awards: [],
-      badges: []
+      badges: [],
+      loading: true
     };
   }
 
@@ -29,12 +32,15 @@ class About extends Component {
       `/qarar_api/data/award/0/DESC/1?_format=json`
     );
     if (awardsResponse.ok) {
-      this.setState({ awards: awardsResponse.data });
+      this.setState({ awards: awardsResponse.data, loading: false });
     }
   };
 
   render() {
-    const { awards, badges, showAllBadges, showAll } = this.state;
+    const { awards, badges, showAllBadges, showAll, loading } = this.state;
+    if (loading) {
+      return <Skeleton />;
+    }
     return (
       <>
         <div className="primary-header">

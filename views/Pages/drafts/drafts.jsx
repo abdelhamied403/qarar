@@ -13,7 +13,7 @@ import Pagination from 'rc-pagination';
 import { connect } from 'react-redux';
 import './drafts.css';
 import CardDraft from '../components/card-draft/card-draft';
-
+import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 
 class Drafts extends Component {
@@ -30,7 +30,8 @@ class Drafts extends Component {
       items: [],
       itemsPage: 1,
       itemsCount: 0,
-      itemsPageSize: 10
+      itemsPageSize: 10,
+      loading: true
     };
   }
 
@@ -60,7 +61,7 @@ class Drafts extends Component {
           `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
         );
     if (draftsResponse.ok) {
-      this.setState({ drafts: draftsResponse.data });
+      this.setState({ drafts: draftsResponse.data, loading: false });
     }
   };
 
@@ -193,9 +194,12 @@ class Drafts extends Component {
       items,
       itemsCount,
       itemsPage,
-      itemsPageSize
+      itemsPageSize,
+      loading
     } = this.state;
-
+    if (loading) {
+      return <Skeleton />;
+    }
     return (
       <div className="drafts">
         <div className="draftHeader">

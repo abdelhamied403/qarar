@@ -17,6 +17,7 @@ import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import './platform-news-image.css';
 
 import Api from '../../../api';
+import Skeleton from '../components/skeleton/skeleton';
 
 const items = [
   {
@@ -35,7 +36,7 @@ const items = [
 class DecisionDraft extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, newsItem: {} };
+    this.state = { activeIndex: 0, newsItem: {}, loading: true };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -63,7 +64,7 @@ class DecisionDraft extends Component {
 
     if (newsResponse.ok) {
       const { data } = newsResponse.data;
-      this.setState({ newsItem: data });
+      this.setState({ newsItem: data, loading: false });
     }
   };
 
@@ -91,7 +92,7 @@ class DecisionDraft extends Component {
   }
 
   render() {
-    const { activeIndex, newsItem } = this.state;
+    const { activeIndex, newsItem, loading } = this.state;
 
     /* const SLIDER = [
       <CarouselItem
@@ -108,6 +109,9 @@ class DecisionDraft extends Component {
       </CarouselItem>
     ];
     */
+    if (loading) {
+      return <Skeleton details />;
+    }
     return (
       <>
         <Breadcrumb title="اخبار المنصة" link="/news" />

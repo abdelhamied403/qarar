@@ -13,6 +13,7 @@ import Pagination from 'rc-pagination';
 import moment from 'moment';
 
 import CardDraft from '../components/card-draft/card-draft';
+import Skeleton from '../components/skeleton/skeleton';
 
 import './tag-details.css';
 
@@ -28,51 +29,11 @@ class TagDetails extends Component {
       page: 1,
       pageSize: 10,
       flagged: false,
-      loading: true,
-      skeleton: null
+      loading: true
     };
   }
 
   componentDidMount() {
-    const Skeleton = dynamic(() => import('react-loading-skeleton'));
-
-    this.setState({
-      skeleton: (
-        <>
-          <Container className="mt-5 pt-5">
-            <div className="dc-details-header">
-              <Row>
-                <Col sm="12" md="8" lg="8">
-                  <div className="header-content">
-                    <h2>
-                      <Skeleton height={20} count={1} />
-                    </h2>
-                  </div>
-                </Col>
-                <Col sm="12" md="12" lg="12">
-                  <div className="cards">
-                    <Row>
-                      <Col xs="12">
-                        <Skeleton count={5} />
-                      </Col>
-                      <Col xs="12">
-                        <Skeleton count={5} />
-                      </Col>
-                      <Col xs="12">
-                        <Skeleton count={5} />
-                      </Col>
-                      <Col xs="12">
-                        <Skeleton count={5} />
-                      </Col>
-                    </Row>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          </Container>
-        </>
-      )
-    });
     this.getTag();
     this.getData();
     this.isFollowed();
@@ -170,19 +131,10 @@ class TagDetails extends Component {
   };
 
   render() {
-    const {
-      tag,
-      page,
-      pageSize,
-      count,
-      data,
-      flagged,
-      loading,
-      skeleton
-    } = this.state;
+    const { tag, page, pageSize, count, data, flagged, loading } = this.state;
     const { uid } = this.props;
     if (loading) {
-      return skeleton;
+      return <Skeleton />;
     }
 
     return (

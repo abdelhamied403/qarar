@@ -15,6 +15,7 @@ import Pagination from 'rc-pagination';
 import CardDraft from '../components/card-draft/card-draft';
 import './decision.css';
 import Api from '../../../api';
+import Skeleton from '../components/skeleton/skeleton';
 
 class Decision extends Component {
   constructor(props) {
@@ -30,7 +31,8 @@ class Decision extends Component {
       archivedItems: [],
       archivedPage: 1,
       archivedCount: 0,
-      archivedPageSize: 10
+      archivedPageSize: 10,
+      loading: true
     };
   }
 
@@ -51,7 +53,7 @@ class Decision extends Component {
       `/qarar_api/qarar/applied/created/DESC/${appliedPageSize}/${page}?_format=json`
     );
     if (appliedResponse.ok) {
-      this.setState({ appliedItems: appliedResponse.data });
+      this.setState({ appliedItems: appliedResponse.data, loading: false });
     }
   };
 
@@ -124,9 +126,13 @@ class Decision extends Component {
       archivedItems,
       archivedPage,
       archivedCount,
-      archivedPageSize
+      archivedPageSize,
+      loading
     } = this.state;
 
+    if (loading) {
+      return <Skeleton />;
+    }
     return (
       <>
         <div className="decisionHeader">

@@ -14,7 +14,7 @@ import Pagination from 'rc-pagination';
 import moment from 'moment';
 import CardBlog from '../components/card-blog/card-blog';
 import './platform-news.css';
-
+import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 
 class DecisionDraft extends Component {
@@ -28,7 +28,8 @@ class DecisionDraft extends Component {
       page: 1,
       newsPageSize: 4,
       sortMode: 'DESC',
-      sortLabel: 'أحدث الأخبار'
+      sortLabel: 'أحدث الأخبار',
+      loading: true
     };
   }
 
@@ -48,7 +49,7 @@ class DecisionDraft extends Component {
       `/qarar_api/data/news/${newsPageSize}/${sortMode}/${page}?_format=json`
     );
     if (newsResponse.ok) {
-      this.setState({ news: newsResponse.data });
+      this.setState({ news: newsResponse.data, loading: false });
     }
   };
 
@@ -89,7 +90,17 @@ class DecisionDraft extends Component {
   };
 
   render() {
-    const { news, sortLabel, page, newsPageSize, newsCount } = this.state;
+    const {
+      news,
+      sortLabel,
+      page,
+      newsPageSize,
+      newsCount,
+      loading
+    } = this.state;
+    if (loading) {
+      return <Skeleton />;
+    }
     return (
       <>
         <div className="decisionHeader">
