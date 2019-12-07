@@ -20,6 +20,7 @@ import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
+import NoAccess from '../components/NoAccess';
 
 import Api from '../../../api';
 
@@ -176,26 +177,6 @@ class DraftDetails extends Component {
     }
   };
 
-  noAccess() {
-    return (
-      <>
-        <div className="no-access">
-          <div className="blur" />
-          <div className="flex flex-col flex-align-center flex-justifiy-center flex-space-child item-content">
-            <span className="fa fa-ban " />
-            <h2>يجب تسجيل الدخول لأضافة تعليق</h2>
-            <Link href="/login">
-              <Button color="primary">تسجيل الدخول</Button>
-            </Link>
-            <Link href="/register">
-              <a>تسجيل حساب</a>
-            </Link>
-          </div>
-        </div>
-      </>
-    );
-  }
-
   render() {
     const {
       draft,
@@ -340,7 +321,7 @@ class DraftDetails extends Component {
               </Alert>
             )}
             {!uid ? (
-              this.noAccess()
+              <NoAccess />
             ) : (
               <TextBox
                 header="التعليقات على هذه المادة"

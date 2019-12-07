@@ -24,19 +24,32 @@ class CardComments extends Component {
     this.setComments();
   }
 
-  setComments() {
-    const { commentsArray } = this.props;
-
-    this.setState(
-      {
-        commentsArray: commentsArray.map(comment => ({
-          ...comment,
-          flagged: false
-        }))
-      },
-      () => commentsArray.map((cm, index) => this.flagged(cm.id, index))
-    );
-  }
+  setComments = async () => {
+    const { commentsArray, nid } = this.props;
+    if (nid) {
+      const response = await Api.get(
+        `/qarar_api/comments/${nid}/DESC?_format=json`
+      );
+      if (response.ok) {
+        this.setState({
+          commentsArray: response.data.map(comment => ({
+            ...comment,
+            flagged: false
+          }))
+        });
+      }
+    } else {
+      this.setState(
+        {
+          commentsArray: commentsArray.map(comment => ({
+            ...comment,
+            flagged: false
+          }))
+        },
+        () => commentsArray.map((cm, index) => this.flagged(cm.id, index))
+      );
+    }
+  };
 
   flagged = async (commentId, index) => {
     const { uid } = this.props;

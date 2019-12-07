@@ -5,18 +5,16 @@ import {
   CardFooter,
   CardBody,
   Button,
-  UncontrolledDropdown,
   DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
   Media,
   UncontrolledCollapse
 } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import Link from 'next/link';
 import { connect } from 'react-redux';
-
+import CardComments from '../card-comments/card-comments';
 import Api from '../../../../api';
+import CommentForm from '../CommentForm';
 
 const propTypes = {
   children: PropTypes.node
@@ -92,29 +90,95 @@ class CardDraft extends Component {
     </ul>
   );
 
-  renderItems = list => {
-    console.log(list);
-
-    return list.map(item => (
-      <>
-        <Button
-          block
-          className="text-right justify-content-start"
-          color="primary"
-          id={`i-${item.nid}`}
-          style={{ marginBottom: '1rem' }}
-        >
-          {item.title}
-        </Button>
-        <UncontrolledCollapse toggler={`#i-${item.nid}`}>
-          <Card>
-            <CardBody>{renderHTML(item.body_value || '')}</CardBody>
-            {item.children && this.renderItems(item.children)}
-          </Card>
-        </UncontrolledCollapse>
-      </>
-    ));
+  vote = async (type, id) => {
+    const { uid, accessToken } = this.props;
+    const { voting } = this.state;
+    const item = {
+      type,
+      action: voting[type === 'like' ? 'up' : 'down'] ? 'unflag' : 'flag',
+      id,
+      uid
+    };
+    const item2 = {
+      type: type === 'like' ? 'dislike' : 'like',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getIsFlagged();
+    }
   };
+
+  getIsFlagged = async id => {
+    const { uid } = this.props;
+    const { voting } = this.state;
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'like',
+      uid,
+      id
+    });
+    const response2 = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'dislike',
+      uid,
+      id
+    });
+    if (response.ok && response2.ok) {
+      this.setState({
+        voting: {
+          ...voting,
+          up:
+            response.data && response.data.data
+              ? response.data.data.flagged
+              : false,
+          down:
+            response2.data && response2.data.data
+              ? response2.data.data.flagged
+              : false
+        }
+      });
+    }
+  };
+
+  renderItems = (list, className = '', opacity = 1) => (
+    <ul className={`list-unstyled pb-0 mb-0 ${className}`}>
+      {list.map(item => {
+        const { uid } = this.props;
+        return (
+          <li>
+            <Button
+              block
+              className="text-right justify-content-start"
+              color="primary"
+              id={`i-${item.nid}`}
+              style={{ marginBottom: '1rem', opacity }}
+            >
+              {item.title}
+            </Button>
+            <UncontrolledCollapse toggler={`#i-${item.nid}`}>
+              <Card style={{ borderWidth: opacity * 1 }}>
+                <CardBody>{renderHTML(item.body_value || '')}</CardBody>
+                <CardBody>
+                  <CommentForm nid={item.nid} />
+                </CardBody>
+                <CardBody>
+                  <CardComments nid={item.nid} commentsArray={[]} />
+                </CardBody>
+                {item.children &&
+                  this.renderItems(item.children, '', opacity - 0.1)}
+              </Card>
+            </UncontrolledCollapse>
+          </li>
+        );
+      })}
+    </ul>
+  );
 
   render() {
     // eslint-disable-next-line
@@ -148,7 +212,7 @@ class CardDraft extends Component {
           ) : (
             ''
           ) */}
-          {this.renderItems(dropdownList)}
+          {this.renderItems(dropdownList, 'p-0 m-0')}
           <div className="flex-card">
             {/* 
             <div className="content">
