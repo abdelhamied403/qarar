@@ -92,9 +92,13 @@ class DraftDetails extends Component {
   }
 
   getDraft = async () => {
-    const { draftId } = this.props;
+    const { draftId, accessToken } = this.props;
     const draftResponse = await Api.get(
-      `/qarar_api/load/node/${draftId}?_format=json`
+      `/qarar_api/load/node/${draftId}?_format=json`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
     );
     if (draftResponse.ok) {
       const { items, data } = draftResponse.data;

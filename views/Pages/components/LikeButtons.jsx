@@ -13,15 +13,16 @@ class CardDraft extends Component {
     this.state = {
       dropdownOpen: new Array(6).fill(false),
       voting: {
-        up: false,
-        down: false
+        up: props.flag === 'like',
+        down: props.flag === 'dislike'
       },
-      count: Number(this.props.votes)
+      likes: Number(props.likes),
+      dislikes: Number(props.dislikes)
     };
   }
 
   componentDidMount() {
-    this.getIsFlagged();
+    // this.getIsFlagged();
     /* const { liked, disliked } = this.props;
     if (liked && disliked) {
       this.setState({
@@ -154,8 +155,8 @@ class CardDraft extends Component {
             />
           </div>
         </div>
-
-        <span className="vote">{this.state.count} صوت</span>
+        <span className="vote">{this.state.likes} صوت</span>{' '}
+        <span className="vote">{this.state.dislikes} صوت</span>
       </div>
     );
   }

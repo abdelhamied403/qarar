@@ -172,7 +172,12 @@ class CardDraft extends Component {
                       {renderHTML(item.body_value || '')}
                     </Col>
                     <Col xs={3} md={2}>
-                      <LikeButtons id={item.nid} />
+                      <LikeButtons
+                        likes={item.likes}
+                        dislikes={item.likes}
+                        flag={item.flag}
+                        id={item.nid}
+                      />
                     </Col>
                   </Row>
                 </CardBody>
