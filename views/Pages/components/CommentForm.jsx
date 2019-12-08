@@ -17,7 +17,10 @@ class CommentForm extends Component {
   saveComment = async () => {
     const { nid, accessToken } = this.props;
     const { comment } = this.state;
-
+    if (!comment) {
+      this.setState({ error: true });
+      return;
+    }
     const data = {
       entity_id: [{ target_id: nid }],
       subject: [{ value: 'comment' }],
@@ -39,7 +42,7 @@ class CommentForm extends Component {
 
   render() {
     const { uid } = this.props;
-    const { comment: commentText, successComment } = this.state;
+    const { comment: commentText, successComment, error } = this.state;
     return (
       <>
         {successComment && (
@@ -47,6 +50,7 @@ class CommentForm extends Component {
             تم إضافة التعليق في إنتظار موافقة إدارة الموقع
           </Alert>
         )}
+        {error && <Alert color="danger">لم تقم بكتابة اي تعليق</Alert>}
         {!uid ? (
           <NoAccess />
         ) : (
