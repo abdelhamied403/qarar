@@ -7,7 +7,9 @@ import {
   Button,
   DropdownItem,
   Media,
-  UncontrolledCollapse
+  UncontrolledCollapse,
+  Col,
+  Row
 } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import Link from 'next/link';
@@ -15,6 +17,7 @@ import { connect } from 'react-redux';
 import CardComments from '../card-comments/card-comments';
 import Api from '../../../../api';
 import CommentForm from '../CommentForm';
+import LikeButtons from '../LikeButtons';
 
 const propTypes = {
   children: PropTypes.node
@@ -163,7 +166,16 @@ class CardDraft extends Component {
             </Button>
             <UncontrolledCollapse toggler={`#i-${item.nid}`}>
               <Card style={{ borderWidth: opacity * 1 }}>
-                <CardBody>{renderHTML(item.body_value || '')}</CardBody>
+                <CardBody>
+                  <Row>
+                    <Col xs={9} md={10}>
+                      {renderHTML(item.body_value || '')}
+                    </Col>
+                    <Col xs={3} md={2}>
+                      <LikeButtons id={item.nid} />
+                    </Col>
+                  </Row>
+                </CardBody>
                 <CardBody>
                   <CommentForm nid={item.nid} />
                 </CardBody>
