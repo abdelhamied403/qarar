@@ -155,8 +155,10 @@ class CardDraft extends Component {
             />
           </div>
         </div>
-        <span className="vote">{this.state.likes} صوت</span>{' '}
-        <span className="vote">{this.state.dislikes} صوت</span>
+        <span className="vote">
+          {parseInt(this.state.likes, 10) + parseInt(this.state.dislikes, 10)}{' '}
+          صوت
+        </span>
       </div>
     );
   }

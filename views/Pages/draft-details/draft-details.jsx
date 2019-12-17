@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import './draft-details.css';
-import { Container, Col, Row, Button, Media, Alert } from 'reactstrap';
+import {
+  Container,
+  Col,
+  Row,
+  Button,
+  Media,
+  Alert,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
@@ -37,7 +48,8 @@ class DraftDetails extends Component {
       commentPage: 1,
       flagged: false,
       successComment: false,
-      loadingDraft: true
+      loadingDraft: true,
+      selected: false
     };
   }
 
@@ -117,6 +129,26 @@ class DraftDetails extends Component {
     }
   };
 
+  renderList = (list, className = '') => (
+    <ul className={`list-unstyled pb-0 mb-0 ${className}`}>
+      {list.map(item => (
+        <li>
+          <>
+            <DropdownItem
+              className="border-bottom"
+              onClick={() => this.setState({ selected: item })}
+              key={item.id}
+              value={item}
+            >
+              {item.title}
+            </DropdownItem>
+            {/* item.children && this.renderList(item.children) */}
+          </>
+        </li>
+      ))}
+    </ul>
+  );
+
   isFollowed = async () => {
     const { uid, draftId } = this.props;
     const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
@@ -189,7 +221,8 @@ class DraftDetails extends Component {
       comment: commentText,
       flagged,
       successComment,
-      loadingDraft
+      loadingDraft,
+      selected
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -266,7 +299,10 @@ class DraftDetails extends Component {
                     <Col xs="12">
                       <CardInfo
                         type="صوت"
-                        number={parseInt(draft.likes, 10)}
+                        number={
+                          parseInt(draft.likes, 10) +
+                          parseInt(draft.dislikes, 10)
+                        }
                         icon="/static/img/Icon - draft activity - users.svg"
                       />
                     </Col>
@@ -294,6 +330,20 @@ class DraftDetails extends Component {
             />
           </div>
           <div className="moaad-open">
+            {items && items.length > 0 ? (
+              <div className="dec-details">
+                <UncontrolledDropdown>
+                  <DropdownToggle color="primary" caret>
+                    {selected.title || items[0].title}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    {this.renderList(items, 'p-0 m-0')}
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </div>
+            ) : (
+              ''
+            )}
             <h6 className="flex flex-align-center no-p-m">
               {
                 items.filter(
@@ -313,7 +363,10 @@ class DraftDetails extends Component {
                     ? ''
                     : moment(draft.end_date).format('dddd, MMMM Do YYYY')
                 }
-                dropdownList={items}
+                selected={selected || items[0]}
+                dropdownList={
+                  (selected ? selected.children : items[0].children) || []
+                }
                 tags={[]}
               />
             )}

@@ -37,7 +37,6 @@ class Drafts extends Component {
 
   componentDidMount() {
     this.getDrafts();
-    this.getItems();
   }
 
   getDrafts = async () => {
@@ -89,56 +88,6 @@ class Drafts extends Component {
       this.setState({ items: itemsResponse.data });
     }
   };
-
-  tab1() {
-    return (
-      <section>
-        <CardDraft
-          header="سياسة السماح باستيراد السيارات الكهربائية"
-          subHeader="يغلق التصويت بتاريخ 25/8/2019"
-          content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
-          votes="200"
-          date="12/4/2019"
-          link="/draft-details/draftId"
-          tags={[{ tag: 'نقل', id: 1 }]}
-          subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-        />
-
-        <CardDraft
-          header="سياسة السماح باستيراد السيارات الكهربائية"
-          subHeader="يغلق التصويت بتاريخ 25/8/2019"
-          content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
-          votes="200"
-          date="12/4/2019"
-          link="/draft-details/draftId"
-          tags={[{ tag: 'نقل', id: 1 }]}
-          subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-        />
-
-        <CardDraft
-          header="سياسة السماح باستيراد السيارات الكهربائية"
-          subHeader="يغلق التصويت بتاريخ 25/8/2019"
-          content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم... المزيد …"
-          votes="200"
-          date="12/4/2019"
-          link="/draft-details/draftId"
-          tags={[{ tag: 'نقل', id: 1 }]}
-          subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-        />
-
-        <CardDraft
-          header="سياسة السماح باستيراد السيارات الكهربائية"
-          subHeader="يغلق التصويت بتاريخ 25/8/2019"
-          content="مادة ١.١: لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور مادة ١.٣: أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم …"
-          votes="200"
-          date="12/4/2019"
-          link="/draft-details/draftId"
-          tags={[{ tag: 'نقل', id: 1 }]}
-          subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-        />
-      </section>
-    );
-  }
 
   toggle(tabPane, tab) {
     const newArray = this.state.activeTab.slice();
@@ -207,127 +156,48 @@ class Drafts extends Component {
             <h3>قرارات تحت التصويت</h3>
           </Container>
         </div>
-        <Container className="tabs-content">
-          <Nav tabs>
-            <NavItem>
-              <NavLink
-                active={this.state.activeTab[0] === '1'}
-                onClick={() => {
-                  this.toggle(0, '1');
-                }}
-              >
-                كل القرارات
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                active={this.state.activeTab[0] === '2'}
-                onClick={() => {
-                  this.toggle(0, '2');
-                }}
-              >
-                السياسات فقط
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                active={this.state.activeTab[0] === '3'}
-                onClick={() => {
-                  this.toggle(0, '3');
-                }}
-              >
-                المواد فقط
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <TabContent activeTab={this.state.activeTab[0]}>
-            <TabPane tabId="1">
-              <>
-                <section>
-                  {drafts.map(draft => (
-                    <CardDraft
-                      key={draft.id}
-                      id={draft.id}
-                      header={draft.title}
-                      refetch={() => this.getDrafts()}
-                      subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
-                      content={draft.body}
-                      votes={draft.likes || '0'}
-                      date={draft.end_date}
-                      link={`/draft-details/${draft.id}`}
-                      tags={
-                        draft.tags
-                          ? draft.tags.map(tagItem => ({
-                              tag: tagItem.name,
-                              id: tagItem.id
-                            }))
-                          : []
-                      }
-                      liked={draft.liked}
-                      disliked={draft.disliked}
-                      subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                    />
-                  ))}
-                </section>
-                <div className="pagination-container">
-                  <Pagination
-                    total={draftCount}
-                    pageSize={draftsPageSize}
-                    current={page}
-                    onChange={pageCurrent =>
-                      this.setState({ page: pageCurrent }, () =>
-                        this.getDrafts()
-                      )
-                    }
-                    className="pagination"
-                    itemRender={this.paginagtionItemRender}
-                  />
-                </div>
-              </>
-            </TabPane>
-            <TabPane tabId="2">{this.tab1()}</TabPane>
-            <TabPane tabId="3">
-              <>
-                <section>
-                  {items.map(item => (
-                    <CardDraft
-                      key={item.id}
-                      id={item.id}
-                      refetch={() => this.getItems()}
-                      header={item.title}
-                      subHeader={`يغلق التصويت بتاريخ ${item.end_date}`}
-                      content={item.body}
-                      votes={
-                        parseInt(item.likes, 10) +
-                          parseInt(item.dislikes, 10) || '0'
-                      }
-                      date={item.end_date}
-                      link={`/item-details/${item.id}`}
-                      tags={item.tags.map(tag => ({
-                        tag: tag.name.substr(0, 20),
-                        id: tag.id
-                      }))}
-                      subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                    />
-                  ))}
-                </section>
-                <div className="pagination-container">
-                  <Pagination
-                    total={itemsCount}
-                    pageSize={itemsPageSize}
-                    current={itemsPage}
-                    onChange={pageCurrent =>
-                      this.setState({ itemsPage: pageCurrent }, () =>
-                        this.getItems()
-                      )
-                    }
-                    className="pagination"
-                    itemRender={this.paginagtionItemRender}
-                  />
-                </div>
-              </>
-            </TabPane>
-          </TabContent>
+        <Container>
+          <section>
+            {drafts.map(draft => (
+              <CardDraft
+                key={draft.id}
+                id={draft.id}
+                header={draft.title}
+                refetch={() => this.getDrafts()}
+                subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
+                content={draft.body}
+                votes={
+                  parseInt(draft.likes, 10) + parseInt(draft.dislikes, 10) ||
+                  '0'
+                }
+                date={draft.end_date}
+                link={`/draft-details/${draft.id}`}
+                tags={
+                  draft.tags
+                    ? draft.tags.map(tagItem => ({
+                        tag: tagItem.name,
+                        id: tagItem.id
+                      }))
+                    : []
+                }
+                liked={draft.liked}
+                disliked={draft.disliked}
+                subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+              />
+            ))}
+          </section>
+          <div className="pagination-container">
+            <Pagination
+              total={draftCount}
+              pageSize={draftsPageSize}
+              current={page}
+              onChange={pageCurrent =>
+                this.setState({ page: pageCurrent }, () => this.getDrafts())
+              }
+              className="pagination"
+              itemRender={this.paginagtionItemRender}
+            />
+          </div>
         </Container>
       </div>
     );

@@ -95,53 +95,53 @@ class CardComments extends Component {
   render() {
     // eslint-disable-next-line
     const { commentsArray } = this.state;
+    console.log(commentsArray);
 
     return (
       <div>
         {commentsArray.map((ca, index) => {
           return (
             <Card className="card-comments">
-              <CardBody>
-                <div className="comment-container">
-                  <div className="flex-header-comments">
-                    <CardImg
-                      top
-                      width="100%"
-                      src={ca.owner_image || avatar}
-                      alt="Card image cap"
-                    />
-                    <div className="user-info">
-                      <span className="name">{ca.name}</span>
-                    </div>
-                  </div>
-                  <div className="comment">
-                    <div className="d-flex align-items-start justify-content-between ">
-                      <div>{ca.content}</div>
-                      <div>
-                        <a
-                          href=""
-                          style={{ color: '#C2C6CA' }}
-                          onClick={e => {
-                            this.flag(ca.id, index, ca.flagged);
-                            e.preventDefault();
-                          }}
-                        >
-                          <i
-                            className={`fa fa-heart ${ca.flagged &&
-                              'primary-icon'}`}
-                          />
-                        </a>
-                      </div>
-                    </div>
-                    <div>
-                      {ca.like || 0}
-                      <i className="fa fa-heart" />
-                      {(ca.comments && ca.comments.length) || 0}
-                      <i className="fa fa-share" />
-                    </div>
+              <div className="comment-container">
+                <div className="flex-header-comments">
+                  <CardImg
+                    top
+                    width="100%"
+                    src={ca.owner_image || avatar}
+                    alt="Card image cap"
+                  />
+                  <div className="user-info">
+                    <span className="name">{ca.name || ca.full_name}</span>
                   </div>
                 </div>
-                {ca.comments.map(caShild => {
+                <div className="comment">
+                  <div className="d-flex align-items-start justify-content-between ">
+                    <div>{ca.content || ca.comment_body}</div>
+                    <div>
+                      <a
+                        href=""
+                        style={{ color: '#C2C6CA' }}
+                        onClick={e => {
+                          this.flag(ca.id, index, ca.flagged);
+                          e.preventDefault();
+                        }}
+                      >
+                        <i
+                          className={`fa fa-heart ${ca.flagged &&
+                            'primary-icon'}`}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    {ca.like || 0}
+                    <i className="fa fa-heart" />
+                    {/* ca.comments ? ca.comments.length : 0}
+                      <i className="fa fa-share" /> */}
+                  </div>
+                </div>
+              </div>
+              {/* ca.comments.map(caShild => {
                   return (
                     <div className="comment-container sub-comment">
                       <div className="flex-header-comments">
@@ -190,8 +190,7 @@ class CardComments extends Component {
                   </div>
                 ) : (
                   ''
-                )}
-              </CardBody>
+                ) */}
             </Card>
           );
         })}

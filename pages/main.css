@@ -15789,7 +15789,6 @@ img {
   transition: none !important;
   -webkit-transform: none;
   transform: none;
-  font-size: 16px !important;
 }
 
 html,
@@ -15906,8 +15905,7 @@ a:hover {
   margin: 0;
 }
 
-.scale-hover:hover,
-.btn-primary:hover {
+.scale-hover:hover {
   -webkit-transform: scale(1.03);
   transform: scale(1.03);
 }
@@ -18074,4 +18072,32 @@ textarea.form-control {
 
 .client-layout .navbar-nav .dropdown-toggle::after {
   display: none;
+}
+.dec-details .dropdown-toggle {
+  background-color: var(--primary-blue);
+  color: #fff;
+}
+.dec-details .dropdown-toggle:hover {
+  opacity: 0.8;
+}
+.is-current {
+  background-color: var(--primary-dark);
+  box-shadow: none;
+  border: none;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  right: 0;
+}
+@media (max-width: 768px) {
+  .is-current {
+    top: 0px;
+  }
+}
+.remove-current .is-current {
+  background-color: var(--primary-blue);
+  position: static;
+}
+.content {
+  overflow: hidden;
 }

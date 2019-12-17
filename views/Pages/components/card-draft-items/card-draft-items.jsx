@@ -7,17 +7,26 @@ import {
   Button,
   DropdownItem,
   Media,
-  UncontrolledCollapse,
+  Collapse,
   Col,
-  Row
+  Row,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu
 } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
+import Scrollspy from 'react-scrollspy';
 import CardComments from '../card-comments/card-comments';
 import Api from '../../../../api';
 import CommentForm from '../CommentForm';
 import LikeButtons from '../LikeButtons';
+
+const Scrollbar = dynamic(() => import('react-scrollbar'), {
+  ssr: false
+});
 
 const propTypes = {
   children: PropTypes.node
@@ -38,7 +47,8 @@ class CardDraft extends Component {
         up: false,
         down: false
       },
-      count: Number(this.props.votes)
+      count: Number(this.props.votes),
+      collapse: []
     };
   }
 
@@ -86,7 +96,7 @@ class CardDraft extends Component {
             >
               {item.title}
             </DropdownItem>
-            {item.children && this.renderList(item.children)}
+            {/* item.children && this.renderList(item.children) */}
           </>
         </li>
       ))}
@@ -151,46 +161,97 @@ class CardDraft extends Component {
 
   renderItems = (list, className = '', opacity = 1) => (
     <ul className={`list-unstyled pb-0 mb-0 ${className}`}>
-      {list.map(item => {
+      {list.map((item, index) => {
         const { uid } = this.props;
+        const { collapse } = this.state;
         return (
           <li>
-            <Button
-              block
-              className="text-right justify-content-start"
-              color="primary"
-              id={`i-${item.nid}`}
-              style={{ marginBottom: '1rem', opacity }}
+            <Scrollspy
+              items={['items-title']}
+              className={className}
+              offset={-200}
+              currentClassName="remove-current"
             >
-              {item.title}
-            </Button>
-            <UncontrolledCollapse toggler={`#i-${item.nid}`}>
-              <Card style={{ borderWidth: opacity * 1 }}>
-                <CardBody>
-                  <Row>
-                    <Col xs={9} md={10}>
-                      {renderHTML(item.body_value || '')}
-                    </Col>
-                    <Col xs={3} md={2}>
-                      <LikeButtons
-                        likes={item.likes}
-                        dislikes={item.likes}
-                        flag={item.flag}
-                        id={item.nid}
-                      />
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardBody>
-                  <CommentForm nid={item.nid} />
-                </CardBody>
-                <CardBody>
-                  <CardComments nid={item.nid} commentsArray={[]} />
-                </CardBody>
-                {item.children &&
-                  this.renderItems(item.children, '', opacity - 0.1)}
+              <Scrollspy
+                items={[`b-${item.nid}`]}
+                className={className}
+                offset={-200}
+                currentClassName="container is-current"
+              >
+                <Button
+                  block
+                  className="text-right justify-content-start"
+                  color="primary"
+                  id={`i-${item.nid}`}
+                  onClick={() => {
+                    if (collapse.indexOf(`i-${item.nid}`) !== -1) {
+                      this.setState({
+                        collapse: collapse.filter(
+                          citem => citem !== `i-${item.nid}`
+                        )
+                      });
+                    } else {
+                      this.setState({
+                        collapse: [...collapse, `i-${item.nid}`]
+                      });
+                    }
+                  }}
+                  style={{
+                    marginBottom: '1rem',
+                    opacity,
+                    zIndex: 1000 - index
+                  }}
+                >
+                  {item.title}
+                </Button>
+              </Scrollspy>
+            </Scrollspy>
+            <Collapse isOpen={collapse.indexOf(`i-${item.nid}`) !== -1}>
+              <Card id={`b-${item.nid}`} style={{ borderWidth: opacity * 1 }}>
+                <Row>
+                  <Col md={7}>
+                    <CardBody>
+                      <Row>
+                        <Col xs={9} md={10}>
+                          {renderHTML(item.body_value || '')}
+                        </Col>
+                        <Col xs={3} md={2}>
+                          <LikeButtons
+                            likes={item.likes}
+                            dislikes={item.likes}
+                            flag={item.flag}
+                            id={item.nid}
+                          />
+                        </Col>
+                      </Row>
+                    </CardBody>
+                  </Col>
+                  <Col
+                    style={{
+                      height: '278px',
+                      overflowY: 'auto'
+                    }}
+                    md={5}
+                  >
+                    <Scrollbar
+                      speed={0.8}
+                      className="position-relative"
+                      contentClassName="content"
+                      horizontal={false}
+                    >
+                      <CardBody>
+                        <CommentForm nid={item.nid} />
+                      </CardBody>
+                      <CardBody>
+                        <CardComments nid={item.nid} commentsArray={[]} />
+                      </CardBody>
+                    </Scrollbar>
+                  </Col>
+                  {/* item.children &&
+                    this.renderItems(item.children, '', opacity - 0.1) */}
+                </Row>
               </Card>
-            </UncontrolledCollapse>
+            </Collapse>
           </li>
         );
       })}
@@ -209,9 +270,9 @@ class CardDraft extends Component {
       link,
       borderColor,
       dropdownList,
-      subHeaderIcon
+      subHeaderIcon,
+      selected
     } = this.props;
-    const { selected } = this.state;
     return (
       <Card className="card-draft" style={{ borderRightColor: borderColor }}>
         <CardBody>
@@ -229,46 +290,39 @@ class CardDraft extends Component {
           ) : (
             ''
           ) */}
-          {this.renderItems(dropdownList, 'p-0 m-0')}
-          <div className="flex-card">
-            {/* 
-            <div className="content">
-              <div className="header">
-                <h4>{header}</h4>
-                {subHeader ? (
-                  <div className="sub-header">
-                    {subHeaderIcon ? (
-                      <Media
-                        object
-                        src={subHeaderIcon}
-                        className="icon-small"
-                      />
-                    ) : (
-                      // <i className={subHeaderIcon}></i>
-                      ''
-                    )}
 
-                    <span>{subHeader} </span>
-                  </div>
-                ) : (
-                  ''
-                )}
+          <div className="flex-card">
+            <div className="content">
+              <div id="items-title" className="header">
+                <h4>{selected.title}</h4>
+                <span>{subHeader} </span>
+                {dropdownList.length ? (
+                  <>
+                    <Button
+                      onClick={() =>
+                        this.setState({
+                          collapse: dropdownList.map(item => `i-${item.nid}`)
+                        })
+                      }
+                      className="mx-2"
+                      color="primary"
+                    >
+                      فتح الكل
+                    </Button>
+                    <Button
+                      onClick={() => this.setState({ collapse: [] })}
+                      className="mx-2"
+                      color="primary"
+                    >
+                      إغلاق الكل
+                    </Button>
+                  </>
+                ) : null}
               </div>
               <div className="moaad">
-                <p>
-                  {renderHTML(
-                    selected.body_value || dropdownList[0].body_value
-                  )}
-                  {link ? (
-                    <Link href={link}>
-                      <Button color="link">المزيد</Button>
-                    </Link>
-                  ) : (
-                    ''
-                  )}
-                </p>
+                <p>{renderHTML(selected.body_value || '')}</p>
               </div>
-            </div> */}
+            </div>
             {votes ? (
               <div className="side">
                 <h5>أبدِ رأيك</h5>
@@ -308,6 +362,7 @@ class CardDraft extends Component {
               ''
             )}
           </div>
+          {this.renderItems(dropdownList, 'p-0 m-0')}
         </CardBody>
         <CardFooter>
           <div className="footer-card">
@@ -321,7 +376,7 @@ class CardDraft extends Component {
                 );
               })}
             </div>
-            {date ? (
+            {/* date ? (
               <span className="date">{date}</span>
             ) : (
               <Link href="/">
@@ -329,7 +384,7 @@ class CardDraft extends Component {
                   طلب تعديل
                 </a>
               </Link>
-            )}
+            ) */}
           </div>
         </CardFooter>
       </Card>
