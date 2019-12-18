@@ -18095,8 +18095,7 @@ textarea.form-control {
   }
 }
 .remove-current .is-current {
-  background-color: var(--primary-blue);
-  position: static;
+  display: none;
 }
 .content {
   overflow: hidden;

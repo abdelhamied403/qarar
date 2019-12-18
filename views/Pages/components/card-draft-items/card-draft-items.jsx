@@ -176,11 +176,11 @@ class CardDraft extends Component {
                 items={[`b-${item.nid}`]}
                 className={className}
                 offset={-200}
-                currentClassName="container is-current"
+                currentClassName="container is-current d-block"
               >
                 <Button
                   block
-                  className="text-right justify-content-start"
+                  className="text-right justify-content-start d-none"
                   color="primary"
                   id={`i-${item.nid}`}
                   onClick={() => {
@@ -203,28 +203,52 @@ class CardDraft extends Component {
                   }}
                 >
                   {item.title}
+                  <img
+                    style={{ width: 20, height: 20, margin: 10 }}
+                    alt="comments count"
+                    src="/static/img/comment-white.png"
+                  />
+                  {item.comments}
                 </Button>
               </Scrollspy>
             </Scrollspy>
+            <Button
+              block
+              className="text-right justify-content-start"
+              color="primary"
+              id={`i-${item.nid}`}
+              onClick={() => {
+                if (collapse.indexOf(`i-${item.nid}`) !== -1) {
+                  this.setState({
+                    collapse: collapse.filter(
+                      citem => citem !== `i-${item.nid}`
+                    )
+                  });
+                } else {
+                  this.setState({
+                    collapse: [...collapse, `i-${item.nid}`]
+                  });
+                }
+              }}
+              style={{
+                marginBottom: '1rem',
+                opacity,
+                zIndex: 1000 - index
+              }}
+            >
+              {item.title}
+              <img
+                style={{ width: 20, height: 20, margin: 10 }}
+                alt="comments count"
+                src="/static/img/comment-white.png"
+              />
+              {item.comments}
+            </Button>
             <Collapse isOpen={collapse.indexOf(`i-${item.nid}`) !== -1}>
               <Card id={`b-${item.nid}`} style={{ borderWidth: opacity * 1 }}>
                 <Row>
                   <Col md={7}>
-                    <CardBody>
-                      <Row>
-                        <Col xs={9} md={10}>
-                          {renderHTML(item.body_value || '')}
-                        </Col>
-                        <Col xs={3} md={2}>
-                          <LikeButtons
-                            likes={item.likes}
-                            dislikes={item.likes}
-                            flag={item.flag}
-                            id={item.nid}
-                          />
-                        </Col>
-                      </Row>
-                    </CardBody>
+                    <CardBody>{renderHTML(item.body_value || '')}</CardBody>
                   </Col>
                   <Col
                     style={{
@@ -240,6 +264,17 @@ class CardDraft extends Component {
                       horizontal={false}
                     >
                       <CardBody>
+                        <div
+                          style={{ left: 15 }}
+                          className="position-absolute bg-white"
+                        >
+                          <LikeButtons
+                            likes={item.likes}
+                            dislikes={item.likes}
+                            flag={item.flag}
+                            id={item.nid}
+                          />
+                        </div>
                         <CommentForm nid={item.nid} />
                       </CardBody>
                       <CardBody>
@@ -294,30 +329,32 @@ class CardDraft extends Component {
           <div className="flex-card">
             <div className="content">
               <div id="items-title" className="header">
-                <h4>{selected.title}</h4>
+                <h4>
+                  {selected.title}
+                  {dropdownList.length ? (
+                    <span className="float-right">
+                      <Button
+                        onClick={() =>
+                          this.setState({
+                            collapse: dropdownList.map(item => `i-${item.nid}`)
+                          })
+                        }
+                        className="mx-2"
+                        color="primary"
+                      >
+                        فتح الكل
+                      </Button>
+                      <Button
+                        onClick={() => this.setState({ collapse: [] })}
+                        className="mx-2"
+                        color="primary"
+                      >
+                        إغلاق الكل
+                      </Button>
+                    </span>
+                  ) : null}
+                </h4>
                 <span>{subHeader} </span>
-                {dropdownList.length ? (
-                  <>
-                    <Button
-                      onClick={() =>
-                        this.setState({
-                          collapse: dropdownList.map(item => `i-${item.nid}`)
-                        })
-                      }
-                      className="mx-2"
-                      color="primary"
-                    >
-                      فتح الكل
-                    </Button>
-                    <Button
-                      onClick={() => this.setState({ collapse: [] })}
-                      className="mx-2"
-                      color="primary"
-                    >
-                      إغلاق الكل
-                    </Button>
-                  </>
-                ) : null}
               </div>
               <div className="moaad">
                 <p>{renderHTML(selected.body_value || '')}</p>

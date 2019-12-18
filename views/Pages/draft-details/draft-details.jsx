@@ -140,7 +140,14 @@ class DraftDetails extends Component {
               key={item.id}
               value={item}
             >
-              {item.title}
+              {item.title}{' '}
+              <img
+                width={30}
+                height={30}
+                alt="comments count"
+                src="/static/img/draft activity - comments.svg"
+              />
+              {item.comments}
             </DropdownItem>
             {/* item.children && this.renderList(item.children) */}
           </>
@@ -334,7 +341,15 @@ class DraftDetails extends Component {
               <div className="dec-details">
                 <UncontrolledDropdown>
                   <DropdownToggle color="primary" caret>
-                    {selected.title || items[0].title}
+                    <span>
+                      {selected.title || items[0].title}
+                      <img
+                        style={{ width: 20, height: 20, margin: 10 }}
+                        alt="comments count"
+                        src="/static/img/comment-white.png"
+                      />
+                      {selected.comments || items[0].comments}
+                    </span>
                   </DropdownToggle>
                   <DropdownMenu>
                     {this.renderList(items, 'p-0 m-0')}
