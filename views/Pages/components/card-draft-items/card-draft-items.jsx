@@ -169,12 +169,13 @@ class CardDraft extends Component {
             <Scrollspy
               items={['items-title']}
               className={className}
+              offset={-100}
               currentClassName="remove-current"
             >
               <Scrollspy
                 items={[`b-${item.nid}`]}
                 className={className}
-                offset={-200}
+                offset={-100}
                 currentClassName="container is-current d-block"
               >
                 <Button
