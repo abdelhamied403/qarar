@@ -19,6 +19,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 import Scrollspy from 'react-scrollspy';
+import ReactResizeDetector from 'react-resize-detector';
 import CardComments from '../card-comments/card-comments';
 import Api from '../../../../api';
 import CommentForm from '../CommentForm';
@@ -48,7 +49,8 @@ class CardDraft extends Component {
         down: false
       },
       count: Number(this.props.votes),
-      collapse: []
+      collapse: [],
+      heights: []
     };
   }
 
@@ -163,7 +165,9 @@ class CardDraft extends Component {
     <ul className={`list-unstyled pb-0 mb-0 ${className}`}>
       {list.map((item, index) => {
         const { uid } = this.props;
-        const { collapse } = this.state;
+        const { collapse, heights } = this.state;
+        console.log(heights);
+
         return (
           <li>
             <Scrollspy
@@ -248,11 +252,21 @@ class CardDraft extends Component {
               <Card id={`b-${item.nid}`} style={{ borderWidth: opacity * 1 }}>
                 <Row>
                   <Col md={7}>
+                    <ReactResizeDetector
+                      handleWidth
+                      handleHeight
+                      onResize={(width, height) =>
+                        this.setState({ [`h-${item.nid}`]: height })
+                      }
+                    />
                     <CardBody>{renderHTML(item.body_value || '')}</CardBody>
                   </Col>
                   <Col
                     style={{
-                      height: '278px',
+                      height: this.state[`h-${item.nid}`]
+                        ? this.state[`h-${item.nid}`]
+                        : 0,
+                      minHeight: 300,
                       overflowY: 'auto'
                     }}
                     md={5}
