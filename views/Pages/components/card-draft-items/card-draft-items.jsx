@@ -289,7 +289,7 @@ class CardDraft extends Component {
                             id={item.nid}
                           />
                         </div>
-                        <CommentForm nid={item.nid} />
+                        <CommentForm nid={item.nid} small />
                       </CardBody>
                       <CardBody>
                         <CardComments nid={item.nid} commentsArray={[]} />

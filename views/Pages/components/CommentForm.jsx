@@ -41,7 +41,7 @@ class CommentForm extends Component {
   };
 
   render() {
-    const { uid } = this.props;
+    const { uid, small } = this.props;
     const { comment: commentText, successComment, error } = this.state;
     return (
       <>
@@ -52,7 +52,11 @@ class CommentForm extends Component {
         )}
         {error && <Alert color="danger">لم تقم بكتابة اي تعليق</Alert>}
         {!uid ? (
-          <NoAccess />
+          small ? (
+            <Alert color="danger">يجب عليك تسجيل الدخول لإضافة تعليق</Alert>
+          ) : (
+            <NoAccess />
+          )
         ) : (
           <TextBox
             header="التعليقات على هذه المادة"

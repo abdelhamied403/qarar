@@ -337,28 +337,25 @@ class DraftDetails extends Component {
             />
           </div>
           <div className="moaad-open">
-            {items && items.length > 0 ? (
-              <div className="dec-details">
-                <UncontrolledDropdown>
-                  <DropdownToggle color="primary" caret>
-                    <span>
-                      {selected.title || items[0].title}
-                      <img
-                        style={{ width: 20, height: 20, margin: 10 }}
-                        alt="comments count"
-                        src="/static/img/comment-white.png"
-                      />
-                      {selected.comments || items[0].comments}
-                    </span>
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    {this.renderList(items, 'p-0 m-0')}
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </div>
-            ) : (
-              ''
-            )}
+            {items.map(item => (
+              <ScrollLink
+                activeClass="active"
+                key={item.nid}
+                className={item.nid}
+                to={item.nid}
+                smooth
+                duration={500}
+                offset={-90}
+              >
+                <Button
+                  className="text-right justify-content-start mb-2"
+                  color="primary"
+                  block
+                >
+                  {item.title}
+                </Button>
+              </ScrollLink>
+            ))}
             <h6 className="flex flex-align-center no-p-m">
               {
                 items.filter(
@@ -371,20 +368,22 @@ class DraftDetails extends Component {
                 <Button color="link">من اصل {items.length} مادة</Button>
               </Link>
             </h6>
-            {items && items.length && (
-              <CardDraftItems
-                date={
-                  draft.applied_date
-                    ? ''
-                    : moment(draft.end_date).format('dddd, MMMM Do YYYY')
-                }
-                selected={selected || items[0]}
-                dropdownList={
-                  (selected ? selected.children : items[0].children) || []
-                }
-                tags={[]}
-              />
-            )}
+            {items.map(item => (
+              <Element key={item.nid} name={item.nid} className={item.nid}>
+                <CardDraftItems
+                  date={
+                    draft.applied_date
+                      ? ''
+                      : moment(draft.end_date).format('dddd, MMMM Do YYYY')
+                  }
+                  selected={item}
+                  dropdownList={
+                    (selected ? selected.children : items[0].children) || []
+                  }
+                  tags={[]}
+                />
+              </Element>
+            ))}
           </div>
           <Element name="test1" className="element">
             {successComment && (
