@@ -341,13 +341,13 @@ class DraftDetails extends Component {
               <ScrollLink
                 activeClass="active"
                 key={item.nid}
-                className={item.nid}
-                to={item.nid}
+                to="item"
                 smooth
                 duration={500}
                 offset={-90}
               >
                 <Button
+                  onClick={() => this.setState({ selected: item })}
                   className="text-right justify-content-start mb-2"
                   color="primary"
                   block
@@ -368,22 +368,22 @@ class DraftDetails extends Component {
                 <Button color="link">من اصل {items.length} مادة</Button>
               </Link>
             </h6>
-            {items.map(item => (
-              <Element key={item.nid} name={item.nid} className={item.nid}>
+            <Element name="item">
+              {items && items.length && (
                 <CardDraftItems
                   date={
                     draft.applied_date
                       ? ''
                       : moment(draft.end_date).format('dddd, MMMM Do YYYY')
                   }
-                  selected={item}
+                  selected={selected || items[0]}
                   dropdownList={
                     (selected ? selected.children : items[0].children) || []
                   }
                   tags={[]}
                 />
-              </Element>
-            ))}
+              )}
+            </Element>
           </div>
           <Element name="test1" className="element">
             {successComment && (
