@@ -454,3 +454,48 @@
   margin-right: 40px;
   width: 80%;
 }
+/* start footeer */
+.upperFooter img {
+  height: 25px !important;
+  object-fit: contain;
+  margin: 0 20px;
+  width: auto;
+}
+.upperFooter {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  flex-direction: row-reverse;
+}
+.newMap {
+  padding: 0;
+}
+.footer {
+  background-color: #006c68;
+  padding: 50px 0;
+}
+.footer h5 {
+  color: #81bd41;
+  font-weight: 600;
+}
+.footer p,
+.footer a {
+  color: #fff;
+  margin-bottom: 10px;
+}
+.bottomFooter {
+  border-top: 1px solid #fff;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+}
+.bottomFooter p {
+  color: #fff;
+  margin-bottom: 0;
+}
+.bottomFooter img {
+  width: 20px;
+  object-fit: contain;
+  margin-right: 10px;
+}

@@ -53,6 +53,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 21%;
+  border: 0.5px solid rgba(255, 255, 255, 0.4);
+  padding: 10px;
 }
 
 .section-flex .icons-group > * > div {
@@ -101,7 +104,15 @@
 /* start newUILanding */
 .newUILanding .header-image-bg {
   height: 80vh;
+  position: relative;
 }
+.heroPattern {
+  position: absolute;
+  left: 0;
+  top: 10vh;
+  width: 150px;
+}
+
 .newUILanding .header-image-bg .section {
   padding-top: 100px;
 }
@@ -126,4 +137,255 @@
 }
 .header-button i {
   margin-right: 10px;
+}
+.newUILanding .activities {
+  background-color: #fff;
+  background-image: url(/static/img/interactive/activities.svg);
+  background-repeat: no-repeat;
+  background-position: bottom left;
+}
+.newUILanding .activities h2 {
+  color: #81bd41;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.newUILanding .activities .btn-group .btn {
+  border: 2px solid #006c68;
+  border-radius: 0 !important;
+  background-color: transparent;
+  color: #006c68;
+  width: 200px;
+  margin: 0 !important;
+}
+.newUILanding .activities .btn-group .btn.active {
+  background-color: #006c68 !important;
+  color: #fff;
+}
+.newUILanding .activities .oneActivity {
+  border-radius: 5px;
+  border: 1px solid #40c2cc;
+  padding: 10px;
+  box-shadow: 0px 5px 10px #0000000d;
+}
+.newUILanding .activities .col-lg-3 {
+  padding: 10px;
+}
+.newUILanding .activities .oneActivity h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #006c68;
+  margin-bottom: 15px;
+}
+.newUILanding .activities .oneActivity img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  margin-left: 10px;
+}
+.newUILanding .activities .oneActivity p {
+  color: #006c68;
+}
+.newUILanding .activities .btn {
+  margin-top: 80px;
+  border-radius: 25px;
+  color: #81bd41;
+  border-color: #81bd41;
+}
+.newUILanding .activities .btn i {
+  color: #81bd41;
+}
+.newUILanding .topSingle {
+  background-color: #fff;
+  box-shadow: 0px 5px 10px #0000000d;
+  border-radius: 5px;
+  padding: 25px 20px;
+  margin-bottom: 15px;
+}
+.newUILanding .social-sharing h2 {
+  text-align: right;
+  font-weight: 600 !important;
+  color: #006c68 !important;
+  margin-bottom: 0;
+}
+.newUILanding .social-sharing h5 {
+  text-align: right;
+  color: #81bd41 !important;
+  margin-bottom: 30px;
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 600;
+}
+.newUILanding .topSingle .singleName p {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #006c68;
+  font-size: 12px;
+}
+.newUILanding .topSingle .singleName span {
+  color: #006c68;
+  font-size: 12px;
+}
+.newUILanding .topSingle .trophy {
+  margin-right: auto;
+}
+.newUILanding .topSingle .trophy span {
+  color: #006c68;
+  font-size: 12px;
+  margin-right: 10px;
+}
+.newUILanding .topSingle .trophy img {
+  width: 14px;
+  object-fit: contain;
+}
+.newUILanding .topSingle .avatar {
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
+}
+.singleConnectInfo {
+  background-color: #fff;
+  box-shadow: 0px 5px 10px #0000000d;
+  border-radius: 5px;
+  padding: 25px 20px;
+}
+.singleConnectInfo img {
+  width: 70px;
+  object-fit: contain;
+}
+.singleConnectInfo h4 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: #006c68;
+}
+.singleConnectInfo p {
+  color: #81bd41;
+  font-weight: 600;
+}
+.newUILanding .social-sharing {
+  background-image: url(/static/img/interactive/collective.svg);
+  background-repeat: no-repeat;
+  background-position: 0% 80%;
+}
+.rightSide {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+.rightSide img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border-radius: 5px;
+}
+.rightSide .newsInfo {
+  position: relative;
+  z-index: 99;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.blogger {
+  background-color: #fff;
+  background-image: url(/static/img/interactive/news.svg);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+.blogger h2 {
+  color: #006c68;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.blogger .btn-group {
+  border-radius: 0;
+}
+.blogger .btn-group .btn {
+  border-radius: 0 !important;
+  border: 1px solid #81bd41;
+  background-color: transparent;
+  color: #81bd41;
+  width: 200px;
+  font-weight: 600;
+  font-size: 13px;
+  margin: 0;
+}
+.blogger .btn-group .btn.active {
+  background-color: #81bd41 !important;
+  color: #fff;
+}
+.blogger h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-right: 15px;
+  font-weight: 600;
+}
+.blogger p {
+  margin-right: 15px;
+  color: #fff;
+}
+.leftSide {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  margin-bottom: 15px;
+}
+.leftSide img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border-radius: 5px;
+}
+.leftSide .newsInfo {
+  position: relative;
+  z-index: 99;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.leftSide h3 {
+  font-size: 14px;
+}
+.blogger .btn {
+  border-radius: 25px;
+  border: 1px solid #81bd41;
+  color: #81bd41;
+  width: 150px;
+  margin-top: 50px;
+}
+.blogger .btn i {
+  color: #81bd41;
+}
+.args {
+  position: relative;
+}
+.args .bg1 {
+  position: absolute;
+  top: 17%;
+  right: -350px;
+}
+.args .bg2 {
+  position: absolute;
+  top: 17%;
+  left: -350px;
+  transform: rotate(180deg);
+}
+.args .btn {
+  border-radius: 25px;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent !important;
+  font-weight: 400;
+  margin-top: 40px;
 }
