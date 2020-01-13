@@ -7,7 +7,10 @@
   --primary-black: #232323;
   --primary-dark: #313131;
 }
-
+@font-face {
+  font-family: 'TheSansArabic';
+  src: url(/static/fonts/TheSansArabic-Plain.ttf);
+}
 /*!
  * CoreUI - Open Source Dashboard UI Kit
  * @version v2.1.12
@@ -67,6 +70,8 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: 'TheSansArabic', sans-serif;
+  font-weight: 500;
 }
 
 article,
@@ -15795,7 +15800,7 @@ html,
 body {
   background-color: #f4f4f4 !important;
   color: #232323;
-  font-family: 'Changa', sans-serif;
+  font-family: 'TheSansArabic', sans-serif;
   font-weight: 500;
 }
 
@@ -16649,9 +16654,9 @@ html body .app.flex-row.align-items-center {
   padding: 10px 0;
 }
 
-.client-layout .nav-item a {
+/* .client-layout .nav-item a {
   color: #000000 !important;
-}
+} */
 
 .user-loggedin {
   margin-bottom: auto;
@@ -16812,22 +16817,6 @@ html body .app.flex-row.align-items-center {
 .action-buttons > * {
   margin: 0px 20px;
 }
-.icons-group {
-  background: -webkit-gradient(
-      linear,
-      left top,
-      left bottom,
-      from(rgba(0, 0, 0, 0)),
-      to(rgba(0, 0, 0, 0))
-    ),
-    url(/static/media/value-beeline.fba3df5b.svg);
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
-    url(/static/img/value-beeline.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center right;
-  background-position: 25px 10px;
-}
 
 .header-image-bg {
   color: white;
@@ -16840,9 +16829,9 @@ html body .app.flex-row.align-items-center {
       from(rgba(0, 0, 0, 0.6)),
       to(rgba(0, 0, 0, 0.6))
     ),
-    url(/static/img/header-landing.jpg);
+    url(/static/img/interactive/hero2.png);
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(/static/img/header-landing.jpg);
+    url(/static/img/interactive/hero2.png);
   background-size: cover;
   display: flex;
   align-items: center;
@@ -16863,16 +16852,6 @@ html body .app.flex-row.align-items-center {
   width: 30px;
   height: 30px;
   object-fit: contain;
-}
-.section-flex .icons-group .icon-border {
-  border-radius: 50%;
-  border: 2px solid white;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
 }
 
 .icons-group h3 {
@@ -17869,7 +17848,7 @@ textarea.form-control {
 }
 
 .client-layout .flex-page-content main {
-  margin-top: 90px;
+  margin-top: -85px;
   padding-bottom: 100px;
 }
 
@@ -18022,10 +18001,6 @@ textarea.form-control {
 
 .client-layout .nav-item {
   padding: 10px 0;
-}
-
-.client-layout .nav-item a {
-  color: #000000 !important;
 }
 
 .user-loggedin {

@@ -7,7 +7,6 @@ import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
 import CardDescription from '../components/card-description/card-description';
 import CardBlog from '../components/card-blog/card-blog';
-
 import './Landing.css';
 
 import Api from '../../../api';
@@ -94,57 +93,63 @@ const Landing = () => {
     getNews();
   }, []);
   return (
-    <div className="rtl">
+    <div className="rtl newUILanding">
       <div className="header header-image-bg">
         <Container>
           <section className="section-flex">
-            <h2>شارك بصنع القرار…ارفع صوتك</h2>
+            <h2>شارك بصنع القرار</h2>
+            <h3>ارفع صوتك</h3>
             <div className="icons-group">
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/value-1.svg"
+                    src="/static/img/interactive/one.svg"
                   />
                 </div>
-                <h3>١. أنشئ حساب</h3>
+                <p>1</p>
+                <h5> أنشئ حساب</h5>
               </div>
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/value-4.svg"
+                    src="/static/img/interactive/like.svg"
                   />
                 </div>
-                <h3>٢. صوّت للمسودة التي تهمك</h3>
+                <p>2</p>
+                <h5>صوت للمسودة التي تهمك</h5>
               </div>
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/value-2.svg"
+                    src="/static/img/interactive/comments.svg"
                   />
                 </div>
-                <h3>٣. تتم مناقشة المسودة</h3>
+                <p>3</p>
+                <h5> تتم مناقشة المسودة</h5>
               </div>
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/value-3.svg"
+                    src="/static/img/interactive/report.svg"
                   />
                 </div>
-                <h3>٤. يتم اتخاذ القرار بشأن المسودة</h3>
+                <p>4</p>
+                <h5>يتم اتخاذ القرار بشأن المسودة</h5>
               </div>
             </div>
             <div>
               <Link href="/register">
                 <a className="opactiy-8 scale-hover header-button btn btn-primary">
                   انشاء حساب
+                  <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
                 </a>
               </Link>
             </div>

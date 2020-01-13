@@ -136,49 +136,42 @@ class ClientHeader extends React.Component {
     const { isAuthentcated, signOut, router } = this.props;
 
     return (
-      <div className="fixed-navbar">
+      <div className="ministry">
         <div className="header-nav">
-          <div>قرار - وزارة الشؤون البلدية والقروية</div>
-          {isAuthentcated ? (
-            <div>
-              <div
-                style={{
-                  cursor: 'pointer',
-                  color: 'white',
-                  display: 'inline-block'
-                }}
-                onClick={signOut}
-              >
-                خروج
-              </div>
-            </div>
-          ) : (
-            <div className="action-buttons">
-              <Link href="/register">
-                <a className="white-link scale-hover">انشاء حساب </a>
-              </Link>
-              {/* <a href="#"></a> */}
-              <Link href="/login">
-                <a className="white-link scale-hover">دخول</a>
-              </Link>
-            </div>
-          )}
-        </div>
-        <Navbar color="light" light expand="md">
+          <p className="interactive"> المنصة التفاعلية</p>
           <Link href="/">
-            <a className="flex flex-align-center navbar-brand">
+            <a className="speech-bubble activeLink">
+              <img src="/static/img/interactive/qrar.svg" alt="" />
+              قرار
+            </a>
+          </Link>
+          <Link href="/">
+            <a className="afkarLink">
+              <img src="/static/img/interactive/afkar.png" alt="" />
+              بنك الافكار
+            </a>
+          </Link>
+          <Link href="/">
+            <a className="astbyanLink">
+              <img src="/static/img/interactive/form.svg" alt="" />
+              الاستبيانات
+            </a>
+          </Link>
+        </div>
+        <Navbar expand="md" className="d-flex flex-row justify-content-between">
+          <Link href="/">
+            <a className="flex flex-align-center navbar-brand ml-5">
               <Media
                 className="image-icon"
                 object
-                src="/static/img/brand/logo.svg"
+                src="/static/img/interactive/logo.svg"
               />
-              <h4 className="brand-header">قرار</h4>
             </a>
           </Link>
-          <NavbarToggler onClick={this.toggle} />
+          {/* <NavbarToggler onClick={this.toggle} /> */}
           <Collapse isOpen={this.state.isOpen} navbar>
-            <div className="container">
-              <Nav navbar>
+            <div className="newNav mr-auto">
+              <Nav navbar className="d-flex justify-content-between ">
                 <NavItem
                   active={router.pathname === '/'}
                   onClick={this.closeMobile}
@@ -234,6 +227,38 @@ class ClientHeader extends React.Component {
                     <NavLink>المشاركة المجتمعية</NavLink>
                   </Link>
                 </NavItem>
+                {isAuthentcated ? (
+                  <NavItem
+                    style={{
+                      cursor: 'pointer',
+                      color: 'white',
+                      display: 'inline-block'
+                    }}
+                    onClick={signOut}
+                  >
+                    خروج
+                  </NavItem>
+                ) : (
+                  <>
+                    <NavItem
+                      active={router.pathname === '/en'}
+                      onClick={this.closeMobile}
+                    >
+                      <Link href="/EN">
+                        <NavLink>EN</NavLink>
+                      </Link>
+                    </NavItem>
+                    <NavItem
+                      active={router.pathname === '/login'}
+                      onClick={this.closeMobile}
+                    >
+                      <Link href="/login">
+                        <NavLink> دخول</NavLink>
+                      </Link>
+                    </NavItem>
+                  </>
+                )}
+
                 {isAuthentcated ? this.userDropdown() : ''}
               </Nav>
             </div>
@@ -250,9 +275,6 @@ const mapStateToProps = ({ auth: { name, profileImage } }) => ({
   name,
   profileImage
 });
-export default connect(
-  mapStateToProps,
-  null,
-  null,
-  { pure: false }
-)(withRouter(ClientHeader));
+export default connect(mapStateToProps, null, null, { pure: false })(
+  withRouter(ClientHeader)
+);

@@ -300,10 +300,6 @@
   padding: 10px 0;
 }
 
-.client-layout .nav-item a {
-  color: #000000 !important;
-}
-
 .user-loggedin {
   margin-bottom: auto;
 }
@@ -348,4 +344,113 @@
 
 .client-layout .navbar-nav .dropdown-toggle::after {
   display: none;
+}
+/* start ministry */
+.ministry .header-nav {
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  padding: 0;
+  justify-content: flex-start;
+  position: relative;
+}
+.ministry nav.navbar {
+  height: 85px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.582);
+}
+.ministry .header-nav .interactive {
+  background-color: #81bd41;
+  height: 100%;
+  width: 315px;
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+.ministry .header-nav a img {
+  width: 15px;
+  height: auto;
+  object-fit: contain;
+  margin-left: 10px;
+}
+.ministry .header-nav .speech-bubble.activeLink img {
+  filter: brightness(0) invert(1);
+}
+.ministry .header-nav .speech-bubble {
+  position: relative;
+  background: #81bd41;
+  border-radius: 25px;
+  width: 150px;
+  height: 38px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  color: #fff;
+  display: flex;
+  font-size: 16px;
+}
+
+.ministry .header-nav .speech-bubble:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: #81bd41;
+  border-bottom: 0;
+  margin-left: -8px;
+  margin-bottom: -8px;
+}
+.ministry .header-nav .afkarLink {
+  background: transparent;
+  border-radius: 25px;
+  width: 150px;
+  height: 38px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  color: #2ba16b;
+  display: flex;
+  font-size: 16px;
+  border: 2px solid #2ba16b;
+}
+.ministry .header-nav .astbyanLink {
+  background: transparent;
+  border-radius: 25px;
+  width: 150px;
+  height: 38px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  color: #40c2cc;
+  display: flex;
+  font-size: 16px;
+  border: 2px solid #40c2cc;
+}
+.ministry nav.navbar {
+  background-color: transparent;
+}
+.header-image-bg {
+  margin-top: -10px;
+}
+.ministry .image-icon {
+  width: auto;
+}
+.ministry li.active {
+  background-color: transparent !important;
+}
+.ministry .nav-item a {
+  color: #fff !important;
+}
+.ministry .newNav {
+  margin-right: 40px;
+  width: 80%;
 }

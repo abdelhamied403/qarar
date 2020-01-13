@@ -11,29 +11,16 @@
 .action-buttons > * {
   margin: 0px 20px;
 }
-.icons-group {
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
-    url(/static/img/value-beeline.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center right;
-  background-position: 25px 10px;
-}
 
-.header-image-bg {
-  color: white;
-  text-align: center;
-  min-height: 40vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(/static/img/header-landing.jpg);
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  /* font-size: 40px; */
-}
 .header h2 {
   font-size: 32px;
-  margin-bottom: 72px;
+  margin-bottom: 0;
+  color: #81bd41;
+  font-weight: 600;
+}
+.header h3 {
+  font-size: 16px;
+  margin-top: 15px;
 }
 .section-flex .icons-group {
   display: flex;
@@ -43,19 +30,16 @@
   padding: 20px 0 50px 0;
 }
 .section-flex .icons-group .image-icon {
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
 .section-flex .icons-group .icon-border {
-  border-radius: 50%;
-  border: 2px solid white;
   width: 80px;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 15px;
 }
 
 .icons-group h3 {
@@ -113,4 +97,33 @@
 }
 .opactiy-8 {
   opacity: 0.8;
+}
+/* start newUILanding */
+.newUILanding .header-image-bg {
+  height: 80vh;
+}
+.newUILanding .header-image-bg .section {
+  padding-top: 100px;
+}
+.newUILanding .header h2 {
+  margin-top: 85px;
+}
+.newUILanding .icons-group p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 0;
+}
+.newUILanding .icons-group h5 {
+  font-size: 16px;
+  color: #81bd41;
+  font-weight: 600;
+}
+.header-button {
+  background-color: transparent;
+  border: 2px solid #81bd41;
+  border-radius: 25px;
+}
+.header-button i {
+  margin-right: 10px;
 }
