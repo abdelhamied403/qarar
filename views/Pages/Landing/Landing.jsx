@@ -364,21 +364,31 @@ const Landing = () => {
                 <Col md="6">
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
-                    <div className="newsInfo">
-                      <Link href="/news">
+                    <Link href="/news">
+                      <div className="newsInfo">
                         <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                      </Link>
-                    </div>
+                        <p>
+                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
+                          بمختلف المناطق و المحافظات و مدن المملكة.
+                        </p>
+                      </div>
+                    </Link>
                   </div>
                 </Col>
                 <Col md="6">
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
-                    <div className="newsInfo">
-                      <Link href="/news">
+                    <Link href="/news">
+                      <div className="newsInfo">
                         <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                      </Link>
-                    </div>
+                        <p>
+                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
+                          بمختلف المناطق و المحافظات و مدن المملكة.
+                        </p>
+                      </div>
+                    </Link>
                   </div>
                 </Col>
               </Row>
@@ -386,21 +396,31 @@ const Landing = () => {
                 <Col md="6">
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
-                    <div className="newsInfo">
-                      <Link href="/news">
+                    <Link href="/news">
+                      <div className="newsInfo">
                         <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                      </Link>
-                    </div>
+                        <p>
+                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
+                          بمختلف المناطق و المحافظات و مدن المملكة.
+                        </p>
+                      </div>
+                    </Link>
                   </div>
                 </Col>
                 <Col md="6">
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
-                    <div className="newsInfo">
-                      <Link href="/news">
+                    <Link href="/news">
+                      <div className="newsInfo">
                         <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                      </Link>
-                    </div>
+                        <p>
+                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
+                          بمختلف المناطق و المحافظات و مدن المملكة.
+                        </p>
+                      </div>
+                    </Link>
                   </div>
                 </Col>
               </Row>
