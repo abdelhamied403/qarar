@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="17.6" height="17.602" viewBox="0 0 17.6 17.602">
   <g id="help-circle" transform="translate(0.8 0.801)">
-    <circle id="Oval" cx="8" cy="8" r="8" fill="none" stroke="#00aaba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.6"/>
-    <path id="Path" d="M0,1.6a2.4,2.4,0,0,1,4.664.8c0,1.6-2.4,2.4-2.4,2.4" transform="translate(5.672 3.996)" fill="none" stroke="#00aaba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.6"/>
-    <path id="Path-2" data-name="Path" d="M0,.4H.8" transform="matrix(1, 0.017, -0.017, 1, 8.007, 11.193)" fill="none" stroke="#00aaba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.6"/>
+    <circle id="Oval" cx="8" cy="8" r="8" fill="none" stroke="#40C2CC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.6"/>
+    <path id="Path" d="M0,1.6a2.4,2.4,0,0,1,4.664.8c0,1.6-2.4,2.4-2.4,2.4" transform="translate(5.672 3.996)" fill="none" stroke="#40C2CC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.6"/>
+    <path id="Path-2" data-name="Path" d="M0,.4H.8" transform="matrix(1, 0.017, -0.017, 1, 8.007, 11.193)" fill="none" stroke="#40C2CC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.6"/>
   </g>
 </svg>
