@@ -287,7 +287,6 @@
 .client-layout .active {
   background-color: var(--normal-gray) !important;
 }
-
 .client-layout .breadcrumb-item.active {
   background-color: white !important;
 }

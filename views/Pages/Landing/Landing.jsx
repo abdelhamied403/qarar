@@ -96,7 +96,7 @@ const Landing = () => {
     <div className="rtl newUILanding">
       <div className="header header-image-bg">
         <img
-          src="/static/img/interactive/hero.svg"
+          src="/static/img/interactive/homepage-header.svg"
           alt=""
           className="heroPattern"
         />

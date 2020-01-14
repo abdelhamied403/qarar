@@ -89,7 +89,7 @@
   padding: 0 28px;
 }
 .args .btn:hover {
-  color: #00aaba !important;
+  color: #40c2cc !important;
 }
 
 .header-button {
@@ -110,7 +110,7 @@
   position: absolute;
   left: 0;
   top: 15vh;
-  width: 150px;
+  width: 128px;
 }
 
 .newUILanding .header-image-bg .section {
@@ -194,6 +194,10 @@
   border-radius: 25px;
   color: #81bd41;
   border-color: #81bd41;
+}
+
+.newUILanding .activities .btn:hover {
+  color: white;
 }
 .newUILanding .activities .btn i {
   color: #81bd41;
@@ -311,7 +315,7 @@
 }
 .blogger .btn-group .btn {
   border-radius: 0 !important;
-  border: 1px solid #81bd41;
+  border: 2px solid #81bd41;
   background-color: transparent;
   color: #81bd41;
   width: 200px;
@@ -321,6 +325,7 @@
 }
 .blogger .btn-group .btn.active {
   background-color: #81bd41 !important;
+  border-color: #81bd41 !important;
   color: #fff;
 }
 .newUILanding .blogger img {
