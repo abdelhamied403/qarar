@@ -323,6 +323,9 @@
   background-color: #81bd41 !important;
   color: #fff;
 }
+.newUILanding .blogger img {
+  object-fit: cover;
+}
 .blogger h3 {
   font-size: 20px;
   color: #fff;
@@ -399,4 +402,44 @@
 }
 .newsInfo {
   cursor: pointer;
+}
+@media screen and (max-width: 992px) {
+  .section-flex .icons-group > * {
+    width: 48%;
+  }
+  .newUILanding .activities .btn-group .btn {
+    width: auto;
+  }
+  .newUILanding .activities .d-flex.justify-content-between.align-items-center {
+    flex-direction: column;
+  }
+  .newUILanding .activities h2 {
+    margin-bottom: 20px;
+  }
+  .newUILanding .activities .btn-group .btn {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .section-flex .icons-group > * {
+    width: 100%;
+  }
+  .newUILanding .activities {
+    background-image: none;
+  }
+  .singleConnectInfo {
+    margin-bottom: 15px;
+  }
+  .newUILanding .blogger .d-flex.justify-content-between.align-items-center {
+    flex-direction: column;
+  }
+  .newUILanding .blogger h2 {
+    margin-bottom: 15px;
+  }
+  .newUILanding .blogger .btn-group .btn {
+    width: auto;
+  }
+  .rightSide {
+    margin-bottom: 15px;
+  }
 }

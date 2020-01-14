@@ -168,7 +168,7 @@ class ClientHeader extends React.Component {
               />
             </a>
           </Link>
-          {/* <NavbarToggler onClick={this.toggle} /> */}
+          <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <div className="newNav mr-auto">
               <Nav navbar className="d-flex justify-content-end">

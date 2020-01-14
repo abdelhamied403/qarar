@@ -4338,7 +4338,7 @@ input[type='button'].btn-block {
   border-color: rgba(0, 0, 0, 0.1);
 }
 
-.navbar-light .navbar-toggler-icon {
+.navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
@@ -15819,7 +15819,7 @@ h6,
   border: none;
 }
 
-.navbar-light .navbar-toggler-icon {
+.navbar-toggler-icon {
   background-image: url(/static/img/menu.svg);
 }
 
@@ -18089,4 +18089,48 @@ textarea.form-control {
 }
 .client-layout .nav-item {
   margin-right: 20px;
+}
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 140px;
+}
+@media (max-width: 768px) {
+  .is-current {
+    top: 0px;
+  }
+}
+.remove-current .is-current {
+  display: none !important;
+}
+.content {
+  overflow: hidden;
+}
+.client-layout .nav-item:hover {
+  background-color: transparent !important;
+  color: #81bd41 !important;
+  cursor: pointer;
+}
+.client-layout .nav-item:hover a {
+  background-color: transparent !important;
+  color: #81bd41 !important;
+  cursor: pointer;
+}
+.client-layout .nav-item {
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    padding: 0 10px !important;
+  }
+  .client-layout .nav-item {
+    margin-right: 10px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .navbar-expand-md .navbar-collapse {
+    background-color: #81bd41;
+  }
 }
