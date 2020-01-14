@@ -16651,10 +16651,6 @@ html body .app.flex-row.align-items-center {
   padding: 0;
 }
 
-.client-layout .nav-item {
-  padding: 10px 0;
-}
-
 /* .client-layout .nav-item a {
   color: #000000 !important;
 } */
@@ -18065,6 +18061,11 @@ textarea.form-control {
   left: 0;
   right: 0;
 }
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 140px;
+}
 @media (max-width: 768px) {
   .is-current {
     top: 0px;
@@ -18075,4 +18076,17 @@ textarea.form-control {
 }
 .content {
   overflow: hidden;
+}
+.client-layout .nav-item:hover {
+  background-color: transparent !important;
+  color: #81bd41 !important;
+  cursor: pointer;
+}
+.client-layout .nav-item:hover a {
+  background-color: transparent !important;
+  color: #81bd41 !important;
+  cursor: pointer;
+}
+.client-layout .nav-item {
+  margin-right: 20px;
 }

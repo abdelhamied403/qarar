@@ -154,7 +154,7 @@ const Landing = () => {
               <Link href="/register">
                 <a className="opactiy-8 scale-hover header-button btn btn-primary">
                   انشاء حساب
-                  <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
                 </a>
               </Link>
             </div>
@@ -241,7 +241,7 @@ const Landing = () => {
             <Link href="/drafts">
               <Button outline color="primary" size="md">
                 كل المسودات
-                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                <img src="/static/img/interactive/greenArrow.svg" alt="" />
               </Button>
             </Link>
           </div>
@@ -347,14 +347,16 @@ const Landing = () => {
             <Col md="6">
               <div className="newsSingle rightSide">
                 <img src="/static/img/interactive/news2.png" alt="" />
-                <div className="newsInfo">
-                  <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                  <p>
-                    تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
-                    الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
-                    المناطق و المحافظات و مدن المملكة.
-                  </p>
-                </div>
+                <Link href="/news">
+                  <div className="newsInfo">
+                    <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                    <p>
+                      تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
+                      الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
+                      المناطق و المحافظات و مدن المملكة.
+                    </p>
+                  </div>
+                </Link>
               </div>
             </Col>
             <Col md="6">
@@ -363,7 +365,9 @@ const Landing = () => {
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
                     <div className="newsInfo">
-                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      <Link href="/news">
+                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      </Link>
                     </div>
                   </div>
                 </Col>
@@ -371,7 +375,9 @@ const Landing = () => {
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
                     <div className="newsInfo">
-                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      <Link href="/news">
+                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      </Link>
                     </div>
                   </div>
                 </Col>
@@ -381,7 +387,9 @@ const Landing = () => {
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
                     <div className="newsInfo">
-                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      <Link href="/news">
+                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      </Link>
                     </div>
                   </div>
                 </Col>
@@ -389,7 +397,9 @@ const Landing = () => {
                   <div className="newsSingle leftSide">
                     <img src="/static/img/interactive/news2.png" alt="" />
                     <div className="newsInfo">
-                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      <Link href="/news">
+                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      </Link>
                     </div>
                   </div>
                 </Col>
@@ -416,7 +426,7 @@ const Landing = () => {
             <Link href="/news">
               <Button outline color="primary" size="md">
                 كل الاخبار
-                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                <img src="/static/img/interactive/greenArrow.svg" alt="" />
               </Button>
             </Link>
           </div>
@@ -431,7 +441,7 @@ const Landing = () => {
           <Link href="/drafts">
             <Button className="scale-hover" color="primary" outline size="md">
               اكتشف قائمة المسودات
-              <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
             </Button>
           </Link>
         </Container>
