@@ -21,6 +21,9 @@ const Landing = () => {
   const [activeDrafts, setActiveDrafts] = useState([]);
   const [soonCloseDrafts, setSoonCloseDrafts] = useState([]);
   const [news, setNews] = useState([]);
+  const [activeBtn, setActiveBtn] = useState(1);
+  const [activeBtnNews, setActiveBtnNews] = useState(0);
+
   const getActiveUsers = async () => {
     const userACResponse = await Api.get(
       '/api/users/comments?limit=1&_format=json'
@@ -167,12 +170,96 @@ const Landing = () => {
           <div className="d-flex justify-content-between align-items-center mb-5">
             <h2 className="text-center header">نشاط المسودات</h2>
             <ButtonGroup>
-              <Button>اكثر نشاطا هذا الاسبوع</Button>
-              <Button className="active">نشرت حديثا</Button>
-              <Button>تغلق قريبا</Button>
+              <Button
+                onClick={() => setActiveBtn(0)}
+                className={activeBtn === 0 ? 'active' : ''}
+              >
+                اكثر نشاطا هذا الاسبوع
+              </Button>
+              <Button
+                className={activeBtn === 1 ? 'active' : ''}
+                onClick={() => setActiveBtn(1)}
+              >
+                نشرت حديثا
+              </Button>
+              <Button
+                className={activeBtn === 2 ? 'active' : ''}
+                onClick={() => setActiveBtn(2)}
+              >
+                تغلق قريبا
+              </Button>
             </ButtonGroup>
           </div>
-          <Row>
+          <Row
+            style={activeBtn === 0 ? { display: 'flex' } : { display: 'none' }}
+          >
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني </h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+          </Row>
+          <Row
+            style={activeBtn === 1 ? { display: 'flex' } : { display: 'none' }}
+          >
             <Col xs="12" md="6" lg="3">
               <div className="oneActivity">
                 <h4>إشتراطات المباني التجارية</h4>
@@ -230,6 +317,73 @@ const Landing = () => {
             <Col xs="12" md="6" lg="3">
               <div className="oneActivity">
                 <h4>إشتراطات المباني التجارية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+          </Row>
+          <Row
+            style={activeBtn === 2 ? { display: 'flex' } : { display: 'none' }}
+          >
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
+                <p>
+                  <img src="/static/img/interactive/calendar.svg" alt="" />
+                  يغلق التصويت بتاريخ 01-01-2020
+                </p>
+              </div>
+            </Col>
+            <Col xs="12" md="6" lg="3">
+              <div className="oneActivity">
+                <h4>إشتراطات المباني السكنية</h4>
                 <p>
                   <img src="/static/img/interactive/calendar.svg" alt="" />
                   يغلق التصويت بتاريخ 01-01-2020
@@ -339,93 +493,198 @@ const Landing = () => {
           <div className="d-flex justify-content-between align-items-center mb-5">
             <h2 className="text-center header">أخبار المنصة</h2>
             <ButtonGroup>
-              <Button className="active">أخر الأخبار</Button>
-              <Button>أهم الأخبار</Button>
+              <Button
+                onClick={() => setActiveBtnNews(0)}
+                className={activeBtnNews === 0 ? 'active' : ''}
+              >
+                أخر الأخبار
+              </Button>
+              <Button
+                onClick={() => setActiveBtnNews(1)}
+                className={activeBtnNews === 1 ? 'active' : ''}
+              >
+                أهم الأخبار
+              </Button>
             </ButtonGroup>
           </div>
-          <Row>
-            <Col md="6">
-              <div className="newsSingle rightSide">
-                <img src="/static/img/interactive/news2.png" alt="" />
-                <Link href="/news">
-                  <div className="newsInfo">
-                    <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                    <p>
-                      تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
-                      الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
-                      المناطق و المحافظات و مدن المملكة.
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            </Col>
-            <Col md="6">
-              <Row>
-                <Col md="6">
-                  <div className="newsSingle leftSide">
-                    <img src="/static/img/interactive/news2.png" alt="" />
-                    <Link href="/news">
-                      <div className="newsInfo">
-                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                        <p>
-                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
-                          بمختلف المناطق و المحافظات و مدن المملكة.
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </Col>
-                <Col md="6">
-                  <div className="newsSingle leftSide">
-                    <img src="/static/img/interactive/news2.png" alt="" />
-                    <Link href="/news">
-                      <div className="newsInfo">
-                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                        <p>
-                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
-                          بمختلف المناطق و المحافظات و مدن المملكة.
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="6">
-                  <div className="newsSingle leftSide">
-                    <img src="/static/img/interactive/news2.png" alt="" />
-                    <Link href="/news">
-                      <div className="newsInfo">
-                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                        <p>
-                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
-                          بمختلف المناطق و المحافظات و مدن المملكة.
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </Col>
-                <Col md="6">
-                  <div className="newsSingle leftSide">
-                    <img src="/static/img/interactive/news2.png" alt="" />
-                    <Link href="/news">
-                      <div className="newsInfo">
-                        <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                        <p>
-                          تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                          وزارة الشؤون البلديه و القروية على مستوي جميع الأمانات
-                          بمختلف المناطق و المحافظات و مدن المملكة.
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            {/* {news.map(newsItem => (
+          <>
+            <Row
+              style={
+                activeBtnNews === 0 ? { display: 'flex' } : { display: 'none' }
+              }
+            >
+              <Col md="6">
+                <div className="newsSingle rightSide">
+                  <img src="/static/img/interactive/news1.png" alt="" />
+                  <Link href="/news">
+                    <div className="newsInfo">
+                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      <p>
+                        تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
+                        الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
+                        المناطق و المحافظات و مدن المملكة.
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              </Col>
+              <Col md="6">
+                <Row>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+
+            <Row
+              style={
+                activeBtnNews === 1 ? { display: 'flex' } : { display: 'none' }
+              }
+            >
+              <Col md="6">
+                <div className="newsSingle rightSide">
+                  <img src="/static/img/interactive/news2.png" alt="" />
+                  <Link href="/news">
+                    <div className="newsInfo">
+                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                      <p>
+                        تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
+                        الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
+                        المناطق و المحافظات و مدن المملكة.
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              </Col>
+              <Col md="6">
+                <Row>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news2.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news2.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news2.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="6">
+                    <div className="newsSingle leftSide">
+                      <img src="/static/img/interactive/news2.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
+                          <p>
+                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
+                            وزارة الشؤون البلديه و القروية على مستوي جميع
+                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </>
+          {/* {news.map(newsItem => (
               <Col key={newsItem.id} xs="12" md="6" lg="4">
                 <CardBlog
                   image={newsItem.image}
@@ -441,7 +700,6 @@ const Landing = () => {
                 />
               </Col>
             ))} */}
-          </Row>
           <div className="text-center">
             <Link href="/news">
               <Button outline color="primary" size="md">

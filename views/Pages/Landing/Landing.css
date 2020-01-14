@@ -417,6 +417,10 @@
 .leftSide p {
   display: none;
 }
+.newUILanding .activities .btn-group .btn:hover {
+  background-color: #006c68;
+  color: #fff;
+}
 @media screen and (max-width: 992px) {
   .section-flex .icons-group > * {
     width: 48%;
