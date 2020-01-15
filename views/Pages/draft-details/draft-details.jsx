@@ -6,9 +6,9 @@ import {
   Row,
   Button,
   Media,
-  Alert,
-  UncontrolledDropdown,
-  DropdownToggle,
+  Card,
+  CardBody,
+  CardHeader,
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
@@ -49,7 +49,9 @@ class DraftDetails extends Component {
       flagged: false,
       successComment: false,
       loadingDraft: true,
-      selected: false
+      selected: false,
+      tab1: false,
+      tab2: true
     };
   }
 
@@ -256,7 +258,6 @@ class DraftDetails extends Component {
                         className="icon-small"
                       />
 
-                      {/* <i className="fa fa-clock-o "></i> */}
                       {draft.archived_date && (
                         <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
                       )}
@@ -338,9 +339,165 @@ class DraftDetails extends Component {
             </Container>
           </div>
         </div>
-        <Container>
+        <div className="draftContainer">
+          <img
+            src="/static/img/interactive/draftsBg.svg"
+            className="draftBg1"
+            alt=""
+          />
+          <img
+            src="/static/img/interactive/draftsBg.svg"
+            className="draftBg2"
+            alt=""
+          />
+          <Container>
+            <Card className="cardDraft">
+              <CardHeader>إشتراطات المباني التجارية</CardHeader>
+              <CardBody>
+                <Row>
+                  <Col md="9" className="draftBodyRt">
+                    <p>
+                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
+                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
+                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
+                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
+                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
+                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
+                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
+                      للمدينة، والحد من التأثير السلبي على حركة المرور في
+                      المدينة وتعزيز السلامة المرورية.
+                    </p>
+                    <div className="dateDraft d-flex align-items-center">
+                      <img
+                        src="/static/img/interactive/calendar (2).svg"
+                        alt=""
+                      />
+                      <p>الإثنين، ٤ نوفمبر ٢٠١٩</p>
+                    </div>
+                  </Col>
+                  <Col md="3">
+                    <div className="d-flex flex-column justify-items-start draftCardLt">
+                      <div className="d-flex justify-content-end">
+                        <img src="/static/img/interactive/lock.svg" alt="" />
+                        <span> التعليق مفتوح</span>
+                      </div>
+                      <div className="d-flex justify-content-end">
+                        <img
+                          src="/static/img/interactive/stopwatch.svg"
+                          alt=""
+                        />
+                        <span> متبقي 23 يوم</span>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </CardBody>
+            </Card>
+            <hr className="hrDraft" />
+            <Card className="cardDraft collapseDraftCard">
+              <CardHeader
+                className="d-flex justify-content-between"
+                onClick={() =>
+                  this.setState(prevState => ({
+                    tab1: !prevState.tab1
+                  }))
+                }
+              >
+                <p>
+                  <span>5.1.1</span>
+                  إشتراطات المباني التجارية
+                </p>
+                <img
+                  src="/static/img/interactive/whiteTabs.svg"
+                  alt=""
+                  className={this.state.tab1 ? 'rotated' : ''}
+                />
+              </CardHeader>
+              <CardBody
+                style={
+                  this.state.tab1 ? { display: 'block' } : { display: 'none' }
+                }
+              >
+                <Row>
+                  <Col md="9" className="draftBodyRt">
+                    <p>
+                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
+                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
+                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
+                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
+                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
+                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
+                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
+                      للمدينة، والحد من التأثير السلبي على حركة المرور في
+                      المدينة وتعزيز السلامة المرورية.
+                    </p>
+                  </Col>
+                </Row>
+                <Button>
+                  المزيد
+                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                </Button>
+              </CardBody>
+            </Card>
+
+            <Card className="cardDraft collapseDraftCard">
+              <CardHeader
+                className="d-flex justify-content-between"
+                onClick={() =>
+                  this.setState(prevState => ({
+                    tab2: !prevState.tab2
+                  }))
+                }
+              >
+                <p>
+                  <span>5.1.1</span>
+                  إشتراطات المباني التجارية
+                </p>
+                <img
+                  src="/static/img/interactive/whiteTabs.svg"
+                  alt=""
+                  className={this.state.tab2 ? 'rotated' : ''}
+                />
+              </CardHeader>
+              <CardBody
+                style={
+                  this.state.tab2 ? { display: 'block' } : { display: 'none' }
+                }
+              >
+                <Row>
+                  <Col md="9" className="draftBodyRt">
+                    <p>
+                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
+                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
+                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
+                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
+                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
+                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
+                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
+                      للمدينة، والحد من التأثير السلبي على حركة المرور في
+                      المدينة وتعزيز السلامة المرورية.
+                    </p>
+                  </Col>
+                </Row>
+                <Button>
+                  المزيد
+                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                </Button>
+              </CardBody>
+            </Card>
+            <div className="draftShouldLogin d-flex flex-column">
+              <img src="/static/img/interactive/disabled.svg" alt="" />
+              <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+              <Button>
+                تسجيل الدخول
+                <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+              </Button>
+              <a href="">تسجيل حساب</a>
+            </div>
+          </Container>
+        </div>
+        {/*  <Container>
           <div className="description">
-            <h5>الوصف</h5>
             <CardDraft
               header=""
               content={draft.body}
@@ -449,7 +606,7 @@ class DraftDetails extends Component {
               }))}
             />
           ) : null}
-        </Container>
+        </Container> */}
       </>
     );
   }
