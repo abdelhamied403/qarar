@@ -237,87 +237,108 @@ class DraftDetails extends Component {
     }
     return (
       <>
-        <Breadcrumb title="المسودات المطروحة للنقاش" link="/drafts" />
-        <Container>
-          <div className="dc-details-header">
-            <Row>
-              <Col sm="12" md="8" lg="9">
-                <div className="header-content">
-                  <h2>{draft.title}</h2>
-                  <div className="sub-header">
-                    <Media
-                      object
-                      src="/static/img/Icon - most active - views Copy 3.svg"
-                      className="icon-small"
-                    />
+        <div className="dc-details-header">
+          <div className="newHeader">
+            <Container>
+              <Row>
+                <Col sm="12" md="6" lg="6">
+                  <div className="header-content">
+                    <ul>
+                      <li>إشتراطات المباني التجارية</li>
+                      <li>5.1 الاشتراطات المعمارية</li>
+                      <li>5.1.1 متطلبات الأمن والصحة والسلامة</li>
+                    </ul>
+                    <h2>{draft.title}</h2>
+                    <div className="sub-header">
+                      <Media
+                        object
+                        src="/static/img/calendarWhite.svg"
+                        className="icon-small"
+                      />
 
-                    {/* <i className="fa fa-clock-o "></i> */}
-                    {draft.archived_date && (
-                      <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
-                    )}
-                    {draft.applied_date && (
-                      <span>تم التطبيق بتاريخ {draft.applied_date}</span>
-                    )}
-                    {draft.end_date &&
-                      !(draft.applied_date || draft.archived_date) && (
-                        <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                      {/* <i className="fa fa-clock-o "></i> */}
+                      {draft.archived_date && (
+                        <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
                       )}
-                  </div>
-                  <div className="button-group">
-                    <ScrollLink
-                      activeClass="active"
-                      className="test1"
-                      to="test1"
-                      spy
-                      smooth
-                      duration={500}
-                    >
-                      <Button color="primary">شارك برأيك</Button>
-                    </ScrollLink>
-                    {uid && (
-                      <Button
-                        color="primary"
-                        onClick={() => this.follow()}
-                        outline={!flagged}
+                      {draft.applied_date && (
+                        <span>تم التطبيق بتاريخ {draft.applied_date}</span>
+                      )}
+                      {draft.end_date &&
+                        !(draft.applied_date || draft.archived_date) && (
+                          <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                        )}
+                    </div>
+                    <div className="button-group">
+                      <ScrollLink
+                        activeClass="active"
+                        className="test1"
+                        to="test1"
+                        spy
+                        smooth
+                        duration={500}
                       >
-                        {flagged ? 'إلغاء المتابعة' : 'متابعة'}
-                      </Button>
-                    )}
+                        <Button color="primary">
+                          شارك برأيك
+                          <img
+                            src="/static/img/interactive/whiteArrow.svg"
+                            alt=""
+                          />
+                        </Button>
+                      </ScrollLink>
+                      {uid && (
+                        <Button
+                          color="primary"
+                          onClick={() => this.follow()}
+                          outline={!flagged}
+                        >
+                          {flagged ? 'إلغاء المتابعة' : 'متابعة'}
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Col>
-              <Col sm="12" md="4" lg="3">
-                <div className="cards">
-                  <Row>
-                    <Col xs="6">
-                      <CardInfo
-                        type="مشترك"
-                        number={draft.followers}
-                        icon="/static/img/like-icon.svg"
-                      />
-                    </Col>
-                    <Col xs="6">
-                      <CardInfo
-                        type="تعليق"
-                        number={draft.comments}
-                        icon="/static/img/draft activity - comments.svg"
-                      />
-                    </Col>
-                    <Col xs="12">
-                      <CardInfo
-                        type="صوت"
-                        number={
-                          parseInt(draft.likes, 10) +
-                          parseInt(draft.dislikes, 10)
-                        }
-                        icon="/static/img/Icon - draft activity - users.svg"
-                      />
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
+                </Col>
+                <Col sm="12" md="6" lg="6">
+                  <div className="icons-group">
+                    <div>
+                      <div className="icon-border">
+                        <Media
+                          className="image-icon"
+                          object
+                          src="/static/img/interactive/draft1 (1).svg"
+                        />
+                      </div>
+                      <p>6</p>
+                      <h5>مشترك</h5>
+                    </div>
+                    <div>
+                      <div className="icon-border">
+                        <Media
+                          className="image-icon"
+                          object
+                          src="/static/img/interactive/draft1 (2).svg"
+                        />
+                      </div>
+                      <p>12</p>
+                      <h5>تعليق</h5>
+                    </div>
+                    <div>
+                      <div className="icon-border">
+                        <Media
+                          className="image-icon"
+                          object
+                          src="/static/img/interactive/draft1 (3).svg"
+                        />
+                      </div>
+                      <p>20</p>
+                      <h5>صوت</h5>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
           </div>
+        </div>
+        <Container>
           <div className="description">
             <h5>الوصف</h5>
             <CardDraft
