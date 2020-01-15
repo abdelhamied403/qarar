@@ -95,7 +95,10 @@ class Contact extends Component {
         </FormGroup>
         <div className="button-group flex flex-justifiy-end">
           <p>*يستغرق الرد عادة ٣-٥ ايام عمل</p>
-          <Button color="primary">إرسال</Button>
+          <Button color="primary">
+            إرسال
+            <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+          </Button>
         </div>
       </div>
     );
@@ -183,13 +186,14 @@ class Contact extends Component {
     return (
       <>
         <div className="contact">
-          <Container>
-            <div className="contact-header text-center">
-              <h3>هل لديك ما تقوله بخصوص منصة قرار؟؟</h3>
-              <p className="sub-header">نحن نرحب بكافة أسئلتكم و رسائلكم</p>
-            </div>
-          </Container>
-
+          <div className="draftHeader">
+            <Container>
+              <div>
+                <h3>هل لديك ما تقوله بخصوص منصة قرار؟؟</h3>
+                <p>نحن نرحب بكافة أسئلتكم و رسائلكم</p>
+              </div>
+            </Container>
+          </div>
           <section className="tabs-content">
             <Nav tabs>
               <NavItem>

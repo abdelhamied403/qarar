@@ -43,75 +43,80 @@ const Login = () => {
     }
   };
   return (
-    <div className="register-container flex flex-justifiy-center flex-align-stretch">
-      <div className="register-content">
-        <div className="custom-container">
-          <div className="register-header m-tb-50">
-            <Link href="/register">
-              <a>انا مستخدم جديد</a>
-            </Link>
-            <h3>تسجيل الدخول</h3>
-            <p className="sub-header">
-              سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
-              والمشاريع التي تتابعها.{' '}
-            </p>
-          </div>
-          <Alert isOpen={error} color="danger">
-            {error}
-          </Alert>
-          <div>
-            <div className="form-horizontal">
-              <FormGroup row>
-                <Col md="4">
-                  <Label htmlFor="hf-username"> اسم المستخدم</Label>
-                </Col>
-                <Col xs="12" md="8">
-                  <Input
-                    type="username"
-                    id="hf-username"
-                    name="hf-username"
-                    value={user.name}
-                    onChange={e => setUser({ ...user, name: e.target.value })}
-                    placeholder="إسم المستخدم"
-                  />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="4">
-                  <Label htmlFor="hf-password">كلمة المرور</Label>
-                </Col>
-                <Col xs="12" md="8">
-                  <Input
-                    type="password"
-                    id="hf-password"
-                    name="hf-password"
-                    placeholder="ادخل كلمة المرور هنا"
-                    autoComplete="current-password"
-                    value={user.pass}
-                    onChange={e => setUser({ ...user, pass: e.target.value })}
-                  />
-                </Col>
-              </FormGroup>
-              <div className="button-group flex flex-justifiy-sp">
-                <Link href="/forgot-password">
-                  <a>نسيت كلمت المرور</a>
-                </Link>
-                <Button color="primary" onClick={() => login()}>
-                  دخول
-                </Button>
+    <>
+      <div className="navHeader"></div>
+
+      <div className="register-container flex flex-justifiy-center flex-align-stretch">
+        <div className="register-content">
+          <div className="custom-container">
+            <div className="register-header m-tb-20">
+              <Link href="/register">
+                <a>انا مستخدم جديد</a>
+              </Link>
+              <h3>تسجيل الدخول</h3>
+              <p className="sub-header">
+                سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
+                والمشاريع التي تتابعها.{' '}
+              </p>
+            </div>
+            <Alert isOpen={error} color="danger">
+              {error}
+            </Alert>
+            <div>
+              <div className="form-horizontal">
+                <FormGroup row>
+                  <Col md="4">
+                    <Label htmlFor="hf-username"> اسم المستخدم</Label>
+                  </Col>
+                  <Col xs="12" md="8">
+                    <Input
+                      type="username"
+                      id="hf-username"
+                      name="hf-username"
+                      value={user.name}
+                      onChange={e => setUser({ ...user, name: e.target.value })}
+                      placeholder="إسم المستخدم"
+                    />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="4">
+                    <Label htmlFor="hf-password">كلمة المرور</Label>
+                  </Col>
+                  <Col xs="12" md="8">
+                    <Input
+                      type="password"
+                      id="hf-password"
+                      name="hf-password"
+                      placeholder="ادخل كلمة المرور هنا"
+                      autoComplete="current-password"
+                      value={user.pass}
+                      onChange={e => setUser({ ...user, pass: e.target.value })}
+                    />
+                  </Col>
+                </FormGroup>
+                <div className="button-group flex flex-justifiy-sp">
+                  <Link href="/forgot-password">
+                    <a>نسيت كلمت المرور</a>
+                  </Link>
+                  <Button color="primary" onClick={() => login()}>
+                    دخول
+                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div className="qarar-image">
+          <Media
+            object
+            src="/static/img/login-bg-big.png"
+            className="image-avatar"
+          />
+        </div>
       </div>
-      <div className="qarar-image">
-        <Media
-          object
-          src="/static/img/login-bg-big.png"
-          className="image-avatar"
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

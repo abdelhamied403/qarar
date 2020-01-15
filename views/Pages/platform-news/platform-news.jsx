@@ -103,7 +103,7 @@ class DecisionDraft extends Component {
     }
     return (
       <>
-        <div className="decisionHeader">
+        <div className="draftHeader">
           <Container>
             <h3>اخبار المنصة</h3>
           </Container>

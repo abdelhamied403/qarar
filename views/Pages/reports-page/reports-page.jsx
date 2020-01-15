@@ -86,7 +86,7 @@ class About extends Component {
     }
     return (
       <>
-        <div className="primary-header">
+        <div className="draftHeader">
           <Container>
             <h3>تقارير المشاركة المجتمعية</h3>
           </Container>

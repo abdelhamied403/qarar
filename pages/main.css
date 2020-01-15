@@ -18135,7 +18135,29 @@ textarea.form-control {
 .client-layout .nav-item {
   margin-right: 20px;
 }
-
+.draftHeader {
+  background-color: #006c68;
+  padding: 70px 0;
+  position: relative;
+  padding-top: 175px;
+  color: white;
+  background-image: url(/static/img/interactive/header-artwork.svg);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+.about-qarar-header {
+  color: #fff !important;
+  text-align: right;
+}
+.draftHeader p,
+.draftHeader h3 {
+  color: #fff;
+  text-align: right;
+}
+.btn img {
+  width: 15px;
+  margin-right: 10px;
+}
 @media screen and (max-width: 992px) {
   .container {
     padding: 0 10px !important;
@@ -18145,6 +18167,7 @@ textarea.form-control {
     font-size: 12px;
   }
 }
+
 @media screen and (max-width: 767px) {
   .navbar-expand-md .navbar-collapse {
     background-color: #81bd41;

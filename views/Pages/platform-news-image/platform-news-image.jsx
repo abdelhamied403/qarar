@@ -114,7 +114,11 @@ class DecisionDraft extends Component {
     }
     return (
       <>
-        <Breadcrumb title="اخبار المنصة" link="/news" />
+        <div className="draftHeader">
+          <Container>
+            <Breadcrumb title="اخبار المنصة" link="/news" />
+          </Container>
+        </div>
 
         <section>
           <Container className="carousel-body">

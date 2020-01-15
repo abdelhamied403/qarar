@@ -135,7 +135,7 @@ class Decision extends Component {
     }
     return (
       <>
-        <div className="decisionHeader">
+        <div className="draftHeader">
           <Container>
             <h3>قرارات مطبقة</h3>
           </Container>
