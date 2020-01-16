@@ -16893,13 +16893,7 @@ html body .app.flex-row.align-items-center {
   justify-content: center;
   align-items: center;
 }
-.args {
-  background-color: var(--primary-blue);
-  text-align: center;
-  color: white;
-  padding: 72px 0px;
-  margin-bottom: -100px;
-}
+
 .args p {
   font-size: 28px;
   color: white;

@@ -433,10 +433,12 @@ class DraftDetails extends Component {
                     </p>
                   </Col>
                 </Row>
-                <Button>
-                  المزيد
-                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
-                </Button>
+                <Link href="/draft-details-info/85">
+                  <Button>
+                    المزيد
+                    <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                  </Button>
+                </Link>
               </CardBody>
             </Card>
 
@@ -479,10 +481,12 @@ class DraftDetails extends Component {
                     </p>
                   </Col>
                 </Row>
-                <Button>
-                  المزيد
-                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
-                </Button>
+                <Link href="/draft-details-info/85">
+                  <Button>
+                    المزيد
+                    <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                  </Button>
+                </Link>
               </CardBody>
             </Card>
             <div className="draftShouldLogin d-flex flex-column">

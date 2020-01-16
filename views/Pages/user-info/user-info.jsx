@@ -122,6 +122,7 @@ class UserInfo extends Component {
     const { uid } = this.props;
     return (
       <>
+        <div className="newHeaderProfile"></div>
         <div className="user-profile">
           <Container>
             <Row>

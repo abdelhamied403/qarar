@@ -72,11 +72,10 @@
   align-items: center;
 }
 .args {
-  background-color: var(--primary-blue);
+  background-color: #40c2cc;
   text-align: center;
   color: white;
   padding: 72px 0px;
-  margin-bottom: -100px;
 }
 .args p {
   font-size: 28px;
