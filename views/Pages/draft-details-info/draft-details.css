@@ -45,6 +45,7 @@
   list-style: none;
   margin-bottom: 20px;
   font-size: 13px;
+  cursor: pointer;
 }
 .newHeader ul li:not(:last-child)::after {
   content: '>';
@@ -332,6 +333,15 @@
 }
 .draftNewComments .insideComment {
   padding: 30px 20px;
+}
+.newHeader button:hover {
+  background-color: #81bd41;
+  color: #fff;
+}
+.shareInfoRight button:hover {
+  background-color: #81bd41;
+  color: #fff;
+  margin-left: 10px;
 }
 @media screen and (max-width: 767px) {
   .newHeader .icons-group > * {

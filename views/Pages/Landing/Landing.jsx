@@ -618,7 +618,7 @@ const Landing = () => {
               </Col>
               <Col md="6">
                 <Row>
-                  <Col md="6">
+                  <Col md="6" sm="6" xs="6">
                     <div className="newsSingle leftSide">
                       <img src="/static/img/interactive/news2.png" alt="" />
                       <Link href="/news">
@@ -633,7 +633,7 @@ const Landing = () => {
                       </Link>
                     </div>
                   </Col>
-                  <Col md="6">
+                  <Col md="6" sm="6" xs="6">
                     <div className="newsSingle leftSide">
                       <img src="/static/img/interactive/news2.png" alt="" />
                       <Link href="/news">
@@ -650,7 +650,7 @@ const Landing = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col md="6">
+                  <Col md="6" sm="6" xs="6">
                     <div className="newsSingle leftSide">
                       <img src="/static/img/interactive/news2.png" alt="" />
                       <Link href="/news">
@@ -665,7 +665,7 @@ const Landing = () => {
                       </Link>
                     </div>
                   </Col>
-                  <Col md="6">
+                  <Col md="6" sm="6" xs="6">
                     <div className="newsSingle leftSide">
                       <img src="/static/img/interactive/news2.png" alt="" />
                       <Link href="/news">

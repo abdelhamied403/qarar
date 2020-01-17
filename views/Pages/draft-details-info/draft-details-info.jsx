@@ -60,7 +60,10 @@ class DraftDetailsInfo extends Component {
       tab1: true,
       tab2: false,
       tab3: false,
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      img1: '/static/img/interactive/greenArrow.svg',
+      img2: '/static/img/interactive/greenArrow.svg',
+      img3: '/static/img/interactive/greenArrow.svg'
     };
   }
 
@@ -261,8 +264,12 @@ class DraftDetailsInfo extends Component {
                 <Col sm="12" md="6" lg="6">
                   <div className="header-content">
                     <ul>
-                      <li>إشتراطات المباني التجارية</li>
-                      <li>5.1 الاشتراطات المعمارية</li>
+                      <Link href="/">
+                        <li>إشتراطات المباني التجارية</li>
+                      </Link>
+                      <Link href="/">
+                        <li>5.1 الاشتراطات المعمارية</li>
+                      </Link>
                     </ul>
                     <h2>{draft.title}</h2>
                     <div className="sub-header">
@@ -494,12 +501,20 @@ class DraftDetailsInfo extends Component {
                       ج- لا يسمح بفتح المحلات التجارية على الارتدادات النظامية
                       الجانبية والخلفية.
                     </p>
-                    <Button>
+                    <Button
+                      onMouseOut={() => {
+                        this.setState({
+                          img2: '/static/img/interactive/greenArrow.svg'
+                        });
+                      }}
+                      onMouseEnter={() =>
+                        this.setState({
+                          img2: '/static/img/interactive/whiteArrow.svg'
+                        })
+                      }
+                    >
                       المزيد
-                      <img
-                        src="/static/img/interactive/greenArrow.svg"
-                        alt=""
-                      />
+                      <img src={this.state.img2} alt="" />
                     </Button>
                   </Col>
                   <Col md="5">
@@ -620,12 +635,20 @@ class DraftDetailsInfo extends Component {
                       ج- لا يسمح بفتح المحلات التجارية على الارتدادات النظامية
                       الجانبية والخلفية.
                     </p>
-                    <Button>
+                    <Button
+                      onMouseOut={() => {
+                        this.setState({
+                          img3: '/static/img/interactive/greenArrow.svg'
+                        });
+                      }}
+                      onMouseEnter={() =>
+                        this.setState({
+                          img3: '/static/img/interactive/whiteArrow.svg'
+                        })
+                      }
+                    >
                       المزيد
-                      <img
-                        src="/static/img/interactive/greenArrow.svg"
-                        alt=""
-                      />
+                      <img src={this.state.img3} alt="" />
                     </Button>
                   </Col>
                   <Col md="5">
@@ -746,12 +769,20 @@ class DraftDetailsInfo extends Component {
                       ج- لا يسمح بفتح المحلات التجارية على الارتدادات النظامية
                       الجانبية والخلفية.
                     </p>
-                    <Button>
+                    <Button
+                      onMouseOut={() => {
+                        this.setState({
+                          img1: '/static/img/interactive/greenArrow.svg'
+                        });
+                      }}
+                      onMouseEnter={() =>
+                        this.setState({
+                          img1: '/static/img/interactive/whiteArrow.svg'
+                        })
+                      }
+                    >
                       المزيد
-                      <img
-                        src="/static/img/interactive/greenArrow.svg"
-                        alt=""
-                      />
+                      <img src={this.state.img1} alt="" />
                     </Button>
                   </Col>
                   <Col md="5">

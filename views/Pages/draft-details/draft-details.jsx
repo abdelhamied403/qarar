@@ -51,7 +51,9 @@ class DraftDetails extends Component {
       loadingDraft: true,
       selected: false,
       tab1: false,
-      tab2: true
+      tab2: true,
+      img1: '/static/img/interactive/greenArrow.svg',
+      img2: '/static/img/interactive/greenArrow.svg'
     };
   }
 
@@ -246,9 +248,15 @@ class DraftDetails extends Component {
                 <Col sm="12" md="6" lg="6">
                   <div className="header-content">
                     <ul>
-                      <li>إشتراطات المباني التجارية</li>
-                      <li>5.1 الاشتراطات المعمارية</li>
-                      <li>5.1.1 متطلبات الأمن والصحة والسلامة</li>
+                      <Link href="/">
+                        <li>إشتراطات المباني التجارية</li>
+                      </Link>
+                      <Link href="/">
+                        <li>5.1 الاشتراطات المعمارية</li>
+                      </Link>
+                      <Link href="/">
+                        <li>5.1.1 متطلبات الأمن والصحة والسلامة</li>
+                      </Link>
                     </ul>
                     <h2>{draft.title}</h2>
                     <div className="sub-header">
@@ -434,9 +442,20 @@ class DraftDetails extends Component {
                   </Col>
                 </Row>
                 <Link href="/draft-details-info/85">
-                  <Button>
+                  <Button
+                    onMouseOut={() => {
+                      this.setState({
+                        img2: '/static/img/interactive/greenArrow.svg'
+                      });
+                    }}
+                    onMouseEnter={() =>
+                      this.setState({
+                        img2: '/static/img/interactive/whiteArrow.svg'
+                      })
+                    }
+                  >
                     المزيد
-                    <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                    <img src={this.state.img2} alt="" />
                   </Button>
                 </Link>
               </CardBody>
@@ -482,9 +501,20 @@ class DraftDetails extends Component {
                   </Col>
                 </Row>
                 <Link href="/draft-details-info/85">
-                  <Button>
+                  <Button
+                    onMouseOut={() => {
+                      this.setState({
+                        img1: '/static/img/interactive/greenArrow.svg'
+                      });
+                    }}
+                    onMouseEnter={() =>
+                      this.setState({
+                        img1: '/static/img/interactive/whiteArrow.svg'
+                      })
+                    }
+                  >
                     المزيد
-                    <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                    <img src={this.state.img1} alt="" />
                   </Button>
                 </Link>
               </CardBody>
