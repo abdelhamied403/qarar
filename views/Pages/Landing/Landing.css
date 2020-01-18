@@ -479,4 +479,11 @@
     display: block;
     width: 100%;
   }
+  .newUILanding .social-sharing {
+    background-image: none;
+  }
+  .footer .col-sm-6 {
+    width: 50%;
+    margin-bottom: 10px;
+  }
 }

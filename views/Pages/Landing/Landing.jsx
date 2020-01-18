@@ -95,6 +95,8 @@ const Landing = () => {
     getDrafts();
     getNews();
   }, []);
+  console.log(mostActiveUserComment);
+
   return (
     <div className="rtl newUILanding">
       <div className="header header-image-bg">
@@ -193,203 +195,53 @@ const Landing = () => {
           <Row
             style={activeBtn === 0 ? { display: 'flex' } : { display: 'none' }}
           >
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني </h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
+            {activeDrafts
+              .filter((item, index) => index < 7)
+              .map(item => (
+                <Col key={item.key} xs="12" md="6" lg="3">
+                  <div className="oneActivity">
+                    <h4>{item.title}</h4>
+                    <p>
+                      <img src="/static/img/interactive/calendar.svg" alt="" />
+                      يغلق التصويت بتاريخ {item.end_date}
+                    </p>
+                  </div>
+                </Col>
+              ))}
           </Row>
           <Row
             style={activeBtn === 1 ? { display: 'flex' } : { display: 'none' }}
           >
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني التجارية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
+            {drafts
+              .filter((item, index) => index < 7)
+              .map(item => (
+                <Col key={item.key} xs="12" md="6" lg="3">
+                  <div className="oneActivity">
+                    <h4>{item.title}</h4>
+                    <p>
+                      <img src="/static/img/interactive/calendar.svg" alt="" />
+                      يغلق التصويت بتاريخ {item.end_date}
+                    </p>
+                  </div>
+                </Col>
+              ))}
           </Row>
           <Row
             style={activeBtn === 2 ? { display: 'flex' } : { display: 'none' }}
           >
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
-            <Col xs="12" md="6" lg="3">
-              <div className="oneActivity">
-                <h4>إشتراطات المباني السكنية</h4>
-                <p>
-                  <img src="/static/img/interactive/calendar.svg" alt="" />
-                  يغلق التصويت بتاريخ 01-01-2020
-                </p>
-              </div>
-            </Col>
+            {soonCloseDrafts
+              .filter((item, index) => index < 7)
+              .map(item => (
+                <Col key={item.key} xs="12" md="6" lg="3">
+                  <div className="oneActivity">
+                    <h4>{item.title}</h4>
+                    <p>
+                      <img src="/static/img/interactive/calendar.svg" alt="" />
+                      يغلق التصويت بتاريخ {item.end_date}
+                    </p>
+                  </div>
+                </Col>
+              ))}
           </Row>
           <div className="text-center">
             <Link href="/drafts">
@@ -409,13 +261,16 @@ const Landing = () => {
             <Col md="4">
               <div className="topSingle  d-flex flex-row">
                 <img
-                  src="/static/img/interactive/user.svg"
+                  src={
+                    mostActiveUserComment.picture ||
+                    '/static/img/interactive/user.svg'
+                  }
                   alt=""
                   className="avatar"
                 />
                 <div className="singleName">
-                  <p>اسم المستخدم</p>
-                  <span> 1280 نقطة</span>
+                  <p>{mostActiveUserComment.name}</p>
+                  <span> {mostActiveUserComment.points} نقطة</span>
                 </div>
                 <div className="trophy d-flex align-items-center">
                   <img src="/static/img/interactive/trophy.svg" alt="" />
@@ -426,13 +281,16 @@ const Landing = () => {
             <Col md="4">
               <div className="topSingle  d-flex flex-row">
                 <img
-                  src="/static/img/interactive/user.svg"
+                  src={
+                    mostActiveUserAword.picture ||
+                    '/static/img/interactive/user.svg'
+                  }
                   alt=""
                   className="avatar"
                 />
                 <div className="singleName">
-                  <p>اسم المستخدم</p>
-                  <span> 1280 نقطة</span>
+                  <p>{mostActiveUserAword.name}</p>
+                  <span> {mostActiveUserAword.points} نقطة</span>
                 </div>
                 <div className="trophy d-flex align-items-center">
                   <img src="/static/img/interactive/trophy.svg" alt="" />
@@ -443,13 +301,16 @@ const Landing = () => {
             <Col md="4" className="">
               <div className="topSingle  d-flex flex-row">
                 <img
-                  src="/static/img/interactive/user.svg"
+                  src={
+                    mostActiveUserLike.picture ||
+                    '/static/img/interactive/user.svg'
+                  }
                   alt=""
                   className="avatar"
                 />
                 <div className="singleName">
-                  <p>اسم المستخدم</p>
-                  <span> 1280 نقطة</span>
+                  <p>{mostActiveUserLike.name}</p>
+                  <span> {mostActiveUserLike.points} نقطة</span>
                 </div>
                 <div className="trophy d-flex align-items-center">
                   <img src="/static/img/interactive/trophy.svg" alt="" />
@@ -466,7 +327,7 @@ const Landing = () => {
                     <img src="/static/img/interactive/one.svg" alt="" />
                   </Col>
                   <Col xs="8">
-                    <h4>65</h4>
+                    <h4>{userCount}</h4>
                     <p>مستخدم للمنصة حاليا</p>
                   </Col>
                 </Row>
@@ -479,7 +340,7 @@ const Landing = () => {
                     <img src="/static/img/interactive/report.svg" alt="" />
                   </Col>
                   <Col xs="8">
-                    <h4>65</h4>
+                    <h4>{draftCount}</h4>
                     <p>مسودة تمت مناقشتها</p>
                   </Col>
                 </Row>
@@ -514,84 +375,37 @@ const Landing = () => {
               }
             >
               <Col md="6">
-                <div className="newsSingle rightSide">
-                  <img src="/static/img/interactive/news1.png" alt="" />
-                  <Link href="/news">
-                    <div className="newsInfo">
-                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                      <p>
-                        تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
-                        الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
-                        المناطق و المحافظات و مدن المملكة.
-                      </p>
+                {news
+                  .filter((item, index) => index < 1)
+                  .map(item => (
+                    <div key={item.id} className="newsSingle rightSide">
+                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>{item.title}</h3>
+                          <p>{item.body.substr(0, 200)}</p>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
+                  ))}
               </Col>
               <Col md="6">
                 <Row>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news1.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
+                  {news
+                    .filter((item, index) => index > 0 && index < 5)
+                    .map(item => (
+                      <Col key={item.id} md="6">
+                        <div className="newsSingle leftSide">
+                          <img src="/static/img/interactive/news1.png" alt="" />
+                          <Link href="/news">
+                            <div className="newsInfo">
+                              <h3>{item.title}</h3>
+                              <p>{item.body.substr(0, 200)}</p>
+                            </div>
+                          </Link>
                         </div>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news1.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news1.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news1.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </Col>
+                      </Col>
+                    ))}
                 </Row>
               </Col>
             </Row>
@@ -602,84 +416,37 @@ const Landing = () => {
               }
             >
               <Col md="6">
-                <div className="newsSingle rightSide">
-                  <img src="/static/img/interactive/news2.png" alt="" />
-                  <Link href="/news">
-                    <div className="newsInfo">
-                      <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                      <p>
-                        تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها وزارة
-                        الشؤون البلديه و القروية على مستوي جميع الأمانات بمختلف
-                        المناطق و المحافظات و مدن المملكة.
-                      </p>
+                {news
+                  .filter((item, index) => index < 1)
+                  .map(item => (
+                    <div key={item.id} className="newsSingle rightSide">
+                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <Link href="/news">
+                        <div className="newsInfo">
+                          <h3>{item.title}</h3>
+                          <p>{item.body.substr(0, 200)}</p>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
+                  ))}
               </Col>
               <Col md="6">
                 <Row>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news2.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
+                  {news
+                    .filter((item, index) => index > 0 && index < 5)
+                    .map(item => (
+                      <Col key={item.id} md="6">
+                        <div className="newsSingle leftSide">
+                          <img src="/static/img/interactive/news1.png" alt="" />
+                          <Link href="/news">
+                            <div className="newsInfo">
+                              <h3>{item.title}</h3>
+                              <p>{item.body.substr(0, 200)}</p>
+                            </div>
+                          </Link>
                         </div>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news2.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news2.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col md="6">
-                    <div className="newsSingle leftSide">
-                      <img src="/static/img/interactive/news2.png" alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>وزارة الشئون البلدية و القرويه تطلق مبادرة</h3>
-                          <p>
-                            تطلق غدا فاعليات مبادرة التطوع البلدي التي تنفذها
-                            وزارة الشؤون البلديه و القروية على مستوي جميع
-                            الأمانات بمختلف المناطق و المحافظات و مدن المملكة.
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </Col>
+                      </Col>
+                    ))}
                 </Row>
               </Col>
             </Row>

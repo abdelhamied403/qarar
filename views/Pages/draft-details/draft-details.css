@@ -44,6 +44,7 @@
 .newHeader ul li {
   list-style: none;
   margin-bottom: 20px;
+  cursor: pointer;
   font-size: 13px;
 }
 .newHeader ul li:not(:last-child)::after {
@@ -202,6 +203,18 @@
   position: absolute;
   left: 0;
   bottom: 0;
+}
+.newHeader button:hover {
+  background-color: #81bd41;
+  color: #fff;
+}
+.draftShouldLogin button:hover {
+  background-color: #006c68;
+  color: #fff;
+}
+.cardDraft.collapseDraftCard.card button:hover {
+  background-color: #81bd41;
+  color: #fff;
 }
 @media screen and (max-width: 767px) {
   .newHeader .icons-group > * {
