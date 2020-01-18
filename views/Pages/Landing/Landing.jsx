@@ -95,7 +95,6 @@ const Landing = () => {
     getDrafts();
     getNews();
   }, []);
-  console.log(mostActiveUserComment);
 
   return (
     <div className="rtl newUILanding">
@@ -379,7 +378,7 @@ const Landing = () => {
                   .filter((item, index) => index < 1)
                   .map(item => (
                     <div key={item.id} className="newsSingle rightSide">
-                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <img src={item.image} alt="" />
                       <Link href="/news">
                         <div className="newsInfo">
                           <h3>{item.title}</h3>
@@ -396,7 +395,7 @@ const Landing = () => {
                     .map(item => (
                       <Col key={item.id} md="6">
                         <div className="newsSingle leftSide">
-                          <img src="/static/img/interactive/news1.png" alt="" />
+                          <img src={item.image} alt="" />
                           <Link href="/news">
                             <div className="newsInfo">
                               <h3>{item.title}</h3>
@@ -420,7 +419,7 @@ const Landing = () => {
                   .filter((item, index) => index < 1)
                   .map(item => (
                     <div key={item.id} className="newsSingle rightSide">
-                      <img src="/static/img/interactive/news1.png" alt="" />
+                      <img src={item.image} alt="" />
                       <Link href="/news">
                         <div className="newsInfo">
                           <h3>{item.title}</h3>
@@ -437,7 +436,7 @@ const Landing = () => {
                     .map(item => (
                       <Col key={item.id} md="6">
                         <div className="newsSingle leftSide">
-                          <img src="/static/img/interactive/news1.png" alt="" />
+                          <img src={item.image} alt="" />
                           <Link href="/news">
                             <div className="newsInfo">
                               <h3>{item.title}</h3>
