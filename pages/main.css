@@ -16265,6 +16265,23 @@ section.p100 {
   margin: 60px 5px;
 }
 
+.header-content .button-group {
+  display: flex;
+  align-items: center;
+  margin: 60px 0px;
+}
+
+.header-content .button-group > * {
+  margin: 0px;
+}
+
+button.btn.btn-primary {
+}
+
+.header-content .button-group .test1 button {
+  margin: 0;
+  margin-left: 12px;
+}
 .abs-content > * {
   border-bottom: 1px solid #e8e8e8;
   width: 100%;
@@ -18348,6 +18365,13 @@ textarea.form-control {
   border: 1px solid #40c2cc;
   padding: 10px;
   box-shadow: 0px 5px 10px #0000000d;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.newUILanding .activities .oneActivity > * {
+  margin: 10px 0px;
 }
 .newUILanding .activities .col-lg-3 {
   padding: 10px;
