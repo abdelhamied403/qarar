@@ -7,7 +7,6 @@ import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
 import CardDescription from '../components/card-description/card-description';
 import CardBlog from '../components/card-blog/card-blog';
-import './Landing.css';
 
 import Api from '../../../api';
 

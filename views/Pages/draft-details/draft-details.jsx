@@ -10,7 +10,9 @@ import {
   CardBody,
   CardHeader,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Collapse,
+  Alert
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -24,6 +26,8 @@ import {
   animateScroll as scroll,
   scroller
 } from 'react-scroll';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import Skeleton from '../components/skeleton/skeleton';
 import CardDraft from '../components/card-draft/card-draft';
 import CardDraftItems from '../components/card-draft-items/card-draft-items';
@@ -32,8 +36,12 @@ import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
 import NoAccess from '../components/NoAccess';
-
 import Api from '../../../api';
+
+const Editor = dynamic(
+  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
+  { ssr: false }
+);
 
 moment.locale('ar');
 class DraftDetails extends Component {
@@ -52,6 +60,7 @@ class DraftDetails extends Component {
       selected: false,
       tab1: false,
       tab2: true,
+      editorState: EditorState.createEmpty(),
       img1: '/static/img/interactive/greenArrow.svg',
       img2: '/static/img/interactive/greenArrow.svg'
     };
@@ -65,6 +74,12 @@ class DraftDetails extends Component {
 
     Events.scrollEvent.register('end', function() {});
   }
+
+  onEditorStateChange = editorState => {
+    this.setState({
+      editorState
+    });
+  };
 
   scrollToTop() {
     scroll.scrollToTop();
@@ -201,12 +216,14 @@ class DraftDetails extends Component {
 
   saveComment = async () => {
     const { draftId, accessToken } = this.props;
-    const { comment } = this.state;
+    const { editorState } = this.state;
 
     const data = {
       entity_id: [{ target_id: draftId }],
       subject: [{ value: 'comment' }],
-      comment_body: [{ value: comment }],
+      comment_body: [
+        { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
+      ],
       pid: [{ target_id: '0' }]
     };
     const response = await Api.post(
@@ -217,7 +234,11 @@ class DraftDetails extends Component {
       }
     );
     if (response.ok) {
-      this.setState({ comment: '', successComment: true });
+      this.setState({
+        comment: '',
+        successComment: true,
+        editorState: EditorState.createEmpty()
+      });
       this.getDraft();
       this.getComments();
       setTimeout(() => this.setState({ successComment: false }), 3000);
@@ -228,6 +249,7 @@ class DraftDetails extends Component {
     const {
       draft,
       items,
+      editorState,
       comments,
       comment: commentText,
       flagged,
@@ -316,7 +338,7 @@ class DraftDetails extends Component {
                           src="/static/img/interactive/draft1 (1).svg"
                         />
                       </div>
-                      <p>6</p>
+                      <p>{draft.followers}</p>
                       <h5>مشترك</h5>
                     </div>
                     <div>
@@ -327,7 +349,7 @@ class DraftDetails extends Component {
                           src="/static/img/interactive/draft1 (2).svg"
                         />
                       </div>
-                      <p>12</p>
+                      <p>{draft.comments}</p>
                       <h5>تعليق</h5>
                     </div>
                     <div>
@@ -338,7 +360,10 @@ class DraftDetails extends Component {
                           src="/static/img/interactive/draft1 (3).svg"
                         />
                       </div>
-                      <p>20</p>
+                      <p>
+                        {parseInt(draft.likes, 10) +
+                          parseInt(draft.dislikes, 10)}
+                      </p>
                       <h5>صوت</h5>
                     </div>
                   </div>
@@ -360,27 +385,19 @@ class DraftDetails extends Component {
           />
           <Container>
             <Card className="cardDraft">
-              <CardHeader>إشتراطات المباني التجارية</CardHeader>
+              <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
                   <Col md="9" className="draftBodyRt">
-                    <p>
-                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
-                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
-                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
-                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
-                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
-                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
-                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
-                      للمدينة، والحد من التأثير السلبي على حركة المرور في
-                      المدينة وتعزيز السلامة المرورية.
-                    </p>
+                    <p>{draft.body}</p>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
                         alt=""
                       />
-                      <p>الإثنين، ٤ نوفمبر ٢٠١٩</p>
+                      <p>
+                        {moment(draft.end_date).format('dddd, D MMMM YYYY')}
+                      </p>
                     </div>
                   </Col>
                   <Col md="3">
@@ -394,7 +411,7 @@ class DraftDetails extends Component {
                           src="/static/img/interactive/stopwatch.svg"
                           alt=""
                         />
-                        <span> متبقي 23 يوم</span>
+                        <span>{moment(draft.end_date).fromNow()}</span>
                       </div>
                     </div>
                   </Col>
@@ -402,132 +419,128 @@ class DraftDetails extends Component {
               </CardBody>
             </Card>
             <hr className="hrDraft" />
-            <Card className="cardDraft collapseDraftCard">
-              <CardHeader
-                className="d-flex justify-content-between"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    tab1: !prevState.tab1
-                  }))
-                }
-              >
-                <p>
-                  <span>5.1.1</span>
-                  إشتراطات المباني التجارية
-                </p>
-                <img
-                  src="/static/img/interactive/whiteTabs.svg"
-                  alt=""
-                  className={this.state.tab1 ? 'rotated' : ''}
-                />
-              </CardHeader>
-              <CardBody
-                style={
-                  this.state.tab1 ? { display: 'block' } : { display: 'none' }
-                }
-              >
-                <Row>
-                  <Col md="9" className="draftBodyRt">
-                    <p>
-                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
-                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
-                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
-                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
-                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
-                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
-                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
-                      للمدينة، والحد من التأثير السلبي على حركة المرور في
-                      المدينة وتعزيز السلامة المرورية.
-                    </p>
-                  </Col>
-                </Row>
-                <Link href="/draft-details-info/85">
-                  <Button
-                    onMouseOut={() => {
-                      this.setState({
-                        img2: '/static/img/interactive/greenArrow.svg'
-                      });
+            {items.map(item => (
+              <Card key={item.nid} className="cardDraft collapseDraftCard">
+                <CardHeader
+                  className="d-flex justify-content-between"
+                  id="toggler"
+                  onClick={() =>
+                    this.setState({ [item.nid]: !this.state[item.nid] })
+                  }
+                >
+                  <p>{item.title}</p>
+                  <img
+                    src="/static/img/interactive/whiteTabs.svg"
+                    alt=""
+                    className={this.state[item.nid] ? 'rotated' : ''}
+                  />
+                </CardHeader>
+                <Collapse isOpen={this.state[item.nid]}>
+                  <CardBody>
+                    <Row>
+                      <Col md="9" className="draftBodyRt">
+                        <p>{item.body_value}</p>
+                      </Col>
+                    </Row>
+                    <Link href={`/draft-details-info/${item.nid}`}>
+                      <Button
+                        onMouseOut={() => {
+                          this.setState({
+                            img2: '/static/img/interactive/greenArrow.svg'
+                          });
+                        }}
+                        onMouseEnter={() =>
+                          this.setState({
+                            img2: '/static/img/interactive/whiteArrow.svg'
+                          })
+                        }
+                      >
+                        المزيد
+                        <img src={this.state.img2} alt="" />
+                      </Button>
+                    </Link>
+                  </CardBody>
+                </Collapse>
+              </Card>
+            ))}
+            {!uid ? (
+              <div className="draftShouldLogin d-flex flex-column">
+                <img src="/static/img/interactive/disabled.svg" alt="" />
+                <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+                <Button>
+                  تسجيل الدخول
+                  <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                </Button>
+                <a href="">تسجيل حساب</a>
+              </div>
+            ) : (
+              <>
+                <div>
+                  {successComment && (
+                    <Alert color="success">
+                      تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+                    </Alert>
+                  )}
+                  <Editor
+                    placeholder="اضف تعليقك هنا"
+                    toolbar={{
+                      options: ['inline', 'image'], // This is where you can specify what options you need in
+                      // the toolbar and appears in the same order as specified
+                      inline: {
+                        options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                        // strikethrough, 'monospace', 'superscript', 'subscript'
+                      },
+                      image: {
+                        alignmentEnabled: false,
+                        uploadCallback: this.UploadImageCallBack,
+                        alt: { present: true, mandatory: false },
+                        previewImage: true
+                      }
                     }}
-                    onMouseEnter={() =>
-                      this.setState({
-                        img2: '/static/img/interactive/whiteArrow.svg'
-                      })
-                    }
-                  >
-                    المزيد
-                    <img src={this.state.img2} alt="" />
+                    editorState={editorState}
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </div>
+                <div className="commentsBtn d-flex justify-content-end align-items-center">
+                  <a href="">شروط المشاركة</a>
+                  <Button onClick={this.saveComment}>
+                    اضف تعليقك
+                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
                   </Button>
-                </Link>
-              </CardBody>
-            </Card>
-
-            <Card className="cardDraft collapseDraftCard">
-              <CardHeader
-                className="d-flex justify-content-between"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    tab2: !prevState.tab2
-                  }))
-                }
-              >
-                <p>
-                  <span>5.1.1</span>
-                  إشتراطات المباني التجارية
-                </p>
-                <img
-                  src="/static/img/interactive/whiteTabs.svg"
-                  alt=""
-                  className={this.state.tab2 ? 'rotated' : ''}
-                />
-              </CardHeader>
-              <CardBody
-                style={
-                  this.state.tab2 ? { display: 'block' } : { display: 'none' }
-                }
-              >
-                <Row>
-                  <Col md="9" className="draftBodyRt">
-                    <p>
-                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
-                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
-                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
-                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
-                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
-                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
-                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
-                      للمدينة، والحد من التأثير السلبي على حركة المرور في
-                      المدينة وتعزيز السلامة المرورية.
-                    </p>
-                  </Col>
-                </Row>
-                <Link href="/draft-details-info/85">
-                  <Button
-                    onMouseOut={() => {
-                      this.setState({
-                        img1: '/static/img/interactive/greenArrow.svg'
-                      });
-                    }}
-                    onMouseEnter={() =>
-                      this.setState({
-                        img1: '/static/img/interactive/whiteArrow.svg'
-                      })
-                    }
-                  >
-                    المزيد
-                    <img src={this.state.img1} alt="" />
-                  </Button>
-                </Link>
-              </CardBody>
-            </Card>
-            <div className="draftShouldLogin d-flex flex-column">
-              <img src="/static/img/interactive/disabled.svg" alt="" />
-              <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
-              <Button>
-                تسجيل الدخول
-                <img src="/static/img/interactive/btnArrow3.svg" alt="" />
-              </Button>
-              <a href="">تسجيل حساب</a>
-            </div>
+                </div>
+                <div className="draftNewComments">
+                  {comments.map(comment => (
+                    <div
+                      key={comment.cid}
+                      className="insideComment d-flex align-items-start"
+                    >
+                      <img
+                        src={
+                          comment.owner_image ||
+                          '/static/img/interactive/user.svg'
+                        }
+                        alt=""
+                        className="avatarUser"
+                      />
+                      <div className="mr-auto ml-0">
+                        <h5>{comment.full_name}</h5>
+                        <p>{comment.comment_body}</p>
+                      </div>
+                      <div className="d-flex flex-row likeDiv">
+                        <span>{comment.likes}</span>
+                        <img
+                          src="/static/img/interactive/bluelikeActive.svg"
+                          alt=""
+                          className="likeImg"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </Container>
         </div>
         {/*  <Container>
