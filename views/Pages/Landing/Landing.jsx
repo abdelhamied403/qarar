@@ -197,13 +197,20 @@ const Landing = () => {
               .filter((item, index) => index < 7)
               .map(item => (
                 <Col key={item.key} xs="12" md="6" lg="3">
-                  <div className="oneActivity">
-                    <h4>{item.title}</h4>
-                    <p>
-                      <img src="/static/img/interactive/calendar.svg" alt="" />
-                      يغلق التصويت بتاريخ {item.end_date}
-                    </p>
-                  </div>
+                  <Link href={`/draft-details/${item.id}`}>
+                    <a>
+                      <div className="oneActivity">
+                        <h4>{item.title}</h4>
+                        <p>
+                          <img
+                            src="/static/img/interactive/calendar.svg"
+                            alt=""
+                          />
+                          يغلق التصويت بتاريخ {item.end_date}
+                        </p>
+                      </div>
+                    </a>
+                  </Link>
                 </Col>
               ))}
           </Row>
@@ -214,13 +221,20 @@ const Landing = () => {
               .filter((item, index) => index < 7)
               .map(item => (
                 <Col key={item.key} xs="12" md="6" lg="3">
-                  <div className="oneActivity">
-                    <h4>{item.title}</h4>
-                    <p>
-                      <img src="/static/img/interactive/calendar.svg" alt="" />
-                      يغلق التصويت بتاريخ {item.end_date}
-                    </p>
-                  </div>
+                  <Link href={`/draft-details/${item.id}`}>
+                    <a>
+                      <div className="oneActivity">
+                        <h4>{item.title}</h4>
+                        <p>
+                          <img
+                            src="/static/img/interactive/calendar.svg"
+                            alt=""
+                          />
+                          يغلق التصويت بتاريخ {item.end_date}
+                        </p>
+                      </div>
+                    </a>
+                  </Link>
                 </Col>
               ))}
           </Row>
@@ -231,13 +245,20 @@ const Landing = () => {
               .filter((item, index) => index < 7)
               .map(item => (
                 <Col key={item.key} xs="12" md="6" lg="3">
-                  <div className="oneActivity">
-                    <h4>{item.title}</h4>
-                    <p>
-                      <img src="/static/img/interactive/calendar.svg" alt="" />
-                      يغلق التصويت بتاريخ {item.end_date}
-                    </p>
-                  </div>
+                  <Link href={`/draft-details/${item.id}`}>
+                    <a>
+                      <div className="oneActivity">
+                        <h4>{item.title}</h4>
+                        <p>
+                          <img
+                            src="/static/img/interactive/calendar.svg"
+                            alt=""
+                          />
+                          يغلق التصويت بتاريخ {item.end_date}
+                        </p>
+                      </div>
+                    </a>
+                  </Link>
                 </Col>
               ))}
           </Row>
