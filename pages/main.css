@@ -15794,8 +15794,11 @@ i,
 .card,
 .dropdown-menu,
 img {
-  -webkit-transition: all 0.8s !important;
-  transition: all 0.8s !important;
+  -webkit-transition: all 0.3s !important;
+  transition: all 0.3s !important;
+  -moz-transition: all 0.3s !important;
+  -ms-transition: all 0.3s !important;
+  -o-transition: all 0.3s !important;
 }
 
 .dropdown-menu.show {
