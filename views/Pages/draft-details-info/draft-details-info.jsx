@@ -12,12 +12,14 @@ import {
   InputGroup,
   DropdownItem,
   InputGroupAddon,
-  Input
+  Input,
+  Alert
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import renderHTML from 'react-render-html';
 import {
   Link as ScrollLink,
   DirectLink,
@@ -26,6 +28,13 @@ import {
   animateScroll as scroll,
   scroller
 } from 'react-scroll';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton
+} from 'react-share';
 import Skeleton from '../components/skeleton/skeleton';
 import CardDraft from '../components/card-draft/card-draft';
 import CardDraftItems from '../components/card-draft-items/card-draft-items';
@@ -33,14 +42,13 @@ import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
-import NoAccess from '../components/NoAccess';
-import { EditorState, convertToRaw } from 'draft-js';
+import InsideComment from '../components/InsideComment';
+import Api from '../../../api';
+
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 );
-import './editor.css';
-import Api from '../../../api';
 
 moment.locale('ar');
 class DraftDetailsInfo extends Component {
@@ -75,6 +83,7 @@ class DraftDetailsInfo extends Component {
 
     Events.scrollEvent.register('end', function() {});
   }
+
   onEditorStateChange = editorState => {
     this.setState({
       editorState
@@ -124,15 +133,15 @@ class DraftDetailsInfo extends Component {
 
   getDraft = async () => {
     const { draftId, accessToken } = this.props;
-    const draftResponse = await Api.get(
+    const itemResponse = await Api.get(
       `/qarar_api/load/node/${draftId}?_format=json`,
       {},
       {
         headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
-    if (draftResponse.ok) {
-      const { items, data } = draftResponse.data;
+    if (itemResponse.ok) {
+      const { items, data } = itemResponse.data;
       this.setState({ draft: data, items, loadingDraft: false });
     }
   };
@@ -216,12 +225,14 @@ class DraftDetailsInfo extends Component {
 
   saveComment = async () => {
     const { draftId, accessToken } = this.props;
-    const { comment } = this.state;
+    const { editorState } = this.state;
 
     const data = {
       entity_id: [{ target_id: draftId }],
       subject: [{ value: 'comment' }],
-      comment_body: [{ value: comment }],
+      comment_body: [
+        { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
+      ],
       pid: [{ target_id: '0' }]
     };
     const response = await Api.post(
@@ -232,10 +243,56 @@ class DraftDetailsInfo extends Component {
       }
     );
     if (response.ok) {
-      this.setState({ comment: '', successComment: true });
+      this.setState({
+        comment: '',
+        successComment: true,
+        editorState: EditorState.createEmpty()
+      });
       this.getDraft();
       this.getComments();
       setTimeout(() => this.setState({ successComment: false }), 3000);
+    }
+  };
+
+  vote = async (type, id) => {
+    const { uid, accessToken } = this.props;
+    const { voting } = this.state;
+    const item = {
+      type,
+      action: voting[type === 'like' ? 'up' : 'down'] ? 'unflag' : 'flag',
+      id,
+      uid
+    };
+    const item2 = {
+      type: type === 'like' ? 'dislike' : 'like',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getIsFlagged();
+    }
+  };
+
+  likeComment = async id => {
+    const { uid, accessToken } = this.props;
+    const item = {
+      type: 'like',
+      action: 'flag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getComments();
     }
   };
 
@@ -245,11 +302,9 @@ class DraftDetailsInfo extends Component {
       items,
       editorState,
       comments,
-      comment: commentText,
       flagged,
       successComment,
-      loadingDraft,
-      selected
+      loadingDraft
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -373,27 +428,19 @@ class DraftDetailsInfo extends Component {
           />
           <Container>
             <Card className="cardDraft">
-              <CardHeader>إشتراطات المباني التجارية</CardHeader>
+              <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
                   <Col md="9" className="draftBodyRt">
-                    <p>
-                      يأتي هذا التحديث نتيجة العمل الذي تقوم به الوزارة حالياً
-                      من إعادة تحديث جميع الأدلة والاشتراطات، لكي تتواكب وتتماشى
-                      مع رؤية المملكة 2030 ، وتكون عنصراً محفزاً لتحقيق أهداف
-                      الرؤية، في تشجيع الاستثمار، وتسهيل الاشتراطات امام
-                      المستثمرين والمستفيدين. وذلك من خلال توفير البيئة النظامية
-                      المناسبة للإستثمار التجاري، وضبط عملية التطوير، مما سيكون
-                      له أثراً إيجابياً على البيئة العمرانية، والنسيج الحضري
-                      للمدينة، والحد من التأثير السلبي على حركة المرور في
-                      المدينة وتعزيز السلامة المرورية.
-                    </p>
+                    <p>{draft.body}</p>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
                         alt=""
                       />
-                      <p>الإثنين، ٤ نوفمبر ٢٠١٩</p>
+                      <p>
+                        {moment(draft.end_date).format('dddd, D MMMM YYYY')}
+                      </p>
                     </div>
                   </Col>
                   <Col md="3">
@@ -407,524 +454,193 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/stopwatch.svg"
                           alt=""
                         />
-                        <span> متبقي 23 يوم</span>
+                        <span>{moment(draft.end_date).fromNow()}</span>
                       </div>
                     </div>
                   </Col>
                 </Row>
               </CardBody>
             </Card>
-            <div className="draftInfoShare d-flex justify-content-between">
+            <div className="draftInfoShare d-flex justify-content-between mb-4">
               <div className="shareInfoRight">
-                <Button
-                  onClick={() => {
-                    this.setState({
-                      tab1: true,
-                      tab2: true,
-                      tab3: true
-                    });
-                  }}
-                >
-                  <span>+</span>
-                  فتح الكل
-                </Button>
-                <Button
-                  onClick={() => {
-                    this.setState({
-                      tab1: false,
-                      tab2: false,
-                      tab3: false
-                    });
-                  }}
-                >
-                  <span>-</span>
-                  اغلاق الكل
-                </Button>
-                <Button className="infoFollow">متابعة</Button>
+                {items && (
+                  <>
+                    {' '}
+                    <Button
+                      onClick={() => {
+                        items.map(item => this.setState({ [item.id]: true }));
+                      }}
+                    >
+                      <span>+</span>
+                      فتح الكل
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        items.map(item => this.setState({ [item.id]: false }));
+                      }}
+                    >
+                      <span>-</span>
+                      اغلاق الكل
+                    </Button>
+                  </>
+                )}
+                {uid && (
+                  <Button
+                    color="primary"
+                    className="infoFollow"
+                    onClick={() => this.follow()}
+                    outline={!flagged}
+                  >
+                    {flagged ? 'إلغاء المتابعة' : 'متابعة'}
+                  </Button>
+                )}
               </div>
               <div className="shareInfoLeft d-flex align-items-center">
                 <p>شارك هذه المادة</p>
-                <img src="/static/img/interactive/linkedinDraft.svg" alt="" />
-                <img src="/static/img/interactive/twitterDraft.svg" alt="" />
-                <img src="/static/img/interactive/facebookDraft.svg" alt="" />
+                <LinkedinShareButton url={window && window.location}>
+                  <img src="/static/img/interactive/linkedinDraft.svg" alt="" />
+                </LinkedinShareButton>
+                <TwitterShareButton url={window && window.location}>
+                  <img src="/static/img/interactive/twitterDraft.svg" alt="" />
+                </TwitterShareButton>
+                <FacebookShareButton url={window && window.location}>
+                  <img src="/static/img/interactive/facebookDraft.svg" alt="" />
+                </FacebookShareButton>
               </div>
             </div>
-            <Card className="cardDraft collapseDraftCard">
-              <CardHeader
-                className="d-flex justify-content-between"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    tab1: !prevState.tab1
-                  }))
-                }
-              >
-                <p>
-                  <span>5.1.1</span>
-                  الموقع
-                </p>
-                <div className="dratCartTitlelt d-flex">
-                  <div className="manyComments d-flex align-items-center">
-                    <img src="/static/img/interactive/chat.svg" alt="" />
-                    <span>2 تعليق</span>
-                  </div>
-                  <img
-                    src="/static/img/interactive/whiteTabs.svg"
-                    alt=""
-                    className={this.state.tab1 ? 'rotated' : ''}
-                  />
-                </div>
-              </CardHeader>
-              <CardBody
-                style={
-                  this.state.tab1 ? { display: 'block' } : { display: 'none' }
-                }
-              >
-                <Row className="mt-3">
-                  <Col md="7" className="draftBodyRt">
-                    <p>
-                      ن اختيار الموقع المناسب يعتبر أساساً لنجاح النشاط التجاري
-                      ودعم الجدوى الاقتصادية له، من حيث قدرته على جذب المرتادين
-                      وما يقدمه لهم من مستوى مريح وآمن، وكذلك له
-                      <br />
-                      <br />
-                      علاقة مباشرة وتأثير واضح على حركة المرور وشبكة الطرق.
-                      تتضمن اشتراطات اختيار الموقع ما يلي:
-                      <br />
-                      <br />
-                      تكون مواقع المجمعات والمراكز التجارية بناءً على المخططات
-                      الهيكلية للمدن، حسب توزيع الاستخدامات المسموحة والغير
-                      مسموحة. تكون مواقع الأسواق المركزية والمحلات التجارية ضمن
-                      مباني مجمعات تجارية، أو مراكز تجارية، أو مباني استعمال
-                      مختلط مرخص له باستعمال تجاري.
-                      <br />
-                      <br />
-                      ج- لا يسمح بفتح المحلات التجارية على الارتدادات النظامية
-                      الجانبية والخلفية.
-                    </p>
-                    <Button
-                      onMouseOut={() => {
-                        this.setState({
-                          img2: '/static/img/interactive/greenArrow.svg'
-                        });
-                      }}
-                      onMouseEnter={() =>
-                        this.setState({
-                          img2: '/static/img/interactive/whiteArrow.svg'
-                        })
-                      }
-                    >
-                      المزيد
-                      <img src={this.state.img2} alt="" />
-                    </Button>
-                  </Col>
-                  <Col md="5">
-                    <div className="d-flex justify-content-end draftLikeDislike">
+            {items &&
+              items.map(item => (
+                <Card key={item.id} className="cardDraft collapseDraftCard">
+                  <CardHeader
+                    className="d-flex justify-content-between"
+                    onClick={() =>
+                      this.setState({ [item.id]: !this.state[item.id] })
+                    }
+                  >
+                    <p>{item.title}</p>
+                    <div className="dratCartTitlelt d-flex">
+                      <div className="manyComments d-flex align-items-center">
+                        <img src="/static/img/interactive/chat.svg" alt="" />
+                        <span>{item.comments} تعليق</span>
+                      </div>
                       <img
-                        src="/static/img/interactive/dislikeGreen.svg"
+                        src="/static/img/interactive/whiteTabs.svg"
                         alt=""
+                        className={this.state[item.id] ? 'rotated' : ''}
                       />
-                      <img src="/static/img/interactive/likeGreen.svg" alt="" />
                     </div>
-                    <div className="insideComment d-flex align-items-start">
-                      <img
-                        src="/static/img/interactive/user.svg"
-                        alt=""
-                        className="avatarUser"
-                      />
-                      <div>
-                        <h5>اسم المستخدم</h5>
-                        <p>
-                          من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                          التجاري و النشاط المرخص له
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>14</span>
-                        <img
-                          src="/static/img/interactive/bluelike.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                    <div className="insideComment d-flex align-items-start">
-                      <img
-                        src="/static/img/interactive/user.svg"
-                        alt=""
-                        className="avatarUser"
-                      />
-                      <div>
-                        <h5>اسم المستخدم</h5>
-                        <p>
-                          من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                          التجاري و النشاط المرخص له
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>14</span>
-                        <img
-                          src="/static/img/interactive/bluelikeActive.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                    <InputGroup>
-                      <Input placeholder="اضف تعليقك" />
-                      <InputGroupAddon addonType="prepend">
-                        <img
-                          src="/static/img/interactive/whiteArrow.svg"
-                          alt=""
-                        />
-                      </InputGroupAddon>
-                    </InputGroup>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
+                  </CardHeader>
+                  <CardBody
+                    style={
+                      this.state[item.id]
+                        ? { display: 'block' }
+                        : { display: 'none' }
+                    }
+                  >
+                    <Row className="mt-3">
+                      <Col md="7" className="draftBodyRt">
+                        <p>{item.body_value}</p>
+                        <Button
+                          onMouseOut={() => {
+                            this.setState({
+                              img2: '/static/img/interactive/greenArrow.svg'
+                            });
+                          }}
+                          onMouseEnter={() =>
+                            this.setState({
+                              img2: '/static/img/interactive/whiteArrow.svg'
+                            })
+                          }
+                        >
+                          المزيد
+                          <img src={this.state.img2} alt="" />
+                        </Button>
+                      </Col>
+                      <Col md="5">
+                        <div className="d-flex justify-content-end draftLikeDislike">
+                          <img
+                            onClick={() => this.vote('like', item.id)}
+                            src="/static/img/interactive/dislikeGreen.svg"
+                            alt=""
+                          />
+                          <img
+                            onClick={() => this.vote('dislike', item.id)}
+                            src="/static/img/interactive/likeGreen.svg"
+                            alt=""
+                          />
+                        </div>
 
-            <Card className="cardDraft collapseDraftCard">
-              <CardHeader
-                className="d-flex justify-content-between"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    tab2: !prevState.tab2
-                  }))
-                }
-              >
-                <p>
-                  <span>5.1.1</span>
-                  الموقع
-                </p>
-                <div className="dratCartTitlelt d-flex">
-                  <div className="manyComments d-flex align-items-center">
-                    <img src="/static/img/interactive/chat.svg" alt="" />
-                    <span>2 تعليق</span>
-                  </div>
-                  <img
-                    src="/static/img/interactive/whiteTabs.svg"
-                    alt=""
-                    className={this.state.tab2 ? 'rotated' : ''}
-                  />
-                </div>
-              </CardHeader>
-              <CardBody
-                style={
-                  this.state.tab2 ? { display: 'block' } : { display: 'none' }
-                }
-              >
-                <Row className="mt-3">
-                  <Col md="7" className="draftBodyRt">
-                    <p>
-                      ن اختيار الموقع المناسب يعتبر أساساً لنجاح النشاط التجاري
-                      ودعم الجدوى الاقتصادية له، من حيث قدرته على جذب المرتادين
-                      وما يقدمه لهم من مستوى مريح وآمن، وكذلك له
-                      <br />
-                      <br />
-                      علاقة مباشرة وتأثير واضح على حركة المرور وشبكة الطرق.
-                      تتضمن اشتراطات اختيار الموقع ما يلي:
-                      <br />
-                      <br />
-                      تكون مواقع المجمعات والمراكز التجارية بناءً على المخططات
-                      الهيكلية للمدن، حسب توزيع الاستخدامات المسموحة والغير
-                      مسموحة. تكون مواقع الأسواق المركزية والمحلات التجارية ضمن
-                      مباني مجمعات تجارية، أو مراكز تجارية، أو مباني استعمال
-                      مختلط مرخص له باستعمال تجاري.
-                      <br />
-                      <br />
-                      ج- لا يسمح بفتح المحلات التجارية على الارتدادات النظامية
-                      الجانبية والخلفية.
-                    </p>
-                    <Button
-                      onMouseOut={() => {
-                        this.setState({
-                          img3: '/static/img/interactive/greenArrow.svg'
-                        });
-                      }}
-                      onMouseEnter={() =>
-                        this.setState({
-                          img3: '/static/img/interactive/whiteArrow.svg'
-                        })
-                      }
-                    >
-                      المزيد
-                      <img src={this.state.img3} alt="" />
-                    </Button>
-                  </Col>
-                  <Col md="5">
-                    <div className="d-flex justify-content-end draftLikeDislike">
-                      <img
-                        src="/static/img/interactive/dislikeGreen.svg"
-                        alt=""
-                      />
-                      <img src="/static/img/interactive/likeGreen.svg" alt="" />
-                    </div>
-                    <div className="insideComment d-flex align-items-start">
-                      <img
-                        src="/static/img/interactive/user.svg"
-                        alt=""
-                        className="avatarUser"
-                      />
-                      <div>
-                        <h5>اسم المستخدم</h5>
-                        <p>
-                          من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                          التجاري و النشاط المرخص له
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>14</span>
-                        <img
-                          src="/static/img/interactive/bluelike.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                    <div className="insideComment d-flex align-items-start">
-                      <img
-                        src="/static/img/interactive/user.svg"
-                        alt=""
-                        className="avatarUser"
-                      />
-                      <div>
-                        <h5>اسم المستخدم</h5>
-                        <p>
-                          من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                          التجاري و النشاط المرخص له
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>14</span>
-                        <img
-                          src="/static/img/interactive/bluelikeActive.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                    <InputGroup>
-                      <Input placeholder="اضف تعليقك" />
-                      <InputGroupAddon addonType="prepend">
-                        <img
-                          src="/static/img/interactive/whiteArrow.svg"
-                          alt=""
-                        />
-                      </InputGroupAddon>
-                    </InputGroup>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-
-            <Card className="cardDraft collapseDraftCard">
-              <CardHeader
-                className="d-flex justify-content-between"
-                onClick={() =>
-                  this.setState(prevState => ({
-                    tab3: !prevState.tab3
-                  }))
-                }
-              >
-                <p>
-                  <span>5.1.1</span>
-                  الموقع
-                </p>
-                <div className="dratCartTitlelt d-flex">
-                  <div className="manyComments d-flex align-items-center">
-                    <img src="/static/img/interactive/chat.svg" alt="" />
-                    <span>2 تعليق</span>
-                  </div>
-                  <img
-                    src="/static/img/interactive/whiteTabs.svg"
-                    alt=""
-                    className={this.state.tab3 ? 'rotated' : ''}
-                  />
-                </div>
-              </CardHeader>
-              <CardBody
-                style={
-                  this.state.tab3 ? { display: 'block' } : { display: 'none' }
-                }
-              >
-                <Row className="mt-3">
-                  <Col md="7" className="draftBodyRt">
-                    <p>
-                      ن اختيار الموقع المناسب يعتبر أساساً لنجاح النشاط التجاري
-                      ودعم الجدوى الاقتصادية له، من حيث قدرته على جذب المرتادين
-                      وما يقدمه لهم من مستوى مريح وآمن، وكذلك له
-                      <br />
-                      <br />
-                      علاقة مباشرة وتأثير واضح على حركة المرور وشبكة الطرق.
-                      تتضمن اشتراطات اختيار الموقع ما يلي:
-                      <br />
-                      <br />
-                      تكون مواقع المجمعات والمراكز التجارية بناءً على المخططات
-                      الهيكلية للمدن، حسب توزيع الاستخدامات المسموحة والغير
-                      مسموحة. تكون مواقع الأسواق المركزية والمحلات التجارية ضمن
-                      مباني مجمعات تجارية، أو مراكز تجارية، أو مباني استعمال
-                      مختلط مرخص له باستعمال تجاري.
-                      <br />
-                      <br />
-                      ج- لا يسمح بفتح المحلات التجارية على الارتدادات النظامية
-                      الجانبية والخلفية.
-                    </p>
-                    <Button
-                      onMouseOut={() => {
-                        this.setState({
-                          img1: '/static/img/interactive/greenArrow.svg'
-                        });
-                      }}
-                      onMouseEnter={() =>
-                        this.setState({
-                          img1: '/static/img/interactive/whiteArrow.svg'
-                        })
-                      }
-                    >
-                      المزيد
-                      <img src={this.state.img1} alt="" />
-                    </Button>
-                  </Col>
-                  <Col md="5">
-                    <div className="d-flex justify-content-end draftLikeDislike">
-                      <img
-                        src="/static/img/interactive/dislikeGreen.svg"
-                        alt=""
-                      />
-                      <img src="/static/img/interactive/likeGreen.svg" alt="" />
-                    </div>
-                    <div className="insideComment d-flex align-items-start">
-                      <img
-                        src="/static/img/interactive/user.svg"
-                        alt=""
-                        className="avatarUser"
-                      />
-                      <div>
-                        <h5>اسم المستخدم</h5>
-                        <p>
-                          من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                          التجاري و النشاط المرخص له
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>14</span>
-                        <img
-                          src="/static/img/interactive/bluelike.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                    <div className="insideComment d-flex align-items-start">
-                      <img
-                        src="/static/img/interactive/user.svg"
-                        alt=""
-                        className="avatarUser"
-                      />
-                      <div>
-                        <h5>اسم المستخدم</h5>
-                        <p>
-                          من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                          التجاري و النشاط المرخص له
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>14</span>
-                        <img
-                          src="/static/img/interactive/bluelikeActive.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                    <InputGroup>
-                      <Input placeholder="اضف تعليقك" />
-                      <InputGroupAddon addonType="prepend">
-                        <img
-                          src="/static/img/interactive/whiteArrow.svg"
-                          alt=""
-                        />
-                      </InputGroupAddon>
-                    </InputGroup>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-            <div>
-              <Editor
-                placeholder="اضف تعليقك هنا"
-                toolbar={{
-                  options: ['inline', 'image'], // This is where you can specify what options you need in
-                  //the toolbar and appears in the same order as specified
-                  inline: {
-                    options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                    //strikethrough, 'monospace', 'superscript', 'subscript'
-                  },
-                  image: {
-                    alignmentEnabled: false,
-                    uploadCallback: this.UploadImageCallBack,
-                    alt: { present: true, mandatory: false },
-                    previewImage: true
-                  }
-                }}
-                editorState={editorState}
-                wrapperClassName="demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={this.onEditorStateChange}
-              />
-            </div>
+                        <InsideComment itemId={item.id} />
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+              ))}
+            <Element name="test1" className="element">
+              <div>
+                {successComment && (
+                  <Alert color="success">
+                    تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+                  </Alert>
+                )}
+                <Editor
+                  placeholder="اضف تعليقك هنا"
+                  toolbar={{
+                    options: ['inline', 'image'], // This is where you can specify what options you need in
+                    // the toolbar and appears in the same order as specified
+                    inline: {
+                      options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                      // strikethrough, 'monospace', 'superscript', 'subscript'
+                    },
+                    image: {
+                      alignmentEnabled: false,
+                      uploadCallback: this.UploadImageCallBack,
+                      alt: { present: true, mandatory: false },
+                      previewImage: true
+                    }
+                  }}
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={this.onEditorStateChange}
+                />
+              </div>
+            </Element>
             <div className="commentsBtn d-flex justify-content-end align-items-center">
               <a href="">شروط المشاركة</a>
-              <Button>
+              <Button onClick={this.saveComment}>
                 اضف تعليقك
                 <img src="/static/img/interactive/whiteArrow.svg" alt="" />
               </Button>
             </div>
             <div className="draftNewComments">
-              <div className="insideComment d-flex align-items-start">
-                <img
-                  src="/static/img/interactive/user.svg"
-                  alt=""
-                  className="avatarUser"
-                />
-                <div className="mr-auto ml-0">
-                  <h5>اسم المستخدم</h5>
-                  <p>
-                    من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                    التجاري و النشاط المرخص له
-                  </p>
-                </div>
-                <div className="d-flex flex-row likeDiv">
-                  <span>14</span>
+              {comments.map(comment => (
+                <div
+                  key={comment.cid}
+                  className="insideComment d-flex align-items-start"
+                >
                   <img
-                    src="/static/img/interactive/bluelikeActive.svg"
+                    src={
+                      comment.owner_image || '/static/img/interactive/user.svg'
+                    }
                     alt=""
-                    className="likeImg"
+                    className="avatarUser"
                   />
+                  <div className="mr-auto ml-0">
+                    <h5>{comment.full_name}</h5>
+                    <p>{renderHTML(comment.comment_body || '')}</p>
+                  </div>
+                  <div className="d-flex flex-row likeDiv">
+                    <span>{comment.likes}</span>
+                    <img
+                      onClick={() => this.likeComment(comment.cid)}
+                      src="/static/img/interactive/bluelikeActive.svg"
+                      alt=""
+                      className="likeImg"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="insideComment d-flex align-items-start">
-                <img
-                  src="/static/img/interactive/user.svg"
-                  alt=""
-                  className="avatarUser"
-                />
-                <div className="mr-auto ml-0">
-                  <h5>اسم المستخدم</h5>
-                  <p>
-                    من وجه نظري ان اهم من الموقع هو الالتزام بحدود المبني
-                    التجاري و النشاط المرخص له
-                  </p>
-                </div>
-                <div className="d-flex flex-row likeDiv">
-                  <span>14</span>
-                  <img
-                    src="/static/img/interactive/bluelikeActive.svg"
-                    alt=""
-                    className="likeImg"
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </Container>
         </div>

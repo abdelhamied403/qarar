@@ -1,0 +1,109 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { InputGroup, InputGroupAddon, Input, Alert } from 'reactstrap';
+import renderHTML from 'react-render-html';
+import Api from '../../../api';
+
+class InsideComment extends Component {
+  constructor() {
+    super();
+    this.state = {
+      comments: []
+    };
+  }
+
+  componentDidMount() {
+    this.getComments();
+  }
+
+  getComments = async () => {
+    const { itemId } = this.props;
+    const response = await Api.get(
+      `/qarar_api/comments/${itemId}/DESC?_format=json`
+    );
+    if (response.ok) {
+      this.setState({ comments: response.data });
+    }
+  };
+
+  saveComment = async () => {
+    const { nid, accessToken } = this.props;
+    const { comment } = this.state;
+    if (!comment) {
+      this.setState({ error: true });
+      return;
+    }
+    const data = {
+      entity_id: [{ target_id: nid }],
+      subject: [{ value: 'comment' }],
+      comment_body: [{ value: comment }],
+      pid: [{ target_id: '0' }]
+    };
+    const response = await Api.post(
+      `/qarar_api/post-comment?_format=json`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
+    if (response.ok) {
+      this.setState({ comment: '', successComment: true });
+      setTimeout(() => this.setState({ successComment: false }), 3000);
+    }
+  };
+
+  render() {
+    const { comments, successComment } = this.state;
+    const { uid } = this.props;
+    return (
+      <>
+        {comments.map(comment => (
+          <div
+            key={comment.cid}
+            className="insideComment d-flex align-items-start"
+          >
+            <img
+              src={comment.owner_image || '/static/img/interactive/user.svg'}
+              alt=""
+              className="avatarUser"
+            />
+            <div>
+              <h5>{comment.full_name}</h5>
+              <p>{renderHTML(comment.comment_body || '')}</p>
+            </div>
+            <div className="d-flex flex-row likeDiv">
+              <span>{comment.likes}</span>
+              <img
+                src="/static/img/interactive/bluelikeActive.svg"
+                alt=""
+                className="likeImg"
+              />
+            </div>
+          </div>
+        ))}
+        {successComment && (
+          <Alert color="success">
+            تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+          </Alert>
+        )}
+        {uid ? (
+          <InputGroup>
+            <Input
+              value={this.state.comment}
+              onChange={e => this.setState({ comment: e.target.value })}
+              placeholder="اضف تعليقك"
+            />
+            <InputGroupAddon onClick={this.saveComment} addonType="prepend">
+              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+            </InputGroupAddon>
+          </InputGroup>
+        ) : null}
+      </>
+    );
+  }
+}
+const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
+  uid,
+  accessToken
+});
+export default connect(mapStateToProps)(InsideComment);

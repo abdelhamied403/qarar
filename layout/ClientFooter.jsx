@@ -97,7 +97,7 @@ const ClientFooter = ({ isAuthentcated }) => (
             <h5>طريق الملك عبدالله - الرياض</h5>
             <p>
               الذهاب للموقع
-              <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+              <i className="fa fa-long-arrow-left" aria-hidden="true" />
             </p>
           </Col>
           <Col md="2" sm="6" className="d-flex flex-column newMap">
