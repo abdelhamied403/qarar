@@ -12,18 +12,18 @@
   src: url(/static/Fonts/TheSansArabic-Plain.ttf);
 }
 /*!
- * CoreUI - Open Source Dashboard UI Kit
- * @version v2.1.12
- * @link https://coreui.io
- * Copyright (c) 2018 creativeLabs Łukasz Holeczek
- * Licensed under MIT (https://coreui.io/license)
- */
+* CoreUI - Open Source Dashboard UI Kit
+* @version v2.1.12
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+*/
 /*!
- * Bootstrap v4.3.1 (https://getbootstrap.com/)
- * Copyright 2011-2019 The Bootstrap Authors
- * Copyright 2011-2019 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
+* Bootstrap v4.3.1 (https://getbootstrap.com/)
+* Copyright 2011-2019 The Bootstrap Authors
+* Copyright 2011-2019 Twitter, Inc.
+* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+*/
 :root {
   --blue: #20a8d8;
   --indigo: #6610f2;
@@ -2666,9 +2666,13 @@ fieldset:disabled a.btn {
   border-radius: 128px;
 }
 .btn-outline-primary:hover {
-  color: #fff;
+  color: #fff !important;
   background-color: #81bd41;
   border-color: #81bd41;
+}
+.btn-outline-primary:hover img,
+.newUILanding .activities .btn:hover img {
+  filter: brightness(0) invert(1);
 }
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
@@ -3057,6 +3061,9 @@ input[type='button'].btn-block {
 }
 
 @media (min-width: 768px) {
+  .navbar-expand-md .navbar-nav {
+    align-items: center;
+  }
   .dropdown-menu-md-left {
     right: auto;
     left: 0;
@@ -9730,8 +9737,8 @@ a.text-dark:focus {
 }
 
 /*
- * Scrollbar thumb styles
- */
+* Scrollbar thumb styles
+*/
 .ps__thumb-x {
   position: absolute;
   bottom: 2px;
@@ -16659,7 +16666,7 @@ html body .app.flex-row.align-items-center {
 }
 
 .client-layout .active {
-  background-color: var(--normal-gray) !important;
+  background-color: transparent !important;
 }
 
 .client-layout .breadcrumb-item.active {
@@ -17152,7 +17159,7 @@ html body .app.flex-row.align-items-center {
   padding: 20px 10px;
   margin: 10px;
 }
- */
+*/
 
 .notifications {
   background-color: white !important;
@@ -17997,9 +18004,9 @@ textarea.form-control {
   background-color: white !important;
 }
 
-.client-layout .active {
+/* .client-layout .active {
   background-color: var(--normal-gray) !important;
-}
+} */
 
 .client-layout .breadcrumb-item.active {
   background-color: white !important;
