@@ -28,6 +28,7 @@ import {
 } from 'react-scroll';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import renderHTML from 'react-render-html';
 import Skeleton from '../components/skeleton/skeleton';
 import CardDraft from '../components/card-draft/card-draft';
 import CardDraftItems from '../components/card-draft-items/card-draft-items';
@@ -37,7 +38,6 @@ import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
 import NoAccess from '../components/NoAccess';
 import Api from '../../../api';
-import renderHTML from 'react-render-html';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -420,42 +420,45 @@ class DraftDetails extends Component {
               </CardBody>
             </Card>
             <hr className="hrDraft" />
-            {items.map(item => (
-              <Card key={item.nid} className="cardDraft collapseDraftCard">
-                <CardHeader
-                  className="d-flex justify-content-between"
-                  id="toggler"
-                  onClick={() =>
-                    this.setState({ [item.nid]: !this.state[item.nid] })
-                  }
-                >
-                  <p>{item.title}</p>
-                  <img
-                    src="/static/img/interactive/whiteTabs.svg"
-                    alt=""
-                    className={this.state[item.nid] ? 'rotated' : ''}
-                  />
-                </CardHeader>
-                <Collapse isOpen={this.state[item.nid]}>
-                  <CardBody>
-                    <Row>
-                      <Col md="9" className="draftBodyRt">
-                        <p>{item.body_value && renderHTML(item.body_value)}</p>
-                      </Col>
-                    </Row>
-                    <Link href={`/draft-details-info/${item.nid}`}>
-                      <Button>
-                        المزيد
-                        <img
-                          src="/static/img/interactive/greenArrow.svg"
-                          alt=""
-                        />
-                      </Button>
-                    </Link>
-                  </CardBody>
-                </Collapse>
-              </Card>
-            ))}
+            {items &&
+              items.map(item => (
+                <Card key={item.nid} className="cardDraft collapseDraftCard">
+                  <CardHeader
+                    className="d-flex justify-content-between"
+                    id="toggler"
+                    onClick={() =>
+                      this.setState({ [item.nid]: !this.state[item.nid] })
+                    }
+                  >
+                    <p>{item.title}</p>
+                    <img
+                      src="/static/img/interactive/whiteTabs.svg"
+                      alt=""
+                      className={this.state[item.nid] ? 'rotated' : ''}
+                    />
+                  </CardHeader>
+                  <Collapse isOpen={this.state[item.nid]}>
+                    <CardBody>
+                      <Row>
+                        <Col md="9" className="draftBodyRt">
+                          <p>
+                            {item.body_value && renderHTML(item.body_value)}
+                          </p>
+                        </Col>
+                      </Row>
+                      <Link href={`/draft-details-info/${item.nid}`}>
+                        <Button>
+                          المزيد
+                          <img
+                            src="/static/img/interactive/greenArrow.svg"
+                            alt=""
+                          />
+                        </Button>
+                      </Link>
+                    </CardBody>
+                  </Collapse>
+                </Card>
+              ))}
             {!uid ? (
               <div className="draftShouldLogin d-flex flex-column">
                 <img src="/static/img/interactive/disabled.svg" alt="" />

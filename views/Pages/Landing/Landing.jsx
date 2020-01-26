@@ -399,11 +399,13 @@ const Landing = () => {
                   .map(item => (
                     <div key={item.id} className="newsSingle rightSide">
                       <img src={item.image} alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>{item.title}</h3>
-                          <p>{item.body.substr(0, 200)}</p>
-                        </div>
+                      <Link href={`/news-details/${item.id}`}>
+                        <a>
+                          <div className="newsInfo">
+                            <h3>{item.title}</h3>
+                            <p>{item.body.substr(0, 200)}</p>
+                          </div>
+                        </a>
                       </Link>
                     </div>
                   ))}
@@ -416,11 +418,13 @@ const Landing = () => {
                       <Col key={item.id} md="6">
                         <div className="newsSingle leftSide">
                           <img src={item.image} alt="" />
-                          <Link href="/news">
-                            <div className="newsInfo">
-                              <h3>{item.title}</h3>
-                              <p>{item.body.substr(0, 200)}</p>
-                            </div>
+                          <Link href={`/news-details/${item.id}`}>
+                            <a>
+                              <div className="newsInfo">
+                                <h3>{item.title}</h3>
+                                <p>{item.body.substr(0, 200)}</p>
+                              </div>
+                            </a>
                           </Link>
                         </div>
                       </Col>
@@ -440,11 +444,13 @@ const Landing = () => {
                   .map(item => (
                     <div key={item.id} className="newsSingle rightSide">
                       <img src={item.image} alt="" />
-                      <Link href="/news">
-                        <div className="newsInfo">
-                          <h3>{item.title}</h3>
-                          <p>{item.body.substr(0, 200)}</p>
-                        </div>
+                      <Link href={`/news-details/${item.id}`}>
+                        <a>
+                          <div className="newsInfo">
+                            <h3>{item.title}</h3>
+                            <p>{item.body.substr(0, 200)}</p>
+                          </div>
+                        </a>
                       </Link>
                     </div>
                   ))}
@@ -457,11 +463,13 @@ const Landing = () => {
                       <Col key={item.id} md="6">
                         <div className="newsSingle leftSide">
                           <img src={item.image} alt="" />
-                          <Link href="/news">
-                            <div className="newsInfo">
-                              <h3>{item.title}</h3>
-                              <p>{item.body.substr(0, 200)}</p>
-                            </div>
+                          <Link href={`/news-details/${item.id}`}>
+                            <a>
+                              <div className="newsInfo">
+                                <h3>{item.title}</h3>
+                                <p>{item.body.substr(0, 200)}</p>
+                              </div>
+                            </a>
                           </Link>
                         </div>
                       </Col>
