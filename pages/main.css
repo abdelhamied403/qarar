@@ -3036,7 +3036,7 @@ input[type='button'].btn-block {
   background-color: #fff;
   background-clip: padding-box;
   border: 2px solid #81bd41;
-  border-radius: 128px;
+  /* border-radius: 128px; */
 }
 
 .dropdown-menu-left {
@@ -3047,6 +3047,9 @@ input[type='button'].btn-block {
 .dropdown-menu-right {
   right: 0;
   left: auto;
+}
+.drop-header a.dropdown-toggle:hover {
+  background-color: white !important;
 }
 
 @media (min-width: 576px) {

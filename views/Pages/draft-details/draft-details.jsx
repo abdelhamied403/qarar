@@ -37,6 +37,7 @@ import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
 import NoAccess from '../components/NoAccess';
 import Api from '../../../api';
+import renderHTML from 'react-render-html';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -389,7 +390,7 @@ class DraftDetails extends Component {
               <CardBody>
                 <Row>
                   <Col md="9" className="draftBodyRt">
-                    <p>{draft.body}</p>
+                    <p>{renderHTML(draft.body)}</p>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
@@ -439,24 +440,16 @@ class DraftDetails extends Component {
                   <CardBody>
                     <Row>
                       <Col md="9" className="draftBodyRt">
-                        <p>{item.body_value}</p>
+                        <p>{item.body_value && renderHTML(item.body_value)}</p>
                       </Col>
                     </Row>
                     <Link href={`/draft-details-info/${item.nid}`}>
-                      <Button
-                        onMouseOut={() => {
-                          this.setState({
-                            img2: '/static/img/interactive/greenArrow.svg'
-                          });
-                        }}
-                        onMouseEnter={() =>
-                          this.setState({
-                            img2: '/static/img/interactive/whiteArrow.svg'
-                          })
-                        }
-                      >
+                      <Button>
                         المزيد
-                        <img src={this.state.img2} alt="" />
+                        <img
+                          src="/static/img/interactive/greenArrow.svg"
+                          alt=""
+                        />
                       </Button>
                     </Link>
                   </CardBody>
