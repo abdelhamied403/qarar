@@ -344,6 +344,11 @@ class DraftDetailsInfo extends Component {
                 <Col sm="12" md="6" lg="6">
                   <div className="header-content">
                     <ul>
+                      <li>
+                        <Link href="/drafts/">
+                          <a>القرارات</a>
+                        </Link>
+                      </li>
                       {breadcrumbs.map(item => (
                         <li key={item.id}>
                           <Link href={`/draft-details/${item.id}`}>
