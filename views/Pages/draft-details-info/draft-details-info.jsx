@@ -60,6 +60,7 @@ class DraftDetailsInfo extends Component {
       },
       items: [],
       comments: [],
+      breadcrumbs: [],
       commentPage: 1,
       flagged: false,
       successComment: false,
@@ -142,7 +143,30 @@ class DraftDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       const { items, data } = itemResponse.data;
-      this.setState({ draft: data, items, loadingDraft: false });
+      this.setState({ draft: data, items, loadingDraft: false }, () =>
+        this.getParent(data.parent_id)
+      );
+    }
+  };
+
+  getParent = async id => {
+    const { accessToken } = this.props;
+    const { breadcrumbs } = this.state;
+    const itemResponse = await Api.get(
+      `/qarar_api/load/node/${id}?_format=json`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
+    if (itemResponse.ok) {
+      const { data } = itemResponse.data;
+      this.setState({
+        breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
+      });
+      if (data.parent_id) {
+        this.getParent(data.parent_id);
+      }
     }
   };
 
@@ -304,7 +328,8 @@ class DraftDetailsInfo extends Component {
       comments,
       flagged,
       successComment,
-      loadingDraft
+      loadingDraft,
+      breadcrumbs
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -319,12 +344,13 @@ class DraftDetailsInfo extends Component {
                 <Col sm="12" md="6" lg="6">
                   <div className="header-content">
                     <ul>
-                      <Link href="/">
-                        <li>إشتراطات المباني التجارية</li>
-                      </Link>
-                      <Link href="/">
-                        <li>5.1 الاشتراطات المعمارية</li>
-                      </Link>
+                      {breadcrumbs.map(item => (
+                        <li key={item.id}>
+                          <Link href={`/draft-details/${item.id}`}>
+                            <a>{item.title}</a>
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                     <h2>{draft.title}</h2>
                     <div className="sub-header">

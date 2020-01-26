@@ -271,15 +271,14 @@ class DraftDetails extends Component {
                 <Col sm="12" md="6" lg="6">
                   <div className="header-content">
                     <ul>
-                      <Link href="/">
-                        <li>إشتراطات المباني التجارية</li>
-                      </Link>
-                      <Link href="/">
-                        <li>5.1 الاشتراطات المعمارية</li>
-                      </Link>
-                      <Link href="/">
-                        <li>5.1.1 متطلبات الأمن والصحة والسلامة</li>
-                      </Link>
+                      <li>
+                        <Link href="/drafts">
+                          <a>القرارات</a>
+                        </Link>
+                      </li>
+                      <li>
+                        <a>{draft.title}</a>
+                      </li>
                     </ul>
                     <h2>{draft.title}</h2>
                     <div className="sub-header">
