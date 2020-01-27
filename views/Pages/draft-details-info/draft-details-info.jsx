@@ -608,34 +608,52 @@ class DraftDetailsInfo extends Component {
                 </Card>
               ))}
             <Element name="test1" className="element">
-              <div>
-                {successComment && (
-                  <Alert color="success">
-                    تم إضافة التعليق في إنتظار موافقة إدارة الموقع
-                  </Alert>
-                )}
-                <Editor
-                  placeholder="اضف تعليقك هنا"
-                  toolbar={{
-                    options: ['inline', 'image'], // This is where you can specify what options you need in
-                    // the toolbar and appears in the same order as specified
-                    inline: {
-                      options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                      // strikethrough, 'monospace', 'superscript', 'subscript'
-                    },
-                    image: {
-                      alignmentEnabled: false,
-                      uploadCallback: this.UploadImageCallBack,
-                      alt: { present: true, mandatory: false },
-                      previewImage: true
-                    }
-                  }}
-                  editorState={editorState}
-                  wrapperClassName="demo-wrapper"
-                  editorClassName="demo-editor"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
-              </div>
+              {!uid ? (
+                <div className="draftShouldLogin d-flex flex-column">
+                  <img src="/static/img/interactive/disabled.svg" alt="" />
+                  <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+                  <Link href="/login">
+                    <Button>
+                      تسجيل الدخول
+                      <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <a>تسجيل حساب</a>
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <div>
+                    {successComment && (
+                      <Alert color="success">
+                        تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+                      </Alert>
+                    )}
+                    <Editor
+                      placeholder="اضف تعليقك هنا"
+                      toolbar={{
+                        options: ['inline', 'image'], // This is where you can specify what options you need in
+                        // the toolbar and appears in the same order as specified
+                        inline: {
+                          options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                          // strikethrough, 'monospace', 'superscript', 'subscript'
+                        },
+                        image: {
+                          alignmentEnabled: false,
+                          uploadCallback: this.UploadImageCallBack,
+                          alt: { present: true, mandatory: false },
+                          previewImage: true
+                        }
+                      }}
+                      editorState={editorState}
+                      wrapperClassName="demo-wrapper"
+                      editorClassName="demo-editor"
+                      onEditorStateChange={this.onEditorStateChange}
+                    />
+                  </div>
+                </>
+              )}
             </Element>
             <div className="commentsBtn d-flex justify-content-end align-items-center">
               <a href="">شروط المشاركة</a>

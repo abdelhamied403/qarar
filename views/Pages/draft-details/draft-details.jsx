@@ -462,11 +462,15 @@ class DraftDetails extends Component {
               <div className="draftShouldLogin d-flex flex-column">
                 <img src="/static/img/interactive/disabled.svg" alt="" />
                 <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
-                <Button>
-                  تسجيل الدخول
-                  <img src="/static/img/interactive/btnArrow3.svg" alt="" />
-                </Button>
-                <a href="">تسجيل حساب</a>
+                <Link href="/login">
+                  <Button>
+                    تسجيل الدخول
+                    <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <a>تسجيل حساب</a>
+                </Link>
               </div>
             ) : (
               <>
