@@ -218,7 +218,11 @@ class DraftDetails extends Component {
   saveComment = async () => {
     const { draftId, accessToken } = this.props;
     const { editorState } = this.state;
-
+    if (!editorState.getCurrentContent().hasText()) {
+      this.setState({ errorComment: 'لم تقم بكتابة أي تعليق' });
+      setTimeout(() => this.setState({ errorComment: false }), 3000);
+      return;
+    }
     const data = {
       entity_id: [{ target_id: draftId }],
       subject: [{ value: 'comment' }],
@@ -243,6 +247,9 @@ class DraftDetails extends Component {
       this.getDraft();
       this.getComments();
       setTimeout(() => this.setState({ successComment: false }), 3000);
+    } else {
+      this.setState({ errorComment: 'من فضلك حاول مرة أخري' });
+      setTimeout(() => this.setState({ errorComment: false }), 3000);
     }
   };
 
@@ -255,6 +262,7 @@ class DraftDetails extends Component {
       comment: commentText,
       flagged,
       successComment,
+      errorComment,
       loadingDraft,
       selected
     } = this.state;
@@ -480,6 +488,7 @@ class DraftDetails extends Component {
                       تم إضافة التعليق في إنتظار موافقة إدارة الموقع
                     </Alert>
                   )}
+                  {errorComment && <Alert color="danger">{errorComment}</Alert>}
                   <Editor
                     placeholder="اضف تعليقك هنا"
                     toolbar={{
