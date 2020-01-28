@@ -466,89 +466,95 @@ class DraftDetails extends Component {
                   </Collapse>
                 </Card>
               ))}
-            {!uid ? (
-              <div className="draftShouldLogin d-flex flex-column">
-                <img src="/static/img/interactive/disabled.svg" alt="" />
-                <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
-                <Link href="/login">
-                  <Button>
-                    تسجيل الدخول
-                    <img src="/static/img/interactive/btnArrow3.svg" alt="" />
-                  </Button>
-                </Link>
-                <Link href="/register">
-                  <a>تسجيل حساب</a>
-                </Link>
-              </div>
-            ) : (
-              <>
-                <div>
-                  {successComment && (
-                    <Alert color="success">
-                      تم إضافة التعليق في إنتظار موافقة إدارة الموقع
-                    </Alert>
-                  )}
-                  {errorComment && <Alert color="danger">{errorComment}</Alert>}
-                  <Editor
-                    placeholder="اضف تعليقك هنا"
-                    toolbar={{
-                      options: ['inline', 'image'], // This is where you can specify what options you need in
-                      // the toolbar and appears in the same order as specified
-                      inline: {
-                        options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                        // strikethrough, 'monospace', 'superscript', 'subscript'
-                      },
-                      image: {
-                        alignmentEnabled: false,
-                        uploadCallback: this.UploadImageCallBack,
-                        alt: { present: true, mandatory: false },
-                        previewImage: true
-                      }
-                    }}
-                    editorState={editorState}
-                    wrapperClassName="demo-wrapper"
-                    editorClassName="demo-editor"
-                    onEditorStateChange={this.onEditorStateChange}
-                  />
+            <Element name="test1" className="element">
+              {!uid ? (
+                <div className="draftShouldLogin d-flex flex-column">
+                  <img src="/static/img/interactive/disabled.svg" alt="" />
+                  <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+                  <Link href="/login">
+                    <Button>
+                      تسجيل الدخول
+                      <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <a>تسجيل حساب</a>
+                  </Link>
                 </div>
-                <div className="commentsBtn d-flex justify-content-end align-items-center">
-                  <a href="">شروط المشاركة</a>
-                  <Button onClick={this.saveComment}>
-                    اضف تعليقك
-                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-                  </Button>
-                </div>
-                <div className="draftNewComments">
-                  {comments.map(comment => (
-                    <div
-                      key={comment.cid}
-                      className="insideComment d-flex align-items-start"
-                    >
-                      <img
-                        src={
-                          comment.owner_image ||
-                          '/static/img/interactive/user.svg'
+              ) : (
+                <>
+                  <div>
+                    {successComment && (
+                      <Alert color="success">
+                        تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+                      </Alert>
+                    )}
+                    {errorComment && (
+                      <Alert color="danger">{errorComment}</Alert>
+                    )}
+                    <Editor
+                      placeholder="اضف تعليقك هنا"
+                      toolbar={{
+                        options: ['inline', 'image'], // This is where you can specify what options you need in
+                        // the toolbar and appears in the same order as specified
+                        inline: {
+                          options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                          // strikethrough, 'monospace', 'superscript', 'subscript'
+                        },
+                        image: {
+                          alignmentEnabled: false,
+                          uploadCallback: this.UploadImageCallBack,
+                          alt: { present: true, mandatory: false },
+                          previewImage: true
                         }
+                      }}
+                      editorState={editorState}
+                      wrapperClassName="demo-wrapper"
+                      editorClassName="demo-editor"
+                      onEditorStateChange={this.onEditorStateChange}
+                    />
+                  </div>
+                  <div className="commentsBtn d-flex justify-content-end align-items-center">
+                    <a href="">شروط المشاركة</a>
+                    <Button onClick={this.saveComment}>
+                      اضف تعليقك
+                      <img
+                        src="/static/img/interactive/whiteArrow.svg"
                         alt=""
-                        className="avatarUser"
                       />
-                      <div className="mr-auto ml-0">
-                        <h5>{comment.full_name}</h5>
-                        <p>{comment.comment_body}</p>
-                      </div>
-                      <div className="d-flex flex-row likeDiv">
-                        <span>{comment.likes}</span>
-                        <img
-                          src="/static/img/interactive/bluelikeActive.svg"
-                          alt=""
-                          className="likeImg"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    </Button>
+                  </div>
+                </>
+              )}
+            </Element>
+            <div className="draftNewComments">
+              {comments.map(comment => (
+                <div
+                  key={comment.cid}
+                  className="insideComment d-flex align-items-start"
+                >
+                  <img
+                    src={
+                      comment.owner_image || '/static/img/interactive/user.svg'
+                    }
+                    alt=""
+                    className="avatarUser"
+                  />
+                  <div className="mr-auto ml-0">
+                    <h5>{comment.full_name}</h5>
+                    <p>{comment.comment_body}</p>
+                  </div>
+                  <div className="d-flex flex-row likeDiv">
+                    <span>{comment.likes}</span>
+                    <img
+                      src="/static/img/interactive/bluelikeActive.svg"
+                      alt=""
+                      className="likeImg"
+                    />
+                  </div>
                 </div>
-              </>
-            )}
+              ))}
+            </div>
           </Container>
         </div>
         {/*  <Container>

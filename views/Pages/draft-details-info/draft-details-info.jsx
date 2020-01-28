@@ -669,16 +669,20 @@ class DraftDetailsInfo extends Component {
                       onEditorStateChange={this.onEditorStateChange}
                     />
                   </div>
+                  <div className="commentsBtn d-flex justify-content-end align-items-center">
+                    <a href="">شروط المشاركة</a>
+                    <Button onClick={this.saveComment}>
+                      اضف تعليقك
+                      <img
+                        src="/static/img/interactive/whiteArrow.svg"
+                        alt=""
+                      />
+                    </Button>
+                  </div>
                 </>
               )}
             </Element>
-            <div className="commentsBtn d-flex justify-content-end align-items-center">
-              <a href="">شروط المشاركة</a>
-              <Button onClick={this.saveComment}>
-                اضف تعليقك
-                <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-              </Button>
-            </div>
+
             <div className="draftNewComments">
               {comments.map(comment => (
                 <div
