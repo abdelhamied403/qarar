@@ -134,6 +134,7 @@ class DraftDetailsInfo extends Component {
 
   getDraft = async () => {
     const { draftId, accessToken } = this.props;
+    const { breadcrumbs } = this.state;
     const itemResponse = await Api.get(
       `/qarar_api/load/node/${draftId}?_format=json`,
       {},
@@ -143,9 +144,11 @@ class DraftDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       const { items, data } = itemResponse.data;
-      this.setState({ draft: data, items, loadingDraft: false }, () =>
-        this.getParent(data.parent_id)
-      );
+      this.setState({ draft: data, items, loadingDraft: false }, () => {
+        if (!breadcrumbs.length) {
+          this.getParent(data.parent_id);
+        }
+      });
     }
   };
 
@@ -415,7 +418,7 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (1).svg"
                         />
                       </div>
-                      <p>6</p>
+                      <p>{draft.followers}</p>
                       <h5>مشترك</h5>
                     </div>
                     <div>
@@ -426,7 +429,7 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (2).svg"
                         />
                       </div>
-                      <p>12</p>
+                      <p>{draft.comments}</p>
                       <h5>تعليق</h5>
                     </div>
                     <div>
@@ -437,7 +440,10 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (3).svg"
                         />
                       </div>
-                      <p>20</p>
+                      <p>
+                        {parseInt(draft.likes, 10) +
+                          parseInt(draft.dislikes, 10)}
+                      </p>
                       <h5>صوت</h5>
                     </div>
                   </div>
