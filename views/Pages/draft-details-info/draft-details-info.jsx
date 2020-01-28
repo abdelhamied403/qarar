@@ -570,7 +570,7 @@ class DraftDetailsInfo extends Component {
                   >
                     <Row className="mt-3">
                       <Col md="7" className="draftBodyRt">
-                        <p>{item.body_value}</p>
+                        <p>{renderHTML(item.body_value)}</p>
                         <Button
                           onMouseOut={() => {
                             this.setState({
