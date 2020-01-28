@@ -3,10 +3,17 @@ import { Button, Col, Input, Media, FormGroup, Label, Alert } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import Router from 'next/router';
+import * as yup from 'yup';
 
 import '../Register/Register.css';
 import Api from '../../../api';
 
+const messages = {
+  'Sorry, unrecognized username or password.':
+    'خطأ في اسم المستخدم او كلمة المرور',
+  'The user has not been activated or is blocked.':
+    'لم يتم تفعيل حساب هذا المستخدم أو تم حظره'
+};
 const Login = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
@@ -19,6 +26,23 @@ const Login = () => {
   }, [token]);
   const login = async () => {
     setError('');
+    const schema = yup.object().shape({
+      name: yup
+        .string()
+        .min(5, 'إسم المستخدم ينبغي أن لا يقل عن ٥ أحرف')
+        .required('حقل إسم المستخدم مطلوب'),
+
+      pass: yup
+        .string()
+        .min(6, 'كلمة المرور  ينبغي أن لا يقل عن ٦ أحرف')
+        .required('حقل كلمة المرور مطلوب')
+    });
+
+    schema.validate(user).catch(err => {
+      setError(err.message);
+    });
+
+    if (!schema.isValidSync(user)) return;
     const response = await Api.post('/user/login?_format=json', user);
     if (response.ok) {
       let profileImage = '';
@@ -39,9 +63,13 @@ const Login = () => {
       });
       Router.push('/me/about');
     } else {
-      setError(
-        response.data ? response.data.message : 'حدث خطأ اثناء تسجيل الدخول'
-      );
+      const resMessage =
+        response.data && response.data.message ? response.data.message : '';
+      if (resMessage && messages.hasOwnProperty(resMessage)) {
+        setError(messages[resMessage]);
+      } else {
+        setError('حدث خطأ ما أثناء تسجيل الدخول');
+      }
     }
   };
   const handleKeyPress = e => {
