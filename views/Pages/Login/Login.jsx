@@ -39,12 +39,19 @@ const Login = () => {
       });
       Router.push('/me/about');
     } else {
-      setError(response.data.message);
+      setError(
+        response.data ? response.data.message : 'حدث خطأ اثناء تسجيل الدخول'
+      );
+    }
+  };
+  const handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      login();
     }
   };
   return (
     <>
-      <div className="navHeader"></div>
+      <div className="navHeader" />
 
       <div className="register-container flex flex-justifiy-center flex-align-stretch">
         <div className="register-content">
@@ -75,6 +82,7 @@ const Login = () => {
                       name="hf-username"
                       value={user.name}
                       onChange={e => setUser({ ...user, name: e.target.value })}
+                      onKeyPress={handleKeyPress}
                       placeholder="إسم المستخدم"
                     />
                   </Col>
@@ -92,6 +100,7 @@ const Login = () => {
                       autoComplete="current-password"
                       value={user.pass}
                       onChange={e => setUser({ ...user, pass: e.target.value })}
+                      onKeyPress={handleKeyPress}
                     />
                   </Col>
                 </FormGroup>
