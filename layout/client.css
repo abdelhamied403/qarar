@@ -521,6 +521,12 @@
   }
 }
 @media screen and (max-width: 767px) {
+  .navHeader {
+    height: 0 !important;
+  }
+  .ministry nav.navbar {
+    background-color: #006c68;
+  }
   a.astbyanLink,
   .ministry .header-nav .afkarLink {
     width: auto !important;

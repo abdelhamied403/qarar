@@ -508,7 +508,7 @@ class Register extends Component {
             <div className="custom-container">
               <div className="register-header">
                 <Link href="/login">
-                  <a>هل قمت بانشاء حساب مسبقا؟</a>
+                  <a className="NewUserLink">هل قمت بانشاء حساب مسبقا؟</a>
                 </Link>
                 <h3>إنشاء حساب - مرحبا بك!</h3>
                 <p className="sub-header">

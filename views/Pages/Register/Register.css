@@ -109,6 +109,7 @@
   text-decoration: underline !important;
   width: 100%;
   float: left;
+  margin-bottom: 15px;
 }
 .register-content .form-horizontal {
   padding: 0;
@@ -139,6 +140,12 @@
   width: auto;
 }
 @media (max-width: 768px) {
+  .qarar-image {
+    height: 400px;
+  }
+  .register-content {
+    padding: 30px 0;
+  }
   .register-container {
     /* flex-flow: row-reverse; */
   }
