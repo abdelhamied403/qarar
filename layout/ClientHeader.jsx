@@ -71,52 +71,64 @@ class ClientHeader extends React.Component {
           </DropdownToggle>
           <DropdownMenu>
             <Link href="/me/about">
-              <DropdownItem
-                active={router.pathname === '/me/about'}
-                onClick={this.closeMobile}
-              >
-                معلومات الشخصية
-              </DropdownItem>
+              <a>
+                <DropdownItem
+                  active={router.pathname === '/me/about'}
+                  onClick={this.closeMobile}
+                >
+                  معلومات الشخصية
+                </DropdownItem>
+              </a>
             </Link>
             <Link href="/me/notifications">
-              <DropdownItem
-                active={router.pathname === '/me/notifications'}
-                onClick={this.closeMobile}
-              >
-                اشعارات
-              </DropdownItem>
+              <a>
+                <DropdownItem
+                  active={router.pathname === '/me/notifications'}
+                  onClick={this.closeMobile}
+                >
+                  اشعارات
+                </DropdownItem>
+              </a>
             </Link>
             <Link href="/me/shared">
-              <DropdownItem
-                active={router.pathname === '/me/shared'}
-                onClick={this.closeMobile}
-              >
-                مشاركاتي
-              </DropdownItem>
+              <a>
+                <DropdownItem
+                  active={router.pathname === '/me/shared'}
+                  onClick={this.closeMobile}
+                >
+                  مشاركاتي
+                </DropdownItem>
+              </a>
             </Link>
             <Link href="/me/awards">
-              <DropdownItem
-                active={router.pathname === '/me/awards'}
-                onClick={this.closeMobile}
-              >
-                اوسمتي
-              </DropdownItem>
+              <a>
+                <DropdownItem
+                  active={router.pathname === '/me/awards'}
+                  onClick={this.closeMobile}
+                >
+                  اوسمتي
+                </DropdownItem>
+              </a>
             </Link>
             <Link href="/me/follow">
-              <DropdownItem
-                active={router.pathname === '/me/follow'}
-                onClick={this.closeMobile}
-              >
-                متابعاتي
-              </DropdownItem>
+              <a>
+                <DropdownItem
+                  active={router.pathname === '/me/follow'}
+                  onClick={this.closeMobile}
+                >
+                  متابعاتي
+                </DropdownItem>
+              </a>
             </Link>
             <Link href="/me/groups">
-              <DropdownItem
-                active={router.pathname === '/me/groups'}
-                onClick={this.closeMobile}
-              >
-                مجموعاتي
-              </DropdownItem>
+              <a>
+                <DropdownItem
+                  active={router.pathname === '/me/groups'}
+                  onClick={this.closeMobile}
+                >
+                  مجموعاتي
+                </DropdownItem>
+              </a>
             </Link>
             <DropdownItem className="danger" onClick={signOut}>
               خروج
@@ -172,28 +184,27 @@ class ClientHeader extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <div className="newNav mr-auto">
               <Nav navbar className="d-flex justify-content-end">
-                <NavItem
-                  active={router.pathname === '/'}
-                  onClick={this.closeMobile}
-                >
+                <NavItem active={router.pathname === '/'}>
                   <Link href="/">
-                    <NavLink>الرئيسية</NavLink>
+                    <a>
+                      <NavLink onClick={this.closeMobile}>الرئيسية</NavLink>
+                    </a>
                   </Link>
                 </NavItem>
-                <NavItem
-                  active={router.pathname === '/drafts'}
-                  onClick={this.closeMobile}
-                >
+                <NavItem active={router.pathname === '/drafts'}>
                   <Link href="/drafts">
-                    <NavLink>قرارات تحت التصويت</NavLink>
+                    <a>
+                      <NavLink onClick={this.closeMobile}>
+                        قرارات تحت التصويت
+                      </NavLink>
+                    </a>
                   </Link>
                 </NavItem>
-                <NavItem
-                  active={router.pathname === '/decisions'}
-                  onClick={this.closeMobile}
-                >
+                <NavItem active={router.pathname === '/decisions'}>
                   <Link href="/decisions">
-                    <NavLink>قرارات مطبقة</NavLink>
+                    <a>
+                      <NavLink onClick={this.closeMobile}>قرارات مطبقة</NavLink>
+                    </a>
                   </Link>
                 </NavItem>
                 {/* <NavItem className="dp-items">
@@ -203,28 +214,27 @@ class ClientHeader extends React.Component {
                     <Link exact to="/client/decision-draft" >قرارت مؤرشفة</Link>
                   </div>
                 </NavItem> */}
-                <NavItem
-                  active={router.pathname === '/news'}
-                  onClick={this.closeMobile}
-                >
+                <NavItem active={router.pathname === '/news'}>
                   <Link href="/news">
-                    <NavLink>اخبار المنصة</NavLink>
+                    <a>
+                      <NavLink onClick={this.closeMobile}>اخبار المنصة</NavLink>
+                    </a>
                   </Link>
                 </NavItem>
-                <NavItem
-                  active={router.pathname === '/awards-system'}
-                  onClick={this.closeMobile}
-                >
+                <NavItem active={router.pathname === '/awards-system'}>
                   <Link href="/awards-system">
-                    <NavLink>الجوائز</NavLink>
+                    <a>
+                      <NavLink onClick={this.closeMobile}>الجوائز</NavLink>
+                    </a>
                   </Link>
                 </NavItem>
-                <NavItem
-                  active={router.pathname === '/social-reports'}
-                  onClick={this.closeMobile}
-                >
+                <NavItem active={router.pathname === '/social-reports'}>
                   <Link href="/social-reports">
-                    <NavLink>المشاركة المجتمعية</NavLink>
+                    <a>
+                      <NavLink onClick={this.closeMobile}>
+                        المشاركة المجتمعية
+                      </NavLink>
+                    </a>
                   </Link>
                 </NavItem>
                 {isAuthentcated ? (
@@ -240,20 +250,18 @@ class ClientHeader extends React.Component {
                   </NavItem>
                 ) : (
                   <>
-                    <NavItem
-                      active={router.pathname === '/en'}
-                      onClick={this.closeMobile}
-                    >
+                    <NavItem active={router.pathname === '/en'}>
                       <Link href="/EN">
-                        <NavLink>EN</NavLink>
+                        <a>
+                          <NavLink onClick={this.closeMobile}>EN</NavLink>
+                        </a>
                       </Link>
                     </NavItem>
-                    <NavItem
-                      active={router.pathname === '/login'}
-                      onClick={this.closeMobile}
-                    >
+                    <NavItem active={router.pathname === '/login'}>
                       <Link href="/login">
-                        <NavLink> دخول</NavLink>
+                        <a>
+                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                        </a>
                       </Link>
                     </NavItem>
                   </>
@@ -275,6 +283,9 @@ const mapStateToProps = ({ auth: { name, profileImage } }) => ({
   name,
   profileImage
 });
-export default connect(mapStateToProps, null, null, { pure: false })(
-  withRouter(ClientHeader)
-);
+export default connect(
+  mapStateToProps,
+  null,
+  null,
+  { pure: false }
+)(withRouter(ClientHeader));
