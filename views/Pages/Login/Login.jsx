@@ -86,7 +86,7 @@ const Login = () => {
           <div className="custom-container">
             <div className="register-header m-tb-20">
               <Link href="/register">
-                <a>انا مستخدم جديد</a>
+                <a className="NewUserLink">انا مستخدم جديد</a>
               </Link>
               <h3>تسجيل الدخول</h3>
               <p className="sub-header">
@@ -146,11 +146,8 @@ const Login = () => {
           </div>
         </div>
         <div className="qarar-image">
-          <Media
-            object
-            src="/static/img/login-bg-big.png"
-            className="image-avatar"
-          />
+          <img src="/static/img/interactive/logo.svg" alt="" />
+          <img src="/static/img/interactive/qrarLogo.svg" alt="" />
         </div>
       </div>
     </>

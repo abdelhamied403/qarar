@@ -103,6 +103,41 @@
 .register-content .custom-container {
   padding-top: 0;
 }
+.NewUserLink {
+  color: #000;
+  text-align: left !important;
+  text-decoration: underline !important;
+  width: 100%;
+  float: left;
+}
+.register-content .form-horizontal {
+  padding: 0;
+}
+.custom-container {
+  margin-bottom: -100px;
+  align-items: center;
+  vertical-align: middle;
+}
+.register-content p.sub-header {
+  margin-bottom: 40px !important;
+}
+.qarar-image {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.qarar-image img {
+  width: 200px;
+  height: auto;
+}
+.qarar-image img:nth-child(2) {
+  height: 50px;
+  margin-top: 20px;
+  width: auto;
+}
 @media (max-width: 768px) {
   .register-container {
     /* flex-flow: row-reverse; */

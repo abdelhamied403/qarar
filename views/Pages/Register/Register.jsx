@@ -539,11 +539,8 @@ class Register extends Component {
             </div>
           </div>
           <div className="qarar-image">
-            <Media
-              object
-              src="/static/img/login-bg-big.png"
-              className="image-avatar"
-            />
+            <img src="/static/img/interactive/logo.svg" alt="" />
+            <img src="/static/img/interactive/qrarLogo.svg" alt="" />
           </div>
         </div>
       </>
