@@ -118,7 +118,7 @@ class Register extends Component {
             />
           </Col>
         </FormGroup>
-        <FormGroup row>
+        {/* <FormGroup row>
           <Col md="4">
             <Label htmlFor="hf-username">الإسم</Label>
           </Col>
@@ -143,7 +143,7 @@ class Register extends Component {
               }
             />
           </Col>
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup row>
           <Col md="4">
             <Label htmlFor="hf-email">البريد الالكتروني</Label>
@@ -511,11 +511,12 @@ class Register extends Component {
                   <a className="NewUserLink">هل قمت بانشاء حساب مسبقا؟</a>
                 </Link>
                 <h3>إنشاء حساب - مرحبا بك!</h3>
-                <p className="sub-header">
-                  قم بإنشاء حساب الآن لتلعب دوراً مباشراً و فعالاً في اتخاذ
-                  القرارات التي تمس حياتك.
-                </p>
               </div>
+              <p className="sub-header">
+                قم بإنشاء حساب الآن لتلعب دوراً مباشراً و فعالاً في اتخاذ
+                القرارات التي تمس حياتك.
+              </p>
+
               <Alert
                 isOpen={errorMessage}
                 toggle={() => this.setState({ errorMessage: '' })}
@@ -539,8 +540,8 @@ class Register extends Component {
             </div>
           </div>
           <div className="qarar-image">
-            <img src="/static/img/interactive/logo.svg" alt="" />
-            <img src="/static/img/interactive/qrarLogo.svg" alt="" />
+            <img src="/static/img/brand/momra-logo.svg" alt="" />
+            <img src="/static/img/brand/logo-copy.svg" alt="" />
           </div>
         </div>
       </>

@@ -12,7 +12,15 @@
   min-height: 200px;
   width: 60%;
 }
-
+.register-header {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-bottom: 30px;
+}
+.register-header h3 {
+  width: 100%;
+}
 .custom-container {
   width: 60%;
   margin: 0 auto;
@@ -131,12 +139,12 @@
   height: 90vh;
 }
 .qarar-image img {
-  width: 200px;
-  height: auto;
+  height: 90px;
+  width: auto;
 }
 .qarar-image img:nth-child(2) {
-  height: 50px;
-  margin-top: 20px;
+  height: 128px;
+  margin-top: 72px;
   width: auto;
 }
 @media (max-width: 768px) {

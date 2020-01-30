@@ -89,11 +89,12 @@ const Login = () => {
                 <a className="NewUserLink">انا مستخدم جديد</a>
               </Link>
               <h3>تسجيل الدخول</h3>
-              <p className="sub-header">
-                سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
-                والمشاريع التي تتابعها.{' '}
-              </p>
             </div>
+            <p className="sub-header">
+              سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
+              والمشاريع التي تتابعها.{' '}
+            </p>
+
             <Alert isOpen={error} color="danger">
               {error}
             </Alert>
@@ -146,8 +147,8 @@ const Login = () => {
           </div>
         </div>
         <div className="qarar-image">
-          <img src="/static/img/interactive/logo.svg" alt="" />
-          <img src="/static/img/interactive/qrarLogo.svg" alt="" />
+          <img src="/static/img/brand/momra-logo.svg" alt="" />
+          <img src="/static/img/brand/logo-copy.svg" alt="" />
         </div>
       </div>
     </>
