@@ -17532,7 +17532,9 @@ textarea.form-control {
     flex-flow: column-reverse;
   }
 }
-
+.dc-details-header {
+  padding-top: 0px !important;
+}
 .dc-details-header .card-small .icon {
   position: absolute;
   left: 2px;
