@@ -188,9 +188,9 @@ class Register extends Component {
                 })
               }
             />
-            <FormText className="help-block sub-header">
+            {/* <FormText className="help-block sub-header">
               *يستغرق الرد عادة ٣-٥ ايام عمل
-            </FormText>
+            </FormText> */}
           </Col>
         </FormGroup>
         <div className="button-group flex flex-justifiy-end">
