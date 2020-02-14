@@ -192,7 +192,7 @@ class DraftDetailsInfo extends Component {
             <DropdownItem
               className="border-bottom"
               onClick={() => this.setState({ selected: item })}
-              key={item.id}
+              key={item.nid}
               value={item}
             >
               {item.title}{' '}
@@ -361,8 +361,8 @@ class DraftDetailsInfo extends Component {
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
-                        <li key={item.id}>
-                          <Link href={`/draft-details/${item.id}`}>
+                        <li key={item.nid}>
+                          <Link href={`/draft-details/${item.nid}`}>
                             <a>{item.title}</a>
                           </Link>
                         </li>
@@ -513,7 +513,7 @@ class DraftDetailsInfo extends Component {
                     {' '}
                     <Button
                       onClick={() => {
-                        items.map(item => this.setState({ [item.id]: true }));
+                        items.map(item => this.setState({ [item.nid]: true }));
                       }}
                     >
                       <span>+</span>
@@ -521,7 +521,7 @@ class DraftDetailsInfo extends Component {
                     </Button>
                     <Button
                       onClick={() => {
-                        items.map(item => this.setState({ [item.id]: false }));
+                        items.map(item => this.setState({ [item.nid]: false }));
                       }}
                     >
                       <span>-</span>
@@ -555,11 +555,11 @@ class DraftDetailsInfo extends Component {
             </div>
             {items &&
               items.map(item => (
-                <Card key={item.id} className="cardDraft collapseDraftCard">
+                <Card key={item.nid} className="cardDraft collapseDraftCard">
                   <CardHeader
                     className="d-flex justify-content-between"
                     onClick={() =>
-                      this.setState({ [item.id]: !this.state[item.id] })
+                      this.setState({ [item.nid]: !this.state[item.nid] })
                     }
                   >
                     <p>{item.title}</p>
@@ -571,13 +571,13 @@ class DraftDetailsInfo extends Component {
                       <img
                         src="/static/img/interactive/whiteTabs.svg"
                         alt=""
-                        className={this.state[item.id] ? 'rotated' : ''}
+                        className={this.state[item.nid] ? 'rotated' : ''}
                       />
                     </div>
                   </CardHeader>
                   <CardBody
                     style={
-                      this.state[item.id]
+                      this.state[item.nid]
                         ? { display: 'block' }
                         : { display: 'none' }
                     }
@@ -604,18 +604,18 @@ class DraftDetailsInfo extends Component {
                       <Col md="5">
                         <div className="d-flex justify-content-end draftLikeDislike">
                           <img
-                            onClick={() => this.vote('like', item.id)}
+                            onClick={() => this.vote('like', item.nid)}
                             src="/static/img/interactive/dislikeGreen.svg"
                             alt=""
                           />
                           <img
-                            onClick={() => this.vote('dislike', item.id)}
+                            onClick={() => this.vote('dislike', item.nid)}
                             src="/static/img/interactive/likeGreen.svg"
                             alt=""
                           />
                         </div>
 
-                        <InsideComment itemId={item.id} />
+                        <InsideComment itemId={item.nid} />
                       </Col>
                     </Row>
                   </CardBody>
