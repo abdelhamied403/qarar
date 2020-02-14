@@ -314,10 +314,10 @@ class DraftDetailsInfo extends Component {
     }
   };
 
-  likeComment = async id => {
+  likeComment = async (id, callback) => {
     const { uid, accessToken } = this.props;
     const item = {
-      type: 'like',
+      type: 'like_comment',
       action: 'flag',
       id,
       uid
@@ -327,6 +327,9 @@ class DraftDetailsInfo extends Component {
     });
     if (response.ok) {
       this.getComments();
+      if (callback) {
+        callback();
+      }
     }
   };
 
@@ -615,7 +618,10 @@ class DraftDetailsInfo extends Component {
                           />
                         </div>
 
-                        <InsideComment itemId={item.nid} />
+                        <InsideComment
+                          likeComment={this.likeComment}
+                          itemId={item.nid}
+                        />
                       </Col>
                     </Row>
                   </CardBody>

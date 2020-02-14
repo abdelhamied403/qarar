@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { InputGroup, InputGroupAddon, Input, Alert } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Alert, Button } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import Api from '../../../api';
 
@@ -73,11 +73,17 @@ class InsideComment extends Component {
             </div>
             <div className="d-flex flex-row likeDiv">
               <span>{comment.likes}</span>
-              <img
-                src="/static/img/interactive/bluelikeActive.svg"
-                alt=""
-                className="likeImg"
-              />
+              <a
+                onClick={() =>
+                  this.props.likeComment(comment.cid, () => this.getComments())
+                }
+              >
+                <img
+                  src="/static/img/interactive/blueLikeActive.svg"
+                  alt=""
+                  className="likeImg"
+                />
+              </a>
             </div>
           </div>
         ))}
