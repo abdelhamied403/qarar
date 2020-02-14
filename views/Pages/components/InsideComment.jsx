@@ -27,14 +27,14 @@ class InsideComment extends Component {
   };
 
   saveComment = async () => {
-    const { nid, accessToken } = this.props;
+    const { itemId, accessToken } = this.props;
     const { comment } = this.state;
     if (!comment) {
       this.setState({ error: true });
       return;
     }
     const data = {
-      entity_id: [{ target_id: nid }],
+      entity_id: [{ target_id: itemId }],
       subject: [{ value: 'comment' }],
       comment_body: [{ value: comment }],
       pid: [{ target_id: '0' }]
