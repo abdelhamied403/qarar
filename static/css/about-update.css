@@ -71,6 +71,10 @@
 .about-update .sub-header {
   font-weight: 500;
 }
+h6.sub-header {
+  margin-bottom: 15px !important;
+}
+
 .about-update .row {
   background-color: #f4f4f4;
   border-radius: 4px;
