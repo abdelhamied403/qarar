@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import AboutPage from '../../views/Pages/about/about';
+import AboutUpdate from '../../views/Pages/about-update/about-update';
 import Auth from '../../layout/auth';
 
 const About = () => (
@@ -8,8 +8,9 @@ const About = () => (
     <div>
       <Head>
         <title>عن المستخدم - قرار- وزارة الشؤون البلدية والقروية</title>
+        <link href="/static/css/about-update.css" rel="stylesheet" />
       </Head>
-      <AboutPage />
+      <AboutUpdate />
     </div>
   </Auth>
 );

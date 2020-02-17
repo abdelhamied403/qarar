@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ClientSidebar from '../../../layout/ClientSidebar';
+import AboutUpdate from '../../views/Pages/about-update/about-update';
 
 import Api from '../../../api';
 

@@ -11,12 +11,13 @@ import {
   FormGroup,
   Label,
   FormText,
-  Alert
+  Alert,
+  CustomInput
 } from 'reactstrap';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import Api from '../../../api';
-
+import ClientSidebar from '../../../layout/ClientSidebar';
 class AboutUpdate extends Component {
   constructor() {
     super();
@@ -169,8 +170,9 @@ class AboutUpdate extends Component {
     } = this.state;
     return (
       <>
+        <ClientSidebar />
         <div className="aboutheader"></div>
-        <div className="about-update">
+        <div className="about-update shared">
           <Container>
             <Breadcrumb className="px-0" listClassName="px-0">
               <BreadcrumbItem>
@@ -182,11 +184,12 @@ class AboutUpdate extends Component {
             </Breadcrumb>
             <div className="flex flex-justifiy-sp m-50-b">
               <h2>معلوماتي الشخصية</h2>
-              <div className="flex">
+              <div className="flex flex-row">
                 <Button
                   onClick={() => this.setState({ user: userDefault })}
                   color="primary m-10-lr"
                   outline
+                  style={{ width: '67px' }}
                 >
                   إلغاء
                 </Button>
@@ -202,13 +205,32 @@ class AboutUpdate extends Component {
               <Alert color="danger">حدث خطأ ما أثناء حفظ البيانات</Alert>
             )}
             <div className="userinfo flex flex-align-center m-50-b">
-              <Media
-                object
-                src="/static/img/avatar.png"
-                className="image-avatar"
+              <div className="uploadImg" onClick={() => this.fileInput.click()}>
+                <Media
+                  object
+                  src="/static/img/avatar.png"
+                  className="image-avatar"
+                />
+                <img
+                  className="overlayImg"
+                  src="/static/img/interactive/change photo.png"
+                  alt=""
+                />
+              </div>
+
+              <input
+                style={{ display: 'none' }}
+                type="file"
+                name="file"
+                ref={fileInput => (this.fileInput = fileInput)}
+                onChange={this.fileSelect}
+                className=""
               />
+
               <div className="felx flex-col">
-                <h3>{user.field_full_name && user.field_full_name[0].value}</h3>
+                {/* <h3>{user.field_full_name && user.field_full_name[0].value}</h3> */}
+                <h6 className="sub-header">الأسم </h6>
+
                 <Input
                   type="text"
                   id="text-input"
@@ -380,8 +402,13 @@ class AboutUpdate extends Component {
                   <h6 className="sub-header">قطاع العمل</h6>
                   <div className="flex">
                     {Object.keys(labors).map(labor => (
-                      <FormGroup key={labor} check className="radio">
-                        <Input
+                      <FormGroup
+                        key={labor}
+                        check
+                        className="radio d-flex align-items-center "
+                      >
+                        <CustomInput
+                          type="checkbox"
                           className="form-check-input"
                           type="radio"
                           id={labor}
@@ -403,7 +430,7 @@ class AboutUpdate extends Component {
                         />
                         <Label
                           check
-                          className="form-check-label"
+                          className="form-check-label ml-4"
                           htmlFor={labor}
                         >
                           {labor}
@@ -416,12 +443,16 @@ class AboutUpdate extends Component {
               <Col xs="12" md="6">
                 <div className="about-update-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">الحالة الاجتماعية</h6>
-                  <div className="flex">
+                  <div className="d-flex">
                     {Object.keys(maritals).map(marital => (
-                      <FormGroup key={marital} check className="radio">
-                        <Input
-                          className="form-check-input"
+                      <FormGroup
+                        key={marital}
+                        check
+                        className="radio d-flex align-items-center mr-4"
+                      >
+                        <CustomInput
                           type="radio"
+                          className="form-check-input"
                           id={marital}
                           name="maritals"
                           value={marital}
@@ -441,7 +472,7 @@ class AboutUpdate extends Component {
                         />
                         <Label
                           check
-                          className="form-check-label"
+                          className="form-check-label ml-4"
                           htmlFor={marital}
                         >
                           {marital}
@@ -451,20 +482,20 @@ class AboutUpdate extends Component {
                   </div>
                 </div>
               </Col>
-              <Col xs="12">
+              <Col xs="11" className="changePassNew">
                 {successSavePassword && (
                   <Alert color="success">تم تغيير كلمة السر بنجاح</Alert>
                 )}
                 {errorSavePassword && (
                   <Alert color="danger">حدث خطأ ما أثناء حفظ كلمة السر</Alert>
                 )}
-                <div className="about-update-card flex flex-col flex-justifiy-sp">
+                <div className="bout-update-carda flex flex-col flex-justifiy-sp changePass">
                   <h6 className="sub-header m-50-b">تغيير كلمة المرور</h6>
                   <FormGroup row>
-                    <Col md="2">
+                    <Col md="3">
                       <Label htmlFor="password-input">كلمة السر الحالية</Label>
                     </Col>
-                    <Col xs="12" md="9">
+                    <Col xs="12" md="8">
                       <Input
                         type="password"
                         id="password-input"
@@ -481,10 +512,10 @@ class AboutUpdate extends Component {
                     </Col>
                   </FormGroup>
                   <FormGroup row>
-                    <Col md="2">
+                    <Col md="3">
                       <Label htmlFor="password-input">كلمة السر الجديدة</Label>
                     </Col>
-                    <Col xs="12" md="9">
+                    <Col xs="12" md="8">
                       <Input
                         type="password"
                         id="password-input"
