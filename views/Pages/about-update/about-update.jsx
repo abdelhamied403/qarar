@@ -316,6 +316,8 @@ class AboutUpdate extends Component {
                     }
                     value={user.field_city && user.field_city[0].target_id}
                   >
+                    <i class="fa fa-chevron-down"></i>
+
                     {cities.map(city => (
                       <option key={city.id} value={city.id}>
                         {city.name}

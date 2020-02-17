@@ -3,6 +3,7 @@
 }
 .about-update .form-control {
   width: 80%;
+  margin-bottom: 56px !;
 }
 .about-update .image-avatar {
   width: 120px;
@@ -64,6 +65,9 @@
   font-size: 12px !important;
   width: 67px !important;
 }
+.about-update input {
+  margin-bottom: 45px !important;
+}
 .about-update button.btn.btn-primary {
   background-color: #00aaba;
   color: #fff;
@@ -103,4 +107,24 @@ h6.sub-header {
 .changePassNew input {
   background-color: #f4f4f4;
   color: #232323;
+}
+.changePassNew .form-control {
+  margin-bottom: 0 !important;
+}
+.changePassNew .row {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+.changePassNew .btn {
+  margin-top: 20px;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background: url(/static/img/chavon.png) 0 0 no-repeat;
+  background-repeat: no-repeat;
+  background-size: 13px 13px;
+  background-position: 5px 9px;
 }
