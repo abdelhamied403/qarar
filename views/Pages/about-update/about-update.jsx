@@ -169,6 +169,7 @@ class AboutUpdate extends Component {
     } = this.state;
     return (
       <>
+        <div className="aboutheader"></div>
         <div className="about-update">
           <Container>
             <Breadcrumb className="px-0" listClassName="px-0">

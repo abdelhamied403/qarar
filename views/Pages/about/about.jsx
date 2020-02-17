@@ -40,6 +40,7 @@ class About extends Component {
     return (
       <>
         <ClientSidebar />
+        <div className="aboutheader"></div>
         <div className="aboutpage">
           <Container>
             <Breadcrumb className="px-0" listClassName="px-0">

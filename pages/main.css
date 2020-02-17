@@ -97,7 +97,7 @@ body {
   line-height: 1.5;
   color: #006c68;
   text-align: left;
-  background-color: #e4e5e6;
+  background-color: white;
 }
 
 [tabindex='-1']:focus {
@@ -2398,13 +2398,13 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #40c2cc;
-  border-color: #40c2cc;
+  background-color: #81bd41;
+  border-color: #81bd41;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #008794;
-  border-color: #40c2cc;
+  background-color: #81bd41;
+  border-color: #81bd41;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -15826,7 +15826,7 @@ img {
 
 html,
 body {
-  background-color: #f4f4f4 !important;
+  background-color: white !important;
   color: #232323;
   font-family: 'TheSansArabic', sans-serif;
   font-weight: 500;
@@ -16206,8 +16206,8 @@ section.p100 {
 .show > .btn-secondary.dropdown-toggle {
   text-align: start;
   width: 100%;
-  background-color: #f4f4f4;
-  color: rgba(35, 35, 35, 0.6);
+  background-color: transparent !important;
+  color: white !important;
   border: none;
   outline: none;
   font-size: 12px;
@@ -16550,11 +16550,10 @@ html body .app.flex-row.align-items-center {
 }
 
 .client-layout .flex-page-content .sideBar {
-  height: calc(100vh - 105px);
   background-color: white;
-  width: 200px;
-  position: fixed;
-  top: 100px;
+  width: auto;
+  position: absolute;
+  top: 157px;
 }
 
 .client-layout .fixed-navbar {
@@ -16565,7 +16564,7 @@ html body .app.flex-row.align-items-center {
 
 .client-layout .sideBar {
   padding: 50px 0;
-  background-color: #f4f4f4 !important;
+  background-color: transparent !important;
   color: #232323;
 }
 
@@ -16714,8 +16713,8 @@ html body .app.flex-row.align-items-center {
 .groups,
 .invitaion,
 .award {
-  width: calc(100% - 200px);
-  margin-right: 200px;
+  width: calc(100% - 100px);
+  margin-right: 100px;
 }
 
 @media (max-width: 768px) {
@@ -16962,7 +16961,7 @@ html body .app.flex-row.align-items-center {
 
 .notifications {
   background-color: white !important;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17183,7 +17182,7 @@ html body .app.flex-row.align-items-center {
 
 .notifications {
   background-color: white !important;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17210,7 +17209,7 @@ html body .app.flex-row.align-items-center {
 
 .aboutpage {
   background-color: white;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17228,7 +17227,7 @@ html body .app.flex-row.align-items-center {
 }
 .shared {
   background-color: white !important;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17255,7 +17254,7 @@ html body .app.flex-row.align-items-center {
 
 .award {
   background-color: white !important;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17295,7 +17294,7 @@ html body .app.flex-row.align-items-center {
 }
 .follow {
   background-color: white !important;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17322,7 +17321,7 @@ html body .app.flex-row.align-items-center {
 
 .groups {
   background-color: white !important;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17425,7 +17424,7 @@ textarea.form-control {
 }
 
 .register-container {
-  margin-bottom: -100px;
+  margin-bottom: 0px;
   align-items: center;
 }
 
@@ -17648,7 +17647,7 @@ textarea.form-control {
 }
 .aboutpage {
   background-color: white;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -17892,11 +17891,10 @@ textarea.form-control {
 }
 
 .client-layout .flex-page-content .sideBar {
-  height: calc(100vh - 105px);
   background-color: white;
-  width: 200px;
-  position: fixed;
-  top: 100px;
+  width: auto;
+  position: absolute;
+  top: 157px;
 }
 
 .client-layout .fixed-navbar {
@@ -17907,7 +17905,7 @@ textarea.form-control {
 
 .client-layout .sideBar {
   padding: 50px 0;
-  background-color: #f4f4f4 !important;
+  background-color: transparent !important;
   color: #232323;
 }
 
@@ -18055,8 +18053,8 @@ textarea.form-control {
 .groups,
 .invitaion,
 .award {
-  width: calc(100% - 200px);
-  margin-right: 200px;
+  width: calc(100% - 100px);
+  margin-right: 100px;
 }
 
 @media (max-width: 768px) {

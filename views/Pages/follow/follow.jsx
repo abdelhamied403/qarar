@@ -69,6 +69,7 @@ class Follow extends Component {
     return (
       <>
         <ClientSidebar />
+        <div className="aboutheader"></div>
         <div className="follow">
           <Container>
             <Breadcrumb>

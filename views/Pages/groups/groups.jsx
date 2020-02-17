@@ -41,6 +41,7 @@ class Groups extends Component {
     return (
       <>
         <ClientSidebar />
+        <div className="aboutheader"></div>
         <div className="groups">
           <Container>
             <Breadcrumb>

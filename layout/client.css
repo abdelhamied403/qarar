@@ -150,11 +150,10 @@
 }
 
 .client-layout .flex-page-content .sideBar {
-  height: calc(100vh - 105px);
   background-color: white;
-  width: 200px;
-  position: fixed;
-  top: 100px;
+  width: auto;
+  position: absolute;
+  top: 157px;
 }
 
 .client-layout .fixed-navbar {
@@ -165,7 +164,7 @@
 
 .client-layout .sideBar {
   padding: 50px 0;
-  background-color: #f4f4f4 !important;
+  background-color: transparent !important;
   color: #232323;
 }
 
@@ -312,10 +311,15 @@
 .groups,
 .invitaion,
 .award {
-  width: calc(100% - 200px);
-  margin-right: 200px;
+  width: calc(100% - 100px);
+  margin-right: 100px;
 }
 
+.aboutheader {
+  background-color: #006c68;
+  padding: 70px 0;
+  padding-top: 15px;
+}
 @media (max-width: 768px) {
   .shared,
   .aboutpage,

@@ -16,6 +16,7 @@ class Notifications extends Component {
     return (
       <>
         <ClientSidebar />
+        <div className="aboutheader"></div>
         <div className="notifications">
           <Container>
             <Breadcrumb>
