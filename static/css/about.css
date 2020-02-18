@@ -1,0 +1,27 @@
+.alert-dismissible .close {
+  left: 0 !important;
+  right: auto !important;
+  padding: 1.25rem !important;
+  color: #00aaba !important;
+}
+.alert {
+  padding: 1.25rem !important;
+  border-color: #00aaba !important;
+  border-radius: 1px !important;
+  margin-bottom: 64px !important;
+  color: #000 !important;
+  margin-top: 50px !important;
+}
+.aboutpage .btn {
+  color: #00aaba;
+  border-radius: 4px;
+  border-color: #00aaba;
+  font-size: 12px;
+}
+.aboutpage h2 {
+  font-weight: 600;
+  font-size: 32px;
+}
+.aboutpage h4 {
+  font-weight: 600;
+}

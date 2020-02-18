@@ -12,7 +12,6 @@ import {
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ClientSidebar from '../../../layout/ClientSidebar';
-import AboutUpdate from '../../views/Pages/about-update/about-update';
 
 import Api from '../../../api';
 
@@ -44,15 +43,8 @@ class About extends Component {
         <div className="aboutheader"></div>
         <div className="aboutpage">
           <Container>
-            <Breadcrumb className="px-0" listClassName="px-0">
-              <BreadcrumbItem>
-                <Link href="/me/about">
-                  <a> لوحة التحكم</a>
-                </Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem active>معلوماتي الشخصية</BreadcrumbItem>
-            </Breadcrumb>
             <UncontrolledAlert color="primary">
+              <img src="/static/img/notice.png" alt="" className="mr-1" />
               مرحبا بك في ملفك الشخصي
             </UncontrolledAlert>
             <div className="flex flex-justifiy-sp m-50-b">

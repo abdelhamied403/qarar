@@ -10,6 +10,7 @@ const Update = () => (
         <title>
           تعديل بيانات المستخدم - قرار- وزارة الشؤون البلدية والقروية
         </title>
+        <link href="/static/css/about-update.css" rel="stylesheet" />
       </Head>
       <UpdatePage />
     </div>
