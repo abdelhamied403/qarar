@@ -438,11 +438,17 @@ class DraftDetails extends Component {
                     }
                   >
                     <p>{item.title}</p>
-                    <img
-                      src="/static/img/interactive/whiteTabs.svg"
-                      alt=""
-                      className={this.state[item.nid] ? 'rotated' : ''}
-                    />
+                    <div className="dratCartTitlelt d-flex">
+                      <div className="manyComments d-flex align-items-center">
+                        <img src="/static/img/interactive/chat.svg" alt="" />
+                        <span>{item.comments} تعليق</span>
+                      </div>
+                      <img
+                        src="/static/img/interactive/whiteTabs.svg"
+                        alt=""
+                        className={this.state[item.nid] ? 'rotated' : ''}
+                      />
+                    </div>
                   </CardHeader>
                   <Collapse isOpen={this.state[item.nid]}>
                     <CardBody>
