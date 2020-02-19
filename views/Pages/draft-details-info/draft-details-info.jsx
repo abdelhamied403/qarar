@@ -364,8 +364,8 @@ class DraftDetailsInfo extends Component {
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
-                        <li key={item.nid}>
-                          <Link href={`/draft-details/${item.nid}`}>
+                        <li key={item.id}>
+                          <Link href={`/draft-details/${item.id}`}>
                             <a>{item.title}</a>
                           </Link>
                         </li>
