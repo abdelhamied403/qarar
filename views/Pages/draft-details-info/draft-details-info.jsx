@@ -316,8 +316,45 @@ class DraftDetailsInfo extends Component {
 
   likeComment = async (id, callback) => {
     const { uid, accessToken } = this.props;
+    const item2 = {
+      type: 'dislike_comment',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
     const item = {
       type: 'like_comment',
+      action: 'flag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getComments();
+      if (callback) {
+        callback();
+      }
+    }
+  };
+
+  dislikeComment = async (id, callback) => {
+    const { uid, accessToken } = this.props;
+    const item2 = {
+      type: 'like_comment',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const item = {
+      type: 'dislike_comment',
       action: 'flag',
       id,
       uid
@@ -620,6 +657,7 @@ class DraftDetailsInfo extends Component {
 
                         <InsideComment
                           likeComment={this.likeComment}
+                          dislikeComment={this.dislikeComment}
                           itemId={item.nid}
                         />
                       </Col>

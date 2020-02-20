@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { InputGroup, InputGroupAddon, Input, Alert, Button } from 'reactstrap';
 import renderHTML from 'react-render-html';
+import ReactLoading from 'react-loading';
 import Api from '../../../api';
 
 class InsideComment extends Component {
@@ -71,19 +72,51 @@ class InsideComment extends Component {
               <h5>{comment.full_name}</h5>
               <p>{renderHTML(comment.comment_body || '')}</p>
             </div>
-            <div className="d-flex flex-row likeDiv">
+            <div className="d-flex flex-row draftLikeDislike likeDiv">
               <span>{comment.likes}</span>
-              <a
-                onClick={() =>
-                  this.props.likeComment(comment.cid, () => this.getComments())
-                }
-              >
-                <img
-                  src="/static/img/interactive/blueLikeActive.svg"
-                  alt=""
-                  className="likeImg"
+              {this.state.like && this.state.id === comment.cid && (
+                <ReactLoading
+                  className="mx-1"
+                  type="spin"
+                  color="#40C2CC"
+                  height={20}
+                  width={20}
                 />
-              </a>
+              )}
+              <img
+                onClick={() => {
+                  this.setState({ id: comment.cid, like: true });
+                  this.props.likeComment(comment.cid, () => {
+                    this.getComments();
+                    this.setState({ id: null, like: false });
+                  });
+                }}
+                src="/static/img/interactive/blueLikeActive.svg"
+                alt=""
+                className="likeImg"
+              />
+              <span>{comment.dislikes}</span>
+              {this.state.dislike && this.state.id === comment.cid && (
+                <ReactLoading
+                  className="mx-1"
+                  type="spin"
+                  color="#40C2CC"
+                  height={20}
+                  width={20}
+                />
+              )}
+              <img
+                onClick={() => {
+                  this.setState({ id: comment.cid, dislike: true });
+                  this.props.dislikeComment(comment.cid, () => {
+                    this.getComments();
+                    this.setState({ id: null, dislike: false });
+                  });
+                }}
+                src="/static/img/interactive/likeGreen.svg"
+                alt=""
+                className="likeImg"
+              />
             </div>
           </div>
         ))}
