@@ -63,6 +63,10 @@ class DraftDetailsInfo extends Component {
       breadcrumbs: [],
       commentPage: 1,
       flagged: false,
+      voting: {
+        up: false,
+        down: false
+      },
       successComment: false,
       loadingDraft: true,
       selected: false,
@@ -80,10 +84,41 @@ class DraftDetailsInfo extends Component {
     this.getDraft();
     this.getComments();
     this.isFollowed();
+    this.getIsFlagged();
     Events.scrollEvent.register('begin', function() {});
 
     Events.scrollEvent.register('end', function() {});
   }
+
+  getIsFlagged = async () => {
+    const { id, uid, accessToken } = this.props;
+    const { voting } = this.state;
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'like',
+      uid,
+      id
+    });
+    const response2 = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'dislike',
+      uid,
+      id
+    });
+    if (response.ok && response2.ok) {
+      this.setState({
+        voting: {
+          ...voting,
+          up:
+            response.data && response.data.data
+              ? response.data.data.flagged
+              : false,
+          down:
+            response2.data && response2.data.data
+              ? response2.data.data.flagged
+              : false
+        }
+      });
+    }
+  };
 
   onEditorStateChange = editorState => {
     this.setState({
