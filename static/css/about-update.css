@@ -59,8 +59,8 @@
 }
 .about-update .btn {
   border-radius: 50px;
-  border-color: #81bd41;
-  color: #81bd41;
+  border-color: #84bc47;
+  color: #84bc47;
   width: auto;
   font-size: 12px !important;
   width: 67px !important;
@@ -69,7 +69,7 @@
   margin-bottom: 45px !important;
 }
 .about-update button.btn.btn-primary {
-  background-color: #81bd41;
+  background-color: #84bc47;
   color: #fff;
   border-radius: 50px;
 }

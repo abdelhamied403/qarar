@@ -59,7 +59,7 @@
 }
 .newHeader button {
   margin-top: 30px;
-  border: 1px solid #81bd41;
+  border: 1px solid #84bc47;
   color: #fff;
   background-color: transparent;
 }
@@ -71,7 +71,7 @@
 }
 .newHeader .icons-group h5 {
   font-size: 16px;
-  color: #81bd41;
+  color: #84bc47;
   font-weight: 600;
 }
 .newHeader .icons-group {
@@ -96,7 +96,7 @@
   margin-top: 80px;
 }
 .cardDraft .card-header {
-  background-color: #40c2cc;
+  background-color: #046f6d;
   color: #fff;
 }
 .cardDraft .card-body .draftBodyRt p {
@@ -121,7 +121,7 @@
   color: #006c68;
 }
 .hrDraft {
-  border-color: #40c2cc;
+  border-color: #046f6d;
 }
 .collapseDraftCard {
   margin-top: 25px;
@@ -130,7 +130,7 @@
   background-color: #fff;
   padding: 80px 0;
   margin-top: -80px;
-  border-bottom: 1px solid #40c2cc;
+  border-bottom: 1px solid #046f6d;
   position: relative;
 }
 .client-layout .flex-page-content main {
@@ -156,18 +156,18 @@
   background-color: #f3f3f3;
 }
 .draftContainer .card-body {
-  border: 1px solid #40c2cc;
+  border: 1px solid #046f6d;
 }
 .collapseDraftCard button {
-  border: 1px solid #81bd41;
-  color: #81bd41;
+  border: 1px solid #84bc47;
+  color: #84bc47;
   display: flex;
   background-color: transparent;
   margin: auto;
   margin-top: 40px;
 }
 .draftShouldLogin {
-  border: 1px solid #40c2cc;
+  border: 1px solid #046f6d;
   padding: 30px;
   border-radius: 5px;
   text-align: center;
@@ -183,7 +183,7 @@
 .draftShouldLogin button {
   width: 200px;
   margin: auto;
-  border: 1px solid #81bd41;
+  border: 1px solid #84bc47;
   background-color: transparent;
   color: #006c68;
   margin-bottom: 10px;
@@ -205,7 +205,7 @@
   bottom: 0;
 }
 .newHeader button:hover {
-  background-color: #81bd41;
+  background-color: #84bc47;
   color: #fff;
 }
 .draftShouldLogin button:hover {
@@ -213,7 +213,7 @@
   color: #fff;
 }
 .cardDraft.collapseDraftCard.card button:hover {
-  background-color: #81bd41;
+  background-color: #84bc47;
   color: #fff;
 }
 button.btn.btn-secondary:hover img {

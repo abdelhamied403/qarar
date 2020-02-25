@@ -153,20 +153,17 @@ class ClientHeader extends React.Component {
           <p className="interactive"> المنصة التفاعلية</p>
           <Link href="/">
             <a className="speech-bubble activeLink">
-              <img src="/static/img/interactive/qrar.svg" alt="" />
-              قرار
+              <img src="/static/img/qrarNew.svg" alt="" />
             </a>
           </Link>
           <Link href="/">
             <a className="afkarLink">
-              <img src="/static/img/interactive/afkar.png" alt="" />
-              بنك الافكار
+              <img src="/static/img/afkarNew.svg" alt="" />
             </a>
           </Link>
           <Link href="/">
             <a className="astbyanLink">
-              <img src="/static/img/interactive/form.svg" alt="" />
-              الاستبيانات
+              <img src="/static/img/ethtbyanNew.svg" alt="" />
             </a>
           </Link>
         </div>
@@ -283,9 +280,6 @@ const mapStateToProps = ({ auth: { name, profileImage } }) => ({
   name,
   profileImage
 });
-export default connect(
-  mapStateToProps,
-  null,
-  null,
-  { pure: false }
-)(withRouter(ClientHeader));
+export default connect(mapStateToProps, null, null, { pure: false })(
+  withRouter(ClientHeader)
+);

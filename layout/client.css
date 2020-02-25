@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Cairo:300,400,600,700&display=swap');
 /* .client-layout main.user-loggedin {
   width: calc(100% - 200px);
   margin-right: 200px;
 } */
+body {
+  font-family: 'Cairo' !important;
+}
 .client-layout .client-footer {
   background-color: #232323;
   padding: 48px 0;
@@ -365,7 +369,7 @@
   z-index: 99999999999;
 }
 .ministry .header-nav .interactive {
-  background-color: #81bd41;
+  background-color: #84bc47;
   height: 100%;
   width: 315px;
   display: flex;
@@ -376,20 +380,20 @@
   font-weight: bold;
 }
 .ministry .header-nav a img {
-  width: 15px;
+  width: 60px !important;
   height: auto;
-  object-fit: contain;
-  margin-left: 10px;
 }
-.ministry .header-nav .speech-bubble.activeLink img {
-  filter: brightness(0) invert(1);
+.ministry .header-nav .speech-bubble img {
+  width: 60px !important;
+  height: auto;
 }
 .ministry .header-nav .speech-bubble {
   position: relative;
-  background: #81bd41;
-  border-radius: 25px;
-  width: 150px;
-  height: 38px;
+  background: #84bc47;
+  border-radius: 15px;
+  width: 80px;
+  height: auto;
+  padding: 10px;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -407,38 +411,40 @@
   width: 0;
   height: 0;
   border: 8px solid transparent;
-  border-top-color: #81bd41;
+  border-top-color: #84bc47;
   border-bottom: 0;
   margin-left: -8px;
   margin-bottom: -8px;
 }
 .ministry .header-nav .afkarLink {
   background: transparent;
-  border-radius: 25px;
-  width: 150px;
-  height: 38px;
+  border-radius: 15px;
+  width: 80px;
+  padding: 10px;
+  height: auto;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color: #2ba16b;
+  color: #046f6d;
   display: flex;
   font-size: 16px;
-  border: 2px solid #2ba16b;
+  border: 2px solid #046f6d;
 }
 .ministry .header-nav .astbyanLink {
   background: transparent;
-  border-radius: 25px;
-  width: 150px;
-  height: 38px;
+  border-radius: 15px;
+  width: 80px;
+  height: auto;
+  padding: 10px;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color: #40c2cc;
+  color: #046f6d;
   display: flex;
   font-size: 16px;
-  border: 2px solid #40c2cc;
+  border: 2px solid #046f6d;
 }
 .ministry nav.navbar {
   background-color: transparent;
@@ -481,7 +487,7 @@
   padding: 50px 0;
 }
 .footer h5 {
-  color: #81bd41;
+  color: #84bc47;
   font-weight: 600;
 }
 .footer p,
@@ -506,9 +512,10 @@
 }
 @media screen and (max-width: 992px) {
   .ministry .header-nav .interactive {
-    background-color: #81bd41;
-    height: 100%;
-    width: 115px;
+    background-color: #84bc47;
+    height: auto;
+    padding: 10px;
+    width: 70px;
     display: flex;
     color: #fff;
     justify-content: center;
@@ -536,10 +543,7 @@
     width: auto !important;
     margin-right: 7px !important;
   }
-  a.astbyanLink img,
-  .ministry .header-nav .afkarLink img {
-    display: none;
-  }
+
   .ministry .header-nav .speech-bubble {
     position: relative;
     background: transparent;
@@ -550,12 +554,10 @@
     justify-content: center;
     align-items: center;
     margin-right: 10px;
-    color: #81bd41;
+    color: #84bc47;
     display: flex;
   }
-  .ministry .header-nav .speech-bubble img {
-    display: none;
-  }
+
   .ministry .header-nav .speech-bubble::after {
     display: none;
   }

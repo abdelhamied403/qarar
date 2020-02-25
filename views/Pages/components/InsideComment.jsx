@@ -78,7 +78,7 @@ class InsideComment extends Component {
                 <ReactLoading
                   className="mx-1"
                   type="spin"
-                  color="#40C2CC"
+                  color="#046F6D"
                   height={20}
                   width={20}
                 />
@@ -100,7 +100,7 @@ class InsideComment extends Component {
                 <ReactLoading
                   className="mx-1"
                   type="spin"
-                  color="#40C2CC"
+                  color="#046F6D"
                   height={20}
                   width={20}
                 />
