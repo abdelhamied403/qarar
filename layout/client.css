@@ -544,24 +544,16 @@ body {
     margin-right: 7px !important;
   }
 
-  .ministry .header-nav .speech-bubble {
-    position: relative;
-    background: transparent;
-    border-radius: 25px;
-    width: auto;
-    height: 38px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    color: #84bc47;
-    display: flex;
-  }
-
   .ministry .header-nav .speech-bubble::after {
     display: none;
   }
   .bottomFooter {
     flex-direction: column;
+  }
+  .ministry .header-nav .speech-bubble {
+    width: 60px !important;
+  }
+  .ministry .header-nav a img {
+    width: 40px !important;
   }
 }
