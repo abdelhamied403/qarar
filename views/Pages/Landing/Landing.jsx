@@ -99,7 +99,7 @@ const Landing = () => {
     <div className="rtl newUILanding">
       <div className="header header-image-bg">
         <img
-          src="/static/img/interactive/homepage-header.svg"
+          src="/static/img/Assets/visual-5.svg"
           alt=""
           className="heroPattern"
         />
@@ -113,7 +113,7 @@ const Landing = () => {
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/interactive/one.svg"
+                    src="/static/img/Assets/user.svg"
                   />
                 </div>
                 <p>1</p>
@@ -124,7 +124,7 @@ const Landing = () => {
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/interactive/like.svg"
+                    src="/static/img/Assets/like.svg"
                   />
                 </div>
                 <p>2</p>
@@ -135,7 +135,7 @@ const Landing = () => {
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/interactive/comments.svg"
+                    src="/static/img/Assets/chat-bubble.svg"
                   />
                 </div>
                 <p>3</p>
@@ -146,7 +146,7 @@ const Landing = () => {
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/interactive/report.svg"
+                    src="/static/img/Assets/document.svg"
                   />
                 </div>
                 <p>4</p>
@@ -343,7 +343,7 @@ const Landing = () => {
               <div className="singleConnectInfo">
                 <Row>
                   <Col xs="4">
-                    <img src="/static/img/interactive/one.svg" alt="" />
+                    <img src="/static/img/Assets/userGreen.svg" alt="" />
                   </Col>
                   <Col xs="8">
                     <h4>{userCount}</h4>
@@ -356,7 +356,7 @@ const Landing = () => {
               <div className="singleConnectInfo">
                 <Row>
                   <Col xs="4">
-                    <img src="/static/img/interactive/report.svg" alt="" />
+                    <img src="/static/img/Assets/documentGreen.svg" alt="" />
                   </Col>
                   <Col xs="8">
                     <h4>{draftCount}</h4>
@@ -505,8 +505,8 @@ const Landing = () => {
         </Container>
       </section>
       <section className="args">
-        <img src="/static/img/interactive/voice2.svg" alt="" className="bg1" />
-        <img src="/static/img/interactive/voice2.svg" alt="" className="bg2" />
+        <img src="/static/img/Assets/visual-5.svg" alt="" className="bg1" />
+        <img src="/static/img/Assets/visual-5.svg" alt="" className="bg2" />
 
         <Container>
           <p className="content">رأيك يهمنا .. صوتك يهمنا </p>

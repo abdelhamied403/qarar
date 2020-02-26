@@ -18217,8 +18217,8 @@ textarea.form-control {
   padding: 20px 0 50px 0;
 }
 .section-flex .icons-group .image-icon {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 .section-flex .icons-group .icon-border {
@@ -18294,9 +18294,10 @@ textarea.form-control {
 }
 .heroPattern {
   position: absolute;
-  left: 0;
-  top: 15vh;
-  width: 128px;
+  bottom: 300px;
+  left: -80px;
+  width: 400px;
+  transform: rotate(90deg);
 }
 
 .newUILanding .header-image-bg .section {
@@ -18330,9 +18331,9 @@ textarea.form-control {
 }
 .newUILanding .activities {
   background-color: #fff;
-  background-image: url(/static/img/interactive/activities.svg);
+  background-image: url(/static/img/Assets/visual-4.svg);
   background-repeat: no-repeat;
-  background-position: bottom left;
+  background-position: 0 95%;
 }
 .newUILanding .activities h2 {
   color: #84bc47;
@@ -18450,8 +18451,9 @@ textarea.form-control {
   padding: 25px 20px;
 }
 .singleConnectInfo img {
-  width: 70px;
+  height: 45px;
   object-fit: contain;
+  margin: auto;
 }
 .singleConnectInfo h4 {
   font-size: 30px;
@@ -18464,9 +18466,10 @@ textarea.form-control {
   font-weight: 600;
 }
 .newUILanding .social-sharing {
-  background-image: url(/static/img/interactive/collective.svg);
+  background-image: url(/static/img/Assets/visual-1.svg);
   background-repeat: no-repeat;
-  background-position: -40% 80%;
+  background-color: #fafafa;
+  background-position: 0% 5%;
 }
 .rightSide {
   position: relative;
@@ -18500,9 +18503,10 @@ textarea.form-control {
 }
 .blogger {
   background-color: #fff;
-  background-image: url(/static/img/interactive/news.svg);
+  background-image: url(/static/img/Assets/visual-4.svg);
   background-repeat: no-repeat;
-  background-position: right bottom;
+  background-position: 100% 95%;
+  background-size: 100px;
 }
 .blogger h2 {
   color: #006c68;
@@ -18583,13 +18587,13 @@ textarea.form-control {
 }
 .args .bg1 {
   position: absolute;
-  top: 17%;
-  right: -350px;
+  top: 20%;
+  right: 0;
 }
 .args .bg2 {
   position: absolute;
-  top: 17%;
-  left: -350px;
+  top: 20%;
+  left: 0;
   transform: rotate(180deg);
 }
 .args .btn {
