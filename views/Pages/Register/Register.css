@@ -59,12 +59,12 @@
 .abs-states .line.done::after {
   content: '';
   position: absolute;
-  height: 50%;
+  height: 100%;
   width: 2px;
   background-color: var(--primary-blue);
 }
 .abs-states .line.active::after {
-  height: 50%;
+  height: 100%;
 }
 .abs-states .line.done::after {
   height: 100%;
@@ -147,7 +147,33 @@
   margin-top: 72px;
   width: auto;
 }
+@media screen and (max-width: 992px) {
+  .client-layout .flex-page-content .sideBar {
+    display: none;
+  }
+  .shared,
+  .aboutpage,
+  .notifications,
+  .shared,
+  .shared-item,
+  .follow,
+  .groups,
+  .invitaion,
+  .award {
+    margin: 0 auto;
+  }
+}
 @media (max-width: 768px) {
+  main.user-loggedin .aboutheader {
+    background-color: transparent !important;
+  }
+  .qarar-image img {
+    max-width: 80%;
+    height: auto;
+  }
+  .register-header {
+    flex-direction: column;
+  }
   .qarar-image {
     height: 400px;
   }

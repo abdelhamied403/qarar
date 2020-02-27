@@ -318,13 +318,26 @@ body {
   width: calc(100% - 100px);
   margin-right: 100px;
 }
-
-.aboutheader {
-  background-color: #006c68;
-  padding: 70px 0;
-  padding-top: 15px;
+.aboutpage .alert.alert-primary.alert-dismissible.fade.show {
+  margin-top: 120px !important;
 }
 @media (max-width: 768px) {
+  .aboutpage .alert.alert-primary.alert-dismissible.fade.show {
+    margin-top: 20px !important;
+  }
+  .aboutpage h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  .aboutheader {
+    background-color: #006c68;
+    padding: 70px 0;
+    padding-top: 15px;
+    display: none !important;
+  }
+  .aboutheader {
+    background-color: transparent !important;
+  }
   .shared,
   .aboutpage,
   .notifications,
@@ -447,7 +460,7 @@ body {
   border: 2px solid #046f6d;
 }
 .ministry nav.navbar {
-  background-color: transparent;
+  background-color: #006c68;
 }
 .header-image-bg {
   margin-top: -10px;
@@ -510,12 +523,28 @@ body {
   object-fit: contain;
   margin-right: 10px;
 }
+@media screen and (max-width: 1100px) {
+  .args .bg1,
+  .args .bg2 {
+    display: none;
+  }
+}
 @media screen and (max-width: 992px) {
+  .header-image-bg {
+    margin-top: -85px;
+  }
+  .navbar-expand-md .navbar-collapse {
+    margin-top: 13px;
+  }
+  a.flex.flex-align-center.navbar-brand.ml-5 img {
+    width: 120px !important;
+  }
+}
+@media screen and (max-width: 767px) {
   .ministry .header-nav .interactive {
     background-color: #84bc47;
-    height: auto;
-    padding: 10px;
-    width: 70px;
+    height: 100%;
+    width: 168px;
     display: flex;
     color: #fff;
     justify-content: center;
@@ -523,15 +552,6 @@ body {
     font-size: 13px;
     font-weight: bold;
   }
-
-  .header-image-bg {
-    margin-top: -85px;
-  }
-  .navbar-expand-md .navbar-collapse {
-    margin-top: 13px;
-  }
-}
-@media screen and (max-width: 767px) {
   .navHeader {
     height: 0 !important;
   }
@@ -555,5 +575,36 @@ body {
   }
   .ministry .header-nav a img {
     width: 40px !important;
+  }
+  a.flex.flex-align-center.navbar-brand.ml-5 {
+    margin-right: 0 !important;
+  }
+}
+@media screen and (max-width: 430px) {
+  .aboutpage .image-avatar {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .aboutpage h4 {
+    font-size: 13px;
+  }
+  .ministry .header-nav .interactive {
+    background-color: #84bc47;
+    height: 100%;
+    width: 93px;
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  .aboutpage button.btn.btn-outline-primary {
+    display: inline-block;
+    width: auto;
+    max-width: 200px !important;
+  }
+  .aboutpage .flex.flex-justifiy-sp.m-50-b {
+    flex-direction: column;
   }
 }
