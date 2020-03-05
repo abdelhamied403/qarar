@@ -9,15 +9,17 @@ import {
   Card,
   CardBody,
   CardHeader,
-  DropdownMenu,
+  InputGroup,
   DropdownItem,
-  Collapse,
+  InputGroupAddon,
+  Input,
   Alert
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import renderHTML from 'react-render-html';
 import {
   Link as ScrollLink,
   DirectLink,
@@ -28,7 +30,11 @@ import {
 } from 'react-scroll';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-import renderHTML from 'react-render-html';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton
+} from 'react-share';
 import Skeleton from '../components/skeleton/skeleton';
 import CardDraft from '../components/card-draft/card-draft';
 import CardDraftItems from '../components/card-draft-items/card-draft-items';
@@ -36,7 +42,7 @@ import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
-import NoAccess from '../components/NoAccess';
+import InsideComment from '../components/InsideComment';
 import Api from '../../../api';
 
 const Editor = dynamic(
@@ -45,7 +51,7 @@ const Editor = dynamic(
 );
 
 moment.locale('ar');
-class DraftDetails extends Component {
+class DraftDetailsInfo extends Component {
   constructor() {
     super();
     this.state = {
@@ -54,16 +60,23 @@ class DraftDetails extends Component {
       },
       items: [],
       comments: [],
+      breadcrumbs: [],
       commentPage: 1,
       flagged: false,
+      voting: {
+        up: false,
+        down: false
+      },
       successComment: false,
       loadingDraft: true,
       selected: false,
-      tab1: false,
-      tab2: true,
+      tab1: true,
+      tab2: false,
+      tab3: false,
       editorState: EditorState.createEmpty(),
       img1: '/static/img/interactive/greenArrow.svg',
-      img2: '/static/img/interactive/greenArrow.svg'
+      img2: '/static/img/interactive/greenArrow.svg',
+      img3: '/static/img/interactive/greenArrow.svg'
     };
   }
 
@@ -71,10 +84,41 @@ class DraftDetails extends Component {
     this.getDraft();
     this.getComments();
     this.isFollowed();
+    this.getIsFlagged();
     Events.scrollEvent.register('begin', function() {});
 
     Events.scrollEvent.register('end', function() {});
   }
+
+  getIsFlagged = async () => {
+    const { id, uid, accessToken } = this.props;
+    const { voting } = this.state;
+    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'like',
+      uid,
+      id
+    });
+    const response2 = await Api.post(`/qarar_api/isflagged?_format=json`, {
+      type: 'dislike',
+      uid,
+      id
+    });
+    if (response.ok && response2.ok) {
+      this.setState({
+        voting: {
+          ...voting,
+          up:
+            response.data && response.data.data
+              ? response.data.data.flagged
+              : false,
+          down:
+            response2.data && response2.data.data
+              ? response2.data.data.flagged
+              : false
+        }
+      });
+    }
+  };
 
   onEditorStateChange = editorState => {
     this.setState({
@@ -125,16 +169,42 @@ class DraftDetails extends Component {
 
   getDraft = async () => {
     const { draftId, accessToken } = this.props;
-    const draftResponse = await Api.get(
+    const { breadcrumbs } = this.state;
+    const itemResponse = await Api.get(
       `/qarar_api/load/node/${draftId}?_format=json`,
       {},
       {
         headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
-    if (draftResponse.ok) {
-      const { items, data } = draftResponse.data;
-      this.setState({ draft: data, items, loadingDraft: false });
+    if (itemResponse.ok) {
+      const { items, data } = itemResponse.data;
+      this.setState({ draft: data, items, loadingDraft: false }, () => {
+        if (!breadcrumbs.length) {
+          this.getParent(data.parent_id);
+        }
+      });
+    }
+  };
+
+  getParent = async id => {
+    const { accessToken } = this.props;
+    const { breadcrumbs } = this.state;
+    const itemResponse = await Api.get(
+      `/qarar_api/load/node/${id}?_format=json`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
+    if (itemResponse.ok) {
+      const { data } = itemResponse.data;
+      this.setState({
+        breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
+      });
+      if (data.parent_id) {
+        this.getParent(data.parent_id);
+      }
     }
   };
 
@@ -157,7 +227,7 @@ class DraftDetails extends Component {
             <DropdownItem
               className="border-bottom"
               onClick={() => this.setState({ selected: item })}
-              key={item.id}
+              key={item.nid}
               value={item}
             >
               {item.title}{' '}
@@ -253,18 +323,99 @@ class DraftDetails extends Component {
     }
   };
 
+  vote = async (type, id) => {
+    const { uid, accessToken } = this.props;
+    const { voting } = this.state;
+    const item = {
+      type,
+      action: voting[type === 'like' ? 'up' : 'down'] ? 'unflag' : 'flag',
+      id,
+      uid
+    };
+    const item2 = {
+      type: type === 'like' ? 'dislike' : 'like',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getIsFlagged();
+    }
+  };
+
+  likeComment = async (id, callback) => {
+    const { uid, accessToken } = this.props;
+    const item2 = {
+      type: 'dislike_comment',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const item = {
+      type: 'like_comment',
+      action: 'flag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getComments();
+      if (callback) {
+        callback();
+      }
+    }
+  };
+
+  dislikeComment = async (id, callback) => {
+    const { uid, accessToken } = this.props;
+    const item2 = {
+      type: 'like_comment',
+      action: 'unflag',
+      id,
+      uid
+    };
+    await Api.post(`/qarar_api/flag?_format=json`, item2, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const item = {
+      type: 'dislike_comment',
+      action: 'flag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, item, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getComments();
+      if (callback) {
+        callback();
+      }
+    }
+  };
+
   render() {
     const {
       draft,
       items,
       editorState,
       comments,
-      comment: commentText,
       flagged,
       successComment,
       errorComment,
       loadingDraft,
-      selected
+      breadcrumbs
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -280,13 +431,17 @@ class DraftDetails extends Component {
                   <div className="header-content">
                     <ul>
                       <li>
-                        <Link href="/drafts">
+                        <Link href="/drafts/">
                           <a>القرارات</a>
                         </Link>
                       </li>
-                      <li>
-                        <a>{draft.title}</a>
-                      </li>
+                      {breadcrumbs.map(item => (
+                        <li key={item.id}>
+                          <Link href={`/draft-details/${item.id}`}>
+                            <a>{item.title}</a>
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                     <h2>{draft.title}</h2>
                     <div className="sub-header">
@@ -380,7 +535,7 @@ class DraftDetails extends Component {
             </Container>
           </div>
         </div>
-        <div className="draftContainer">
+        <div className="draftContainer drafInfo">
           <img
             src="/static/img/interactive/draftsBg.svg"
             className="draftBg1"
@@ -397,7 +552,7 @@ class DraftDetails extends Component {
               <CardBody>
                 <Row>
                   <Col md="9" className="draftBodyRt">
-                    <p>{renderHTML(draft.body)}</p>
+                    <p>{draft.body}</p>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
@@ -426,13 +581,58 @@ class DraftDetails extends Component {
                 </Row>
               </CardBody>
             </Card>
-            <hr className="hrDraft" />
+            <div className="draftInfoShare d-flex justify-content-between mb-4">
+              <div className="shareInfoRight">
+                {items && (
+                  <>
+                    {' '}
+                    <Button
+                      onClick={() => {
+                        items.map(item => this.setState({ [item.nid]: true }));
+                      }}
+                    >
+                      <span>+</span>
+                      فتح الكل
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        items.map(item => this.setState({ [item.nid]: false }));
+                      }}
+                    >
+                      <span>-</span>
+                      اغلاق الكل
+                    </Button>
+                  </>
+                )}
+                {uid && (
+                  <Button
+                    color="primary"
+                    className="infoFollow"
+                    onClick={() => this.follow()}
+                    outline={!flagged}
+                  >
+                    {flagged ? 'إلغاء المتابعة' : 'متابعة'}
+                  </Button>
+                )}
+              </div>
+              <div className="shareInfoLeft d-flex align-items-center">
+                <p>شارك هذه المادة</p>
+                <LinkedinShareButton url={window && window.location}>
+                  <img src="/static/img/interactive/linkedinDraft.svg" alt="" />
+                </LinkedinShareButton>
+                <TwitterShareButton url={window && window.location}>
+                  <img src="/static/img/interactive/twitterDraft.svg" alt="" />
+                </TwitterShareButton>
+                <FacebookShareButton url={window && window.location}>
+                  <img src="/static/img/interactive/facebookDraft.svg" alt="" />
+                </FacebookShareButton>
+              </div>
+            </div>
             {items &&
               items.map(item => (
                 <Card key={item.nid} className="cardDraft collapseDraftCard">
                   <CardHeader
                     className="d-flex justify-content-between"
-                    id="toggler"
                     onClick={() =>
                       this.setState({ [item.nid]: !this.state[item.nid] })
                     }
@@ -450,26 +650,56 @@ class DraftDetails extends Component {
                       />
                     </div>
                   </CardHeader>
-                  <Collapse isOpen={this.state[item.nid]}>
-                    <CardBody>
-                      <Row>
-                        <Col md="9" className="draftBodyRt">
-                          <p>
-                            {item.body_value && renderHTML(item.body_value)}
-                          </p>
-                        </Col>
-                      </Row>
-                      <Link href={`/draft-details-info/${item.nid}`}>
-                        <Button>
-                          المزيد
+                  <CardBody
+                    style={
+                      this.state[item.nid]
+                        ? { display: 'block' }
+                        : { display: 'none' }
+                    }
+                  >
+                    <Row className="mt-3">
+                      <Col md="7" className="draftBodyRt">
+                        <p>{renderHTML(item.body_value)}</p>
+                        <Link href={`/draft-details/${item.nid}`}>
+                          <Button
+                            onMouseOut={() => {
+                              this.setState({
+                                img2: '/static/img/interactive/greenArrow.svg'
+                              });
+                            }}
+                            onMouseEnter={() =>
+                              this.setState({
+                                img2: '/static/img/interactive/whiteArrow.svg'
+                              })
+                            }
+                          >
+                            المزيد
+                            <img src={this.state.img2} alt="" />
+                          </Button>
+                        </Link>
+                      </Col>
+                      <Col md="5">
+                        <div className="d-flex justify-content-end draftLikeDislike">
                           <img
-                            src="/static/img/interactive/greenArrow.svg"
+                            onClick={() => this.vote('like', item.nid)}
+                            src="/static/img/interactive/dislikeGreen.svg"
                             alt=""
                           />
-                        </Button>
-                      </Link>
-                    </CardBody>
-                  </Collapse>
+                          <img
+                            onClick={() => this.vote('dislike', item.nid)}
+                            src="/static/img/interactive/likeGreen.svg"
+                            alt=""
+                          />
+                        </div>
+
+                        <InsideComment
+                          likeComment={this.likeComment}
+                          dislikeComment={this.dislikeComment}
+                          itemId={item.nid}
+                        />
+                      </Col>
+                    </Row>
+                  </CardBody>
                 </Card>
               ))}
             <Element name="test1" className="element">
@@ -533,6 +763,7 @@ class DraftDetails extends Component {
                 </>
               )}
             </Element>
+
             <div className="draftNewComments">
               {comments.map(comment => (
                 <div
@@ -548,11 +779,12 @@ class DraftDetails extends Component {
                   />
                   <div className="mr-auto ml-0">
                     <h5>{comment.full_name}</h5>
-                    <p>{comment.comment_body}</p>
+                    <p>{renderHTML(comment.comment_body || '')}</p>
                   </div>
                   <div className="d-flex flex-row likeDiv">
                     <span>{comment.likes}</span>
                     <img
+                      onClick={() => this.likeComment(comment.cid)}
                       src="/static/img/interactive/bluelikeActive.svg"
                       alt=""
                       className="likeImg"
@@ -682,4 +914,4 @@ const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
   uid,
   accessToken
 });
-export default connect(mapStateToProps)(DraftDetails);
+export default connect(mapStateToProps)(DraftDetailsInfo);
