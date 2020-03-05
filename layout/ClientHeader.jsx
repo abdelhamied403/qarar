@@ -246,22 +246,13 @@ class ClientHeader extends React.Component {
                     خروج
                   </NavItem>
                 ) : (
-                  <>
-                    <NavItem active={router.pathname === '/en'}>
-                      <Link href="/EN">
-                        <a>
-                          <NavLink onClick={this.closeMobile}>EN</NavLink>
-                        </a>
-                      </Link>
-                    </NavItem>
-                    <NavItem active={router.pathname === '/login'}>
-                      <Link href="/login">
-                        <a>
-                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
-                        </a>
-                      </Link>
-                    </NavItem>
-                  </>
+                  <NavItem active={router.pathname === '/login'}>
+                    <Link href="/login">
+                      <a>
+                        <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                      </a>
+                    </Link>
+                  </NavItem>
                 )}
 
                 {isAuthentcated ? this.userDropdown() : ''}
@@ -280,6 +271,9 @@ const mapStateToProps = ({ auth: { name, profileImage } }) => ({
   name,
   profileImage
 });
-export default connect(mapStateToProps, null, null, { pure: false })(
-  withRouter(ClientHeader)
-);
+export default connect(
+  mapStateToProps,
+  null,
+  null,
+  { pure: false }
+)(withRouter(ClientHeader));
