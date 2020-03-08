@@ -16533,7 +16533,7 @@ html body .app.flex-row.align-items-center {
 }
 
 .client-layout .flex-page-content main {
-  margin-top: 90px;
+  margin-top: 0px;
   padding-bottom: 100px;
 }
 
@@ -16889,8 +16889,8 @@ html body .app.flex-row.align-items-center {
   font-weight: 500;
 }
 .section-flex .icons-group > * {
-  margin: 20px;
-  padding: 5px;
+  margin: 10px;
+  padding: 0px;
   justify-content: center;
   display: flex;
   flex-direction: column;
@@ -16920,9 +16920,6 @@ html body .app.flex-row.align-items-center {
   background-color: white !important;
   border-color: white !important;
   padding: 0 28px;
-}
-.args .btn:hover {
-  color: #046f6d !important;
 }
 
 .header-button {
@@ -17434,6 +17431,7 @@ textarea.form-control {
 .register-content {
   display: flex;
   min-height: 200px;
+  border-left: 1px solid #006c68;
 }
 .register-content form {
   margin: 50px 0;
@@ -17874,7 +17872,7 @@ textarea.form-control {
 }
 
 .client-layout .flex-page-content main {
-  margin-top: -85px;
+  margin-top: 0px;
   padding-bottom: 100px;
 }
 
@@ -18151,11 +18149,11 @@ textarea.form-control {
   background-color: #006c68;
   padding: 70px 0;
   position: relative;
-  padding-top: 175px;
+  padding-top: 128px;
   color: white;
-  background-image: url(/static/img/interactive/header-artwork.svg);
+  background-image: url(/static/img/Assets/visual-5.svg);
   background-repeat: no-repeat;
-  background-position: left bottom;
+  background-position: left 95%;
 }
 .about-qarar-header {
   color: #fff !important;
@@ -18222,8 +18220,8 @@ textarea.form-control {
   object-fit: contain;
 }
 .section-flex .icons-group .icon-border {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18234,15 +18232,15 @@ textarea.form-control {
   font-weight: 500;
 }
 .section-flex .icons-group > * {
-  margin: 20px;
-  padding: 5px;
+  margin: 10px;
+  padding: 0px;
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 21%;
   border: 0.5px solid rgba(255, 255, 255, 0.4);
-  padding: 10px;
+  padding: 0px;
 }
 
 .section-flex .icons-group > * > div {
@@ -18274,9 +18272,6 @@ textarea.form-control {
   border-color: white !important;
   padding: 0 28px;
 }
-.args .btn:hover {
-  color: #046f6d !important;
-}
 
 .header-button {
   background-color: rgba(0, 170, 186, 0.5);
@@ -18289,15 +18284,14 @@ textarea.form-control {
 }
 /* start newUILanding */
 .newUILanding .header-image-bg {
-  min-height: 80vh;
+  min-height: 50vh;
   position: relative;
 }
 .heroPattern {
   position: absolute;
-  bottom: 300px;
-  left: -80px;
+  bottom: 36px;
+  left: 0px;
   width: 400px;
-  transform: rotate(90deg);
 }
 
 .newUILanding .header-image-bg .section {
@@ -18308,12 +18302,12 @@ textarea.form-control {
   margin-right: 10px;
 }
 .newUILanding .header h2 {
-  margin-top: 85px;
+  margin-top: 24px;
 }
 .newUILanding .icons-group p {
   color: #fff;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 24px;
   margin-bottom: 0;
 }
 .newUILanding .icons-group h5 {
@@ -18334,6 +18328,7 @@ textarea.form-control {
   background-image: url(/static/img/Assets/visual-4.svg);
   background-repeat: no-repeat;
   background-position: 0 95%;
+  background-size: 10%;
 }
 .newUILanding .activities h2 {
   color: #84bc47;
@@ -18469,7 +18464,7 @@ textarea.form-control {
   background-image: url(/static/img/Assets/visual-1.svg);
   background-repeat: no-repeat;
   background-color: #fafafa;
-  background-position: 0% 5%;
+  background-position: 0% 95%;
 }
 .rightSide {
   position: relative;
@@ -18594,7 +18589,6 @@ textarea.form-control {
   position: absolute;
   top: 20%;
   left: 0;
-  transform: rotate(180deg);
 }
 .args .btn {
   border-radius: 25px;

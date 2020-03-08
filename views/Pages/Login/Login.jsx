@@ -86,7 +86,9 @@ const Login = () => {
           <div className="custom-container">
             <div className="register-header m-tb-20">
               <Link href="/register">
-                <a className="NewUserLink">انا مستخدم جديد</a>
+                <button className="btn btn-outline-primary btn-md">
+                  مستخدم جديد
+                </button>
               </Link>
               <h3>تسجيل الدخول</h3>
             </div>

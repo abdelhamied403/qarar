@@ -511,7 +511,7 @@ const Landing = () => {
         <Container>
           <p className="content">رأيك يهمنا .. صوتك يهمنا </p>
           <Link href="/drafts">
-            <Button className="scale-hover" color="primary" outline size="md">
+            <Button color="primary" outline size="md">
               اكتشف قائمة المسودات
               <img src="/static/img/interactive/whiteArrow.svg" alt="" />
             </Button>

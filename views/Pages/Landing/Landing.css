@@ -35,8 +35,8 @@
   object-fit: contain;
 }
 .section-flex .icons-group .icon-border {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,15 +47,15 @@
   font-weight: 500;
 }
 .section-flex .icons-group > * {
-  margin: 20px;
-  padding: 5px;
+  margin: 10px;
+  padding: 0px;
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 21%;
   border: 0.5px solid rgba(255, 255, 255, 0.4);
-  padding: 10px;
+  padding: 0px;
 }
 
 .section-flex .icons-group > * > div {
@@ -102,7 +102,7 @@
 }
 /* start newUILanding */
 .newUILanding .header-image-bg {
-  min-height: 80vh;
+  min-height: 50vh;
   position: relative;
 }
 .heroPattern {
@@ -110,7 +110,6 @@
   left: 0;
   top: 15vh;
   width: 128px;
-  transform: rotate(90deg);
 }
 
 .newUILanding .header-image-bg .section {
@@ -121,12 +120,12 @@
   margin-right: 10px;
 }
 .newUILanding .header h2 {
-  margin-top: 85px;
+  margin-top: 24px;
 }
 .newUILanding .icons-group p {
   color: #fff;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 24px;
   margin-bottom: 0;
 }
 .newUILanding .icons-group h5 {
@@ -399,7 +398,6 @@
   position: absolute;
   top: 17%;
   left: -350px;
-  transform: rotate(180deg);
 }
 .args .btn {
   border-radius: 25px;

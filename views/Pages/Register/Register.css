@@ -103,11 +103,11 @@
   width: 100%;
   object-fit: cover;
 }
-.navHeader {
+/* .navHeader {
   background-color: #006c68;
   height: 85px;
   width: 100%;
-}
+} */
 .register-content .custom-container {
   padding-top: 0;
 }

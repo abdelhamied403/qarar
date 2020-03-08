@@ -29,7 +29,7 @@ class MyApp extends App {
               <link
                 rel="icon"
                 type="image/png"
-                href="/static/favicon.ico"
+                href="/static/fav.ico"
                 importance="low"
               />
               <link

@@ -26,9 +26,7 @@
   background-color: #006c68;
   padding: 70px 0;
   position: relative;
-  padding-top: 175px;
   color: white;
-  background-image: url(/static/img/interactive/header-artwork.svg);
   background-repeat: no-repeat;
   background-position: left bottom;
 }
