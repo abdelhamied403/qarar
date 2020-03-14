@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
+import ReactLoading from 'react-loading';
 import './list-item.css';
 
 const propTypes = {
@@ -21,7 +22,7 @@ class ListItem extends Component {
     });
   }
 
-  withoutContent(isWide, header, btnColor, btnText) {
+  withoutContent(isWide, header, btnColor, btnText, btnClick) {
     return (
       <div
         className={
@@ -33,10 +34,25 @@ class ListItem extends Component {
         }
       >
         <div>{header}</div>
+        {this.state.loading && (
+          <ReactLoading
+            className="mx-1 text-danger"
+            type="spin"
+            color="#f86c6b"
+            height={20}
+            width={20}
+          />
+        )}
         <Button
           className={
             this.state.isHovered ? 'danger-link flex-show' : 'danger-link'
           }
+          onClick={() => {
+            this.setState({ loading: true });
+            if (btnClick) {
+              btnClick();
+            }
+          }}
           color={btnColor}
           outline
         >
@@ -46,7 +62,7 @@ class ListItem extends Component {
     );
   }
 
-  withContent(isWide, header, btnColor, btnText, content) {
+  withContent(isWide, header, btnColor, btnText, btnClick, content) {
     return (
       <div
         className={
@@ -69,6 +85,7 @@ class ListItem extends Component {
           <Button
             className={this.state.isHovered ? 'flex-show' : ''}
             color={btnColor}
+            onClick={btnClick}
           >
             {btnText}
           </Button>
@@ -79,7 +96,7 @@ class ListItem extends Component {
 
   render() {
     // eslint-disable-next-line
-    const { header, content, btnText, btnColor, isWide } = this.props;
+    const { header, content, btnText, btnColor, btnClick, isWide } = this.props;
 
     return (
       <div
@@ -88,8 +105,15 @@ class ListItem extends Component {
         className="list-item flex flex-aligen-center"
       >
         {content
-          ? this.withContent(isWide, header, btnColor, btnText, content)
-          : this.withoutContent(isWide, header, btnColor, btnText)}
+          ? this.withContent(
+              isWide,
+              header,
+              btnColor,
+              btnText,
+              btnClick,
+              content
+            )
+          : this.withoutContent(isWide, header, btnColor, btnText, btnClick)}
       </div>
     );
   }

@@ -7,6 +7,7 @@ import {
   DropdownMenu,
   DropdownToggle
 } from 'reactstrap';
+import ReactLoading from 'react-loading';
 
 import './card-points-edit.css';
 
@@ -31,7 +32,7 @@ class CardPointsEdit extends Component {
 
   render() {
     // eslint-disable-next-line
-    const { avatar, name, points } = this.props;
+    const { avatar, name, points, btnClick } = this.props;
     if (!this.props.isWaiting) {
       return (
         <div
@@ -39,7 +40,13 @@ class CardPointsEdit extends Component {
           onMouseLeave={() => this.setButtonHovered(false)}
           className="custom-card flex flex-justifiy-center flex-aligen-center"
         >
-          <div
+          <button
+            onClick={() => {
+              this.setState({ loading: true });
+              if (btnClick) {
+                btnClick();
+              }
+            }}
             className={
               this.state.isHovered
                 ? 'abs-remove-icon flex-show'
@@ -47,13 +54,22 @@ class CardPointsEdit extends Component {
             }
           >
             <i className="fa fa-remove"></i>
-          </div>
+          </button>
           <div className="image">
             <Media className="icon-image" object src={avatar} />
           </div>
           <div className="info flex flex-col">
             <h6>{name}</h6>
             <span className="sub-header">{points} نقطة</span>
+            {this.state.loading && (
+              <ReactLoading
+                className="mx-1 text-danger"
+                type="spin"
+                color="#f86c6b"
+                height={20}
+                width={20}
+              />
+            )}
           </div>
         </div>
       );
