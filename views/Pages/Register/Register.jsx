@@ -336,7 +336,7 @@ class Register extends Component {
           })
         )
         .required('حقل إسم المستخدم مطلوب'),
-      field_full_name: yup
+      /* field_full_name: yup
         .array()
         .of(
           yup.object().shape({
@@ -346,7 +346,7 @@ class Register extends Component {
               .required('حقل الإسم مطلوب')
           })
         )
-        .required('حقل الإسم مطلوب'),
+        .required('حقل الإسم مطلوب'),*/
       mail: yup
         .array()
         .of(
