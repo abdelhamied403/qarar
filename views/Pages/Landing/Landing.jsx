@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Container, Button, Col, Row, Media, ButtonGroup } from 'reactstrap';
 import Link from 'next/link';
 import moment from 'moment';
@@ -11,6 +12,7 @@ import CardBlog from '../components/card-blog/card-blog';
 import Api from '../../../api';
 
 const Landing = () => {
+  const uid = useSelector(state => state.auth.uid);
   const [mostActiveUserComment, setMAUC] = useState({});
   const [mostActiveUserAword, setMAUA] = useState({});
   const [mostActiveUserLike, setMAUL] = useState({});
@@ -153,14 +155,16 @@ const Landing = () => {
                 <h5>يتم اتخاذ القرار بشأن المسودة</h5>
               </div>
             </div>
-            <div>
-              <Link href="/register">
-                <a className="opactiy-8 scale-hover header-button btn btn-primary">
-                  انشاء حساب
-                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-                </a>
-              </Link>
-            </div>
+            {!uid && (
+              <div>
+                <Link href="/register">
+                  <a className="opactiy-8 scale-hover header-button btn btn-primary">
+                    انشاء حساب
+                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                  </a>
+                </Link>
+              </div>
+            )}
           </section>
         </Container>
       </div>
