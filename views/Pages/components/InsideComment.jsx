@@ -55,7 +55,7 @@ class InsideComment extends Component {
 
   render() {
     const { comments, successComment } = this.state;
-    const { uid } = this.props;
+    const { uid, enableCommentForm } = this.props;
     return (
       <>
         {comments.map(comment => (
@@ -125,7 +125,7 @@ class InsideComment extends Component {
             تم إضافة التعليق في إنتظار موافقة إدارة الموقع
           </Alert>
         )}
-        {uid ? (
+        {uid && enableCommentForm ? (
           <InputGroup>
             <Input
               value={this.state.comment}

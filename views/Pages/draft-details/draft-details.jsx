@@ -421,6 +421,8 @@ class DraftDetailsInfo extends Component {
     if (loadingDraft) {
       return <Skeleton details />;
     }
+    console.log(draft);
+
     return (
       <>
         <div className="dc-details-header">
@@ -567,7 +569,12 @@ class DraftDetailsInfo extends Component {
                     <div className="d-flex flex-column justify-items-start draftCardLt">
                       <div className="d-flex justify-content-end">
                         <img src="/static/img/interactive/lock.svg" alt="" />
-                        <span> التعليق مفتوح</span>
+                        {new Date(draft.end_date).getTime() >
+                        new Date().getTime() ? (
+                          <span> التعليق مفتوح</span>
+                        ) : (
+                          <span> التعليق مغلق</span>
+                        )}
                       </div>
                       <div className="d-flex justify-content-end">
                         <img
@@ -693,6 +700,10 @@ class DraftDetailsInfo extends Component {
                         </div>
 
                         <InsideComment
+                          enableCommentForm={
+                            new Date(draft.end_date).getTime() >
+                            new Date().getTime()
+                          }
                           likeComment={this.likeComment}
                           dislikeComment={this.dislikeComment}
                           itemId={item.nid}
@@ -728,38 +739,46 @@ class DraftDetailsInfo extends Component {
                     {errorComment && (
                       <Alert color="danger">{errorComment}</Alert>
                     )}
-                    <Editor
-                      placeholder="اضف تعليقك هنا"
-                      toolbar={{
-                        options: ['inline', 'image'], // This is where you can specify what options you need in
-                        // the toolbar and appears in the same order as specified
-                        inline: {
-                          options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                          // strikethrough, 'monospace', 'superscript', 'subscript'
-                        },
-                        image: {
-                          alignmentEnabled: false,
-                          uploadCallback: this.UploadImageCallBack,
-                          alt: { present: true, mandatory: false },
-                          previewImage: true
-                        }
-                      }}
-                      editorState={editorState}
-                      wrapperClassName="demo-wrapper"
-                      editorClassName="demo-editor"
-                      onEditorStateChange={this.onEditorStateChange}
-                    />
-                  </div>
-                  <div className="commentsBtn d-flex justify-content-end align-items-center">
-                    <a href="">شروط المشاركة</a>
-                    <Button onClick={this.saveComment}>
-                      اضف تعليقك
-                      <img
-                        src="/static/img/interactive/whiteArrow.svg"
-                        alt=""
+                    {new Date(draft.end_date).getTime() >
+                    new Date().getTime() ? (
+                      <Editor
+                        placeholder="اضف تعليقك هنا"
+                        toolbar={{
+                          options: ['inline', 'image'], // This is where you can specify what options you need in
+                          // the toolbar and appears in the same order as specified
+                          inline: {
+                            options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                            // strikethrough, 'monospace', 'superscript', 'subscript'
+                          },
+                          image: {
+                            alignmentEnabled: false,
+                            uploadCallback: this.UploadImageCallBack,
+                            alt: { present: true, mandatory: false },
+                            previewImage: true
+                          }
+                        }}
+                        editorState={editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={this.onEditorStateChange}
                       />
-                    </Button>
+                    ) : (
+                      <Alert color="success">تم إيقاف التعليقات</Alert>
+                    )}
                   </div>
+                  {new Date(draft.end_date).getTime() >
+                    new Date().getTime() && (
+                    <div className="commentsBtn d-flex justify-content-end align-items-center">
+                      <a href="">شروط المشاركة</a>
+                      <Button onClick={this.saveComment}>
+                        اضف تعليقك
+                        <img
+                          src="/static/img/interactive/whiteArrow.svg"
+                          alt=""
+                        />
+                      </Button>
+                    </div>
+                  )}
                 </>
               )}
             </Element>
