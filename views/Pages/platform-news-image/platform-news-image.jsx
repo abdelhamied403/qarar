@@ -12,6 +12,7 @@ import {
   CardBody,
   CardHeader
 } from 'reactstrap';
+import renderHTML from 'react-render-html';
 
 import Breadcrumb from '../components/breadcrumb/breadcrumb';
 import './platform-news-image.css';
@@ -163,7 +164,7 @@ class DecisionDraft extends Component {
                     {newsItem.date}
                   </span>
                 </div>
-                <p className="bg-font">{newsItem.body}</p>
+                <p className="bg-font">{renderHTML(newsItem.body || '')}</p>
                 <div>
                   {newsItem.tags &&
                     newsItem.tags.map(tag => (

@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import Pagination from 'rc-pagination';
 import moment from 'moment';
+import renderHTML from 'react-render-html';
 import CardBlog from '../components/card-blog/card-blog';
 import './platform-news.css';
 import Skeleton from '../components/skeleton/skeleton';
@@ -161,7 +162,7 @@ class DecisionDraft extends Component {
                     date={moment(newsItem.creatednode * 1000).format(
                       'DD/MM/YYYY'
                     )}
-                    content={newsItem.body.substr(0, 200)}
+                    content={renderHTML(newsItem.body.substr(0, 200) || '')}
                     blogId={newsItem.id}
                     tag={newsItem.tags.length > 0 && newsItem.tags[0].name}
                     subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
