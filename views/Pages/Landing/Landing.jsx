@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Button, Col, Row, Media, ButtonGroup } from 'reactstrap';
 import Link from 'next/link';
-import moment from 'moment';
+import renderHTML from 'react-render-html';
 
 import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
@@ -407,7 +407,7 @@ const Landing = () => {
                         <a>
                           <div className="newsInfo">
                             <h3>{item.title}</h3>
-                            <p>{item.body.substr(0, 200)}</p>
+                            <p>{renderHTML(item.body.substr(0, 200) || '')}</p>
                           </div>
                         </a>
                       </Link>
@@ -426,7 +426,9 @@ const Landing = () => {
                             <a>
                               <div className="newsInfo">
                                 <h3>{item.title}</h3>
-                                <p>{item.body.substr(0, 200)}</p>
+                                <p>
+                                  {renderHTML(item.body.substr(0, 200) || '')}
+                                </p>
                               </div>
                             </a>
                           </Link>
@@ -452,7 +454,7 @@ const Landing = () => {
                         <a>
                           <div className="newsInfo">
                             <h3>{item.title}</h3>
-                            <p>{item.body.substr(0, 200)}</p>
+                            <p>{renderHTML(item.body.substr(0, 200) || '')}</p>
                           </div>
                         </a>
                       </Link>
@@ -471,7 +473,9 @@ const Landing = () => {
                             <a>
                               <div className="newsInfo">
                                 <h3>{item.title}</h3>
-                                <p>{item.body.substr(0, 200)}</p>
+                                <p>
+                                  {renderHTML(item.body.substr(0, 200) || '')}
+                                </p>
                               </div>
                             </a>
                           </Link>
