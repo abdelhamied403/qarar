@@ -150,7 +150,7 @@ const Login = () => {
         </div>
         <div className="qarar-image">
           <img src="/static/img/brand/momra-logo.svg" alt="" />
-          <img src="/static/img/brand/logo-copy.svg" alt="" />
+          <img src="/static/img/brand/qarar-logo.svg" alt="" />
         </div>
       </div>
     </>

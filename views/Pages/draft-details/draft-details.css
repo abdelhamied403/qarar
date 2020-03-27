@@ -215,6 +215,12 @@
 button.btn.btn-secondary:hover img {
   filter: brightness(0) invert(1);
 }
+.collapseDraftCard .insideComment {
+  display: block !important;
+}
+.collapseDraftCard .insideComment .draftLikeDislike {
+  margin-top: 16px;
+}
 @media screen and (max-width: 767px) {
   .newHeader .icons-group > * {
     width: 80%;
