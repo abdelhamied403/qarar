@@ -158,8 +158,14 @@ const Landing = () => {
             {!uid && (
               <div>
                 <Link href="/register">
-                  <a className="opactiy-8 scale-hover header-button btn btn-primary">
+                  <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
                     انشاء حساب
+                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                  </a>
+                </Link>
+                <Link href="/login">
+                  <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
+                    دخول
                     <img src="/static/img/interactive/whiteArrow.svg" alt="" />
                   </a>
                 </Link>
