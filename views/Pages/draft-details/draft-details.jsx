@@ -43,6 +43,7 @@ import CardInfo from '../components/card-info/card-info';
 import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
 import InsideComment from '../components/InsideComment';
+import ArticleComment from '../components/ArticleComment';
 import Api from '../../../api';
 
 const Editor = dynamic(
@@ -699,7 +700,7 @@ class DraftDetailsInfo extends Component {
                           />
                         </div>
 
-                        <InsideComment
+                        <ArticleComment
                           enableCommentForm={
                             new Date(draft.end_date).getTime() >
                             new Date().getTime()

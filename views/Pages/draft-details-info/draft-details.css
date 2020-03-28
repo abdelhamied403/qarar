@@ -261,6 +261,34 @@
 .insideComment span {
   color: #006c68;
 }
+.ArticleComment {
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px;
+}
+.ArticleComment h5 {
+  color: #006c68;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.ArticleComment .comment-info p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.ArticleComment span {
+  color: #006c68;
+}
+.ArticleComment .avatarUser {
+  border-radius: 50%;
+  padding: 2px;
+  width: 40px;
+  object-fit: contain;
+  height: 40px;
+  margin-left: 10px;
+}
+
 .likeImg {
   margin: 0 10px;
 }
