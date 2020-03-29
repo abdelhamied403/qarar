@@ -27,6 +27,8 @@
   padding: 70px 0;
   position: relative;
   color: white;
+  background-repeat: no-repeat;
+  background-position: left bottom;
 }
 .header-content {
   padding: 0 !important;
@@ -40,8 +42,8 @@
 .newHeader ul li {
   list-style: none;
   margin-bottom: 20px;
-  cursor: pointer;
   font-size: 13px;
+  cursor: pointer;
 }
 .newHeader ul li:not(:last-child)::after {
   content: '>';
@@ -200,45 +202,184 @@
   left: 0;
   bottom: 0;
 }
+.shareInfoRight button {
+  background-color: #84bc47;
+  color: #fff;
+  margin-left: 10px;
+}
+.shareInfoRight button span {
+  margin-left: 10px;
+}
+.shareInfoRight button.infoFollow {
+  border: 1px solid #84bc47;
+  background-color: transparent;
+  color: #84bc47;
+}
+.shareInfoLeft p {
+  margin-bottom: 0;
+  margin-left: 10px;
+  color: #006c68;
+  font-weight: 600;
+  font-size: 13px;
+}
+.shareInfoLeft img {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.manyComments img {
+  width: 16px !important;
+  margin-left: 10px;
+}
+.manyComments {
+  margin-left: 20px;
+}
+.drafInfo .collapseDraftCard .card-body {
+  background-color: #fff;
+}
+.drafInfo .collapseDraftCard .card-body button {
+  margin-right: 0;
+}
+.draftLikeDislike img {
+  margin-right: 15px;
+  cursor: pointer;
+  width: 22px;
+}
+.insideComment {
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px;
+}
+.insideComment h5 {
+  color: #006c68;
+  font-size: 14px;
+  font-weight: 600;
+}
+.insideComment p {
+  margin-bottom: 0;
+}
+.insideComment span {
+  color: #006c68;
+}
+.ArticleComment {
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px;
+}
+.ArticleComment h5 {
+  color: #006c68;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.ArticleComment .comment-info p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.ArticleComment span {
+  color: #006c68;
+}
+.ArticleComment .avatarUser {
+  border-radius: 50%;
+  padding: 2px;
+  width: 40px;
+  object-fit: contain;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.likeImg {
+  margin: 0 10px;
+}
+.cardDraft .col-md-5 {
+  padding: 0;
+}
+.likeDiv {
+  padding: 0 10px;
+}
+.insideComment .avatarUser {
+  border-radius: 50%;
+  padding: 2px;
+  width: 40px;
+  object-fit: contain;
+  height: 40px;
+  margin-left: 10px;
+}
+.drafInfo .input-group {
+  margin-top: 15px;
+}
+.drafInfo .input-group-prepend {
+  background-color: #046f6d;
+  border-radius: 50%;
+  border: 1px solid #046f6d;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -42px;
+  position: relative;
+  z-index: 99999999999;
+}
+.drafInfo .input-group-prepend img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+.drafInfo input.form-control {
+  border: 1px solid #046f6d !important;
+  width: 100%;
+  border-radius: 50px !important;
+}
+.rdw-editor-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  padding: 10px;
+}
+.rdw-editor-toolbar {
+  border: 0 !important;
+  margin-top: 20px;
+}
+.commentsBtn {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+.commentsBtn a {
+  font-weight: 600;
+  color: #006c68;
+}
+.commentsBtn button {
+  background-color: #84bc47;
+  color: #fff;
+  font-weight: 400;
+  margin-right: 10px;
+}
+.draftNewComments .insideComment {
+  padding: 30px 20px;
+}
 .newHeader button:hover {
   background-color: #84bc47;
   color: #fff;
 }
-.draftShouldLogin button:hover {
-  background-color: #006c68;
-  color: #fff;
-}
-.cardDraft.collapseDraftCard.card button:hover {
+.shareInfoRight button:hover {
   background-color: #84bc47;
   color: #fff;
-}
-button.btn.btn-secondary:hover img {
-  filter: brightness(0) invert(1);
-}
-.collapseDraftCard .insideComment {
-  display: block !important;
-}
-.collapseDraftCard .insideComment .draftLikeDislike {
-  margin-top: 16px;
-}
-.collapseDraftCard .ArticleComment {
-  display: block !important;
-}
-.collapseDraftCard .ArticleComment .draftLikeDislike {
-  margin-top: 16px;
-}
-.comment-user-info {
-  display: flex;
-  margin-bottom: 10px;
-  margin-top: 8px;
-}
-.comment-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin-left: 10px;
 }
 @media screen and (max-width: 767px) {
   .newHeader .icons-group > * {
     width: 80%;
+  }
+  .newHeader {
+    padding-top: 100px;
+  }
+  .draftInfoShare {
+    flex-direction: column;
+  }
+  .draftInfoShare button {
+    margin-top: 5px;
   }
 }
