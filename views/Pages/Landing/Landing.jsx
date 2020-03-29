@@ -298,12 +298,16 @@ const Landing = () => {
                   className="avatar"
                 />
                 <div className="singleName">
-                  <p>{mostActiveUserComment.name}</p>
+                  <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
+                    <a>
+                      <p>{mostActiveUserComment.name}</p>
+                    </a>
+                  </Link>
                   <span> {mostActiveUserComment.points} نقطة</span>
                 </div>
                 <div className="trophy d-flex align-items-center">
                   <img src="/static/img/interactive/trophy.svg" alt="" />
-                  <span>1280</span>
+                  <span>{mostActiveUserComment.awards}</span>
                 </div>
               </div>
             </Col>
@@ -318,12 +322,16 @@ const Landing = () => {
                   className="avatar"
                 />
                 <div className="singleName">
-                  <p>{mostActiveUserAword.name}</p>
+                  <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
+                    <a>
+                      <p>{mostActiveUserAword.name}</p>
+                    </a>
+                  </Link>
                   <span> {mostActiveUserAword.points} نقطة</span>
                 </div>
                 <div className="trophy d-flex align-items-center">
                   <img src="/static/img/interactive/trophy.svg" alt="" />
-                  <span>1280</span>
+                  <span>{mostActiveUserAword.awards}</span>
                 </div>
               </div>
             </Col>
@@ -338,12 +346,16 @@ const Landing = () => {
                   className="avatar"
                 />
                 <div className="singleName">
-                  <p>{mostActiveUserLike.name}</p>
+                  <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
+                    <a>
+                      <p>{mostActiveUserLike.name}</p>
+                    </a>
+                  </Link>
                   <span> {mostActiveUserLike.points} نقطة</span>
                 </div>
                 <div className="trophy d-flex align-items-center">
                   <img src="/static/img/interactive/trophy.svg" alt="" />
-                  <span>1280</span>
+                  <span>{mostActiveUserLike.awards}</span>
                 </div>
               </div>
             </Col>

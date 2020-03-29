@@ -25,7 +25,12 @@ const CardPoints = ({
   <Card className={isDarkCard ? 'dark-card card-points' : 'card-points'}>
     <CardHeader>
       <div className="flex-header-points">
-        <CardImg top width="100%" src={avatar} alt="Card image cap" />
+        <CardImg
+          top
+          width="100%"
+          src={avatar || '/static/img/interactive/user.svg'}
+          alt="Card image cap"
+        />
         <div className="user-info">
           <Link href={`/user-profile/${uid}`}>
             <a className="sub-header name">{name}</a>
