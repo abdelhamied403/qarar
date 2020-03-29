@@ -69,7 +69,7 @@ class InsideComment extends Component {
               className="avatarUser"
             />
             <div>
-              <h5>{comment.full_name}</h5>
+              <h5>{comment.full_name || comment.ownername}</h5>
               <p>{renderHTML(comment.comment_body || '')}</p>
             </div>
             <div className="d-flex flex-row draftLikeDislike likeDiv">
