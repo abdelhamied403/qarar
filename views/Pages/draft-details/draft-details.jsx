@@ -422,7 +422,6 @@ class DraftDetailsInfo extends Component {
     if (loadingDraft) {
       return <Skeleton details />;
     }
-    console.log(draft);
 
     return (
       <>
@@ -784,8 +783,14 @@ class DraftDetailsInfo extends Component {
               )}
             </Element>
 
-            <div className="draftNewComments">
-              {comments.map(comment => (
+            <div className="collapseDraftCard draftNewComments">
+              <ArticleComment
+                enableCommentForm={false}
+                likeComment={this.likeComment}
+                dislikeComment={this.dislikeComment}
+                itemId={draft.id}
+              />
+              {/* comments.map(comment => (
                 <div
                   key={comment.cid}
                   className="insideComment d-flex align-items-start"
@@ -811,7 +816,7 @@ class DraftDetailsInfo extends Component {
                     />
                   </div>
                 </div>
-              ))}
+                  )) */}
             </div>
           </Container>
         </div>

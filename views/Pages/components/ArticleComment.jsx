@@ -4,6 +4,7 @@ import { InputGroup, InputGroupAddon, Input, Alert, Button } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import ReactLoading from 'react-loading';
 import moment from 'moment';
+import Link from 'next/link';
 
 import Api from '../../../api';
 
@@ -72,7 +73,11 @@ class ArticleComment extends Component {
                 className="avatarUser"
               />
               <div className="comment-info">
-                <h5>{comment.full_name || comment.ownername}</h5>
+                <Link href={`/user-profile/${comment.ownerid}`}>
+                  <a>
+                    <h5>{comment.full_name || comment.ownername}</h5>
+                  </a>
+                </Link>
                 <p>
                   {moment(comment.createdcomment * 1000).format('YYYY/MM/DD')}
                 </p>
