@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { InputGroup, InputGroupAddon, Input, Alert, Button } from 'reactstrap';
 import renderHTML from 'react-render-html';
 import ReactLoading from 'react-loading';
+import moment from 'moment';
+
 import Api from '../../../api';
 
 class ArticleComment extends Component {
@@ -70,8 +72,10 @@ class ArticleComment extends Component {
                 className="avatarUser"
               />
               <div className="comment-info">
-                <h5>اسم المستخدم</h5>
-                <p>28/3/2020</p>
+                <h5>{comment.full_name || comment.ownername}</h5>
+                <p>
+                  {moment(comment.createdcomment * 1000).format('YYYY/MM/DD')}
+                </p>
               </div>
             </div>
             <div>
