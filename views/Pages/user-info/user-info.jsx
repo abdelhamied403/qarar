@@ -133,7 +133,7 @@ class UserInfo extends Component {
                       <div className="userinfo flex flex-align-center">
                         <Media
                           object
-                          src="/static/img/avatar.png"
+                          src={profile.picture || '/static/img/avatar.png'}
                           className="image-avatar"
                         />
                         <div className="felx flex-col">
