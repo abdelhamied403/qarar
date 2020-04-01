@@ -130,8 +130,6 @@ class AboutUpdate extends Component {
     const { uid, accessToken } = this.props;
     const { user, file } = this.state;
     if (file) {
-      // const formData = new FormData();
-      // formData.append('file', file);
       const uploadResponse = await Api.post(
         '/file/upload/user/user/user_picture?_format=json',
         file,
