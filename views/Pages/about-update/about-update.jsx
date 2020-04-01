@@ -12,12 +12,14 @@ import {
   Label,
   FormText,
   Alert,
-  CustomInput
+  CustomInput,
+  Progress
 } from 'reactstrap';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import Api from '../../../api';
 import ClientSidebar from '../../../layout/ClientSidebar';
+
 class AboutUpdate extends Component {
   constructor() {
     super();
@@ -28,7 +30,9 @@ class AboutUpdate extends Component {
       eLevels: {},
       labors: {},
       maritals: {},
-      pass: [{ existing: '', value: '' }]
+      pass: [{ existing: '', value: '' }],
+      picture: '',
+      uploadProgress: 0
     };
   }
 
@@ -54,12 +58,16 @@ class AboutUpdate extends Component {
         field_job: [{ value: data.job }],
         field_labor_sector: [{ value: data.labor_sector }],
         field_neighborhood: [{ value: data.neighborhood }],
-        field_country: [{ target_id: data.country ? data.country.id : '' }],
-        field_city: [{ target_id: data.city ? data.city.id : '' }],
         field_educational_level: [{ value: data.educational_level }],
         field_social_status: [{ value: data.social_status }]
       };
-      this.setState({ user, userDefault: user });
+      if (data.country) {
+        user.field_country = [{ target_id: parseInt(data.country.id, 10) }];
+      }
+      if (data.city) {
+        user.field_city = [{ target_id: parseInt(data.city.id, 10) }];
+      }
+      this.setState({ user, userDefault: user, picture: data.picture });
     }
   };
 
@@ -120,14 +128,42 @@ class AboutUpdate extends Component {
   saveUser = async () => {
     this.setState({ successSave: false, errorSave: false });
     const { uid, accessToken } = this.props;
-    const { user } = this.state;
+    const { user, file } = this.state;
+    if (file) {
+      // const formData = new FormData();
+      // formData.append('file', file);
+      const uploadResponse = await Api.post(
+        '/file/upload/user/user/user_picture?_format=json',
+        file,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': `filename="${file.name}"`
+          },
+          onUploadProgress: progress =>
+            this.setState({
+              uploadProgress: parseInt(
+                (progress.loaded / progress.total) * 100,
+                10
+              )
+            })
+        }
+      );
+      if (uploadResponse.ok) {
+        user.user_picture = [{ target_id: uploadResponse.data.fid[0].value }];
+      }
+    }
     const response = await Api.patch(`/user/${uid}?_format=json`, user, {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (response.ok) {
-      this.setState({ successSave: true });
+      this.setState({ successSave: true, uploadProgress: 0, file: null });
+      if (file) {
+        this.getUser();
+      }
     } else {
-      this.setState({ errorSave: true });
+      this.setState({ errorSave: true, uploadProgress: 0 });
     }
   };
 
@@ -166,12 +202,14 @@ class AboutUpdate extends Component {
       errorSave,
       successSavePassword,
       errorSavePassword,
-      pass
+      pass,
+      picture,
+      uploadProgress
     } = this.state;
     return (
       <>
         <ClientSidebar />
-        <div className="aboutheader"></div>
+        <div className="aboutheader" />
         <div className="about-update shared">
           <Container>
             <Breadcrumb className="px-0" listClassName="px-0">
@@ -204,11 +242,19 @@ class AboutUpdate extends Component {
             {errorSave && (
               <Alert color="danger">حدث خطأ ما أثناء حفظ البيانات</Alert>
             )}
+            {uploadProgress ? (
+              <div className="my-3">
+                <div className="text-center">uploadProgress%</div>
+                <Progress value={uploadProgress} />
+              </div>
+            ) : (
+              ''
+            )}
             <div className="userinfo flex flex-align-center m-50-b">
               <div className="uploadImg" onClick={() => this.fileInput.click()}>
                 <Media
                   object
-                  src="/static/img/avatar.png"
+                  src={picture || '/static/img/avatar.png'}
                   className="image-avatar"
                 />
                 <img
@@ -223,7 +269,9 @@ class AboutUpdate extends Component {
                 type="file"
                 name="file"
                 ref={fileInput => (this.fileInput = fileInput)}
-                onChange={this.fileSelect}
+                onChange={event =>
+                  this.setState({ file: event.target.files[0] })
+                }
                 className=""
               />
 
@@ -281,7 +329,9 @@ class AboutUpdate extends Component {
                       this.setState({
                         user: {
                           ...user,
-                          field_country: [{ target_id: e.target.value }]
+                          field_country: [
+                            { target_id: parseInt(e.target.value, 10) }
+                          ]
                         }
                       })
                     }
@@ -290,7 +340,7 @@ class AboutUpdate extends Component {
                     }
                   >
                     {countries.map(country => (
-                      <option key={country.id} value={country.id}>
+                      <option key={country.id} value={parseInt(country.id, 10)}>
                         {country.name}
                       </option>
                     ))}
@@ -310,16 +360,18 @@ class AboutUpdate extends Component {
                       this.setState({
                         user: {
                           ...user,
-                          field_city: [{ target_id: e.target.value }]
+                          field_city: [
+                            { target_id: parseInt(e.target.value, 10) }
+                          ]
                         }
                       })
                     }
                     value={user.field_city && user.field_city[0].target_id}
                   >
-                    <i class="fa fa-chevron-down"></i>
+                    <i className="fa fa-chevron-down" />
 
                     {cities.map(city => (
-                      <option key={city.id} value={city.id}>
+                      <option key={city.id} value={parseInt(city.id, 10)}>
                         {city.name}
                       </option>
                     ))}
