@@ -92,7 +92,7 @@ body {
   color: #006c68;
   text-align: left;
   background-color: white;
-  white-space: pre-wrap;
+  white-space: pre-line;
 }
 
 [tabindex='-1']:focus {

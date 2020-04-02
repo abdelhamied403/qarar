@@ -84,7 +84,9 @@ class ArticleComment extends Component {
               </div>
             </div>
             <div>
-              <p>{renderHTML(comment.comment_body || '')}</p>
+              <p className="text-justify">
+                {renderHTML(comment.comment_body || '')}
+              </p>
             </div>
             <div className="d-flex flex-row draftLikeDislike likeDiv">
               <span>{comment.likes}</span>

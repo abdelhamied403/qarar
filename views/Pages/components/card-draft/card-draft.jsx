@@ -190,7 +190,7 @@ class CardDraft extends Component {
                   ''
                 )}
               </div>
-              <div className="moaad">
+              <div className="moaad text-justify">
                 <div>
                   {renderHTML(content || '')}
                   {link ? (

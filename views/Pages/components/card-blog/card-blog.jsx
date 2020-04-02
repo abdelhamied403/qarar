@@ -42,7 +42,7 @@ const CardBlog = ({
           <span>{date}</span>
         </div>
       </div>
-      <div className="content">
+      <div className="content text-justify">
         {content}...
         <Link href={`/news-details/${blogId}`}>
           <Button className="text-decoration-none" color="link">

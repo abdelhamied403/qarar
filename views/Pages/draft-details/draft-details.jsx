@@ -553,7 +553,7 @@ class DraftDetailsInfo extends Component {
               <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt">
+                  <Col md="9" className="draftBodyRt text-justify">
                     <p>{draft.body}</p>
                     <div className="dateDraft d-flex align-items-center">
                       <img
@@ -637,7 +637,10 @@ class DraftDetailsInfo extends Component {
             </div>
             {items &&
               items.map(item => (
-                <Card key={item.nid} className="cardDraft collapseDraftCard">
+                <Card
+                  key={item.nid}
+                  className="cardDraft text-justify collapseDraftCard"
+                >
                   <CardHeader
                     className="d-flex justify-content-between"
                     onClick={() =>

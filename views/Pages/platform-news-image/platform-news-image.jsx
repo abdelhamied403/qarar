@@ -164,7 +164,9 @@ class DecisionDraft extends Component {
                     {newsItem.date}
                   </span>
                 </div>
-                <p className="bg-font">{renderHTML(newsItem.body || '')}</p>
+                <p className="bg-font text-justify">
+                  {renderHTML(newsItem.body || '')}
+                </p>
                 <div>
                   {newsItem.tags &&
                     newsItem.tags.map(tag => (
