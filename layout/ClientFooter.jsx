@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
-import { Container, Button, Col, Row } from 'reactstrap';
-import Iframe from 'react-iframe';
+import { Container, Col, Row } from 'reactstrap';
+import { create } from 'apisauce';
+
+// define the api
 
 import './client.css';
 
-import api from '../api';
+const api = create({
+  baseURL: 'https://momragov.sharedt.com/ar/'
+});
 
 const propTypes = {
   isAuthentcated: PropTypes.bool
@@ -52,39 +55,16 @@ const ClientFooter = ({ isAuthentcated }) => {
             {Object.keys(links).map(key => {
               const link = links[key];
               return (
-                <Col md="2" sm="6" className="d-flex flex-column">
+                <Col md sm="6" className="d-flex flex-column">
                   <a href={link.url}>
                     <h5>{link.name}</h5>
                   </a>
-                  {link.child.map(child => (
-                    <a href={child.url}>{child.name}</a>
+                  {Object.keys(link.child).map(keyC => (
+                    <a href={link.child[keyC].url}>{link.child[keyC].name}</a>
                   ))}
                 </Col>
               );
             })}
-            <Col md="2" sm="6" className="d-flex flex-column">
-              <h5>تواصل معنا</h5>
-              <p>:الهاتف +966114569999</p>
-              <p>:البريد الإلكتروني p.r@momra.gov.sa</p>
-            </Col>
-            <Col md="2" sm="6" className="d-flex flex-column">
-              <h5>طريق الملك عبدالله - الرياض</h5>
-              <p>
-                الذهاب للموقع
-                <i className="fa fa-long-arrow-left" aria-hidden="true" />
-              </p>
-            </Col>
-            <Col md="2" sm="6" className="d-flex flex-column newMap">
-              <Iframe
-                url="https://www.google.com/maps/embed?pb=!1m17!1m8!1m3!1d7247.823198314918!2d46.665416!3d24.729915!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m3!3m2!1d24.729915!2d46.665416!4m0!5e0!3m2!1sen!2seg!4v1578950123098!5m2!1sen!2seg"
-                width="100%"
-                height="200px"
-                id="myId"
-                className="myClassname"
-                display="initial"
-                position="relative"
-              />
-            </Col>
           </Row>
           <div className="bottomFooter d-flex justify-content-between align-items-center">
             <p>
