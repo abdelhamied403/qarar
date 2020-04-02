@@ -156,12 +156,12 @@ class ClientHeader extends React.Component {
               <img src="/static/img/qrarNew.svg" alt="" />
             </a>
           </Link>
-          <Link href="/">
+          <Link href="http://afkar-staging.sharedt.com">
             <a className="afkarLink">
               <img src="/static/img/afkarNew.svg" alt="" />
             </a>
           </Link>
-          <Link href="/">
+          <Link href="http://momra-forms.sharedt.com">
             <a className="astbyanLink">
               <img src="/static/img/ethtbyanNew.svg" alt="" />
             </a>
