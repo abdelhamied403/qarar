@@ -156,16 +156,14 @@ class ClientHeader extends React.Component {
               <img src="/static/img/qrarNew.svg" alt="" />
             </a>
           </Link>
-          <Link href="http://afkar-staging.sharedt.com">
-            <a className="afkarLink">
-              <img src="/static/img/afkarNew.svg" alt="" />
-            </a>
-          </Link>
-          <Link href="http://momra-forms.sharedt.com">
-            <a className="astbyanLink">
-              <img src="/static/img/ethtbyanNew.svg" alt="" />
-            </a>
-          </Link>
+
+          <a href="http://afkar-staging.sharedt.com" className="afkarLink">
+            <img src="/static/img/afkarNew.svg" alt="" />
+          </a>
+
+          <a href="http://momra-forms.sharedt.com" className="astbyanLink">
+            <img src="/static/img/ethtbyanNew.svg" alt="" />
+          </a>
         </div>
         <Navbar expand="md" className="d-flex flex-row justify-content-between">
           <Link href="/">
