@@ -204,9 +204,9 @@ const Landing = () => {
             style={activeBtn === 0 ? { display: 'flex' } : { display: 'none' }}
           >
             {activeDrafts
-              .filter((item, index) => index < 7)
+              .filter((item, index) => index < 6)
               .map(item => (
-                <Col key={item.key} xs="12" md="6" lg="3">
+                <Col className="mb-3" key={item.key} xs="12" md="6" lg="4">
                   <Link href={`/draft-details/${item.id}`}>
                     <a>
                       <div className="oneActivity">
@@ -228,9 +228,9 @@ const Landing = () => {
             style={activeBtn === 1 ? { display: 'flex' } : { display: 'none' }}
           >
             {drafts
-              .filter((item, index) => index < 7)
+              .filter((item, index) => index < 6)
               .map(item => (
-                <Col key={item.key} xs="12" md="6" lg="3">
+                <Col className="mb-3" key={item.key} xs="12" md="6" lg="4">
                   <Link href={`/draft-details/${item.id}`}>
                     <a>
                       <div className="oneActivity">
@@ -252,9 +252,9 @@ const Landing = () => {
             style={activeBtn === 2 ? { display: 'flex' } : { display: 'none' }}
           >
             {soonCloseDrafts
-              .filter((item, index) => index < 7)
+              .filter((item, index) => index < 6)
               .map(item => (
-                <Col key={item.key} xs="12" md="6" lg="3">
+                <Col key={item.key} className="mb-3" xs="12" md="6" lg="4">
                   <Link href={`/draft-details/${item.id}`}>
                     <a>
                       <div className="oneActivity">
