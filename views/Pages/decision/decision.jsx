@@ -182,7 +182,7 @@ class Decision extends Component {
                             subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                             date=" "
                             borderColor="#9D9D9D"
-                            link={`/decision-details/${item.id}`}
+                            link={`/draft-details/${item.id}`}
                           />
                         </Col>
                       ))}
@@ -225,7 +225,7 @@ class Decision extends Component {
                             subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                             date=" "
                             borderColor="#9D9D9D"
-                            link={`/decision-details/${item.id}`}
+                            link={`/draft-details/${item.id}`}
                           />
                         </Col>
                       ))}
