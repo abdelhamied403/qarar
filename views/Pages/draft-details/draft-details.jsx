@@ -9,10 +9,8 @@ import {
   Card,
   CardBody,
   CardHeader,
-  InputGroup,
   DropdownItem,
-  InputGroupAddon,
-  Input,
+  UncontrolledTooltip,
   Alert
 } from 'reactstrap';
 import Link from 'next/link';
@@ -35,14 +33,8 @@ import {
   LinkedinShareButton,
   TwitterShareButton
 } from 'react-share';
+import ReactLoading from 'react-loading';
 import Skeleton from '../components/skeleton/skeleton';
-import CardDraft from '../components/card-draft/card-draft';
-import CardDraftItems from '../components/card-draft-items/card-draft-items';
-import Breadcrumb from '../components/breadcrumb/breadcrumb';
-import CardInfo from '../components/card-info/card-info';
-import TextBox from '../components/text-box/text-box';
-import CardComments from '../components/card-comments/card-comments';
-import InsideComment from '../components/InsideComment';
 import ArticleComment from '../components/ArticleComment';
 import Api from '../../../api';
 
@@ -83,9 +75,9 @@ class DraftDetailsInfo extends Component {
 
   componentDidMount() {
     this.getDraft();
-    this.getComments();
+    // this.getComments();
     this.isFollowed();
-    this.getIsFlagged();
+    // this.getIsFlagged();
     Events.scrollEvent.register('begin', function() {});
 
     Events.scrollEvent.register('end', function() {});
@@ -94,16 +86,28 @@ class DraftDetailsInfo extends Component {
   getIsFlagged = async () => {
     const { id, uid, accessToken } = this.props;
     const { voting } = this.state;
-    const response = await Api.post(`/qarar_api/isflagged?_format=json`, {
-      type: 'like',
-      uid,
-      id
-    });
-    const response2 = await Api.post(`/qarar_api/isflagged?_format=json`, {
-      type: 'dislike',
-      uid,
-      id
-    });
+    const response = await Api.post(
+      `/qarar_api/isflagged?_format=json`,
+      {
+        type: 'like',
+        uid,
+        id
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
+    const response2 = await Api.post(
+      `/qarar_api/isflagged?_format=json`,
+      {
+        type: 'dislike',
+        uid,
+        id
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
     if (response.ok && response2.ok) {
       this.setState({
         voting: {
@@ -180,15 +184,21 @@ class DraftDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       const { items, data } = itemResponse.data;
-      this.setState({ draft: data, items, loadingDraft: false }, () => {
-        if (!breadcrumbs.length) {
-          this.getParent(data.parent_id);
+      const openArticle =
+        new Date(data.end_date).getTime() > new Date().getTime();
+      this.setState(
+        { draft: data, items, loadingDraft: false, openArticle },
+        () => {
+          if (!breadcrumbs.length) {
+            this.getParent(data.parent_id);
+          }
         }
-      });
+      );
     }
   };
 
   getParent = async id => {
+    if (!id) return;
     const { accessToken } = this.props;
     const { breadcrumbs } = this.state;
     const itemResponse = await Api.get(
@@ -325,11 +335,12 @@ class DraftDetailsInfo extends Component {
   };
 
   vote = async (type, id) => {
-    const { uid, accessToken } = this.props;
-    const { voting } = this.state;
+    const { uid, accessToken, openArticle } = this.props;
+    if (!uid || !openArticle) return;
+    this.setState({ [type]: true, id });
     const item = {
       type,
-      action: voting[type === 'like' ? 'up' : 'down'] ? 'unflag' : 'flag',
+      action: 'flag',
       id,
       uid
     };
@@ -346,12 +357,17 @@ class DraftDetailsInfo extends Component {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (response.ok) {
-      this.getIsFlagged();
+      this.setState({ [type]: false, id: false });
+      this.getDraft();
+    } else {
+      this.setState({ [type]: false, id: false });
     }
   };
 
   likeComment = async (id, callback) => {
+    const { openArticle } = this.state;
     const { uid, accessToken } = this.props;
+    if (!uid || !openArticle) return;
     const item2 = {
       type: 'dislike_comment',
       action: 'unflag',
@@ -379,7 +395,9 @@ class DraftDetailsInfo extends Component {
   };
 
   dislikeComment = async (id, callback) => {
+    const { openArticle } = this.state;
     const { uid, accessToken } = this.props;
+    if (!uid || !openArticle) return;
     const item2 = {
       type: 'like_comment',
       action: 'unflag',
@@ -411,12 +429,12 @@ class DraftDetailsInfo extends Component {
       draft,
       items,
       editorState,
-      comments,
       flagged,
       successComment,
       errorComment,
       loadingDraft,
-      breadcrumbs
+      breadcrumbs,
+      openArticle
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -569,8 +587,7 @@ class DraftDetailsInfo extends Component {
                     <div className="d-flex flex-column justify-items-start draftCardLt">
                       <div className="d-flex justify-content-end">
                         <img src="/static/img/interactive/lock.svg" alt="" />
-                        {new Date(draft.end_date).getTime() >
-                        new Date().getTime() ? (
+                        {openArticle ? (
                           <span> التعليق مفتوح</span>
                         ) : (
                           <span> التعليق مغلق</span>
@@ -690,23 +707,84 @@ class DraftDetailsInfo extends Component {
                       </Col>
                       <Col md="5">
                         <div className="d-flex justify-content-end draftLikeDislike">
+                          <span>{item.likes}</span>
+                          {this.state.like && this.state.id === item.nid && (
+                            <ReactLoading
+                              className="mx-1"
+                              type="spin"
+                              color="#046F6D"
+                              height={20}
+                              width={20}
+                            />
+                          )}
                           <img
                             onClick={() => this.vote('like', item.nid)}
-                            src="/static/img/interactive/dislikeGreen.svg"
+                            src={
+                              item.flag === 'like'
+                                ? '/static/img/interactive/blueLikeActive.svg'
+                                : '/static/img/interactive/dislikeGreen.svg'
+                            }
                             alt=""
+                            id={`tooltip-l-${item.nid}`}
                           />
+
+                          {!openArticle && (
+                            <UncontrolledTooltip
+                              placement="top"
+                              target={`tooltip-l-${item.nid}`}
+                            >
+                              تم إيقاف التصويت
+                            </UncontrolledTooltip>
+                          )}
+                          {openArticle && !uid && (
+                            <UncontrolledTooltip
+                              placement="top"
+                              target={`tooltip-l-${item.nid}`}
+                            >
+                              يجب عليك تسجيل الدخول
+                            </UncontrolledTooltip>
+                          )}
+                          <span className="ml-3">{item.dislikes}</span>
+                          {this.state.dislike && this.state.id === item.nid && (
+                            <ReactLoading
+                              className="mx-1"
+                              type="spin"
+                              color="#046F6D"
+                              height={20}
+                              width={20}
+                            />
+                          )}
                           <img
                             onClick={() => this.vote('dislike', item.nid)}
-                            src="/static/img/interactive/likeGreen.svg"
+                            src={
+                              item.flag === 'dislike'
+                                ? '/static/img/interactive/blueDislikeActive.svg'
+                                : '/static/img/interactive/likeGreen.svg'
+                            }
                             alt=""
+                            id={`tooltip-d-${item.nid}`}
                           />
+                          {!openArticle && (
+                            <UncontrolledTooltip
+                              placement="top"
+                              target={`tooltip-d-${item.nid}`}
+                            >
+                              تم إيقاف التصويت
+                            </UncontrolledTooltip>
+                          )}
+                          {openArticle && !uid && (
+                            <UncontrolledTooltip
+                              placement="top"
+                              target={`tooltip-d-${item.nid}`}
+                            >
+                              يجب عليك تسجيل الدخول
+                            </UncontrolledTooltip>
+                          )}
                         </div>
 
                         <ArticleComment
-                          enableCommentForm={
-                            new Date(draft.end_date).getTime() >
-                            new Date().getTime()
-                          }
+                          enableCommentForm={openArticle}
+                          enableVote={openArticle}
                           likeComment={this.likeComment}
                           dislikeComment={this.dislikeComment}
                           itemId={item.nid}
@@ -742,8 +820,7 @@ class DraftDetailsInfo extends Component {
                     {errorComment && (
                       <Alert color="danger">{errorComment}</Alert>
                     )}
-                    {new Date(draft.end_date).getTime() >
-                    new Date().getTime() ? (
+                    {openArticle ? (
                       <Editor
                         placeholder="اضف تعليقك هنا"
                         toolbar={{
@@ -769,8 +846,7 @@ class DraftDetailsInfo extends Component {
                       <Alert color="success">تم إيقاف التعليقات</Alert>
                     )}
                   </div>
-                  {new Date(draft.end_date).getTime() >
-                    new Date().getTime() && (
+                  {openArticle && (
                     <div className="commentsBtn d-flex justify-content-end align-items-center">
                       <a href="">شروط المشاركة</a>
                       <Button onClick={this.saveComment}>
@@ -789,6 +865,7 @@ class DraftDetailsInfo extends Component {
             <div className="collapseDraftCard draftNewComments">
               <ArticleComment
                 enableCommentForm={false}
+                enableVote={openArticle}
                 likeComment={this.likeComment}
                 dislikeComment={this.dislikeComment}
                 itemId={draft.id}

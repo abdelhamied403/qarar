@@ -18,21 +18,6 @@ const propTypes = {
 const defaultProps = {};
 
 const ClientFooter = ({ isAuthentcated }) => {
-  const [links, setLinks] = useState({});
-  const getLinks = async () => {
-    // api.setBaseURL('https://www.momra.gov.sa/');
-    const response = await api.get('/momragov_api/menu/footer?_format=json');
-    // console.log(response);
-
-    if (response.ok) {
-      if (response.data && response.data.contents) {
-        setLinks(response.data.contents);
-      }
-    }
-  };
-  useEffect(() => {
-    getLinks();
-  }, []);
   return (
     <div className={isAuthentcated ? ' user-loggedin' : 'newFooter'}>
       {/* <div className="upperFooter">

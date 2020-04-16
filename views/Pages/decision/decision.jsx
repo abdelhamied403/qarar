@@ -9,7 +9,8 @@ import {
   Col,
   Row,
   PaginationItem,
-  PaginationLink
+  PaginationLink,
+  Alert
 } from 'reactstrap';
 import Pagination from 'rc-pagination';
 import CardDraft from '../components/card-draft/card-draft';
@@ -58,7 +59,7 @@ class Decision extends Component {
   };
 
   getArchivedItems = async () => {
-    const { page, archivedPageSize } = this.state;
+    const { archivedPage, archivedPageSize } = this.state;
     const archivedCountResponse = await Api.get(
       `/qarar_api/count/archived_qarar?_format=json`
     );
@@ -66,7 +67,7 @@ class Decision extends Component {
       this.setState({ archivedCount: archivedCountResponse.data });
     }
     const archivedResponse = await Api.get(
-      `/qarar_api/qarar/archived/created/DESC/${archivedPageSize}/${page}?_format=json`
+      `/qarar_api/qarar/archived/created/DESC/${archivedPageSize}/${archivedPage}?_format=json`
     );
     if (archivedResponse.ok) {
       this.setState({ archivedItems: archivedResponse.data });
@@ -91,8 +92,8 @@ class Decision extends Component {
   }
 
   paginagtionItemRender = (current, type, element) => {
-    const { page } = this.state;
-
+    const { page: appliedPage, archivedPage } = this.state;
+    const page = this.state.activeTab[0] === '1' ? appliedPage : archivedPage;
     if (type === 'page') {
       return (
         <PaginationItem active={current === page}>
@@ -133,6 +134,8 @@ class Decision extends Component {
     if (loading) {
       return <Skeleton />;
     }
+    console.log(appliedItems, archivedItems);
+
     return (
       <>
         <div className="draftHeader">
@@ -150,7 +153,7 @@ class Decision extends Component {
                     this.toggle(0, '1');
                   }}
                 >
-                  قرارات يتم العمل عليها الان
+                  قرارات مطبقة
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -169,23 +172,31 @@ class Decision extends Component {
                 <>
                   <section>
                     <Row>
-                      {appliedItems.map(item => (
-                        <Col key={item.id} xs="12" md="6">
-                          <CardDraft
-                            header={item.title}
-                            subHeader={`تم التطبيق بتاريخ ${item.applied_date}`}
-                            content={item.body}
-                            tags={item.tags.map(tag => ({
-                              tag: tag.name.substr(0, 20),
-                              id: tag.id
-                            }))}
-                            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                            date=" "
-                            borderColor="#9D9D9D"
-                            link={`/draft-details/${item.id}`}
-                          />
+                      {appliedItems.length ? (
+                        appliedItems.map(item => (
+                          <Col key={item.id} xs="12" md="6">
+                            <CardDraft
+                              header={item.title}
+                              subHeader={`تم التطبيق بتاريخ ${item.applied_date}`}
+                              content={`${item.body.substr(0, 200)} ...`}
+                              tags={item.tags.map(tag => ({
+                                tag: tag.name.substr(0, 20),
+                                id: tag.id
+                              }))}
+                              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                              date=" "
+                              borderColor="#9D9D9D"
+                              link={`/draft-details/${item.id}`}
+                            />
+                          </Col>
+                        ))
+                      ) : (
+                        <Col>
+                          <Alert type="sucess">
+                            لاتوجد قرارات مطبقة حتى الآن
+                          </Alert>
                         </Col>
-                      ))}
+                      )}
                     </Row>
                   </section>
                   <div className="pagination-container">
@@ -208,27 +219,33 @@ class Decision extends Component {
                 <>
                   <section>
                     <Row>
-                      {archivedItems.map(item => (
-                        <Col key={item.id} xs="12" md="6">
-                          <CardDraft
-                            header={item.title}
-                            subHeader={`تم الأرشفة بتاريخ ${item.archived_date}`}
-                            content={item.body}
-                            tags={
-                              item.tags
-                                ? item.tags.map(tag => ({
-                                    tag: tag.name.substr(0, 20),
-                                    id: tag.id
-                                  }))
-                                : []
-                            }
-                            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                            date=" "
-                            borderColor="#9D9D9D"
-                            link={`/draft-details/${item.id}`}
-                          />
+                      {archivedItems.length ? (
+                        archivedItems.map(item => (
+                          <Col key={item.id} xs="12" md="6">
+                            <CardDraft
+                              header={item.title}
+                              subHeader={`تم الأرشفة بتاريخ ${item.archived_date}`}
+                              content={`${item.body.substr(0, 200)} ...`}
+                              tags={
+                                item.tags
+                                  ? item.tags.map(tag => ({
+                                      tag: tag.name.substr(0, 20),
+                                      id: tag.id
+                                    }))
+                                  : []
+                              }
+                              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                              date=" "
+                              borderColor="#9D9D9D"
+                              link={`/draft-details/${item.id}`}
+                            />
+                          </Col>
+                        ))
+                      ) : (
+                        <Col>
+                          <Alert type="sucess">لا توجد قرارات مؤرشفة</Alert>
                         </Col>
-                      ))}
+                      )}
                     </Row>
                   </section>
                   <div className="pagination-container">

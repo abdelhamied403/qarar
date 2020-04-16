@@ -3,14 +3,13 @@ import {
   Container,
   PaginationItem,
   PaginationLink,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
+  Col,
+  Alert,
   TabPane
 } from 'reactstrap';
 import Pagination from 'rc-pagination';
 import { connect } from 'react-redux';
+import Link from 'next/link';
 import './drafts.css';
 import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
@@ -43,7 +42,7 @@ class Drafts extends Component {
     const { accessToken } = this.props;
     const { page, draftsPageSize } = this.state;
     const draftCountResponse = await Api.get(
-      `/qarar_api/count/draft?_format=json`
+      `/qarar_api/count/voting_qarar?_format=json`
     );
     if (draftCountResponse.ok) {
       this.setState({ draftCount: draftCountResponse.data });
@@ -158,33 +157,44 @@ class Drafts extends Component {
         </div>
         <Container>
           <section>
-            {drafts.map(draft => (
-              <CardDraft
-                key={draft.id}
-                id={draft.id}
-                header={draft.title}
-                refetch={() => this.getDrafts()}
-                subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
-                content={draft.body}
-                votes={
-                  parseInt(draft.likes, 10) + parseInt(draft.dislikes, 10) ||
-                  '0'
-                }
-                date={draft.end_date}
-                link={`/draft-details/${draft.id}`}
-                tags={
-                  draft.tags
-                    ? draft.tags.map(tagItem => ({
-                        tag: tagItem.name,
-                        id: tagItem.id
-                      }))
-                    : []
-                }
-                liked={draft.liked}
-                disliked={draft.disliked}
-                subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-              />
-            ))}
+            {drafts.length ? (
+              drafts.map(draft => (
+                <CardDraft
+                  key={draft.id}
+                  id={draft.id}
+                  header={draft.title}
+                  refetch={() => this.getDrafts()}
+                  subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
+                  content={draft.body}
+                  votes={
+                    parseInt(draft.likes, 10) + parseInt(draft.dislikes, 10) ||
+                    '0'
+                  }
+                  date={draft.end_date}
+                  link={`/draft-details/${draft.id}`}
+                  tags={
+                    draft.tags
+                      ? draft.tags.map(tagItem => ({
+                          tag: tagItem.name,
+                          id: tagItem.id
+                        }))
+                      : []
+                  }
+                  liked={draft.liked}
+                  disliked={draft.disliked}
+                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                />
+              ))
+            ) : (
+              <Col>
+                <Alert type="sucess">
+                  لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى{' '}
+                  <Link href="/decisions">
+                    <a>القرارات المؤرشفة</a>
+                  </Link>
+                </Alert>
+              </Col>
+            )}
           </section>
           <div className="pagination-container">
             <Pagination

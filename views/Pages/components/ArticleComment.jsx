@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { InputGroup, InputGroupAddon, Input, Alert, Button } from 'reactstrap';
+import {
+  InputGroup,
+  InputGroupAddon,
+  Input,
+  Alert,
+  UncontrolledTooltip
+} from 'reactstrap';
 import renderHTML from 'react-render-html';
 import ReactLoading from 'react-loading';
 import moment from 'moment';
@@ -58,7 +64,9 @@ class ArticleComment extends Component {
 
   render() {
     const { comments, successComment } = this.state;
-    const { uid, enableCommentForm } = this.props;
+    const { uid, enableCommentForm, enableVote } = this.props;
+    console.log(comments);
+
     return (
       <>
         {comments.map(comment => (
@@ -101,16 +109,39 @@ class ArticleComment extends Component {
               )}
               <img
                 onClick={() => {
-                  this.setState({ id: comment.cid, like: true });
-                  this.props.likeComment(comment.cid, () => {
-                    this.getComments();
-                    this.setState({ id: null, like: false });
-                  });
+                  if (enableVote) {
+                    this.setState({ id: comment.cid, like: true });
+                    this.props.likeComment(comment.cid, () => {
+                      this.getComments();
+                      this.setState({ id: null, like: false });
+                    });
+                  }
                 }}
-                src="/static/img/interactive/blueLikeActive.svg"
+                src={
+                  comment.flag === 'like'
+                    ? '/static/img/interactive/blueLikeActive.svg'
+                    : '/static/img/interactive/dislikeGreen.svg'
+                }
                 alt=""
                 className="likeImg"
+                id={`tooltip-d-${comment.cid}`}
               />
+              {!enableVote && (
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`tooltip-d-${comment.cid}`}
+                >
+                  تم إيقاف التصويت
+                </UncontrolledTooltip>
+              )}
+              {enableVote && !uid && (
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`tooltip-d-${comment.cid}`}
+                >
+                  يجب عليك تسجيل الدخول
+                </UncontrolledTooltip>
+              )}
               <span>{comment.dislikes}</span>
               {this.state.dislike && this.state.id === comment.cid && (
                 <ReactLoading
@@ -123,16 +154,39 @@ class ArticleComment extends Component {
               )}
               <img
                 onClick={() => {
-                  this.setState({ id: comment.cid, dislike: true });
-                  this.props.dislikeComment(comment.cid, () => {
-                    this.getComments();
-                    this.setState({ id: null, dislike: false });
-                  });
+                  if (enableVote) {
+                    this.setState({ id: comment.cid, dislike: true });
+                    this.props.dislikeComment(comment.cid, () => {
+                      this.getComments();
+                      this.setState({ id: null, dislike: false });
+                    });
+                  }
                 }}
-                src="/static/img/interactive/likeGreen.svg"
+                src={
+                  comment.flag === 'dislike'
+                    ? '/static/img/interactive/blueDislikeActive.svg'
+                    : '/static/img/interactive/likeGreen.svg'
+                }
                 alt=""
                 className="likeImg"
+                id={`tooltip-l-${comment.cid}`}
               />
+              {!enableVote && (
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`tooltip-l-${comment.cid}`}
+                >
+                  تم إيقاف التصويت
+                </UncontrolledTooltip>
+              )}
+              {enableVote && !uid && (
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`tooltip-l-${comment.cid}`}
+                >
+                  يجب عليك تسجيل الدخول
+                </UncontrolledTooltip>
+              )}
             </div>
           </div>
         ))}

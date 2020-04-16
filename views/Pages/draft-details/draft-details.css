@@ -298,6 +298,9 @@
 .likeDiv {
   padding: 0 10px;
 }
+.draftLikeDislike span {
+  color: #006c68;
+}
 .insideComment .avatarUser {
   border-radius: 50%;
   padding: 2px;
