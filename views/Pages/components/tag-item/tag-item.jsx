@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactLoading from 'react-loading';
 
 import './tag-item.css';
 
@@ -23,7 +24,7 @@ class TagItem extends Component {
 
   render() {
     // eslint-disable-next-line
-    const { tag } = this.props;
+    const { tag, btnClick } = this.props;
 
     return (
       <div
@@ -31,7 +32,13 @@ class TagItem extends Component {
         onMouseLeave={() => this.setButtonHovered(false)}
         className="tag-card flex flex-justifiy-center flex-aligen-center"
       >
-        <div
+        <button
+          onClick={() => {
+            this.setState({ loading: true });
+            if (btnClick) {
+              btnClick();
+            }
+          }}
           className={
             this.state.isHovered
               ? 'abs-remove-icon flex-show'
@@ -39,8 +46,17 @@ class TagItem extends Component {
           }
         >
           <i className="fa fa-remove" />
-        </div>
+        </button>
         #{tag}
+        {this.state.loading && (
+          <ReactLoading
+            className="mx-1 text-danger"
+            type="spin"
+            color="#f86c6b"
+            height={20}
+            width={20}
+          />
+        )}
       </div>
     );
   }

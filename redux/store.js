@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import moment from 'moment';
 
 const expireReducer = require('redux-persist-expire');
@@ -57,7 +57,7 @@ const persistedReducer = persistReducer(
 export function initializeStore(initialState) {
   return createStore(
     persistedReducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(logger))
+    initialState
+    // composeWithDevTools(applyMiddleware(logger))
   );
 }

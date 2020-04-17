@@ -139,7 +139,7 @@ class TagDetails extends Component {
 
     return (
       <>
-        <div className="tag-detailsHeader">
+        <div className="draftHeader">
           <Container>
             <div className="flex flex-justifiy-sp">
               <h3>#{tag.name}</h3>

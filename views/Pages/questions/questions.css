@@ -40,3 +40,10 @@
   font-size: 22px;
   color: #000000;
 }
+
+.questions {
+  padding-top: 0;
+}
+.draftHeader .questions-header {
+  padding: 0;
+}

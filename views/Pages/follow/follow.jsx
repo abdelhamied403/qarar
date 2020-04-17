@@ -9,6 +9,7 @@ import {
   Button,
   Media
 } from 'reactstrap';
+import ReactLoading from 'react-loading';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 
@@ -24,7 +25,8 @@ class Follow extends Component {
     this.state = {
       drafts: [],
       tags: [],
-      users: []
+      users: [],
+      loading: true
     };
   }
 
@@ -35,9 +37,13 @@ class Follow extends Component {
   }
 
   getDrafts = async () => {
-    const { uid } = this.props;
+    const { uid, accessToken } = this.props;
     const response = await Api.get(
-      `/qarar_api/flag/entities/${uid}/follow/draft/5/DESC/1?_format=json`
+      `/qarar_api/flag/entities/${uid}/follow/draft/5/DESC/1?_format=json`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
     );
     if (response.ok) {
       this.setState({ drafts: response.data });
@@ -45,9 +51,13 @@ class Follow extends Component {
   };
 
   getUsers = async () => {
-    const { uid } = this.props;
+    const { uid, accessToken } = this.props;
     const response = await Api.get(
-      `/qarar_api/flag/entities/${uid}/follow_user/user/5/DESC/1?_format=json`
+      `/qarar_api/flag/entities/${uid}/follow_user/user/5/DESC/1?_format=json`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
     );
     if (response.ok) {
       this.setState({ users: response.data });
@@ -55,20 +65,66 @@ class Follow extends Component {
   };
 
   getTags = async () => {
-    const { uid } = this.props;
+    const { uid, accessToken } = this.props;
     const response = await Api.get(
-      `/qarar_api/flag/entities/${uid}/follow_tag/tag/5/DESC/1?_format=json`
+      `/qarar_api/flag/entities/${uid}/follow_tag/tag/5/DESC/1?_format=json`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
     );
     if (response.ok) {
       this.setState({ tags: response.data });
     }
   };
-
+  unfollow = async id => {
+    const { uid, accessToken } = this.props;
+    const data = {
+      type: 'follow',
+      action: 'unflag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, data, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getDrafts();
+    }
+  };
+  unfollowUser = async id => {
+    const { uid } = this.props;
+    const response = await Api.post(`/qarar_api/flag?_format=json`, {
+      type: 'follow_user',
+      action: 'unflag',
+      id,
+      uid
+    });
+    if (response.ok) {
+      this.getUsers();
+    }
+  };
+  unfollowTag = async id => {
+    const { uid, accessToken } = this.props;
+    const data = {
+      type: 'follow_tag',
+      action: 'unflag',
+      id,
+      uid
+    };
+    const response = await Api.post(`/qarar_api/flag?_format=json`, data, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (response.ok) {
+      this.getTags();
+    }
+  };
   render() {
     const { users, tags, drafts } = this.state;
     return (
       <>
         <ClientSidebar />
+        <div className="aboutheader"></div>
         <div className="follow">
           <Container>
             <Breadcrumb>
@@ -95,8 +151,9 @@ class Follow extends Component {
                   {drafts.map(item => (
                     <ListItem
                       key={item.id}
-                      header="سياسة السماح باستيراد السيارات الكهربائية"
+                      header={item.title}
                       btnText="ايقاف المتابعة"
+                      btnClick={() => this.unfollow(item.id)}
                       btnColor="danger"
                     />
                   ))}
@@ -123,6 +180,7 @@ class Follow extends Component {
                       key={item.id}
                       avatar={item.picture || '/static/img/avatar.png'}
                       name={item.full_name}
+                      btnClick={() => this.unfollowUser(item.id)}
                       points="1200"
                     />
                   ))}
@@ -145,7 +203,11 @@ class Follow extends Component {
                 </div>
                 <div className="tags-container flex flex-aligen-center">
                   {tags.map(item => (
-                    <TagItem key={item.id} tag={item.name} />
+                    <TagItem
+                      key={item.id}
+                      tag={item.name}
+                      btnClick={() => this.unfollowTag(item.id)}
+                    />
                   ))}
                 </div>
               </CardBody>
@@ -157,5 +219,8 @@ class Follow extends Component {
   }
 }
 
-const mapStateToProps = ({ uid }) => ({ uid });
+const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
+  uid,
+  accessToken
+});
 export default connect(mapStateToProps)(Follow);

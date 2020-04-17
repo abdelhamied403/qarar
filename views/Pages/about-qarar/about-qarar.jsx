@@ -8,12 +8,14 @@ class AboutQarar extends Component {
     return (
       <>
         <div className="about-qarar">
-          <Container>
-            <div className="about-qarar-header text-center">
-              <h3>عن قرار</h3>
-              <p className="sub-header">ما هي المنصة و لماذا تم بناؤها </p>
-            </div>
-          </Container>
+          <div className="draftHeader">
+            <Container>
+              <div>
+                <h3>عن قرار</h3>
+                <p className="sub-header">ما هي المنصة و لماذا تم بناؤها </p>
+              </div>
+            </Container>
+          </div>
 
           <section className="about-qarar-sec">
             <Container>

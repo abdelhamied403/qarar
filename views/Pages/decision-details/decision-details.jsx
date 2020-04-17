@@ -56,7 +56,7 @@ class DecisionDetails extends Component {
           link="/decisions"
         />
         <Container>
-          <div className="dc-details-header">
+          <div className="dc-details-header ">
             <Row>
               <Col sm="12" md="8" lg="9">
                 <div className="header-content">

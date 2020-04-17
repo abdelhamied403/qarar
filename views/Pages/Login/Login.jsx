@@ -3,10 +3,17 @@ import { Button, Col, Input, Media, FormGroup, Label, Alert } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import Router from 'next/router';
+import * as yup from 'yup';
 
 import '../Register/Register.css';
 import Api from '../../../api';
 
+const messages = {
+  'Sorry, unrecognized username or password.':
+    'خطأ في اسم المستخدم او كلمة المرور',
+  'The user has not been activated or is blocked.':
+    'لم يتم تفعيل حساب هذا المستخدم أو تم حظره'
+};
 const Login = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
@@ -19,6 +26,23 @@ const Login = () => {
   }, [token]);
   const login = async () => {
     setError('');
+    const schema = yup.object().shape({
+      name: yup
+        .string()
+        .min(5, 'إسم المستخدم ينبغي أن لا يقل عن ٥ أحرف')
+        .required('حقل إسم المستخدم مطلوب'),
+
+      pass: yup
+        .string()
+        .min(6, 'كلمة المرور  ينبغي أن لا يقل عن ٦ أحرف')
+        .required('حقل كلمة المرور مطلوب')
+    });
+
+    schema.validate(user).catch(err => {
+      setError(err.message);
+    });
+
+    if (!schema.isValidSync(user)) return;
     const response = await Api.post('/user/login?_format=json', user);
     if (response.ok) {
       let profileImage = '';
@@ -39,79 +63,97 @@ const Login = () => {
       });
       Router.push('/me/about');
     } else {
-      setError(response.data.message);
+      const resMessage =
+        response.data && response.data.message ? response.data.message : '';
+      if (resMessage && messages.hasOwnProperty(resMessage)) {
+        setError(messages[resMessage]);
+      } else {
+        setError('حدث خطأ ما أثناء تسجيل الدخول');
+      }
+    }
+  };
+  const handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      login();
     }
   };
   return (
-    <div className="register-container flex flex-justifiy-center flex-align-stretch">
-      <div className="register-content">
-        <div className="custom-container">
-          <div className="register-header m-tb-50">
-            <Link href="/register">
-              <a>انا مستخدم جديد</a>
-            </Link>
-            <h3>تسجيل الدخول</h3>
+    <>
+      <div className="navHeader" />
+
+      <div className="register-container flex flex-justifiy-center flex-align-stretch">
+        <div className="register-content">
+          <div className="custom-container">
+            <div className="register-header m-tb-20">
+              <Link href="/register">
+                <button className="btn btn-outline-primary btn-md">
+                  مستخدم جديد
+                </button>
+              </Link>
+              <h3>تسجيل الدخول</h3>
+            </div>
             <p className="sub-header">
               سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
               والمشاريع التي تتابعها.{' '}
             </p>
-          </div>
-          <Alert isOpen={error} color="danger">
-            {error}
-          </Alert>
-          <div>
-            <div className="form-horizontal">
-              <FormGroup row>
-                <Col md="4">
-                  <Label htmlFor="hf-username"> اسم المستخدم</Label>
-                </Col>
-                <Col xs="12" md="8">
-                  <Input
-                    type="username"
-                    id="hf-username"
-                    name="hf-username"
-                    value={user.name}
-                    onChange={e => setUser({ ...user, name: e.target.value })}
-                    placeholder="إسم المستخدم"
-                  />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="4">
-                  <Label htmlFor="hf-password">كلمة المرور</Label>
-                </Col>
-                <Col xs="12" md="8">
-                  <Input
-                    type="password"
-                    id="hf-password"
-                    name="hf-password"
-                    placeholder="ادخل كلمة المرور هنا"
-                    autoComplete="current-password"
-                    value={user.pass}
-                    onChange={e => setUser({ ...user, pass: e.target.value })}
-                  />
-                </Col>
-              </FormGroup>
-              <div className="button-group flex flex-justifiy-sp">
-                <Link href="/forgot-password">
-                  <a>نسيت كلمت المرور</a>
-                </Link>
-                <Button color="primary" onClick={() => login()}>
-                  دخول
-                </Button>
+
+            <Alert isOpen={error} color="danger">
+              {error}
+            </Alert>
+            <div>
+              <div className="form-horizontal">
+                <FormGroup row>
+                  <Col md="4">
+                    <Label htmlFor="hf-username"> اسم المستخدم</Label>
+                  </Col>
+                  <Col xs="12" md="8">
+                    <Input
+                      type="username"
+                      id="hf-username"
+                      name="hf-username"
+                      value={user.name}
+                      onChange={e => setUser({ ...user, name: e.target.value })}
+                      onKeyPress={handleKeyPress}
+                      placeholder="إسم المستخدم"
+                    />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="4">
+                    <Label htmlFor="hf-password">كلمة المرور</Label>
+                  </Col>
+                  <Col xs="12" md="8">
+                    <Input
+                      type="password"
+                      id="hf-password"
+                      name="hf-password"
+                      placeholder="ادخل كلمة المرور هنا"
+                      autoComplete="current-password"
+                      value={user.pass}
+                      onChange={e => setUser({ ...user, pass: e.target.value })}
+                      onKeyPress={handleKeyPress}
+                    />
+                  </Col>
+                </FormGroup>
+                <div className="button-group flex flex-justifiy-sp">
+                  <Link href="/forgot-password">
+                    <a>نسيت كلمت المرور</a>
+                  </Link>
+                  <Button color="primary" onClick={() => login()}>
+                    دخول
+                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div className="qarar-image">
+          <img src="/static/img/brand/momra-logo.svg" alt="" />
+          <img src="/static/img/brand/qarar-logo.svg" alt="" />
+        </div>
       </div>
-      <div className="qarar-image">
-        <Media
-          object
-          src="/static/img/login-bg-big.png"
-          className="image-avatar"
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

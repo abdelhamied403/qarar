@@ -26,7 +26,11 @@ const CardBlog = ({
     </CardHeader>
     <CardBody>
       <div className="header">
-        <h5>{header}</h5>
+        <Link href={`/news-details/${blogId}`}>
+          <a>
+            <h5>{header}</h5>
+          </a>
+        </Link>
         <div className="sub-header">
           {subHeaderIcon ? (
             <Media object src={subHeaderIcon} className="icon-small" />
@@ -38,7 +42,7 @@ const CardBlog = ({
           <span>{date}</span>
         </div>
       </div>
-      <div className="content">
+      <div className="content text-justify">
         {content}...
         <Link href={`/news-details/${blogId}`}>
           <Button className="text-decoration-none" color="link">

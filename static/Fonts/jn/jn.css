@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'jn';
+  src: url('fonts/jannaltregular.eot');
+  src: url('fonts/jannaltregular.eot') format('embedded-opentype'),
+    url('fonts/jannaltregular.woff2') format('woff2'),
+    url('fonts/jannaltregular.woff') format('woff'),
+    url('fonts/jannaltregular.ttf') format('truetype'),
+    url('fonts/jannaltregular.svg#jannaltregular') format('svg');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'jn';
+  src: url('fonts/jannaltbold.eot');
+  src: url('fonts/jannaltbold.eot') format('embedded-opentype'),
+    url('fonts/jannaltbold.woff2') format('woff2'),
+    url('fonts/jannaltbold.woff') format('woff'),
+    url('fonts/jannaltbold.ttf') format('truetype'),
+    url('fonts/jannaltbold.svg#jannaltbold') format('svg');
+  font-weight: 700;
+}

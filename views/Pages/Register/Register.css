@@ -1,5 +1,5 @@
 .register-container {
-  margin-bottom: -100px;
+  margin-bottom: 0px;
   align-items: center;
 }
 
@@ -12,7 +12,15 @@
   min-height: 200px;
   width: 60%;
 }
-
+.register-header {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-bottom: 30px;
+}
+.register-header h3 {
+  width: 100%;
+}
 .custom-container {
   width: 60%;
   margin: 0 auto;
@@ -51,12 +59,12 @@
 .abs-states .line.done::after {
   content: '';
   position: absolute;
-  height: 50%;
+  height: 100%;
   width: 2px;
   background-color: var(--primary-blue);
 }
 .abs-states .line.active::after {
-  height: 50%;
+  height: 100%;
 }
 .abs-states .line.done::after {
   height: 100%;
@@ -95,7 +103,83 @@
   width: 100%;
   object-fit: cover;
 }
+/* .navHeader {
+  background-color: #006c68;
+  height: 85px;
+  width: 100%;
+} */
+.register-content .custom-container {
+  padding-top: 0;
+}
+.NewUserLink {
+  color: #000;
+  text-align: left !important;
+  text-decoration: underline !important;
+  width: 100%;
+  float: left;
+  margin-bottom: 15px;
+}
+.register-content .form-horizontal {
+  padding: 0;
+}
+.custom-container {
+  margin-bottom: -100px;
+  align-items: center;
+  vertical-align: middle;
+}
+.register-content p.sub-header {
+  margin-bottom: 40px !important;
+}
+.qarar-image {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.qarar-image img {
+  height: 90px;
+  width: auto;
+}
+.qarar-image img:nth-child(2) {
+  height: 128px;
+  margin-top: 72px;
+  width: auto;
+}
+@media screen and (max-width: 992px) {
+  .client-layout .flex-page-content .sideBar {
+    display: none;
+  }
+  .shared,
+  .aboutpage,
+  .notifications,
+  .shared,
+  .shared-item,
+  .follow,
+  .groups,
+  .invitaion,
+  .award {
+    margin: 0 auto;
+  }
+}
 @media (max-width: 768px) {
+  main.user-loggedin .aboutheader {
+    background-color: transparent !important;
+  }
+  .qarar-image img {
+    max-width: 80%;
+    height: auto;
+  }
+  .register-header {
+    flex-direction: column;
+  }
+  .qarar-image {
+    height: 400px;
+  }
+  .register-content {
+    padding: 30px 0;
+  }
   .register-container {
     /* flex-flow: row-reverse; */
   }

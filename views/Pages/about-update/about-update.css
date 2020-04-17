@@ -18,3 +18,11 @@
 .red {
   color: crimson !important;
 }
+.container {
+  width: 80% !important;
+  margin-right: 0;
+  background-color: green;
+}
+.breadcrumb-item::before.breadcrumb-item + .breadcrumb-item::before {
+  content: '>' !important;
+}

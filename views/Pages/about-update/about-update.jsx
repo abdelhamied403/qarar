@@ -11,11 +11,14 @@ import {
   FormGroup,
   Label,
   FormText,
-  Alert
+  Alert,
+  CustomInput,
+  Progress
 } from 'reactstrap';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import Api from '../../../api';
+import ClientSidebar from '../../../layout/ClientSidebar';
 
 class AboutUpdate extends Component {
   constructor() {
@@ -27,7 +30,9 @@ class AboutUpdate extends Component {
       eLevels: {},
       labors: {},
       maritals: {},
-      pass: [{ existing: '', value: '' }]
+      pass: [{ existing: '', value: '' }],
+      picture: '',
+      uploadProgress: 0
     };
   }
 
@@ -53,12 +58,16 @@ class AboutUpdate extends Component {
         field_job: [{ value: data.job }],
         field_labor_sector: [{ value: data.labor_sector }],
         field_neighborhood: [{ value: data.neighborhood }],
-        field_country: [{ target_id: data.country ? data.country.id : '' }],
-        field_city: [{ target_id: data.city ? data.city.id : '' }],
         field_educational_level: [{ value: data.educational_level }],
         field_social_status: [{ value: data.social_status }]
       };
-      this.setState({ user, userDefault: user });
+      if (data.country) {
+        user.field_country = [{ target_id: parseInt(data.country.id, 10) }];
+      }
+      if (data.city) {
+        user.field_city = [{ target_id: parseInt(data.city.id, 10) }];
+      }
+      this.setState({ user, userDefault: user, picture: data.picture });
     }
   };
 
@@ -119,14 +128,40 @@ class AboutUpdate extends Component {
   saveUser = async () => {
     this.setState({ successSave: false, errorSave: false });
     const { uid, accessToken } = this.props;
-    const { user } = this.state;
+    const { user, file } = this.state;
+    if (file) {
+      const uploadResponse = await Api.post(
+        '/file/upload/user/user/user_picture?_format=json',
+        file,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': `filename="${file.name}"`
+          },
+          onUploadProgress: progress =>
+            this.setState({
+              uploadProgress: parseInt(
+                (progress.loaded / progress.total) * 100,
+                10
+              )
+            })
+        }
+      );
+      if (uploadResponse.ok) {
+        user.user_picture = [{ target_id: uploadResponse.data.fid[0].value }];
+      }
+    }
     const response = await Api.patch(`/user/${uid}?_format=json`, user, {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (response.ok) {
-      this.setState({ successSave: true });
+      this.setState({ successSave: true, uploadProgress: 0, file: null });
+      if (file) {
+        this.getUser();
+      }
     } else {
-      this.setState({ errorSave: true });
+      this.setState({ errorSave: true, uploadProgress: 0 });
     }
   };
 
@@ -165,11 +200,15 @@ class AboutUpdate extends Component {
       errorSave,
       successSavePassword,
       errorSavePassword,
-      pass
+      pass,
+      picture,
+      uploadProgress
     } = this.state;
     return (
       <>
-        <div className="about-update">
+        <ClientSidebar />
+        <div className="aboutheader" />
+        <div className="about-update shared">
           <Container>
             <Breadcrumb className="px-0" listClassName="px-0">
               <BreadcrumbItem>
@@ -181,11 +220,12 @@ class AboutUpdate extends Component {
             </Breadcrumb>
             <div className="flex flex-justifiy-sp m-50-b">
               <h2>معلوماتي الشخصية</h2>
-              <div className="flex">
+              <div className="flex flex-row">
                 <Button
                   onClick={() => this.setState({ user: userDefault })}
                   color="primary m-10-lr"
                   outline
+                  style={{ width: '67px' }}
                 >
                   إلغاء
                 </Button>
@@ -200,14 +240,43 @@ class AboutUpdate extends Component {
             {errorSave && (
               <Alert color="danger">حدث خطأ ما أثناء حفظ البيانات</Alert>
             )}
+            {uploadProgress ? (
+              <div className="my-3">
+                <div className="text-center">uploadProgress%</div>
+                <Progress value={uploadProgress} />
+              </div>
+            ) : (
+              ''
+            )}
             <div className="userinfo flex flex-align-center m-50-b">
-              <Media
-                object
-                src="/static/img/avatar.png"
-                className="image-avatar"
+              <div className="uploadImg" onClick={() => this.fileInput.click()}>
+                <Media
+                  object
+                  src={picture || '/static/img/avatar.png'}
+                  className="image-avatar"
+                />
+                <img
+                  className="overlayImg"
+                  src="/static/img/interactive/change photo.png"
+                  alt=""
+                />
+              </div>
+
+              <input
+                style={{ display: 'none' }}
+                type="file"
+                name="file"
+                ref={fileInput => (this.fileInput = fileInput)}
+                onChange={event =>
+                  this.setState({ file: event.target.files[0] })
+                }
+                className=""
               />
+
               <div className="felx flex-col">
-                <h3>{user.field_full_name && user.field_full_name[0].value}</h3>
+                {/* <h3>{user.field_full_name && user.field_full_name[0].value}</h3> */}
+                <h6 className="sub-header">الأسم </h6>
+
                 <Input
                   type="text"
                   id="text-input"
@@ -258,7 +327,9 @@ class AboutUpdate extends Component {
                       this.setState({
                         user: {
                           ...user,
-                          field_country: [{ target_id: e.target.value }]
+                          field_country: [
+                            { target_id: parseInt(e.target.value, 10) }
+                          ]
                         }
                       })
                     }
@@ -267,7 +338,7 @@ class AboutUpdate extends Component {
                     }
                   >
                     {countries.map(country => (
-                      <option key={country.id} value={country.id}>
+                      <option key={country.id} value={parseInt(country.id, 10)}>
                         {country.name}
                       </option>
                     ))}
@@ -287,14 +358,18 @@ class AboutUpdate extends Component {
                       this.setState({
                         user: {
                           ...user,
-                          field_city: [{ target_id: e.target.value }]
+                          field_city: [
+                            { target_id: parseInt(e.target.value, 10) }
+                          ]
                         }
                       })
                     }
                     value={user.field_city && user.field_city[0].target_id}
                   >
+                    <i className="fa fa-chevron-down" />
+
                     {cities.map(city => (
-                      <option key={city.id} value={city.id}>
+                      <option key={city.id} value={parseInt(city.id, 10)}>
                         {city.name}
                       </option>
                     ))}
@@ -379,8 +454,13 @@ class AboutUpdate extends Component {
                   <h6 className="sub-header">قطاع العمل</h6>
                   <div className="flex">
                     {Object.keys(labors).map(labor => (
-                      <FormGroup key={labor} check className="radio">
-                        <Input
+                      <FormGroup
+                        key={labor}
+                        check
+                        className="radio d-flex align-items-center "
+                      >
+                        <CustomInput
+                          type="checkbox"
                           className="form-check-input"
                           type="radio"
                           id={labor}
@@ -402,7 +482,7 @@ class AboutUpdate extends Component {
                         />
                         <Label
                           check
-                          className="form-check-label"
+                          className="form-check-label ml-4"
                           htmlFor={labor}
                         >
                           {labor}
@@ -415,12 +495,16 @@ class AboutUpdate extends Component {
               <Col xs="12" md="6">
                 <div className="about-update-card flex flex-col flex-justifiy-sp">
                   <h6 className="sub-header">الحالة الاجتماعية</h6>
-                  <div className="flex">
+                  <div className="d-flex">
                     {Object.keys(maritals).map(marital => (
-                      <FormGroup key={marital} check className="radio">
-                        <Input
-                          className="form-check-input"
+                      <FormGroup
+                        key={marital}
+                        check
+                        className="radio d-flex align-items-center mr-4"
+                      >
+                        <CustomInput
                           type="radio"
+                          className="form-check-input"
                           id={marital}
                           name="maritals"
                           value={marital}
@@ -440,7 +524,7 @@ class AboutUpdate extends Component {
                         />
                         <Label
                           check
-                          className="form-check-label"
+                          className="form-check-label ml-4"
                           htmlFor={marital}
                         >
                           {marital}
@@ -450,20 +534,20 @@ class AboutUpdate extends Component {
                   </div>
                 </div>
               </Col>
-              <Col xs="12">
+              <Col xs="11" className="changePassNew">
                 {successSavePassword && (
                   <Alert color="success">تم تغيير كلمة السر بنجاح</Alert>
                 )}
                 {errorSavePassword && (
                   <Alert color="danger">حدث خطأ ما أثناء حفظ كلمة السر</Alert>
                 )}
-                <div className="about-update-card flex flex-col flex-justifiy-sp">
+                <div className="bout-update-carda flex flex-col flex-justifiy-sp changePass">
                   <h6 className="sub-header m-50-b">تغيير كلمة المرور</h6>
                   <FormGroup row>
-                    <Col md="2">
+                    <Col md="3">
                       <Label htmlFor="password-input">كلمة السر الحالية</Label>
                     </Col>
-                    <Col xs="12" md="9">
+                    <Col xs="12" md="8">
                       <Input
                         type="password"
                         id="password-input"
@@ -480,10 +564,10 @@ class AboutUpdate extends Component {
                     </Col>
                   </FormGroup>
                   <FormGroup row>
-                    <Col md="2">
+                    <Col md="3">
                       <Label htmlFor="password-input">كلمة السر الجديدة</Label>
                     </Col>
-                    <Col xs="12" md="9">
+                    <Col xs="12" md="8">
                       <Input
                         type="password"
                         id="password-input"

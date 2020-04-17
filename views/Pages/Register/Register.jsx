@@ -118,7 +118,7 @@ class Register extends Component {
             />
           </Col>
         </FormGroup>
-        <FormGroup row>
+        {/* <FormGroup row>
           <Col md="4">
             <Label htmlFor="hf-username">الإسم</Label>
           </Col>
@@ -143,7 +143,7 @@ class Register extends Component {
               }
             />
           </Col>
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup row>
           <Col md="4">
             <Label htmlFor="hf-email">البريد الالكتروني</Label>
@@ -188,14 +188,15 @@ class Register extends Component {
                 })
               }
             />
-            <FormText className="help-block sub-header">
+            {/* <FormText className="help-block sub-header">
               *يستغرق الرد عادة ٣-٥ ايام عمل
-            </FormText>
+            </FormText> */}
           </Col>
         </FormGroup>
         <div className="button-group flex flex-justifiy-end">
           <Button color="primary" onClick={this.nextStep}>
             التالي
+            <img src="/static/img/interactive/whiteArrow.svg" alt="" />
           </Button>
         </div>
       </div>
@@ -308,6 +309,7 @@ class Register extends Component {
           </Button>
           <Button color="primary" onClick={this.nextStep}>
             التالي
+            <img src="/static/img/interactive/whiteArrow.svg" alt="" />
           </Button>
         </div>
       </div>
@@ -334,7 +336,7 @@ class Register extends Component {
           })
         )
         .required('حقل إسم المستخدم مطلوب'),
-      field_full_name: yup
+      /* field_full_name: yup
         .array()
         .of(
           yup.object().shape({
@@ -344,7 +346,7 @@ class Register extends Component {
               .required('حقل الإسم مطلوب')
           })
         )
-        .required('حقل الإسم مطلوب'),
+        .required('حقل الإسم مطلوب'),*/
       mail: yup
         .array()
         .of(
@@ -466,6 +468,7 @@ class Register extends Component {
               onClick={this.register}
             >
               تأكيد إنشاء الحساب
+              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
             </Button>
           </div>
         </div>
@@ -498,49 +501,50 @@ class Register extends Component {
       lineState[2] = 'done';
     }
     return (
-      <div className="register-container flex flex-justifiy-center flex-align-stretch">
-        <div className="register-content">
-          <div className="custom-container">
-            <div className="register-header m-tb-50">
-              <Link href="/login">
-                <a>هل قمت بانشاء حساب مسبقا؟</a>
-              </Link>
-              <h3>إنشاء حساب - مرحبا بك!</h3>
+      <>
+        <div className="navHeader"></div>
+        <div className="register-container flex flex-justifiy-center flex-align-stretch">
+          <div className="register-content">
+            <div className="custom-container">
+              <div className="register-header">
+                <Link href="/login">
+                  <a className="NewUserLink">هل قمت بانشاء حساب مسبقا؟</a>
+                </Link>
+                <h3>إنشاء حساب - مرحبا بك!</h3>
+              </div>
               <p className="sub-header">
                 قم بإنشاء حساب الآن لتلعب دوراً مباشراً و فعالاً في اتخاذ
                 القرارات التي تمس حياتك.
               </p>
-            </div>
-            <Alert
-              isOpen={errorMessage}
-              toggle={() => this.setState({ errorMessage: '' })}
-              color="danger"
-            >
-              {errorMessage}
-            </Alert>
-            <Alert isOpen={successMessage} color="success">
-              {successMessage}
-            </Alert>
-            <div className="flex">
-              <div className="abs-states">
-                <span className={circleState[0]}>1</span>
-                <div className={`${lineState[0]} line`} />
-                <span className={circleState[1]}>2</span>
-                <div className={`${lineState[1]} line`} />
-                <span className={circleState[2]}>3</span>
+
+              <Alert
+                isOpen={errorMessage}
+                toggle={() => this.setState({ errorMessage: '' })}
+                color="danger"
+              >
+                {errorMessage}
+              </Alert>
+              <Alert isOpen={successMessage} color="success">
+                {successMessage}
+              </Alert>
+              <div className="flex">
+                <div className="abs-states">
+                  <span className={circleState[0]}>1</span>
+                  <div className={`${lineState[0]} line`} />
+                  <span className={circleState[1]}>2</span>
+                  <div className={`${lineState[1]} line`} />
+                  <span className={circleState[2]}>3</span>
+                </div>
+                {currentEleme}
               </div>
-              {currentEleme}
             </div>
           </div>
+          <div className="qarar-image">
+            <img src="/static/img/brand/momra-logo.svg" alt="" />
+            <img src="/static/img/brand/qarar-logo.svg" alt="" />
+          </div>
         </div>
-        <div className="qarar-image">
-          <Media
-            object
-            src="/static/img/login-bg-big.png"
-            className="image-avatar"
-          />
-        </div>
-      </div>
+      </>
     );
   }
 }

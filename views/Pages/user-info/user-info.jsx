@@ -73,7 +73,7 @@ class UserInfo extends Component {
   getBadges = async () => {
     const { profileId } = this.props;
     const response = await Api.get(
-      `/qarar_api/profile/${profileId}/awards/user_badge/0/DESC/1?_format=json`
+      `/qarar_api/profile/${profileId}/awards/badge/0/DESC/0?_format=json`
     );
     if (response.ok) {
       this.setState({ badges: response.data });
@@ -83,7 +83,7 @@ class UserInfo extends Component {
   getAwards = async () => {
     const { profileId } = this.props;
     const response = await Api.get(
-      `/qarar_api/profile/${profileId}/awards/user_award/0/DESC/1?_format=json`
+      `/qarar_api/profile/${profileId}/awards/award/0/DESC/0?_format=json`
     );
 
     if (response.ok) {
@@ -122,6 +122,7 @@ class UserInfo extends Component {
     const { uid } = this.props;
     return (
       <>
+        <div className="newHeaderProfile" />
         <div className="user-profile">
           <Container>
             <Row>
@@ -132,7 +133,7 @@ class UserInfo extends Component {
                       <div className="userinfo flex flex-align-center">
                         <Media
                           object
-                          src="/static/img/avatar.png"
+                          src={profile.picture || '/static/img/avatar.png'}
                           className="image-avatar"
                         />
                         <div className="felx flex-col">

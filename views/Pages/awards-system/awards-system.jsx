@@ -43,7 +43,7 @@ class About extends Component {
     }
     return (
       <>
-        <div className="primary-header">
+        <div className="draftHeader">
           <Container>
             <h3> نظام الجوائز</h3>
           </Container>
@@ -88,6 +88,7 @@ class About extends Component {
                   size="md"
                 >
                   عرض الكل
+                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
                 </Button>
               </Col>
             </Row>
@@ -132,6 +133,7 @@ class About extends Component {
                   size="md"
                 >
                   عرض الكل
+                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
                 </Button>
               </Col>
             </Row>

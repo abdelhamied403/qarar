@@ -152,13 +152,14 @@ class Questions extends Component {
     return (
       <>
         <div className="questions">
-          <Container>
-            <div className="questions-header text-center">
-              <h3>أسئلة شائعة عن المنصة</h3>
-              <p className="sub-header">هل لديك مشكلة باستخدام المنصة؟</p>
-            </div>
-          </Container>
-
+          <div className="draftHeader">
+            <Container>
+              <div className="questions-header">
+                <h3>أسئلة شائعة عن المنصة</h3>
+                <p className="sub-header">هل لديك مشكلة باستخدام المنصة؟</p>
+              </div>
+            </Container>
+          </div>
           <section className="questions-sec">
             <Container>
               <Row>

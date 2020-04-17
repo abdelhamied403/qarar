@@ -161,7 +161,16 @@ class CardDraft extends Component {
           <div className="flex-card">
             <div className="content">
               <div className="header">
-                <h4>{header}</h4>
+                {link ? (
+                  <Link href={link}>
+                    <a>
+                      <h4>{header}</h4>
+                    </a>
+                  </Link>
+                ) : (
+                  <h4>{header}</h4>
+                )}
+
                 {subHeader ? (
                   <div className="sub-header">
                     {subHeaderIcon ? (
@@ -181,7 +190,7 @@ class CardDraft extends Component {
                   ''
                 )}
               </div>
-              <div className="moaad">
+              <div className="moaad text-justify">
                 <div>
                   {renderHTML(content || '')}
                   {link ? (

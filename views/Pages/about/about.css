@@ -1,6 +1,6 @@
 .aboutpage {
   background-color: white;
-  padding: 50px 0;
+  padding: 0;
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
@@ -15,4 +15,15 @@
   height: 150px;
   padding: 20px 10px;
   margin: 10px;
+}
+
+.aboutheader {
+  background-color: #006c68;
+  padding: 70px 0;
+  padding-top: 15px;
+}
+@media (max-width: 768px) {
+  main.user-loggedin .aboutheader {
+    background-color: transparent !important;
+  }
 }

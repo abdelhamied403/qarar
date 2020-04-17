@@ -62,6 +62,7 @@ class Shared extends Component {
     return (
       <>
         <ClientSidebar />
+        <div className="aboutheader"></div>
         <div className="shared">
           <Container>
             <Breadcrumb className="px-0" listClassName="px-0">

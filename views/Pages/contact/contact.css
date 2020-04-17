@@ -73,3 +73,12 @@ textarea.form-control {
 .contact .button-group p {
   margin-left: 18px;
 }
+.contact {
+  padding-top: 0;
+}
+.contact .draftHeader {
+  padding-bottom: 70px;
+}
+section.tabs-content {
+  padding-top: 0;
+}

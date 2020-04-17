@@ -8,6 +8,7 @@ const About = () => (
     <div>
       <Head>
         <title>عن المستخدم - قرار- وزارة الشؤون البلدية والقروية</title>
+        <link href="/static/css/about.css" rel="stylesheet" />
       </Head>
       <AboutPage />
     </div>
