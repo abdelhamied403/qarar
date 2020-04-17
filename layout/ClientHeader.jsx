@@ -150,15 +150,18 @@ class ClientHeader extends React.Component {
     return (
       <div className="ministry">
         <div className="header-nav">
-          <a href="http://momra-engage.sharedt.com/" className="interactive">
+          <a href="https://engage.balady.gov.sa" className="interactive">
             منصة بلدي التفاعلية
           </a>
-          <Link href="/">
-            <a className="afkarLink speech-bubble">
-              <img src="/static/img/qararNew.svg" alt="" />
-            </a>
-          </Link>
-          <a href="http://momra-forms.sharedt.com" className="afkarLink">
+
+          <a
+            href="https://qarar.balady.gov.sa"
+            className="afkarLink speech-bubble"
+          >
+            <img src="/static/img/qararNew.svg" alt="" />
+          </a>
+
+          <a href="https://eforms.balady.gov.sa" className="afkarLink">
             <img src="/static/img/ethtbyanNew.svg" alt="" />
           </a>
         </div>
