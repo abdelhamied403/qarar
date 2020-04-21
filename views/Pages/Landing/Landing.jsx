@@ -13,9 +13,7 @@ import Api from '../../../api';
 
 const Landing = () => {
   const uid = useSelector(state => state.auth.uid);
-  const [mostActiveUserComment, setMAUC] = useState({});
-  const [mostActiveUserAword, setMAUA] = useState({});
-  const [mostActiveUserLike, setMAUL] = useState({});
+  const [mostActiveUsersAword, setMAUA] = useState([]);
   const [userCount, setUserCount] = useState('');
   const [draftCount, setDraftCount] = useState('');
   const [drafts, setDrafts] = useState([]);
@@ -26,23 +24,15 @@ const Landing = () => {
   const [activeBtnNews, setActiveBtnNews] = useState(0);
 
   const getActiveUsers = async () => {
-    const userACResponse = await Api.get(
-      '/api/users/comments?limit=1&_format=json'
-    );
-    if (userACResponse.ok) {
-      setMAUC(userACResponse.data ? userACResponse.data[0] : {});
-    }
     const userAAResponse = await Api.get(
       '/api/users/awards?limit=1&_format=json'
     );
     if (userAAResponse.ok) {
-      setMAUA(userAAResponse.data ? userAAResponse.data[0] : {});
-    }
-    const userALResponse = await Api.get(
-      '/api/users/likes?limit=1&_format=json'
-    );
-    if (userALResponse.ok) {
-      setMAUL(userALResponse.data ? userALResponse.data[0] : {});
+      setMAUA(
+        userAAResponse.data
+          ? userAAResponse.data.filter((item, index) => index < 3)
+          : []
+      );
     }
   };
   const getUserCount = async () => {
@@ -287,78 +277,32 @@ const Landing = () => {
           <h2 className="header">المشاركة المجتمعية</h2>
           <h5>من الأكثر تأثيراً؟</h5>
           <Row>
-            <Col md="4">
-              <div className="topSingle  d-flex flex-row">
-                <img
-                  src={
-                    mostActiveUserComment.picture ||
-                    '/static/img/interactive/user.svg'
-                  }
-                  alt=""
-                  className="avatar"
-                />
-                <div className="singleName">
-                  <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
-                    <a>
-                      <p>{mostActiveUserComment.name}</p>
-                    </a>
-                  </Link>
-                  <span> {mostActiveUserComment.points} نقطة</span>
+            {mostActiveUsersAword.map(mostActiveUserAword => (
+              <Col md="4">
+                <div className="topSingle  d-flex flex-row">
+                  <img
+                    src={
+                      mostActiveUserAword.picture ||
+                      '/static/img/interactive/user.svg'
+                    }
+                    alt=""
+                    className="avatar"
+                  />
+                  <div className="singleName">
+                    <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
+                      <a>
+                        <p>{mostActiveUserAword.name}</p>
+                      </a>
+                    </Link>
+                    <span>{mostActiveUserAword.points || 0} نقطة</span>
+                  </div>
+                  <div className="trophy d-flex align-items-center">
+                    <img src="/static/img/interactive/trophy.svg" alt="" />
+                    <span>{mostActiveUserAword.awards}</span>
+                  </div>
                 </div>
-                <div className="trophy d-flex align-items-center">
-                  <img src="/static/img/interactive/trophy.svg" alt="" />
-                  <span>{mostActiveUserComment.awards}</span>
-                </div>
-              </div>
-            </Col>
-            <Col md="4">
-              <div className="topSingle  d-flex flex-row">
-                <img
-                  src={
-                    mostActiveUserAword.picture ||
-                    '/static/img/interactive/user.svg'
-                  }
-                  alt=""
-                  className="avatar"
-                />
-                <div className="singleName">
-                  <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
-                    <a>
-                      <p>{mostActiveUserAword.name}</p>
-                    </a>
-                  </Link>
-                  <span> {mostActiveUserAword.points} نقطة</span>
-                </div>
-                <div className="trophy d-flex align-items-center">
-                  <img src="/static/img/interactive/trophy.svg" alt="" />
-                  <span>{mostActiveUserAword.awards}</span>
-                </div>
-              </div>
-            </Col>
-            <Col md="4" className="">
-              <div className="topSingle  d-flex flex-row">
-                <img
-                  src={
-                    mostActiveUserLike.picture ||
-                    '/static/img/interactive/user.svg'
-                  }
-                  alt=""
-                  className="avatar"
-                />
-                <div className="singleName">
-                  <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
-                    <a>
-                      <p>{mostActiveUserLike.name}</p>
-                    </a>
-                  </Link>
-                  <span> {mostActiveUserLike.points} نقطة</span>
-                </div>
-                <div className="trophy d-flex align-items-center">
-                  <img src="/static/img/interactive/trophy.svg" alt="" />
-                  <span>{mostActiveUserLike.awards}</span>
-                </div>
-              </div>
-            </Col>
+              </Col>
+            ))}
           </Row>
           <Row>
             <Col md="4">
