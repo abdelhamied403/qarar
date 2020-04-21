@@ -25,7 +25,7 @@ const Landing = () => {
 
   const getActiveUsers = async () => {
     const userAAResponse = await Api.get(
-      '/api/users/awards?limit=1&_format=json'
+      '/qarar_api/top/10/user/awards?_format=json'
     );
     if (userAAResponse.ok) {
       setMAUA(
@@ -294,11 +294,11 @@ const Landing = () => {
                         <p>{mostActiveUserAword.name}</p>
                       </a>
                     </Link>
-                    <span>{mostActiveUserAword.points || 0} نقطة</span>
+                    <span>{mostActiveUserAword.points} نقطة</span>
                   </div>
                   <div className="trophy d-flex align-items-center">
                     <img src="/static/img/interactive/trophy.svg" alt="" />
-                    <span>{mostActiveUserAword.awards}</span>
+                    <span>{mostActiveUserAword.total_awards}</span>
                   </div>
                 </div>
               </Col>
