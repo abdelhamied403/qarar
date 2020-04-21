@@ -1,6 +1,8 @@
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
+import Router from 'next/router';
+import withAnalytics from 'next-analytics';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -58,4 +60,8 @@ class MyApp extends App {
   }
 }
 
-export default withReduxStore(MyApp);
+export default withReduxStore(
+  withAnalytics(Router, {
+    ga: 'UA-150975722-5'
+  })(MyApp)
+);
