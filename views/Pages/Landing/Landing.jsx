@@ -289,7 +289,7 @@ const Landing = () => {
                     className="avatar"
                   />
                   <div className="singleName">
-                    <Link href={`/user-profile/${mostActiveUserAword.uid}`}>
+                    <Link href={`/user-profile/${mostActiveUserAword.id}`}>
                       <a>
                         <p>{mostActiveUserAword.name}</p>
                       </a>
