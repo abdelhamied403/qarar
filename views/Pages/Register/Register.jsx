@@ -346,7 +346,7 @@ class Register extends Component {
               .required('حقل الإسم مطلوب')
           })
         )
-        .required('حقل الإسم مطلوب'),*/
+        .required('حقل الإسم مطلوب'), */
       mail: yup
         .array()
         .of(
@@ -502,7 +502,7 @@ class Register extends Component {
     }
     return (
       <>
-        <div className="navHeader"></div>
+        <div className="navHeader" />
         <div className="register-container flex flex-justifiy-center flex-align-stretch">
           <div className="register-content">
             <div className="custom-container">
@@ -540,7 +540,6 @@ class Register extends Component {
             </div>
           </div>
           <div className="qarar-image">
-            <img src="/static/img/brand/momra-logo.svg" alt="" />
             <img src="/static/img/brand/qarar-logo.svg" alt="" />
           </div>
         </div>
