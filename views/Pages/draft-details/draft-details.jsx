@@ -11,7 +11,8 @@ import {
   CardHeader,
   DropdownItem,
   UncontrolledTooltip,
-  Alert
+  Alert,
+  Badge
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -440,7 +441,16 @@ class DraftDetailsInfo extends Component {
     if (loadingDraft) {
       return <Skeleton details />;
     }
-
+    const statusColor = {
+      archived: 'light',
+      applied: 'info',
+      voting: 'success'
+    };
+    const statusName = {
+      archived: 'مؤرشف',
+      applied: 'مطبق',
+      voting: 'تحت التصويت'
+    };
     return (
       <>
         <div className="dc-details-header">
@@ -464,6 +474,9 @@ class DraftDetailsInfo extends Component {
                       ))}
                     </ul>
                     <h2>{draft.title}</h2>
+                    <Badge color={statusColor[draft.qarar_status]}>
+                      {statusName[draft.qarar_status]}
+                    </Badge>
                     <div className="sub-header">
                       <Media
                         object
