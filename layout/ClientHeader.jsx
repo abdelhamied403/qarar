@@ -198,7 +198,9 @@ class ClientHeader extends React.Component {
                 <NavItem active={router.pathname === '/decisions'}>
                   <Link href="/decisions">
                     <a>
-                      <NavLink onClick={this.closeMobile}>قرارات مطبقة</NavLink>
+                      <NavLink onClick={this.closeMobile}>
+                        القرارات السابقة
+                      </NavLink>
                     </a>
                   </Link>
                 </NavItem>
