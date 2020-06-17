@@ -186,6 +186,13 @@ class ClientHeader extends React.Component {
                     </a>
                   </Link>
                 </NavItem>
+                <NavItem active={router.pathname === '/about'}>
+                  <Link href="/about">
+                    <a>
+                      <NavLink onClick={this.closeMobile}>عن قرار</NavLink>
+                    </a>
+                  </Link>
+                </NavItem>
                 <NavItem active={router.pathname === '/drafts'}>
                   <Link href="/drafts">
                     <a>
