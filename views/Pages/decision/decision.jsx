@@ -134,8 +134,6 @@ class Decision extends Component {
     if (loading) {
       return <Skeleton />;
     }
-    console.log(appliedItems, archivedItems);
-
     return (
       <>
         <div className="draftHeader">
@@ -145,14 +143,6 @@ class Decision extends Component {
         </div>
         <Container className="decsion-page">
           <section className="tabs-content">
-            <Row>
-              <Col className="text-left">
-                قرارات تم تطبيقها بعد الطرح وتعتبر نسخه معتمده
-              </Col>
-              <Col className="text-right">
-                قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة للاطلاع
-              </Col>
-            </Row>
             <Nav tabs>
               <NavItem>
                 <NavLink
@@ -175,6 +165,14 @@ class Decision extends Component {
                 </NavLink>
               </NavItem>
             </Nav>
+            <Row className="mt-3">
+              <Col className="text-left">
+                قرارات تم تطبيقها بعد الطرح وتعتبر نسخه معتمده
+              </Col>
+              <Col className="text-right">
+                قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة للاطلاع
+              </Col>
+            </Row>
             <TabContent activeTab={this.state.activeTab[0]}>
               <TabPane tabId="1">
                 <>
