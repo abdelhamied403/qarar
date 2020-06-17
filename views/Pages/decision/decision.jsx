@@ -165,18 +165,13 @@ class Decision extends Component {
                 </NavLink>
               </NavItem>
             </Nav>
-            <Row className="mt-3">
-              <Col className="text-left">
-                قرارات تم تطبيقها بعد الطرح وتعتبر نسخه معتمده
-              </Col>
-              <Col className="text-right">
-                قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة للاطلاع
-              </Col>
-            </Row>
             <TabContent activeTab={this.state.activeTab[0]}>
               <TabPane tabId="1">
                 <>
-                  <section>
+                  <section className="p-0">
+                    <Row className="mb-3">
+                      <Col>قرارات تم تطبيقها بعد الطرح وتعتبر نسخه معتمده</Col>
+                    </Row>
                     <Row>
                       {appliedItems.length ? (
                         appliedItems.map(item => (
@@ -223,7 +218,13 @@ class Decision extends Component {
               </TabPane>
               <TabPane tabId="2">
                 <>
-                  <section>
+                  <section className="p-0">
+                    <Row className="mb-3">
+                      <Col>
+                        قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة
+                        للاطلاع
+                      </Col>
+                    </Row>
                     <Row>
                       {archivedItems.length ? (
                         archivedItems.map(item => (
