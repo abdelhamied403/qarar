@@ -16,6 +16,7 @@ const Landing = () => {
   const [mostActiveUsersAword, setMAUA] = useState([]);
   const [userCount, setUserCount] = useState('');
   const [draftCount, setDraftCount] = useState('');
+  const [aboutData, setAboutData] = useState({});
   const [drafts, setDrafts] = useState([]);
   const [activeDrafts, setActiveDrafts] = useState([]);
   const [soonCloseDrafts, setSoonCloseDrafts] = useState([]);
@@ -49,6 +50,12 @@ const Landing = () => {
     );
     if (draftCountResponse.ok) {
       setDraftCount(draftCountResponse.data);
+    }
+  };
+  const getAbout = async () => {
+    const response = await Api.get('/qarar_api/load/node/904?_format=json');
+    if (response.ok) {
+      setAboutData(response.data);
     }
   };
   const getDrafts = async () => {
@@ -85,8 +92,8 @@ const Landing = () => {
     getDraftCount();
     getDrafts();
     getNews();
+    getAbout();
   }, []);
-
   return (
     <div className="rtl newUILanding">
       <div className="header header-image-bg">
@@ -164,7 +171,26 @@ const Landing = () => {
           </section>
         </Container>
       </div>
-
+      <section className="activities">
+        <Container>
+          <div className="d-flex justify-content-between align-items-center mb-5">
+            <h2 className="text-center header">عن قرار</h2>
+          </div>
+          <Row>
+            <Col className="mb-3" xs="12">
+              <p>{aboutData.data ? aboutData.data.summary : ''}</p>
+            </Col>
+          </Row>
+          <div className="text-center">
+            <Link href="/about">
+              <Button outline color="primary" size="md">
+                المزيد
+                <img src="/static/img/interactive/greenArrow.svg" alt="" />
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
       <section className="activities">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
