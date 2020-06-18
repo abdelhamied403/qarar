@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="298.105" height="297.956" viewBox="0 0 298.105 297.956">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.318" y1="-0.012" x2="0.809" y2="1.039" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#07a26c"/>
+      <stop offset="1" stop-color="#07706c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.255" y1="0.073" x2="0.567" y2="0.899" gradientUnits="objectBoundingBox">
+      <stop offset="0.025" stop-color="#81de00"/>
+      <stop offset="1" stop-color="#81bd41"/>
+    </linearGradient>
+  </defs>
+  <g id="pie-chart" transform="translate(-60.626 -32.807)">
+    <path id="Path_2860" data-name="Path 2860" d="M112.454,92.5A89.342,89.342,0,0,1,173.76,240.544l42.2,42.2a148.466,148.466,0,0,0,39.588-101.031c0-80.187-63.656-145.755-143.09-148.9Z" transform="translate(103.187)" fill="url(#linear-gradient)"/>
+    <path id="Path_2861" data-name="Path 2861" d="M268.515,248.975A89.4,89.4,0,1,1,203.716,92.5V32.807c-79.431,3.146-143.09,68.714-143.09,148.9,0,82.188,66.866,149.054,149.054,149.054a148.475,148.475,0,0,0,101.031-39.591Z" transform="translate(0)" fill="url(#linear-gradient-2)"/>
+  </g>
+</svg>

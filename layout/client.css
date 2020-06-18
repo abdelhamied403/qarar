@@ -367,10 +367,10 @@ body {
 }
 /* start ministry */
 .ministry .header-nav {
-  background-color: #fff;
+  background-color: #055F5D;
   display: flex;
   flex-direction: row;
-  height: 80px;
+  height: 48px;
   padding: 0;
   justify-content: flex-start;
   position: relative;
@@ -383,30 +383,28 @@ body {
 }
 
 .ministry .header-nav .interactive {
-  background-color: #84bc47;
   height: 100%;
-  width: 315px;
+  width: 200px;
   display: flex;
   color: #fff;
   justify-content: center;
   align-items: center;
-  font-size: 17px;
   font-weight: bold;
 }
 
 .ministry .header-nav .afkarLink {
-  background: transparent;
+
   border-radius: 17px;
-  width: 119px;
-  height: 60px;
+  width: 72px;
+  height: 48px;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color: #046f6d;
+  color:rgba(255, 255, 255, 0.54) ;
   display: flex;
   font-size: 16px;
-  border: 2px solid #046f6d;
+
 }
 .ministry .header-nav a img {
   width: 90px;
@@ -417,17 +415,16 @@ body {
 .ministry .header-nav .astbyanLink {
   background: transparent;
   border-radius: 15px;
-  width: 80px;
+  width: 72px;
   height: auto;
   padding: 10px;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color: #046f6d;
+  color: white;
   display: flex;
   font-size: 16px;
-  border: 2px solid #046f6d;
 }
 .ministry nav.navbar {
   background-color: #006c68;
@@ -443,6 +440,7 @@ body {
 }
 .ministry .nav-item a {
   color: #fff !important;
+  font-weight: 600;
 }
 .ministry .newNav {
   margin-right: 30px;
@@ -503,30 +501,34 @@ body {
 
 a.astbyanLink,
 .ministry .header-nav .afkarLink {
-  background: transparent;
-  border-radius: 17px;
-  width: 119px;
-  height: 60px;
+  width: 72px;
+  height: 48px;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color: #046f6d;
+  color:rgba(255, 255, 255, 0.54) ;
   display: flex;
   font-size: 16px;
-  border: 2px solid #046f6d;
+ 
+}
+.ministry span{
+
+  margin-right: 48px;
+}
+.ministry .header-nav .afkarLink.speech-bubble{
+  color:white ;
+
 }
 .ministry .header-nav .interactive {
-  background-color: #81bd41;
-  height: 100%;
-  width: 315px;
+ 
+  width: 250px;
   display: flex;
   color: #fff;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  font-size: 17px;
-  font-weight: bold;
-  margin: 0;
+
+
 }
 .speech-bubble {
   position: relative;
@@ -570,7 +572,6 @@ a.astbyanLink,
 }
 @media screen and (max-width: 767px) {
   .ministry .header-nav .interactive {
-    background-color: #84bc47;
     height: 100%;
     width: 168px;
     display: flex;
@@ -606,7 +607,6 @@ a.astbyanLink,
     font-size: 13px;
   }
   .ministry .header-nav .interactive {
-    background-color: #84bc47;
     height: 100%;
     width: 93px;
     display: flex;
