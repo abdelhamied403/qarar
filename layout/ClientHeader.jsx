@@ -151,27 +151,31 @@ class ClientHeader extends React.Component {
       <div className="ministry">
         <div className="header-nav">
           <a href="https://engage.balady.gov.sa" className="interactive">
-            منصة بلدي التفاعلية
+      منصة بلدي التفاعلية      
           </a>
-
+<span>   |</span>
           <a
             href="https://qarar.balady.gov.sa"
             className="afkarLink speech-bubble"
           >
-            <img src="/static/img/qararNew.svg" alt="" />
+            {/* <img src="/static/img/qararNew.svg" alt="" /> */}
+            قرارك
           </a>
+   
 
           <a href="https://eforms.balady.gov.sa" className="afkarLink">
-            <img src="/static/img/ethtbyanNew.svg" alt="" />
+            {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
+            الاستبيانات
           </a>
         </div>
+
         <Navbar expand="md" className="d-flex flex-row justify-content-between">
           <Link href="/">
             <a className="flex flex-align-center navbar-brand ml-5">
               <Media
                 className="image-icon"
                 object
-                src="/static/img/interactive/logo.svg"
+                src="/static/img/interactive/qarar-logo.svg"
               />
             </a>
           </Link>

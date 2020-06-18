@@ -107,49 +107,71 @@ const Landing = () => {
             <h2>شارك بصنع القرار</h2>
             <h3>ارفع صوتك</h3>
             <div className="icons-group">
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/user.svg"
+                    src="/static/img/interactive/user-2.svg"
                   />
                 </div>
-                <p>1</p>
-                <h5> أنشئ حساب</h5>
+                <div>
+                  <p>1</p>
+                  <h5> أنشئ حساب</h5>
+                </div>
+                {/* <div className="header-arrow">
+                  <Media
+                    className="image-icon"
+                    object
+                    src="/static/img/interactive/header-arrow.svg"
+                  />
+
+                </div> */}
               </div>
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/like.svg"
+                    src="/static/img/interactive/like-2.svg"
                   />
                 </div>
-                <p>2</p>
-                <h5>صوت للمسودة التي تهمك</h5>
+                <div>
+                  <p>2</p>
+                  <h5>صوت للمسودة التي تهمك</h5>
+                </div>
+           
               </div>
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/chat-bubble.svg"
+                    src="/static/img/interactive/chat-bubble-2.svg"
                   />
                 </div>
-                <p>3</p>
-                <h5> تتم مناقشة المسودة</h5>
+                <div>
+                  <p>3</p>
+                  <h5> تتم مناقشة المسودة</h5>
+                </div>
+             
               </div>
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/document.svg"
+                    src="/static/img/interactive/document-2.svg"
                   />
                 </div>
-                <p>4</p>
-                <h5>يتم اتخاذ القرار بشأن المسودة</h5>
+                <div>
+                  <p>4</p>
+                  <h5>يتم اتخاذ القرار بشأن المسودة</h5>
+                </div>
               </div>
             </div>
             {!uid && (
@@ -157,13 +179,13 @@ const Landing = () => {
                 <Link href="/register">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
                     انشاء حساب
-                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                    <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
                 <Link href="/login">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
                     دخول
-                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                    <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
               </div>
@@ -171,7 +193,7 @@ const Landing = () => {
           </section>
         </Container>
       </div>
-      <section className="activities">
+      <section className="activities about">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
             <h2 className="text-center header">عن قرار</h2>
@@ -193,9 +215,10 @@ const Landing = () => {
       </section>
       <section className="activities">
         <Container>
-          <div className="d-flex justify-content-between align-items-center mb-5">
-            <h2 className="text-center header">نشاط المسودات</h2>
-            <ButtonGroup>
+        <Row>         
+           {/* <div className="d-flex justify-content-between align-items-center mb-5">
+         
+            {/* <ButtonGroup>
               <Button
                 onClick={() => setActiveBtn(0)}
                 className={activeBtn === 0 ? 'active' : ''}
@@ -214,22 +237,25 @@ const Landing = () => {
               >
                 تغلق قريبا
               </Button>
-            </ButtonGroup>
-          </div>
+            </ButtonGroup> */}
+          
+          <Col xs="12" md="6" lg="6">
+          <h2 className="header"> مسودات نشرت حديثاً</h2>
+
           <Row
             style={activeBtn === 0 ? { display: 'flex' } : { display: 'none' }}
-          >
+          >    
             {activeDrafts
               .filter((item, index) => index < 6)
               .map(item => (
-                <Col className="mb-3" key={item.key} xs="12" md="6" lg="4">
+                <Col className="mb-3" key={item.key} xs="12">
                   <Link href={`/draft-details/${item.id}`}>
                     <a>
                       <div className="oneActivity">
                         <h4>{item.title}</h4>
                         <p>
                           <img
-                            src="/static/img/interactive/calendar.svg"
+                            src="/static/img/interactive/calendar-2.svg"
                             alt=""
                           />
                           يغلق التصويت بتاريخ {item.end_date}
@@ -239,21 +265,22 @@ const Landing = () => {
                   </Link>
                 </Col>
               ))}
+            
           </Row>
           <Row
             style={activeBtn === 1 ? { display: 'flex' } : { display: 'none' }}
-          >
+          > 
             {drafts
               .filter((item, index) => index < 6)
               .map(item => (
-                <Col className="mb-3" key={item.key} xs="12" md="6" lg="4">
+                <Col className="mb-3" key={item.key} xs="12">
                   <Link href={`/draft-details/${item.id}`}>
                     <a>
                       <div className="oneActivity">
                         <h4>{item.title}</h4>
                         <p>
                           <img
-                            src="/static/img/interactive/calendar.svg"
+                            src="/static/img/interactive/calendar-2.svg"
                             alt=""
                           />
                           يغلق التصويت بتاريخ {item.end_date}
@@ -263,21 +290,22 @@ const Landing = () => {
                   </Link>
                 </Col>
               ))}
+           
           </Row>
           <Row
             style={activeBtn === 2 ? { display: 'flex' } : { display: 'none' }}
-          >
+          > 
             {soonCloseDrafts
               .filter((item, index) => index < 6)
               .map(item => (
-                <Col key={item.key} className="mb-3" xs="12" md="6" lg="4">
+                <Col key={item.key} className="mb-3" xs="12">
                   <Link href={`/draft-details/${item.id}`}>
                     <a>
                       <div className="oneActivity">
                         <h4>{item.title}</h4>
                         <p>
                           <img
-                            src="/static/img/interactive/calendar.svg"
+                            src="/static/img/interactive/calendar-2.svg"
                             alt=""
                           />
                           يغلق التصويت بتاريخ {item.end_date}
@@ -287,8 +315,10 @@ const Landing = () => {
                   </Link>
                 </Col>
               ))}
+                
           </Row>
-          <div className="text-center">
+
+          <div className="text-right">
             <Link href="/drafts">
               <Button outline color="primary" size="md">
                 كل المسودات
@@ -296,9 +326,49 @@ const Landing = () => {
               </Button>
             </Link>
           </div>
+          </Col>
+
+
+          <Col xs="12" md="6" lg="6">
+          <h2 className="header">  نسبة إعجاب المشاركين</h2>
+<div className="chart-section"> 
+          <Media
+                    className="chart-image"
+                    object
+                    src="/static/img/interactive/pie-chart.svg"
+                  />
+
+<div className="chart-item">
+<Media
+                    className="chart-icon"
+                    object
+                    src="/static/img/interactive/like.svg"
+                  />
+                  <div >
+<h3>70%</h3>
+<h5>إعجاب</h5>
+</div>
+</div>
+
+<div className="chart-item">
+<Media
+                    className="chart-icon"
+                    object
+                    src="/static/img/interactive/unlike.svg"
+                  />
+                  <div >
+<h3>30%</h3>
+<h4>عدم إعجاب </h4>
+</div>
+</div>
+</div>
+
+          </Col>
+          </Row>
+
         </Container>
       </section>
-      <section className="social-sharing p100">
+      <section className="social-sharing">
         <Container>
           <h2 className="header">المشاركة المجتمعية</h2>
           <h5>من الأكثر تأثيراً؟</h5>
@@ -507,9 +577,9 @@ const Landing = () => {
         <Container>
           <p className="content">رأيك يهمنا .. صوتك يهمنا </p>
           <Link href="/drafts">
-            <Button color="primary" outline size="md">
+            <Button outline color="primary" size="md">
               اكتشف قائمة المسودات
-              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+              <img src="/static/img/interactive/greenArrow.svg" alt="" />
             </Button>
           </Link>
         </Container>
