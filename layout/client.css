@@ -384,7 +384,7 @@ body {
 .ministry nav.navbar {
   height: 80px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.035);
-  border-bottom: 1px solid #bdc5cd;
+  border-bottom: 1px solid transparent;
   position: relative;
   z-index: 99999999999;
   color: #000;

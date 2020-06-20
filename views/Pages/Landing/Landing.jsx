@@ -426,7 +426,7 @@ const Landing = () => {
             </Col>
 
             <Col xs="12" md="4" lg="4">
-              <h2 className="header"> نسبة إعجاب المشاركين</h2>
+              <h2 className="header">التوزيع الجغرافي للمشاركين</h2>
               <div className="chart-section">
                 {/* <Media
                   className="chart-image"

@@ -2411,7 +2411,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #06706d;
+  color: #000;
   background-color: #84bc47;
   border-color: #84bc47;
 }
@@ -17028,7 +17028,7 @@ footer a:hover {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 20px 0 50px 0;
+  padding: 60px 0 48px 0;
 }
 
 .icons-group h3 {
@@ -18385,7 +18385,7 @@ textarea.form-control {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 20px 0 50px 0;
+  padding: 60px 0 48px 0;
 }
 .section-flex .icons-group .image-icon {
   width: 72px;
@@ -18484,7 +18484,7 @@ textarea.form-control {
   margin-top: 24px;
 }
 .newUILanding .icons-group p {
-  color: #06706d;
+  color: #84bc47;
   font-weight: 800;
   font-size: 36px;
   margin-bottom: 0;
@@ -18492,7 +18492,7 @@ textarea.form-control {
 }
 .newUILanding .icons-group h5 {
   font-size: 16px;
-  color: #84bc47;
+  color: #000;
   font-weight: 600;
 }
 .header-button {

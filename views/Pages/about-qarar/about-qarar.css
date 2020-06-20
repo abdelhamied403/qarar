@@ -1,7 +1,7 @@
 .about-qarar {
   /* background-color: white; */
   padding: 50px 0;
-  margin-bottom: -100px;
+  margin-bottom: -50px;
   padding-top: 0px;
 }
 .about-qarar-header {
@@ -12,7 +12,6 @@
 }
 .about-qarar-sec {
   background-color: white;
-  padding: 100px 0;
   min-height: 50vh;
 }
 .about-qarar-sec h5 {
@@ -30,6 +29,28 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+}
+.about-qarar .about-qarar-sec h2 {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 0;
+  font-size: 1.75rem;
+}
+
+.about-qarar .about-qarar-sec h2:after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 6px;
+  margin: 22px 0;
+  background: #85bd48;
+  bottom: 0;
+}
+.paltform-importance {
+  background-color: #eceff3;
+  background-image: url('../../../static/img/cityBG.png');
+  background-position: left bottom;
+  background-repeat: no-repeat;
 }
 /* .about-qarar .about-qarar-card  {
   background-color: var(--normal-gray);
