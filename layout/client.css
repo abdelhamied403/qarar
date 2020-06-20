@@ -366,45 +366,46 @@ body {
   display: none;
 }
 /* start ministry */
+.ministry {
+  width: 100%;
+  top: 0px;
+  position: fixed;
+  z-index: 999;
+}
 .ministry .header-nav {
-  background-color: #055F5D;
+  background-color: #07706d;
   display: flex;
   flex-direction: row;
-  height: 48px;
+  height: 37px;
   padding: 0;
   justify-content: flex-start;
   position: relative;
 }
 .ministry nav.navbar {
-  height: 85px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.582);
+  height: 80px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.035);
+  border-bottom: 1px solid #bdc5cd;
   position: relative;
   z-index: 99999999999;
+  color: #000;
 }
 
 .ministry .header-nav .interactive {
   height: 100%;
-  width: 200px;
   display: flex;
   color: #fff;
-  justify-content: center;
   align-items: center;
-  font-weight: bold;
 }
 
 .ministry .header-nav .afkarLink {
-
-  border-radius: 17px;
-  width: 72px;
-  height: 48px;
+  height: 37px;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color:rgba(255, 255, 255, 0.54) ;
+  color: rgba(255, 255, 255, 0.54);
   display: flex;
-  font-size: 16px;
-
+  font-size: 14px;
 }
 .ministry .header-nav a img {
   width: 90px;
@@ -427,24 +428,28 @@ body {
   font-size: 16px;
 }
 .ministry nav.navbar {
-  background-color: #006c68;
+  background-color: white;
 }
 .header-image-bg {
   margin-top: -10px;
 }
 .ministry .image-icon {
   width: auto;
+  height: 50px;
 }
 .ministry li.active {
   background-color: transparent !important;
 }
 .ministry .nav-item a {
-  color: #fff !important;
+  color: #000 !important;
   font-weight: 600;
+  font-size: 15px;
 }
 .ministry .newNav {
   margin-right: 30px;
-  width: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 /* start footeer */
 .upperFooter img {
@@ -501,40 +506,42 @@ body {
 
 a.astbyanLink,
 .ministry .header-nav .afkarLink {
-  width: 72px;
-  height: 48px;
   text-align: center;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  color:rgba(255, 255, 255, 0.54) ;
+  color: rgba(255, 255, 255, 0.54);
   display: flex;
-  font-size: 16px;
- 
+  font-size: 14px;
+  transition: all 1s;
+  border-bottom: 2px solid #07706d;
 }
-.ministry span{
 
-  margin-right: 48px;
+.ministry .header-nav .afkarLink.speech-bubble {
+  color: white;
+  font-weight: 700;
+  border-bottom: 2px solid white;
 }
-.ministry .header-nav .afkarLink.speech-bubble{
-  color:white ;
+.ministry .header-nav .afkarLink:hover {
+  color: white;
+  transition: all 1s;
+  border-bottom: 2px solid white;
+  transition: all 1s;
+}
 
-}
 .ministry .header-nav .interactive {
- 
-  width: 250px;
   display: flex;
   color: #fff;
-  justify-content: flex-end;
   align-items: center;
-
-
+  height: 37px;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  padding-left: 30px;
 }
 .speech-bubble {
   position: relative;
 }
 
-.speech-bubble::after {
+/* .speech-bubble::after {
   content: ' ';
   position: absolute;
   bottom: 0;
@@ -546,7 +553,7 @@ a.astbyanLink,
   border-bottom: 0;
   margin-left: -8px;
   margin-bottom: -8px;
-}
+} */
 @media screen and (max-width: 1100px) {
   .args .bg1,
   .args .bg2 {
@@ -573,19 +580,17 @@ a.astbyanLink,
 @media screen and (max-width: 767px) {
   .ministry .header-nav .interactive {
     height: 100%;
-    width: 168px;
     display: flex;
     color: #fff;
     justify-content: center;
     align-items: center;
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 14px;
   }
   .navHeader {
     height: 0 !important;
   }
   .ministry nav.navbar {
-    background-color: #006c68;
+    background-color: white;
   }
 
   .bottomFooter {
@@ -614,7 +619,6 @@ a.astbyanLink,
     justify-content: center;
     align-items: center;
     font-size: 11px;
-    font-weight: bold;
   }
   .aboutpage button.btn.btn-outline-primary {
     display: inline-block;

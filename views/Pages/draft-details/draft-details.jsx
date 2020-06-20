@@ -569,16 +569,6 @@ class DraftDetailsInfo extends Component {
           </div>
         </div>
         <div className="draftContainer drafInfo">
-          <img
-            src="/static/img/interactive/draftsBg.svg"
-            className="draftBg1"
-            alt=""
-          />
-          <img
-            src="/static/img/interactive/draftsBg.svg"
-            className="draftBg2"
-            alt=""
-          />
           <Container>
             <Card className="cardDraft">
               <CardHeader>{draft.title}</CardHeader>
