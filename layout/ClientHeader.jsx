@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import {
+  Container,
+  Row,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -150,126 +152,133 @@ class ClientHeader extends React.Component {
     return (
       <div className="ministry">
         <div className="header-nav">
-          <a href="https://engage.balady.gov.sa" className="interactive">
-      منصة بلدي التفاعلية      
-          </a>
-<span>   |</span>
-          <a
-            href="https://qarar.balady.gov.sa"
-            className="afkarLink speech-bubble"
-          >
-            {/* <img src="/static/img/qararNew.svg" alt="" /> */}
-            قرارك
-          </a>
-   
+          <Container>
+            <div className="flex">
+              <a href="https://engage.balady.gov.sa" className="interactive">
+                منصة بلدي التفاعلية
+              </a>
 
-          <a href="https://eforms.balady.gov.sa" className="afkarLink">
-            {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
-            الاستبيانات
-          </a>
+              <a
+                href="https://qarar.balady.gov.sa"
+                className="afkarLink speech-bubble"
+              >
+                {/* <img src="/static/img/qararNew.svg" alt="" /> */}
+                قرارك
+              </a>
+
+              <a href="https://eforms.balady.gov.sa" className="afkarLink">
+                {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
+                الاستبيانات
+              </a>
+            </div>
+          </Container>
         </div>
 
         <Navbar expand="md" className="d-flex flex-row justify-content-between">
-          <Link href="/">
-            <a className="flex flex-align-center navbar-brand ml-5">
-              <Media
-                className="image-icon"
-                object
-                src="/static/img/interactive/qarar-logo.svg"
-              />
-            </a>
-          </Link>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <div className="newNav mr-auto">
-              <Nav navbar className="d-flex justify-content-end">
-                <NavItem active={router.pathname === '/'}>
-                  <Link href="/">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>الرئيسية</NavLink>
-                    </a>
-                  </Link>
-                </NavItem>
-                <NavItem active={router.pathname === '/about'}>
-                  <Link href="/about">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>عن قرار</NavLink>
-                    </a>
-                  </Link>
-                </NavItem>
-                <NavItem active={router.pathname === '/drafts'}>
-                  <Link href="/drafts">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>
-                        قرارات تحت التصويت
-                      </NavLink>
-                    </a>
-                  </Link>
-                </NavItem>
-                <NavItem active={router.pathname === '/decisions'}>
-                  <Link href="/decisions">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>
-                        القرارات السابقة
-                      </NavLink>
-                    </a>
-                  </Link>
-                </NavItem>
-                {/* <NavItem className="dp-items">
+          <Container>
+            <Link href="/">
+              <a className="flex flex-align-center navbar-brand">
+                <Media
+                  className="image-icon"
+                  object
+                  src="/static/img/interactive/qarar-logo.svg"
+                />
+              </a>
+            </Link>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <div className="newNav mr-auto">
+                <Nav navbar className="d-flex justify-content-end">
+                  <NavItem active={router.pathname === '/'}>
+                    <Link href="/">
+                      <a>
+                        <NavLink onClick={this.closeMobile}>الرئيسية</NavLink>
+                      </a>
+                    </Link>
+                  </NavItem>
+                  <NavItem active={router.pathname === '/about'}>
+                    <Link href="/about">
+                      <a>
+                        <NavLink onClick={this.closeMobile}>عن قرار</NavLink>
+                      </a>
+                    </Link>
+                  </NavItem>
+                  <NavItem active={router.pathname === '/drafts'}>
+                    <Link href="/drafts">
+                      <a>
+                        <NavLink onClick={this.closeMobile}>
+                          قرارات تحت التصويت
+                        </NavLink>
+                      </a>
+                    </Link>
+                  </NavItem>
+                  <NavItem active={router.pathname === '/decisions'}>
+                    <Link href="/decisions">
+                      <a>
+                        <NavLink onClick={this.closeMobile}>
+                          القرارات السابقة
+                        </NavLink>
+                      </a>
+                    </Link>
+                  </NavItem>
+                  {/* <NavItem className="dp-items">
                   <NavLink>مكتبة القرارات</NavLink>
                   <div className="abs-content">
                     <Link exact to="/client/decision" >قرارات مطبقة حالياً</Link>
                     <Link exact to="/client/decision-draft" >قرارت مؤرشفة</Link>
                   </div>
                 </NavItem> */}
-                <NavItem active={router.pathname === '/news'}>
-                  <Link href="/news">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>اخبار المنصة</NavLink>
-                    </a>
-                  </Link>
-                </NavItem>
-                {/* <NavItem active={router.pathname === '/awards-system'}>
+                  <NavItem active={router.pathname === '/news'}>
+                    <Link href="/news">
+                      <a>
+                        <NavLink onClick={this.closeMobile}>
+                          اخبار المنصة
+                        </NavLink>
+                      </a>
+                    </Link>
+                  </NavItem>
+                  {/* <NavItem active={router.pathname === '/awards-system'}>
                   <Link href="/awards-system">
                     <a>
                       <NavLink onClick={this.closeMobile}>الجوائز</NavLink>
                     </a>
               </Link>
                 </NavItem> */}
-                <NavItem active={router.pathname === '/social-reports'}>
-                  <Link href="/social-reports">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>
-                        المشاركة المجتمعية
-                      </NavLink>
-                    </a>
-                  </Link>
-                </NavItem>
-                {isAuthentcated ? (
-                  <NavItem
-                    style={{
-                      cursor: 'pointer',
-                      color: 'white',
-                      display: 'inline-block'
-                    }}
-                    onClick={signOut}
-                  >
-                    خروج
-                  </NavItem>
-                ) : (
-                  <NavItem active={router.pathname === '/login'}>
-                    <Link href="/login">
+                  <NavItem active={router.pathname === '/social-reports'}>
+                    <Link href="/social-reports">
                       <a>
-                        <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                        <NavLink onClick={this.closeMobile}>
+                          المشاركة المجتمعية
+                        </NavLink>
                       </a>
                     </Link>
                   </NavItem>
-                )}
+                  {isAuthentcated ? (
+                    <NavItem
+                      style={{
+                        cursor: 'pointer',
+                        color: 'white',
+                        display: 'inline-block'
+                      }}
+                      onClick={signOut}
+                    >
+                      خروج
+                    </NavItem>
+                  ) : (
+                    <NavItem active={router.pathname === '/login'}>
+                      <Link href="/login">
+                        <a>
+                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                        </a>
+                      </Link>
+                    </NavItem>
+                  )}
 
-                {isAuthentcated ? this.userDropdown() : ''}
-              </Nav>
-            </div>
-          </Collapse>
+                  {isAuthentcated ? this.userDropdown() : ''}
+                </Nav>
+              </div>
+            </Collapse>
+          </Container>
         </Navbar>
       </div>
     );
@@ -282,9 +291,6 @@ const mapStateToProps = ({ auth: { name, profileImage } }) => ({
   name,
   profileImage
 });
-export default connect(
-  mapStateToProps,
-  null,
-  null,
-  { pure: false }
-)(withRouter(ClientHeader));
+export default connect(mapStateToProps, null, null, { pure: false })(
+  withRouter(ClientHeader)
+);

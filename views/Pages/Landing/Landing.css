@@ -130,7 +130,7 @@
 }
 .newUILanding .icons-group h5 {
   font-size: 16px;
-  color: #84bc47;
+  color: #000;
   font-weight: 600;
 }
 .header-button {
@@ -143,9 +143,6 @@
 }
 .newUILanding .activities {
   background-color: #fff;
-  background-image: url(/static/img/Assets/visual-4.svg);
-  background-repeat: no-repeat;
-  background-position: bottom left;
 }
 .newUILanding .activities h2 {
   color: #84bc47;
@@ -339,7 +336,7 @@
   object-fit: cover;
 }
 .blogger h3 {
-  font-size: 20px;
+  font-size: 20px !important;
   color: #fff;
   margin-right: 15px;
   font-weight: 600;
@@ -421,6 +418,7 @@
   background-color: #006c68;
   color: #fff;
 }
+
 @media screen and (max-width: 992px) {
   .section-flex .icons-group > * {
     width: 48%;
