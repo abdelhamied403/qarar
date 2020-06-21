@@ -7138,6 +7138,13 @@ react-resize-detector@^4.2.3:
     raf-schd "^4.0.2"
     resize-observer-polyfill "^1.5.1"
 
+react-scroll-toggle@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-scroll-toggle/-/react-scroll-toggle-1.0.2.tgz#bb166aa9d7750f6286d32511f6e9bef93c8e2855"
+  integrity sha512-NnsZYq4iz5KqRoi4ujXEwO3x/VglzzwnGER0B2BW7jMH7ahKT9w12uE/SemFK1hUf6LXggojoYEAHJkEwdCx3w==
+  dependencies:
+    react "^16.8.6"
+
 react-scroll@^1.7.16:
   version "1.7.16"
   resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.16.tgz#814f0b97ed171aad1f27e45dad16a8444817fec8"
@@ -7182,7 +7189,7 @@ react-transition-group@^2.3.1:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react@^16.13.1:
+react@^16.13.1, react@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
