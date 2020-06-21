@@ -9,7 +9,9 @@ const propTypes = {
   children: PropTypes.node
 };
 
-const defaultProps = {};
+const defaultProps = {
+  suffix: 'نقطة'
+};
 
 const CardPoints = ({
   avatar,
@@ -20,7 +22,8 @@ const CardPoints = ({
   isDarkCard,
   content,
   link,
-  uid
+  uid,
+  suffix
 }) => (
   <Card className={isDarkCard ? 'dark-card card-points' : 'card-points'}>
     <CardHeader>
@@ -35,7 +38,9 @@ const CardPoints = ({
           <Link href={`/user-profile/${uid}`}>
             <a className="sub-header name">{name}</a>
           </Link>
-          <span className="points">{points} نقطة</span>
+          <span className="points">
+            {points} {suffix}
+          </span>
         </div>
       </div>
     </CardHeader>

@@ -49,7 +49,7 @@ class About extends Component {
 
   getUsersTop = async () => {
     const userAAResponse = await Api.get(
-      '/api/users/awards?limit=1&_format=json'
+      '/qarar_api/top/10/user/awards?_format=json'
     );
     if (userAAResponse.ok) {
       this.setState({
@@ -129,7 +129,7 @@ class About extends Component {
                         isDarkCard="true"
                         avatar={user.picture}
                         name={user.full_name || user.name}
-                        points={user.awards}
+                        points={user.points}
                         uid={user.uid}
                       />
                     </Col>
@@ -194,9 +194,14 @@ class About extends Component {
                         isDarkCard="true"
                         avatar={user.picture}
                         name={user.full_name || user.name}
-                        points={user.awards}
+                        points={user.awards_count}
                         uid={user.uid}
-                        content=""
+                        suffix="جائزة"
+                        content={
+                          user.awards && user.awards.length
+                            ? user.awards[0].title
+                            : ''
+                        }
                       />
                     </Col>
                   ))}

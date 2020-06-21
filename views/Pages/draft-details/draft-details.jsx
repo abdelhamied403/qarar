@@ -12,7 +12,10 @@ import {
   DropdownItem,
   UncontrolledTooltip,
   Alert,
-  Badge
+  Badge,
+  Modal,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -187,6 +190,7 @@ class DraftDetailsInfo extends Component {
       const { items, data } = itemResponse.data;
       const openArticle =
         new Date(data.end_date).getTime() > new Date().getTime();
+      items.map(item => item.modified_id && this.getEdits(item.nid));
       this.setState(
         { draft: data, items, loadingDraft: false, openArticle },
         () => {
@@ -362,6 +366,17 @@ class DraftDetailsInfo extends Component {
       this.getDraft();
     } else {
       this.setState({ [type]: false, id: false });
+    }
+  };
+
+  getEdits = async editId => {
+    const response = await Api.get(
+      `/qarar_api/load/node/${editId}?_format=json`
+    );
+    if (response.ok) {
+      this.setState({
+        [`edit-${editId}`]: response.data.data
+      });
     }
   };
 
@@ -663,12 +678,68 @@ class DraftDetailsInfo extends Component {
                 >
                   <CardHeader
                     className="d-flex justify-content-between"
+                    style={{ backgroundColor: item.modified_id && '#ee5253' }}
                     onClick={() =>
                       this.setState({ [item.nid]: !this.state[item.nid] })
                     }
                   >
                     <p>{item.title}</p>
                     <div className="dratCartTitlelt d-flex">
+                      {item.modified_id && (
+                        <>
+                          <Button
+                            color="transparent"
+                            onClick={e => {
+                              e.stopPropagation();
+                              this.setState({
+                                [`modal-${item.nid}`]: !this.state[
+                                  `modal-${item.nid}`
+                                ]
+                              });
+                            }}
+                            className="p-0 m-0 text-white border-0"
+                          >
+                            سجل التعديلات
+                          </Button>
+                          <Modal
+                            toggle={() =>
+                              this.setState({
+                                [`modal-${item.nid}`]: !this.state[
+                                  `modal-${item.nid}`
+                                ]
+                              })
+                            }
+                            isOpen={this.state[`modal-${item.nid}`]}
+                          >
+                            <ModalBody>
+                              <ul>
+                                {this.state[
+                                  `edit-${item.nid}`
+                                ]?.modifications.map(mod => (
+                                  <li>
+                                    {moment(mod.creatednode * 1000).format(
+                                      'DD-MM-YYYY'
+                                    )}{' '}
+                                    - {renderHTML(mod.body || '')}
+                                  </li>
+                                ))}
+                              </ul>
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button
+                                color="danger"
+                                onClick={e =>
+                                  this.setState({
+                                    [`modal-${item.nid}`]: false
+                                  })
+                                }
+                              >
+                                إغلاق
+                              </Button>
+                            </ModalFooter>
+                          </Modal>
+                        </>
+                      )}
                       <div className="manyComments d-flex align-items-center">
                         <img src="/static/img/interactive/chat.svg" alt="" />
                         <span>{item.comments} تعليق</span>
@@ -689,7 +760,14 @@ class DraftDetailsInfo extends Component {
                   >
                     <Row className="mt-3">
                       <Col md="7" className="draftBodyRt">
-                        <p>{renderHTML(item.body_value || '')}</p>
+                        <p>
+                          {item.modified_id
+                            ? renderHTML(
+                                this.state[`edit-${item.nid}`]?.modifications[0]
+                                  .body || ''
+                              )
+                            : renderHTML(item.body_value || '')}
+                        </p>
                         <Link href={`/draft-details/${item.nid}`}>
                           <Button
                             onMouseOut={() => {
