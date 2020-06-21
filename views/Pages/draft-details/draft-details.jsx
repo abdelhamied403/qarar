@@ -718,7 +718,7 @@ class DraftDetailsInfo extends Component {
                                 ]?.modifications.map(mod => (
                                   <li>
                                     {moment(mod.creatednode * 1000).format(
-                                      'DD-MM-YYYY'
+                                      'DD/MM/YYYY'
                                     )}{' '}
                                     - {renderHTML(mod.body || '')}
                                   </li>
