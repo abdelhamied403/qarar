@@ -22,6 +22,7 @@
   padding: 70px 0;
   padding-top: 15px;
 }
+
 @media (max-width: 768px) {
   main.user-loggedin .aboutheader {
     background-color: transparent !important;

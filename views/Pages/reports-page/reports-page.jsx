@@ -5,6 +5,7 @@ import CardPoints from '../components/card-points/cards-points';
 import './reports-page.css';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
+import Link from 'next/link';
 
 class About extends Component {
   constructor() {
@@ -151,7 +152,14 @@ class About extends Component {
                     <Col key={draft.id} sm="12" md="6">
                       <div className="active-drafts-card">
                         <div className="flex flex-justifiy-sp flex-align-center">
-                          <h6 className="break">{draft.title} </h6>
+                          <h6 className="break">
+                            <Link
+                              href="/draft-details/[draftId]"
+                              as={`/draft-details/${draft.id}`}
+                            >
+                              <a>{draft.title}</a>
+                            </Link>
+                          </h6>
                           <span className="sub-header">
                             <i className="fa fa-thumbs-up" /> {draft.likes} صوت
                           </span>
@@ -175,7 +183,7 @@ class About extends Component {
             <Card className="card-users-part">
               <CardHeader>
                 <div className="flex-header">
-                  <h6 className="name">المستخدمين الاكثر نشاطا</h6>
+                  <h6 className="name">المستخدمين الحاصلين على جوائز</h6>
                 </div>
               </CardHeader>
               <CardBody>
@@ -188,7 +196,7 @@ class About extends Component {
                         name={user.full_name || user.name}
                         points={user.awards}
                         uid={user.uid}
-                        content="اسم الجائزة"
+                        content=""
                       />
                     </Col>
                   ))}

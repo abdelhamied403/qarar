@@ -1,7 +1,7 @@
 .about-qarar {
   /* background-color: white; */
   padding: 50px 0;
-  margin-bottom: -100px;
+  margin-bottom: -50px;
   padding-top: 0px;
 }
 .about-qarar-header {
@@ -12,8 +12,8 @@
 }
 .about-qarar-sec {
   background-color: white;
-  padding: 100px 0;
-  min-height: 50vh;
+  display: flex;
+  align-items: center;
 }
 .about-qarar-sec h5 {
   font-size: 22px;
@@ -30,6 +30,53 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+}
+.about-qarar .about-qarar-sec h2 {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 0;
+  font-size: 1.75rem;
+}
+.about-qarar .about-qarar-sec h4 {
+  color: #000;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.about-qarar .about-qarar-sec h2:after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 6px;
+  margin: 22px 0;
+  background: #85bd48;
+  bottom: 0;
+}
+.paltform-importance {
+  background-color: #eceff3;
+  background-image: url('../../../static/img/cityBG.png');
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+.qarar-services {
+  margin-top: 48px;
+}
+.about-qarar-sec .item img {
+  width: 48px;
+  margin-bottom: 16px;
+}
+
+.mockup-image {
+  max-width: 150px;
+}
+
+.about-mockup {
+  text-align: center;
+}
+.about-mockup-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 /* .about-qarar .about-qarar-card  {
   background-color: var(--normal-gray);

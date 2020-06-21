@@ -134,8 +134,6 @@ class Decision extends Component {
     if (loading) {
       return <Skeleton />;
     }
-    console.log(appliedItems, archivedItems);
-
     return (
       <>
         <div className="draftHeader">
@@ -170,7 +168,10 @@ class Decision extends Component {
             <TabContent activeTab={this.state.activeTab[0]}>
               <TabPane tabId="1">
                 <>
-                  <section>
+                  <section className="p-0">
+                    <Row className="mb-3">
+                      <Col>قرارات تم تطبيقها بعد الطرح وتعتبر نسخه معتمده</Col>
+                    </Row>
                     <Row>
                       {appliedItems.length ? (
                         appliedItems.map(item => (
@@ -217,7 +218,13 @@ class Decision extends Component {
               </TabPane>
               <TabPane tabId="2">
                 <>
-                  <section>
+                  <section className="p-0">
+                    <Row className="mb-3">
+                      <Col>
+                        قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة
+                        للاطلاع
+                      </Col>
+                    </Row>
                     <Row>
                       {archivedItems.length ? (
                         archivedItems.map(item => (

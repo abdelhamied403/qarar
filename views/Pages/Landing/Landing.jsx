@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Container, Button, Col, Row, Media, ButtonGroup } from 'reactstrap';
 import Link from 'next/link';
 import renderHTML from 'react-render-html';
+import { PieChart } from 'react-minimal-pie-chart';
 
 import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
@@ -16,6 +17,7 @@ const Landing = () => {
   const [mostActiveUsersAword, setMAUA] = useState([]);
   const [userCount, setUserCount] = useState('');
   const [draftCount, setDraftCount] = useState('');
+  const [aboutData, setAboutData] = useState({});
   const [drafts, setDrafts] = useState([]);
   const [activeDrafts, setActiveDrafts] = useState([]);
   const [soonCloseDrafts, setSoonCloseDrafts] = useState([]);
@@ -49,6 +51,12 @@ const Landing = () => {
     );
     if (draftCountResponse.ok) {
       setDraftCount(draftCountResponse.data);
+    }
+  };
+  const getAbout = async () => {
+    const response = await Api.get('/qarar_api/load/node/904?_format=json');
+    if (response.ok) {
+      setAboutData(response.data);
     }
   };
   const getDrafts = async () => {
@@ -85,19 +93,14 @@ const Landing = () => {
     getDraftCount();
     getDrafts();
     getNews();
+    getAbout();
   }, []);
-
   return (
     <div className="rtl newUILanding">
       <div className="header header-image-bg">
-        <img
-          src="/static/img/Assets/visual-5.svg"
-          alt=""
-          className="heroPattern"
-        />
         <Container>
           <section className="section-flex">
-            <h2>شارك بصنع القرار</h2>
+            <h2 animation="fadeIn">شارك بصنع القرار</h2>
             <h3>ارفع صوتك</h3>
             <div className="icons-group">
               <div>
@@ -105,44 +108,55 @@ const Landing = () => {
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/user.svg"
+                    src="/static/img/interactive/user-2.svg"
                   />
                 </div>
-                <p>1</p>
-                <h5> أنشئ حساب</h5>
+                <div>
+                  <p>1</p>
+                  <h5> أنشئ حساب</h5>
+                </div>
               </div>
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/like.svg"
+                    src="/static/img/interactive/like-2.svg"
                   />
                 </div>
-                <p>2</p>
-                <h5>صوت للمسودة التي تهمك</h5>
+                <div>
+                  <p>2</p>
+                  <h5>صوت للمسودة التي تهمك</h5>
+                </div>
               </div>
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/chat-bubble.svg"
+                    src="/static/img/interactive/chat-bubble-2.svg"
                   />
                 </div>
-                <p>3</p>
-                <h5> تتم مناقشة المسودة</h5>
+                <div>
+                  <p>3</p>
+                  <h5> تتم مناقشة المسودة</h5>
+                </div>
               </div>
+
               <div>
                 <div className="icon-border">
                   <Media
                     className="image-icon"
                     object
-                    src="/static/img/Assets/document.svg"
+                    src="/static/img/interactive/document-2.svg"
                   />
                 </div>
-                <p>4</p>
-                <h5>يتم اتخاذ القرار بشأن المسودة</h5>
+                <div>
+                  <p>4</p>
+                  <h5>يتم اتخاذ القرار بشأن المسودة</h5>
+                </div>
               </div>
             </div>
             {!uid && (
@@ -150,13 +164,13 @@ const Landing = () => {
                 <Link href="/register">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
                     انشاء حساب
-                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                    <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
                 <Link href="/login">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
                     دخول
-                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                    <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
               </div>
@@ -164,12 +178,32 @@ const Landing = () => {
           </section>
         </Container>
       </div>
-
+      <section className="activities about">
+        <Container>
+          <div className="d-flex justify-content-between align-items-center">
+            <h3 className="text-center header">عن قرار</h3>
+          </div>
+          <Row>
+            <Col className="mb-3 about-qarar" xs="12">
+              <p>{aboutData.data ? aboutData.data.summary : ''}</p>
+            </Col>
+          </Row>
+          <div className="text-center">
+            <Link href="/about">
+              <Button outline color="primary" size="md">
+                المزيد
+                <img src="/static/img/interactive/greenArrow.svg" alt="" />
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
       <section className="activities">
         <Container>
-          <div className="d-flex justify-content-between align-items-center mb-5">
-            <h2 className="text-center header">نشاط المسودات</h2>
-            <ButtonGroup>
+          <Row>
+            {/* <div className="d-flex justify-content-between align-items-center mb-5">
+         
+            {/* <ButtonGroup>
               <Button
                 onClick={() => setActiveBtn(0)}
                 className={activeBtn === 0 ? 'active' : ''}
@@ -188,147 +222,260 @@ const Landing = () => {
               >
                 تغلق قريبا
               </Button>
-            </ButtonGroup>
-          </div>
-          <Row
-            style={activeBtn === 0 ? { display: 'flex' } : { display: 'none' }}
-          >
-            {activeDrafts
-              .filter((item, index) => index < 6)
-              .map(item => (
-                <Col className="mb-3" key={item.key} xs="12" md="6" lg="4">
-                  <Link href={`/draft-details/${item.id}`}>
-                    <a>
-                      <div className="oneActivity">
-                        <h4>{item.title}</h4>
-                        <p>
-                          <img
-                            src="/static/img/interactive/calendar.svg"
-                            alt=""
-                          />
-                          يغلق التصويت بتاريخ {item.end_date}
-                        </p>
-                      </div>
-                    </a>
-                  </Link>
-                </Col>
-              ))}
-          </Row>
-          <Row
-            style={activeBtn === 1 ? { display: 'flex' } : { display: 'none' }}
-          >
-            {drafts
-              .filter((item, index) => index < 6)
-              .map(item => (
-                <Col className="mb-3" key={item.key} xs="12" md="6" lg="4">
-                  <Link href={`/draft-details/${item.id}`}>
-                    <a>
-                      <div className="oneActivity">
-                        <h4>{item.title}</h4>
-                        <p>
-                          <img
-                            src="/static/img/interactive/calendar.svg"
-                            alt=""
-                          />
-                          يغلق التصويت بتاريخ {item.end_date}
-                        </p>
-                      </div>
-                    </a>
-                  </Link>
-                </Col>
-              ))}
-          </Row>
-          <Row
-            style={activeBtn === 2 ? { display: 'flex' } : { display: 'none' }}
-          >
-            {soonCloseDrafts
-              .filter((item, index) => index < 6)
-              .map(item => (
-                <Col key={item.key} className="mb-3" xs="12" md="6" lg="4">
-                  <Link href={`/draft-details/${item.id}`}>
-                    <a>
-                      <div className="oneActivity">
-                        <h4>{item.title}</h4>
-                        <p>
-                          <img
-                            src="/static/img/interactive/calendar.svg"
-                            alt=""
-                          />
-                          يغلق التصويت بتاريخ {item.end_date}
-                        </p>
-                      </div>
-                    </a>
-                  </Link>
-                </Col>
-              ))}
-          </Row>
-          <div className="text-center">
-            <Link href="/drafts">
-              <Button outline color="primary" size="md">
-                كل المسودات
-                <img src="/static/img/interactive/greenArrow.svg" alt="" />
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
-      <section className="social-sharing p100">
-        <Container>
-          <h2 className="header">المشاركة المجتمعية</h2>
-          <h5>من الأكثر تأثيراً؟</h5>
-          <Row>
-            {mostActiveUsersAword.map(mostActiveUserAword => (
-              <Col md="4">
-                <div className="topSingle  d-flex flex-row">
-                  <img
-                    src={
-                      mostActiveUserAword.picture ||
-                      '/static/img/interactive/user.svg'
-                    }
-                    alt=""
-                    className="avatar"
-                  />
-                  <div className="singleName">
-                    <Link href={`/user-profile/${mostActiveUserAword.id}`}>
-                      <a>
-                        <p>{mostActiveUserAword.name}</p>
-                      </a>
-                    </Link>
-                    <span>{mostActiveUserAword.points} نقطة</span>
-                  </div>
-                  <div className="trophy d-flex align-items-center">
-                    <img src="/static/img/interactive/trophy.svg" alt="" />
-                    <span>{mostActiveUserAword.total_awards}</span>
-                  </div>
-                </div>
-              </Col>
-            ))}
-          </Row>
-          <Row>
-            <Col md="4">
-              <div className="singleConnectInfo">
-                <Row>
-                  <Col xs="4">
-                    <img src="/static/img/Assets/userGreen.svg" alt="" />
-                  </Col>
-                  <Col xs="8">
-                    <h4>{userCount}</h4>
-                    <p>مستخدم للمنصة حاليا</p>
-                  </Col>
-                </Row>
+            </ButtonGroup> */}
+
+            <Col xs="12" md="6" lg="6">
+              <h2 className="header"> مسودات نشرت حديثاً</h2>
+
+              <Row
+                style={
+                  activeBtn === 0 ? { display: 'flex' } : { display: 'none' }
+                }
+              >
+                {activeDrafts
+                  .filter((item, index) => index < 6)
+                  .map(item => (
+                    <Col className="mb-3" key={item.key} xs="12">
+                      <Link href={`/draft-details/${item.id}`}>
+                        <a>
+                          <div className="oneActivity">
+                            <h4>{item.title}</h4>
+                            <p>
+                              <img
+                                src="/static/img/interactive/calendar-2.svg"
+                                alt=""
+                              />
+                              يغلق التصويت بتاريخ {item.end_date}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </Col>
+                  ))}
+              </Row>
+              <Row
+                style={
+                  activeBtn === 1 ? { display: 'flex' } : { display: 'none' }
+                }
+              >
+                {drafts
+                  .filter((item, index) => index < 6)
+                  .map(item => (
+                    <Col className="mb-3" key={item.key} xs="12">
+                      <Link href={`/draft-details/${item.id}`}>
+                        <a>
+                          <div className="oneActivity">
+                            <h4>{item.title}</h4>
+                            <p>
+                              <img
+                                src="/static/img/interactive/calendar-2.svg"
+                                alt=""
+                              />
+                              يغلق التصويت بتاريخ {item.end_date}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </Col>
+                  ))}
+              </Row>
+              <Row
+                style={
+                  activeBtn === 2 ? { display: 'flex' } : { display: 'none' }
+                }
+              >
+                {soonCloseDrafts
+                  .filter((item, index) => index < 6)
+                  .map(item => (
+                    <Col key={item.key} className="mb-3" xs="12">
+                      <Link href={`/draft-details/${item.id}`}>
+                        <a>
+                          <div className="oneActivity">
+                            <h4>{item.title}</h4>
+                            <p>
+                              <img
+                                src="/static/img/interactive/calendar-2.svg"
+                                alt=""
+                              />
+                              يغلق التصويت بتاريخ {item.end_date}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </Col>
+                  ))}
+              </Row>
+
+              <div className="text-right">
+                <Link href="/drafts">
+                  <Button outline color="primary" size="md">
+                    كل المسودات
+                    <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                  </Button>
+                </Link>
               </div>
             </Col>
-            <Col md="4">
-              <div className="singleConnectInfo">
-                <Row>
-                  <Col xs="4">
-                    <img src="/static/img/Assets/documentGreen.svg" alt="" />
+
+            <Col xs="12" md="6" lg="6">
+              <h2 className="header"> نسبة إعجاب المشاركين</h2>
+              <div className="chart-section">
+                {/* <Media
+                  className="chart-image"
+                  object
+                  src="/static/img/interactive/pie-chart.svg"
+                /> */}
+                <PieChart
+                  data={[
+                    { title: 'One', value: 75, color: '#07706d' },
+                    { title: 'Two', value: 25, color: '#85bd48' }
+                  ]}
+                />
+                ;
+                <div className="chart-item">
+                  <Media
+                    className="chart-icon"
+                    object
+                    src="/static/img/interactive/like.svg"
+                  />
+                  <div>
+                    <h3>70%</h3>
+                    <h5>إعجاب</h5>
+                  </div>
+                </div>
+                <div className="chart-item">
+                  <Media
+                    className="chart-icon"
+                    object
+                    src="/static/img/interactive/unlike.svg"
+                  />
+                  <div>
+                    <h3>30%</h3>
+                    <h4>عدم إعجاب </h4>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+      <section className="social-sharing">
+        <Container>
+          <Row>
+            <Col md="8">
+              <h2 className="header">المشاركة المجتمعية</h2>
+              <h5>من الأكثر تأثيراً؟</h5>
+              <Row>
+                {mostActiveUsersAword.map(mostActiveUserAword => (
+                  <Col md="6">
+                    <div className="topSingle  d-flex flex-row">
+                      <img
+                        src={
+                          mostActiveUserAword.picture ||
+                          '/static/img/interactive/user.svg'
+                        }
+                        alt=""
+                        className="avatar"
+                      />
+                      <div className="singleName">
+                        <Link href={`/user-profile/${mostActiveUserAword.id}`}>
+                          <a>
+                            <p>{mostActiveUserAword.name}</p>
+                          </a>
+                        </Link>
+                        <span>{mostActiveUserAword.points} نقطة</span>
+                      </div>
+                      <div className="trophy d-flex align-items-center">
+                        <img src="/static/img/interactive/trophy.svg" alt="" />
+                        <span>{mostActiveUserAword.total_awards}</span>
+                      </div>
+                    </div>
                   </Col>
-                  <Col xs="8">
-                    <h4>{draftCount}</h4>
-                    <p>مسودة تمت مناقشتها</p>
-                  </Col>
-                </Row>
+                ))}
+              </Row>
+              <Row>
+                <Col md="6">
+                  <div className="singleConnectInfo">
+                    <Row>
+                      <Col xs="4">
+                        <img src="/static/img/Assets/userGreen.svg" alt="" />
+                      </Col>
+                      <Col xs="8">
+                        <h4>{userCount}</h4>
+                        <p>مستخدم للمنصة حاليا</p>
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+                <Col md="6">
+                  <div className="singleConnectInfo">
+                    <Row>
+                      <Col xs="4">
+                        <img
+                          src="/static/img/Assets/documentGreen.svg"
+                          alt=""
+                        />
+                      </Col>
+                      <Col xs="8">
+                        <h4>{draftCount}</h4>
+                        <p>مسودة تمت مناقشتها</p>
+                      </Col>
+                    </Row>
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+
+            <Col xs="12" md="4" lg="4">
+              <h2 className="header">التوزيع الجغرافي للمشاركين</h2>
+              <div className="chart-section">
+                {/* <Media
+                  className="chart-image"
+                  object
+                  src="/static/img/interactive/pie-chart.svg"
+                /> */}
+                <PieChart
+                  data={[
+                    { title: 'One', value: 10, color: '#ee5253' },
+                    { title: 'Two', value: 15, color: '#feca57' },
+                    { title: 'One', value: 5, color: '#0abde3' },
+                    { title: 'Two', value: 30, color: '#85bd48' },
+                    { title: 'One', value: 15, color: '#1dd1a1' },
+                    { title: 'Two', value: 25, color: '#341f97' }
+                  ]}
+                />
+
+                <div className="flex">
+                  <div className="chart-item">
+                    <span class="dot dot-10"></span>
+                    <h3>10%</h3>
+                    <h5>الدمام</h5>
+                  </div>
+                  <div className="chart-item">
+                    <span class="dot dot-15"></span>
+                    <h3>15%</h3>
+                    <h5>أبها</h5>
+                  </div>
+                  <div className="chart-item">
+                    <span class="dot dot-5"></span>
+                    <h3>5%</h3>
+                    <h5>نجران </h5>
+                  </div>
+                  <div className="chart-item">
+                    <span class="dot dot-30"></span>
+                    <h3>30%</h3>
+                    <h5>الرياض</h5>
+                  </div>
+                  <div className="chart-item">
+                    <span class="dot dot-15"></span>
+                    <h3>15%</h3>
+                    <h5>جازان</h5>
+                  </div>
+                  <div className="chart-item">
+                    <span class="dot dot-25"></span>
+                    <h3>25%</h3>
+                    <h5>تبوك</h5>
+                  </div>
+                </div>
               </div>
             </Col>
           </Row>
@@ -475,15 +622,13 @@ const Landing = () => {
         </Container>
       </section>
       <section className="args">
-        <img src="/static/img/Assets/visual-5.svg" alt="" className="bg1" />
-        <img src="/static/img/Assets/visual-5.svg" alt="" className="bg2" />
-
         <Container>
-          <p className="content">رأيك يهمنا .. صوتك يهمنا </p>
+          <h2 className="content">رأيك يهمنا .. صوتك يهمنا </h2>
+
           <Link href="/drafts">
-            <Button color="primary" outline size="md">
+            <Button outline color="primary" size="md">
               اكتشف قائمة المسودات
-              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+              <img src="/static/img/interactive/greenArrow.svg" alt="" />
             </Button>
           </Link>
         </Container>
