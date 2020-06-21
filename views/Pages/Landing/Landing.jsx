@@ -326,8 +326,8 @@ const Landing = () => {
                 /> */}
                 <PieChart
                   data={[
-                    { title: 'One', value: 75, color: '#07706d' },
-                    { title: 'Two', value: 25, color: '#85bd48' }
+                    { title: 'One', value: 75, color: '#85bd48' },
+                    { title: 'Two', value: 25, color: '#07706d'  }
                   ]}
                 />
                 ;
@@ -338,7 +338,7 @@ const Landing = () => {
                     src="/static/img/interactive/like.svg"
                   />
                   <div>
-                    <h3>70%</h3>
+                    <h3>75%</h3>
                     <h5>إعجاب</h5>
                   </div>
                 </div>
@@ -349,7 +349,7 @@ const Landing = () => {
                     src="/static/img/interactive/unlike.svg"
                   />
                   <div>
-                    <h3>30%</h3>
+                    <h3>25%</h3>
                     <h4>عدم إعجاب </h4>
                   </div>
                 </div>
