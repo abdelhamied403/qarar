@@ -21,6 +21,11 @@ import Link from 'next/link';
 
 import './client.css';
 
+import dynamic from 'next/dynamic';
+const ScrollToggle = dynamic(() => import('react-scroll-toggle'), {
+  ssr: false
+});
+
 const propTypes = {
   isAuthentcated: PropTypes.bool,
   signOut: PropTypes.func
@@ -173,7 +178,10 @@ class ClientHeader extends React.Component {
             </div>
           </Container>
         </div>
-
+        {/* <ScrollToggle
+        className="SlideIn" //required property
+        scroll={300} //by default distance before child element
+    >  */}
         <Navbar expand="md" className="d-flex flex-row justify-content-between">
           <Container>
             <Link href="/">
@@ -280,6 +288,8 @@ class ClientHeader extends React.Component {
             </Collapse>
           </Container>
         </Navbar>
+        {/* </ScrollToggle> */}
+
       </div>
     );
   }

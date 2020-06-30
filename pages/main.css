@@ -4011,9 +4011,6 @@ input[type='button'].btn-block {
   margin-bottom: 0;
   list-style: none;
 }
-.client-layout .nav-item.active a.nav-link {
-  color: #84bc47 !important;
-}
 
 .nav-link {
   display: block;
@@ -18286,12 +18283,10 @@ textarea.form-control {
 }
 .client-layout .nav-item:hover {
   background-color: transparent !important;
-  color: #84bc47 !important;
   cursor: pointer;
 }
 .client-layout .nav-item:hover a {
   background-color: transparent !important;
-  color: #84bc47 !important;
   cursor: pointer;
 }
 .client-layout .nav-item {
@@ -18315,7 +18310,6 @@ textarea.form-control {
 }
 .client-layout .nav-item:hover a {
   background-color: transparent !important;
-  color: #84bc47 !important;
   cursor: pointer;
 }
 .client-layout .nav-item {

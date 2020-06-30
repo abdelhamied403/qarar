@@ -105,9 +105,6 @@ body {
   padding-left: 12px;
 }
 
-.client-layout .nav-item:hover {
-  background-color: var(--normal-gray) !important;
-}
 
 .client-layout .navbar-light .navbar-nav .nav-item:hover .nav-link {
   color: #313131 !important;
@@ -541,6 +538,32 @@ a.astbyanLink,
   position: relative;
 }
 
+
+ .nav-link:after {
+  background: #07706d;
+  content: "";
+    position: absolute;
+    bottom: -11px;
+    height: 3px;
+    width: 0;
+    left: 0;
+    -webkit-transition: all 400ms cubic-bezier(0.79, 0.14, 0.16, 0.86);
+    transition: all 400ms cubic-bezier(0.79, 0.14, 0.16, 0.86);
+}
+
+ .nav-link:hover:after {
+  width: 100%;
+  right: 0;
+  left: auto;
+  background: #07706d;
+}
+
+.nav-item.active .nav-link:after {
+  width: 100%;
+  right: 0;
+  left: auto;
+  background: #07706d;
+}
 /* .speech-bubble::after {
   content: ' ';
   position: absolute;

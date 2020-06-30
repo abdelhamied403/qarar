@@ -65,7 +65,6 @@ class ArticleComment extends Component {
   render() {
     const { comments, successComment } = this.state;
     const { uid, enableCommentForm, enableVote } = this.props;
-    console.log(comments);
 
     return (
       <>
