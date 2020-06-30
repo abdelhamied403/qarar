@@ -590,7 +590,7 @@ class DraftDetailsInfo extends Component {
               <CardBody>
                 <Row>
                   <Col md="9" className="draftBodyRt text-justify">
-                    <p>{draft.body}</p>
+                    <p>{renderHTML(draft.body || '')}</p>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
