@@ -3,6 +3,7 @@ import {
   Container,
   PaginationItem,
   PaginationLink,
+  Row,
   Col,
   Alert,
   TabPane
@@ -49,15 +50,15 @@ class Drafts extends Component {
     }
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${accessToken}` }
-          }
-        )
+        `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        }
+      )
       : await Api.get(
-          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
-        );
+        `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
+      );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
@@ -74,15 +75,15 @@ class Drafts extends Component {
     }
     const itemsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${accessToken}` }
-          }
-        )
+        `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        }
+      )
       : await Api.get(
-          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
-        );
+        `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
+      );
     if (itemsResponse.ok) {
       this.setState({ items: itemsResponse.data });
     }
@@ -156,7 +157,76 @@ class Drafts extends Component {
           </Container>
         </div>
         <Container>
-          <section>
+
+          <section className="filter-section">
+            <Container>
+              <Row>
+                <Col xs="12" md="4">
+                  <div className="form-group">
+
+                    <label >نوع القرار </label>
+                    <select class="not-select2 form-control">
+                      <option value="1">مسودة نظام كامل</option>
+                      <option value="2">مادة</option>
+
+                    </select>
+                  </div>
+                </Col>
+
+                <Col xs="12" md="4">
+                  <div class="form-group">
+
+                    <label for="orderDropDownList" > وقت الطرح </label>
+                    <select id="orderDropDownList" className="not-select2 form-control">
+                      <option value="1">تنتهي قريبا </option>
+                      <option value="2">مطروحة حديثا</option>
+
+                    </select>
+                  </div>
+                </Col>
+                <Col xs="12" md="4" className="filter-buttons">
+                  <form>
+                    <label>
+                      <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+  الفرص الاستثمارية
+        </label>
+                    <label>
+                      <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+        الرخص الصحية
+        </label>
+                    <label>
+                      <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+        الأنشطة التجارية
+
+        </label>
+                    <label>
+                      <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+ الرخص الإنشائية
+        </label>
+        
+                  </form>
+                </Col>
+              </Row>
+
+            </Container>
+          </section>
+          <section className="draft-cards">
             {drafts.length ? (
               drafts.map(draft => (
                 <CardDraft
@@ -175,9 +245,9 @@ class Drafts extends Component {
                   tags={
                     draft.tags
                       ? draft.tags.map(tagItem => ({
-                          tag: tagItem.name,
-                          id: tagItem.id
-                        }))
+                        tag: tagItem.name,
+                        id: tagItem.id
+                      }))
                       : []
                   }
                   liked={draft.liked}
@@ -186,15 +256,15 @@ class Drafts extends Component {
                 />
               ))
             ) : (
-              <Col>
-                <Alert type="sucess">
-                  لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى{' '}
-                  <Link href="/decisions">
-                    <a>القرارات المؤرشفة</a>
-                  </Link>
-                </Alert>
-              </Col>
-            )}
+                <Col>
+                  <Alert type="sucess">
+                    لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى{' '}
+                    <Link href="/decisions">
+                      <a>القرارات المؤرشفة</a>
+                    </Link>
+                  </Alert>
+                </Col>
+              )}
           </section>
           <div className="pagination-container">
             <Pagination

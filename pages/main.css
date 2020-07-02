@@ -20045,3 +20045,40 @@ textarea.form-control {
 }
 
 /*# sourceMappingURL=react-draft-wysiwyg.css.map*/
+
+.filter-section{
+
+  padding-bottom: 0px;
+}
+.draft-cards{
+
+  padding-top: 18px;
+}
+
+
+.filter-section .form-control {
+  padding: inherit;
+  padding-right: 10px;
+  height: 40px;
+}
+
+.filter-section  .form-group label{
+font-size: 16px;
+font-weight: 600;
+}
+
+.filter-section .filter-btn.control-active {
+  background: #0a6562;
+  color: #fff;
+}
+.filter-section .filter-buttons label{
+  margin-left: 20px;
+  font-size: 16px;
+}
+.filter-section .filter-buttons label input{ 
+margin-left: 10px;
+}
+.filter-section .filter-buttons label input {
+height: 16px;
+width: 16px;
+}
