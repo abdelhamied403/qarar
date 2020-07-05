@@ -50,6 +50,7 @@
     "react-scroll-toggle": "^1.0.2",
     "react-scrollbar": "^0.5.6",
     "react-scrollspy": "^3.4.2",
+    "react-select": "^3.1.0",
     "react-share": "^4.2.0",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.4",

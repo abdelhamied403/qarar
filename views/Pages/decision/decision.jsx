@@ -13,10 +13,14 @@ import {
   Alert
 } from 'reactstrap';
 import Pagination from 'rc-pagination';
+import ReactSelect from 'react-select';
+import makeAnimated from 'react-select/animated';
 import CardDraft from '../components/card-draft/card-draft';
 import './decision.css';
 import Api from '../../../api';
 import Skeleton from '../components/skeleton/skeleton';
+
+const animatedComponents = makeAnimated();
 
 class Decision extends Component {
   constructor(props) {
@@ -33,25 +37,46 @@ class Decision extends Component {
       archivedPage: 1,
       archivedCount: 0,
       archivedPageSize: 10,
-      loading: true
+      loading: true,
+      tags: [],
+      selectedTag: false,
+      selectedDate: 0
     };
   }
 
   componentDidMount() {
+    this.getDrafts();
+    this.getTags();
+  }
+
+  getTags = async () => {
+    const tagsResponse = await Api.get(
+      `/qarar_api/load/vocabulary/tags?_format=json&status=voting`
+    );
+    if (tagsResponse.ok) {
+      this.setState({ tags: tagsResponse.data });
+    }
+  };
+
+  getDrafts() {
     this.getAppliedItems();
     this.getArchivedItems();
   }
 
   getAppliedItems = async () => {
-    const { page, appliedPageSize } = this.state;
+    const { page, appliedPageSize, selectedTag, selectedDate } = this.state;
     const appliedCountResponse = await Api.get(
-      `/qarar_api/count/applied_qarar?_format=json`
+      `/qarar_api/count/applied_qarar?_format=json${
+        selectedTag ? `&tag=${selectedTag}` : ''
+      }${selectedDate ? `&ends=-1 month` : ''}`
     );
     if (appliedCountResponse.ok) {
       this.setState({ appliedCount: appliedCountResponse.data });
     }
     const appliedResponse = await Api.get(
-      `/qarar_api/qarar/applied/created/DESC/${appliedPageSize}/${page}?_format=json`
+      `/qarar_api/qarar/applied/created/DESC/${appliedPageSize}/${page}?_format=json${
+        selectedTag ? `&tag=${selectedTag}` : ''
+      }${selectedDate ? `&ends=-1 month` : ''}`
     );
     if (appliedResponse.ok) {
       this.setState({ appliedItems: appliedResponse.data, loading: false });
@@ -59,15 +84,24 @@ class Decision extends Component {
   };
 
   getArchivedItems = async () => {
-    const { archivedPage, archivedPageSize } = this.state;
+    const {
+      archivedPage,
+      archivedPageSize,
+      selectedTag,
+      selectedDate
+    } = this.state;
     const archivedCountResponse = await Api.get(
-      `/qarar_api/count/archived_qarar?_format=json`
+      `/qarar_api/count/archived_qarar?_format=json${
+        selectedTag ? `&tag=${selectedTag}` : ''
+      }${selectedDate ? `&ends=-1 month` : ''}`
     );
     if (archivedCountResponse.ok) {
       this.setState({ archivedCount: archivedCountResponse.data });
     }
     const archivedResponse = await Api.get(
-      `/qarar_api/qarar/archived/created/DESC/${archivedPageSize}/${archivedPage}?_format=json`
+      `/qarar_api/qarar/archived/created/DESC/${archivedPageSize}/${archivedPage}?_format=json${
+        selectedTag ? `&tag=${selectedTag}` : ''
+      }${selectedDate ? `&ends=-1 month` : ''}`
     );
     if (archivedResponse.ok) {
       this.setState({ archivedItems: archivedResponse.data });
@@ -128,7 +162,9 @@ class Decision extends Component {
       archivedPage,
       archivedCount,
       archivedPageSize,
-      loading
+      loading,
+      tags,
+      selectedDate
     } = this.state;
 
     if (loading) {
@@ -142,6 +178,67 @@ class Decision extends Component {
           </Container>
         </div>
         <Container className="decsion-page">
+          <section className="filter-section">
+            <Container>
+              <Row>
+                <Col xs="12" md="4">
+                  <div className="form-group">
+                    <label>نوع القرار </label>
+                    <select className="not-select2 form-control">
+                      <option value="1">مسودة نظام كامل</option>
+                      <option value="2">مادة</option>
+                    </select>
+                  </div>
+                </Col>
+
+                <Col xs="12" md="4">
+                  <div className="form-group">
+                    <label htmlFor="orderDropDownList"> وقت الطرح </label>
+                    <select
+                      id="orderDropDownList"
+                      className="not-select2 form-control"
+                      value={selectedDate}
+                      onChange={e =>
+                        this.setState(
+                          { selectedDate: parseInt(e.target.value, 10) },
+                          () => this.getDrafts()
+                        )
+                      }
+                    >
+                      <option value={0}>مطروحة حديثا</option>
+                      <option value={1}>تنتهي قريبا </option>
+                    </select>
+                  </div>
+                </Col>
+                <Col xs="12" md="4" className="filter-buttons">
+                  <div className="form-group">
+                    <label htmlFor="orderDropDownList">الكلمات الدلالية</label>
+                    <ReactSelect
+                      isRtl
+                      className="text-right"
+                      components={animatedComponents}
+                      cacheOptions
+                      classNamePrefix="react-select"
+                      options={Object.keys(tags).map(key => ({
+                        label: tags[key],
+                        value: key
+                      }))}
+                      isClearable
+                      placeholder="ابحث عن كلمة دلالية..."
+                      noOptionsMessage={() => 'لا يوجد خيارات...'}
+                      loadingMessage={() => 'تحميل...'}
+                      cl
+                      onChange={selected =>
+                        this.setState({ selectedTag: selected?.value }, () =>
+                          this.getDrafts()
+                        )
+                      }
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
           <section className="tabs-content">
             <Nav tabs>
               <NavItem>

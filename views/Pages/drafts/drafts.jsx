@@ -11,10 +11,14 @@ import {
 import Pagination from 'rc-pagination';
 import { connect } from 'react-redux';
 import Link from 'next/link';
+import ReactSelect from 'react-select';
+import makeAnimated from 'react-select/animated';
 import './drafts.css';
 import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
+
+const animatedComponents = makeAnimated();
 
 class Drafts extends Component {
   constructor(props) {
@@ -27,38 +31,55 @@ class Drafts extends Component {
       page: 1,
       draftCount: 0,
       draftsPageSize: 10,
-      items: [],
       itemsPage: 1,
-      itemsCount: 0,
       itemsPageSize: 10,
-      loading: true
+      loading: true,
+      tags: [],
+      selectedTag: false,
+      selectedDate: 0
     };
   }
 
   componentDidMount() {
     this.getDrafts();
+    this.getTags();
   }
+
+  getTags = async () => {
+    const tagsResponse = await Api.get(
+      `/qarar_api/load/vocabulary/tags?_format=json&status=voting`
+    );
+    if (tagsResponse.ok) {
+      this.setState({ tags: tagsResponse.data });
+    }
+  };
 
   getDrafts = async () => {
     const { accessToken } = this.props;
-    const { page, draftsPageSize } = this.state;
+    const { page, draftsPageSize, selectedTag, selectedDate } = this.state;
     const draftCountResponse = await Api.get(
-      `/qarar_api/count/voting_qarar?_format=json`
+      `/qarar_api/count/voting_qarar?_format=json${
+        selectedTag ? `&tag=${selectedTag}` : ''
+      }${selectedDate ? `&ends=-1 month` : ''}`
     );
     if (draftCountResponse.ok) {
       this.setState({ draftCount: draftCountResponse.data });
     }
     const draftsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
+          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
+            selectedTag ? `&tag=${selectedTag}` : ''
+          }${selectedDate ? `&ends=-1 month` : ''}`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
       : await Api.get(
-        `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json`
-      );
+          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
+            selectedTag ? `&tag=${selectedTag}` : ''
+          }${selectedDate ? `&ends=-1 month` : ''}`
+        );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
@@ -75,15 +96,15 @@ class Drafts extends Component {
     }
     const itemsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
+          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
       : await Api.get(
-        `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
-      );
+          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
+        );
     if (itemsResponse.ok) {
       this.setState({ items: itemsResponse.data });
     }
@@ -140,11 +161,9 @@ class Drafts extends Component {
       draftCount,
       draftsPageSize,
       page,
-      items,
-      itemsCount,
-      itemsPage,
-      itemsPageSize,
-      loading
+      tags,
+      loading,
+      selectedDate
     } = this.state;
     if (loading) {
       return <Skeleton />;
@@ -157,73 +176,65 @@ class Drafts extends Component {
           </Container>
         </div>
         <Container>
-
           <section className="filter-section">
             <Container>
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-
-                    <label >نوع القرار </label>
-                    <select class="not-select2 form-control">
+                    <label>نوع القرار </label>
+                    <select className="not-select2 form-control">
                       <option value="1">مسودة نظام كامل</option>
                       <option value="2">مادة</option>
-
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
-                  <div class="form-group">
-
-                    <label for="orderDropDownList" > وقت الطرح </label>
-                    <select id="orderDropDownList" className="not-select2 form-control">
-                      <option value="1">تنتهي قريبا </option>
-                      <option value="2">مطروحة حديثا</option>
-
+                  <div className="form-group">
+                    <label htmlFor="orderDropDownList"> وقت الطرح </label>
+                    <select
+                      id="orderDropDownList"
+                      className="not-select2 form-control"
+                      value={selectedDate}
+                      onChange={e =>
+                        this.setState(
+                          { selectedDate: parseInt(e.target.value, 10) },
+                          () => this.getDrafts()
+                        )
+                      }
+                    >
+                      <option value={0}>مطروحة حديثا</option>
+                      <option value={1}>تنتهي قريبا </option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
-                  <form>
-                    <label>
-                      <input
-                        name="isGoing"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleInputChange} />
-  الفرص الاستثمارية
-        </label>
-                    <label>
-                      <input
-                        name="isGoing"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleInputChange} />
-        الرخص الصحية
-        </label>
-                    <label>
-                      <input
-                        name="isGoing"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleInputChange} />
-        الأنشطة التجارية
-
-        </label>
-                    <label>
-                      <input
-                        name="isGoing"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleInputChange} />
- الرخص الإنشائية
-        </label>
-        
-                  </form>
+                  <div className="form-group">
+                    <label htmlFor="orderDropDownList">الكلمات الدلالية</label>
+                    <ReactSelect
+                      isRtl
+                      className="text-right"
+                      components={animatedComponents}
+                      cacheOptions
+                      classNamePrefix="react-select"
+                      options={Object.keys(tags).map(key => ({
+                        label: tags[key],
+                        value: key
+                      }))}
+                      isClearable
+                      placeholder="ابحث عن كلمة دلالية..."
+                      noOptionsMessage={() => 'لا يوجد خيارات...'}
+                      loadingMessage={() => 'تحميل...'}
+                      cl
+                      onChange={selected =>
+                        this.setState({ selectedTag: selected?.value }, () =>
+                          this.getDrafts()
+                        )
+                      }
+                    />
+                  </div>
                 </Col>
               </Row>
-
             </Container>
           </section>
           <section className="draft-cards">
@@ -245,9 +256,9 @@ class Drafts extends Component {
                   tags={
                     draft.tags
                       ? draft.tags.map(tagItem => ({
-                        tag: tagItem.name,
-                        id: tagItem.id
-                      }))
+                          tag: tagItem.name,
+                          id: tagItem.id
+                        }))
                       : []
                   }
                   liked={draft.liked}
@@ -256,15 +267,15 @@ class Drafts extends Component {
                 />
               ))
             ) : (
-                <Col>
-                  <Alert type="sucess">
-                    لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى{' '}
-                    <Link href="/decisions">
-                      <a>القرارات المؤرشفة</a>
-                    </Link>
-                  </Alert>
-                </Col>
-              )}
+              <Col>
+                <Alert type="sucess">
+                  لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى{' '}
+                  <Link href="/decisions">
+                    <a>القرارات المؤرشفة</a>
+                  </Link>
+                </Alert>
+              </Col>
+            )}
           </section>
           <div className="pagination-container">
             <Pagination

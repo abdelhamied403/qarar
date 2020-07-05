@@ -20082,3 +20082,12 @@ margin-left: 10px;
 height: 16px;
 width: 16px;
 }
+.react-select__value-container, .react-select-container, .react-select__control {
+  height: 30px !important;
+}
+.react-select__input input {
+  border: 0px !important;
+}
+.react-select__single-value, .react-select__placeholder {
+  top: 65% !important;
+}
