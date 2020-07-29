@@ -12,10 +12,7 @@ import {
   DropdownItem,
   UncontrolledTooltip,
   Alert,
-  Badge,
-  Modal,
-  ModalBody,
-  ModalFooter
+  Badge
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -40,6 +37,7 @@ import {
 import ReactLoading from 'react-loading';
 import Skeleton from '../components/skeleton/skeleton';
 import ArticleComment from '../components/ArticleComment';
+import DecisionEdits from '../components/decision-edit/decision-edit';
 import Api from '../../../api';
 
 const Editor = dynamic(
@@ -692,8 +690,8 @@ class DraftDetailsInfo extends Component {
                             onClick={e => {
                               e.stopPropagation();
                               this.setState({
-                                [`modal-${item.nid}`]: !this.state[
-                                  `modal-${item.nid}`
+                                [`modified-${item.nid}`]: !this.state[
+                                  `modified-${item.nid}`
                                 ]
                               });
                             }}
@@ -701,43 +699,6 @@ class DraftDetailsInfo extends Component {
                           >
                             سجل التعديلات
                           </Button>
-                          <Modal
-                            toggle={() =>
-                              this.setState({
-                                [`modal-${item.nid}`]: !this.state[
-                                  `modal-${item.nid}`
-                                ]
-                              })
-                            }
-                            isOpen={this.state[`modal-${item.nid}`]}
-                          >
-                            <ModalBody>
-                              <ul>
-                                {this.state[
-                                  `edit-${item.nid}`
-                                ]?.modifications.map(mod => (
-                                  <li>
-                                    {moment(mod.creatednode * 1000).format(
-                                      'DD/MM/YYYY'
-                                    )}{' '}
-                                    - {renderHTML(mod.body || '')}
-                                  </li>
-                                ))}
-                              </ul>
-                            </ModalBody>
-                            <ModalFooter>
-                              <Button
-                                color="danger"
-                                onClick={e =>
-                                  this.setState({
-                                    [`modal-${item.nid}`]: false
-                                  })
-                                }
-                              >
-                                إغلاق
-                              </Button>
-                            </ModalFooter>
-                          </Modal>
                         </>
                       )}
                       <div className="manyComments d-flex align-items-center">
@@ -751,6 +712,11 @@ class DraftDetailsInfo extends Component {
                       />
                     </div>
                   </CardHeader>
+                  {this.state[`modified-${item.nid}`] && (
+                    <DecisionEdits
+                      edits={this.state[`edit-${item.nid}`]?.modifications}
+                    />
+                  )}
                   <CardBody
                     style={
                       this.state[item.nid]
