@@ -65,12 +65,11 @@ const Login = () => {
           <div className="custom-container">
             <div className="register-header m-tb-20">
               <h3>استعادة كلمة المرور</h3>
-              <p className="sub-header">
-                ادخل بريدك الالكتروني و سوف يتم ارسال كلمة مرور مؤقتة لاستخدامها
-                في الدخول.
-              </p>
             </div>
-
+            <p className="sub-header">
+              ادخل بريدك الالكتروني و سوف يتم ارسال كلمة مرور مؤقتة لاستخدامها
+              في الدخول.
+            </p>
             <Alert isOpen={error} color="danger">
               {error}
             </Alert>
