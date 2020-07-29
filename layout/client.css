@@ -373,7 +373,7 @@ body {
   background-color: #07706d;
   display: flex;
   flex-direction: row;
-  height: 37px;
+  min-height: 37px;
   padding: 0;
   justify-content: flex-start;
   position: relative;
