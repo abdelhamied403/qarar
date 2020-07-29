@@ -32,7 +32,9 @@ const Landing = () => {
     if (userAAResponse.ok) {
       setMAUA(
         userAAResponse.data
-          ? userAAResponse.data.filter((item, index) => index < 3)
+          ? userAAResponse.data
+              .filter(item => item.name !== 'admin')
+              .filter((item, index) => index < 2)
           : []
       );
     }
@@ -327,10 +329,10 @@ const Landing = () => {
                 <PieChart
                   data={[
                     { title: 'One', value: 75, color: '#85bd48' },
-                    { title: 'Two', value: 25, color: '#07706d'  }
+                    { title: 'Two', value: 25, color: '#07706d' }
                   ]}
                 />
-                
+
                 <div className="chart-item">
                   <Media
                     className="chart-icon"
@@ -446,32 +448,32 @@ const Landing = () => {
 
                 <div className="flex">
                   <div className="chart-item">
-                    <span class="dot dot-10"></span>
+                    <span className="dot dot-10" />
                     <h3>10%</h3>
                     <h5>الدمام</h5>
                   </div>
                   <div className="chart-item">
-                    <span class="dot dot-15"></span>
+                    <span className="dot dot-15" />
                     <h3>15%</h3>
                     <h5>أبها</h5>
                   </div>
                   <div className="chart-item">
-                    <span class="dot dot-5"></span>
+                    <span className="dot dot-5" />
                     <h3>5%</h3>
                     <h5>نجران </h5>
                   </div>
                   <div className="chart-item">
-                    <span class="dot dot-30"></span>
+                    <span className="dot dot-30" />
                     <h3>30%</h3>
                     <h5>الرياض</h5>
                   </div>
                   <div className="chart-item">
-                    <span class="dot dot-15"></span>
+                    <span className="dot dot-15" />
                     <h3>15%</h3>
                     <h5>جازان</h5>
                   </div>
                   <div className="chart-item">
-                    <span class="dot dot-25"></span>
+                    <span className="dot dot-25" />
                     <h3>25%</h3>
                     <h5>تبوك</h5>
                   </div>
