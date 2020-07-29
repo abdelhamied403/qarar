@@ -217,10 +217,14 @@ class Drafts extends Component {
                       components={animatedComponents}
                       cacheOptions
                       classNamePrefix="react-select"
-                      options={Object.keys(tags).map(key => ({
-                        label: tags[key],
-                        value: key
-                      }))}
+                      options={
+                        tags
+                          ? Object.keys(tags).map(key => ({
+                              label: tags[key],
+                              value: key
+                            }))
+                          : []
+                      }
                       isClearable
                       placeholder="ابحث عن كلمة دلالية..."
                       noOptionsMessage={() => 'لا يوجد خيارات...'}
