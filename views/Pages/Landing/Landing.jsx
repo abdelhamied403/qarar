@@ -316,9 +316,9 @@ const Landing = () => {
               </div>
             </Col>
 
-            <Col xs="12" md="6" lg="6">
+            <Col xs="12" md="6" lg="6" className="chart-section">
               <h2 className="header"> نسبة إعجاب المشاركين</h2>
-              <div className="chart-section">
+              <div className="chart">
                 {/* <Media
                   className="chart-image"
                   object
@@ -330,7 +330,7 @@ const Landing = () => {
                     { title: 'Two', value: 25, color: '#07706d'  }
                   ]}
                 />
-                ;
+                
                 <div className="chart-item">
                   <Media
                     className="chart-icon"
@@ -427,7 +427,7 @@ const Landing = () => {
 
             <Col xs="12" md="4" lg="4">
               <h2 className="header">التوزيع الجغرافي للمشاركين</h2>
-              <div className="chart-section">
+              <div className="chart">
                 {/* <Media
                   className="chart-image"
                   object
