@@ -726,14 +726,7 @@ class DraftDetailsInfo extends Component {
                   >
                     <Row className="mt-3">
                       <Col md="7" className="draftBodyRt">
-                        <p>
-                          {item.modified_id
-                            ? renderHTML(
-                                this.state[`edit-${item.nid}`]?.modifications[0]
-                                  .body || ''
-                              )
-                            : renderHTML(item.body_value || '')}
-                        </p>
+                        <p>{renderHTML(item.body_value || '')}</p>
                         <Link href={`/draft-details/${item.nid}`}>
                           <Button
                             onMouseOut={() => {
