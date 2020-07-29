@@ -1,7 +1,11 @@
+require('dotenv').config();
 const compose = require('next-compose');
 const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
 const withSass = require('@zeit/next-sass');
+
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = compose([
   [withFonts, {}],
@@ -18,7 +22,12 @@ module.exports = compose([
           }
         }
       });
-
+      config.plugins.push(
+        new Dotenv({
+          path: path.join(__dirname, '.env'),
+          systemvars: true
+        })
+      );
       return config;
     }
   }
