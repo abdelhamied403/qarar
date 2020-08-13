@@ -12,6 +12,14 @@ import CardBlog from '../components/card-blog/card-blog';
 
 import Api from '../../../api';
 
+const colors = [
+  '#ee5253',
+  '#feca57',
+  '#0abde3',
+  '#85bd48',
+  '#1dd1a1',
+  '#341f97'
+];
 const Landing = () => {
   const uid = useSelector(state => state.auth.uid);
   const [mostActiveUsersAword, setMAUA] = useState([]);
@@ -24,7 +32,9 @@ const Landing = () => {
   const [news, setNews] = useState([]);
   const [activeBtn, setActiveBtn] = useState(1);
   const [activeBtnNews, setActiveBtnNews] = useState(0);
-
+  const [likePercentage, setLikePercentage] = useState(0);
+  const [dislikePercentage, setDislikePercentage] = useState(0);
+  const [cityPercentage, setCityPercentage] = useState([]);
   const getActiveUsers = async () => {
     const userAAResponse = await Api.get(
       '/qarar_api/top/10/user/awards?_format=json'
@@ -89,6 +99,21 @@ const Landing = () => {
       setNews(newsResponse.data);
     }
   };
+  const getLikesPercentage = async () => {
+    const response = await Api.get(
+      '/qarar_api/count/voting_stats?_format=json'
+    );
+    if (response.ok) {
+      setLikePercentage(response.data.like);
+      setDislikePercentage(response.data.dislike);
+    }
+  };
+  const getCityData = async () => {
+    const response = await Api.get('/qarar_api/count/city_stats?_format=json');
+    if (response.ok) {
+      setCityPercentage(response.data.data);
+    }
+  };
   useEffect(() => {
     getActiveUsers();
     getUserCount();
@@ -96,6 +121,8 @@ const Landing = () => {
     getDrafts();
     getNews();
     getAbout();
+    getLikesPercentage();
+    getCityData();
   }, []);
   return (
     <div className="rtl newUILanding">
@@ -328,8 +355,16 @@ const Landing = () => {
                 /> */}
                 <PieChart
                   data={[
-                    { title: 'One', value: 75, color: '#85bd48' },
-                    { title: 'Two', value: 25, color: '#07706d' }
+                    {
+                      title: 'One',
+                      value: parseInt(likePercentage, 10),
+                      color: '#85bd48'
+                    },
+                    {
+                      title: 'Two',
+                      value: parseInt(dislikePercentage, 10),
+                      color: '#07706d'
+                    }
                   ]}
                 />
 
@@ -340,7 +375,7 @@ const Landing = () => {
                     src="/static/img/interactive/like.svg"
                   />
                   <div>
-                    <h3>75%</h3>
+                    <h3>{likePercentage}%</h3>
                     <h5>إعجاب</h5>
                   </div>
                 </div>
@@ -351,7 +386,7 @@ const Landing = () => {
                     src="/static/img/interactive/unlike.svg"
                   />
                   <div>
-                    <h3>25%</h3>
+                    <h3>{dislikePercentage}%</h3>
                     <h4>عدم إعجاب </h4>
                   </div>
                 </div>
@@ -436,47 +471,30 @@ const Landing = () => {
                   src="/static/img/interactive/pie-chart.svg"
                 /> */}
                 <PieChart
-                  data={[
-                    { title: 'One', value: 10, color: '#ee5253' },
-                    { title: 'Two', value: 15, color: '#feca57' },
-                    { title: 'One', value: 5, color: '#0abde3' },
-                    { title: 'Two', value: 30, color: '#85bd48' },
-                    { title: 'One', value: 15, color: '#1dd1a1' },
-                    { title: 'Two', value: 25, color: '#341f97' }
-                  ]}
+                  data={cityPercentage
+                    .sort((a, b) => a.percentage < b.percentage)
+                    .filter((item, index) => index < 6)
+                    .map((item, index) => ({
+                      title: item.name,
+                      value: item.percentage,
+                      color: colors[index]
+                    }))}
                 />
 
                 <div className="flex">
-                  <div className="chart-item">
-                    <span className="dot dot-10" />
-                    <h3>10%</h3>
-                    <h5>الدمام</h5>
-                  </div>
-                  <div className="chart-item">
-                    <span className="dot dot-15" />
-                    <h3>15%</h3>
-                    <h5>أبها</h5>
-                  </div>
-                  <div className="chart-item">
-                    <span className="dot dot-5" />
-                    <h3>5%</h3>
-                    <h5>نجران </h5>
-                  </div>
-                  <div className="chart-item">
-                    <span className="dot dot-30" />
-                    <h3>30%</h3>
-                    <h5>الرياض</h5>
-                  </div>
-                  <div className="chart-item">
-                    <span className="dot dot-15" />
-                    <h3>15%</h3>
-                    <h5>جازان</h5>
-                  </div>
-                  <div className="chart-item">
-                    <span className="dot dot-25" />
-                    <h3>25%</h3>
-                    <h5>تبوك</h5>
-                  </div>
+                  {cityPercentage
+                    .sort((a, b) => a.percentage < b.percentage)
+                    .filter((item, index) => index < 6)
+                    .map((item, index) => (
+                      <div className="chart-item">
+                        <span
+                          className="dot"
+                          style={{ backgroundColor: colors[index] }}
+                        />
+                        <h3>{parseInt(item.percentage, 10)}%</h3>
+                        <h5>{item.name}</h5>
+                      </div>
+                    ))}
                 </div>
               </div>
             </Col>

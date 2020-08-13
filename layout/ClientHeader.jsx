@@ -22,6 +22,7 @@ import Link from 'next/link';
 import './client.css';
 
 import dynamic from 'next/dynamic';
+
 const ScrollToggle = dynamic(() => import('react-scroll-toggle'), {
   ssr: false
 });
@@ -265,7 +266,6 @@ class ClientHeader extends React.Component {
                     <NavItem
                       style={{
                         cursor: 'pointer',
-                        color: 'white',
                         display: 'inline-block'
                       }}
                       onClick={signOut}
@@ -289,7 +289,6 @@ class ClientHeader extends React.Component {
           </Container>
         </Navbar>
         {/* </ScrollToggle> */}
-
       </div>
     );
   }

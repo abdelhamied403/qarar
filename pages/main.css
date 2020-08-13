@@ -107,7 +107,7 @@ body {
   color: #000;
   text-align: right;
   background-color: white;
-  white-space: pre-line;
+  /* white-space: pre-line;*/
 }
 
 [tabindex='-1']:focus {
@@ -2437,6 +2437,15 @@ fieldset:disabled a.btn {
   background-color: #046f6d;
   border-color: #046f6d;
 }
+
+.navbar-nav .dropdown-toggle{
+color: #07706d !important;
+}
+
+button.btn.btn-primary {
+  color: white !important;
+}
+
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
