@@ -107,7 +107,7 @@ body {
   color: #000;
   text-align: right;
   background-color: white;
-  white-space: pre-line;
+  /* white-space: pre-line;*/
 }
 
 [tabindex='-1']:focus {
