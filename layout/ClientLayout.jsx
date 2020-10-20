@@ -20,7 +20,8 @@ class ClientLayout extends Component {
   login = async () => {
     const { cookies, dispatch } = this.props;
     const cookie = cookies.get('.ASPXFORMSAUTH');
-    console.log('cookie', cookie);
+
+    console.log('cookie', cookie, cookies.getAll());
     if (cookie) {
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
         cookie
