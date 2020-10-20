@@ -85,11 +85,6 @@ const Login = () => {
         <div className="register-content">
           <div className="custom-container">
             <div className="register-header m-tb-20">
-              <Link href="/register">
-                <button className="btn btn-outline-primary btn-md">
-                  مستخدم جديد
-                </button>
-              </Link>
               <h3>تسجيل الدخول</h3>
             </div>
             <p className="sub-header">
@@ -136,14 +131,28 @@ const Login = () => {
                   </Col>
                 </FormGroup>
                 <div className="button-group flex flex-justifiy-sp">
-                  <Link href="/forgot-password">
-                    <a>نسيت كلمت المرور</a>
-                  </Link>
                   <Button color="primary" onClick={() => login()}>
                     دخول
                     <img src="/static/img/interactive/whiteArrow.svg" alt="" />
                   </Button>
                 </div>
+
+                <a
+                  id="loginWithBaladyLink"
+                  className="d-flex"
+                  href="https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa"
+                >
+                  <div className="item-img mx-1">
+                    <img src="/static/fav.png" alt="Avatar" />
+                  </div>
+                  <div className="item-content mx-1">
+                    <span className="title"> بواسطة منصة بلدي</span>
+                    <br />
+                    <span className="sub-title">
+                      عن طريق حسابك في منصة بلدي
+                    </span>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
