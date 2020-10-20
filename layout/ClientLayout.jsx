@@ -18,18 +18,21 @@ class ClientLayout extends Component {
   };
 
   login = async () => {
-    const { cookies, dispatch, logoutToken } = this.props;
+    const { cookies, dispatch } = this.props;
     const cookie = cookies.get('.ASPXFORMSAUTH');
+    console.log('cookie', cookie);
     if (cookie) {
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
         cookie
       });
+      console.log(response);
       if (response.ok) {
         const response2 = await Api.get(
           `/qarar_api/load/user/current?_format=json`,
           {},
           { headers: { Autorization: `Bearer ${response.data.token}` } }
         );
+        console.log(response2);
         if (response2.ok) {
           dispatch({
             type: 'LOGIN',
