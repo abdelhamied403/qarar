@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withCookies } from 'react-cookie';
 import CLientFooter from './ClientFooter';
 import ClientHeader from './ClientHeader';
 import './client.css';
@@ -19,12 +18,11 @@ class ClientLayout extends Component {
 
   login = async () => {
     const { cookies, dispatch } = this.props;
-    const cookie = cookies.get('.ASPXFORMSAUTH');
 
-    console.log('cookie', cookie, cookies.getAll());
-    if (cookie) {
+    console.log('cookie', cookies);
+    if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
-        cookie
+        cookie: cookies['.ASPXFORMSAUTH']
       });
       console.log(response);
       if (response.ok) {
@@ -69,4 +67,4 @@ const mapStateToProps = ({ auth: { token, logoutToken } }) => ({
   token,
   logoutToken
 });
-export default connect(mapStateToProps)(withCookies(ClientLayout));
+export default connect(mapStateToProps)(ClientLayout);
