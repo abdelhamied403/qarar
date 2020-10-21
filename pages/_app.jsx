@@ -24,13 +24,14 @@ class MyApp extends App {
         cookie: cookies['.ASPXFORMSAUTH']
       });
       if (response.ok) {
+        console.log('response', response);
         return {
           loggedIn: {
             type: 'LOGIN',
             profileImage: response.data.picture,
             uid: response.data.id,
             name: response.data.name,
-            accessToken: response.data.accessToken
+            accessToken: response.data.access_token
           }
         };
       }
@@ -43,15 +44,8 @@ class MyApp extends App {
     this.persistor = persistStore(props.reduxStore);
   }
 
-  componentDidMount() {
-    const { reduxStore, loggedIn } = this.props;
-    if (loggedIn) {
-      reduxStore.dispatch(loggedIn);
-    }
-  }
-
   render() {
-    const { Component, pageProps, reduxStore } = this.props;
+    const { Component, pageProps, reduxStore, loggedIn } = this.props;
     return (
       <Provider store={reduxStore}>
         <PersistGate loading={<Loading />} persistor={this.persistor}>
@@ -78,7 +72,7 @@ class MyApp extends App {
                 href="https://unpkg.com/@coreui/icons/css/free.min.css"
               />
             </Head>
-            <ClientLayout>
+            <ClientLayout loggedIn={loggedIn}>
               {/* eslint-disable-next-line react/jsx-props-no-spreading */}
               <Component {...pageProps} />
             </ClientLayout>
