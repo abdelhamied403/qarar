@@ -21,10 +21,13 @@ class MyApp extends App {
     const store = ctx.ctx.reduxStore;
     const { dispatch } = store;
     const cookies = parseCookies(ctx);
+    console.log(cookies, cookies.hasOwnProperty('.ASPXFORMSAUTH'));
     if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
+      console.log(cookies['.ASPXFORMSAUTH']);
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
         cookie: cookies['.ASPXFORMSAUTH']
       });
+      console.log(response);
       if (response.ok) {
         const response2 = await Api.get(
           `/qarar_api/load/user/current?_format=json`,
