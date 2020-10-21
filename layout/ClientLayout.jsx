@@ -6,13 +6,23 @@ import './client.css';
 import Api from '../api';
 
 class ClientLayout extends Component {
+  componentDidMount() {
+    this.login();
+  }
+
   signOut = () => {
     const { dispatch, logoutToken } = this.props;
     Api.post(`/user/logout?logout_token=${logoutToken}`);
     dispatch({ type: 'LOGOUT' });
   };
 
-  login = async () => {};
+  login = async () => {
+    const { loggedIn, dispatch } = this.props;
+    console.log('loggedIn', loggedIn);
+    if (loggedIn && loggedIn.type) {
+      dispatch(loggedIn);
+    }
+  };
 
   render() {
     const { children, token } = this.props;
