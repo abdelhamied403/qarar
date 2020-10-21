@@ -24,7 +24,6 @@ class MyApp extends App {
         cookie: cookies['.ASPXFORMSAUTH']
       });
       if (response.ok) {
-        console.log('response', response);
         return {
           loggedIn: {
             type: 'LOGIN',
