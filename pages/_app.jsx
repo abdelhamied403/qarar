@@ -17,8 +17,8 @@ import './main.css';
 import './qarar.css';
 
 class MyApp extends App {
-  static async getInitialProps(ctx) {
-    const store = ctx.ctx.reduxStore;
+  static async getInitialProps({ ctx }) {
+    const store = ctx.reduxStore;
     const { dispatch } = store;
     const cookies = parseCookies(ctx);
     console.log(cookies, cookies.hasOwnProperty('.ASPXFORMSAUTH'));
