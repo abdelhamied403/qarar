@@ -10,6 +10,7 @@ import { parseCookies } from 'nookies';
 import withReduxStore from '../redux/with-redux-store';
 import ClientLayout from '../layout';
 import Loading from '../components/loading';
+import Api from '../api';
 import 'simple-line-icons/css/simple-line-icons.css';
 import 'flag-icon-css/css/flag-icon.min.css';
 import './main.css';
@@ -17,12 +18,31 @@ import './qarar.css';
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
-    const allCookies = parseCookies(ctx);
-
-    console.log('server', ctx?.ctx?.req?.headers?.cookie);
-    return {
-      cookies: parseCookies(ctx)
-    };
+    const store = ctx.reduxStore;
+    const { dispatch } = store;
+    const cookies = parseCookies(ctx);
+    if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
+      const response = await Api.post('/qarar_api/balady-login?_format=json', {
+        cookie: cookies['.ASPXFORMSAUTH']
+      });
+      if (response.ok) {
+        const response2 = await Api.get(
+          `/qarar_api/load/user/current?_format=json`,
+          {},
+          { headers: { Autorization: `Bearer ${response.data.token}` } }
+        );
+        console.log(response2);
+        if (response2.ok) {
+          dispatch({
+            type: 'LOGIN',
+            profileImage: response2.data.picture,
+            uid: response2.data.id,
+            name: response2.data.name,
+            accessToken: response.data.token
+          });
+        }
+      }
+    }
   }
 
   constructor(props) {
