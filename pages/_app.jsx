@@ -18,30 +18,21 @@ import './qarar.css';
 
 class MyApp extends App {
   static async getInitialProps({ ctx }) {
-    const store = ctx.reduxStore;
-    const { dispatch } = store;
     const cookies = parseCookies(ctx);
     if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
         cookie: cookies['.ASPXFORMSAUTH']
       });
-      console.log('1', response);
       if (response.ok) {
-        const response2 = await Api.get(
-          `/qarar_api/load/user/current?_format=json`,
-          {},
-          { headers: { Autorization: `Bearer ${response.data.token}` } }
-        );
-        console.log('2', response2);
-        if (response2.ok) {
-          dispatch({
+        return {
+          loggedIn: {
             type: 'LOGIN',
-            profileImage: response2.data.picture,
-            uid: response2.data.id,
-            name: response2.data.name,
-            accessToken: response.data.token
-          });
-        }
+            profileImage: response.data.picture,
+            uid: response.data.id,
+            name: response.data.name,
+            accessToken: response.data.accessToken
+          }
+        };
       }
     }
   }
@@ -50,6 +41,13 @@ class MyApp extends App {
     super(props);
     this.state = { cookies: props.cookies };
     this.persistor = persistStore(props.reduxStore);
+  }
+
+  componentDidMount() {
+    const { reduxStore, loggedIn } = this.props;
+    if (loggedIn) {
+      reduxStore.dispatch(loggedIn);
+    }
   }
 
   render() {
