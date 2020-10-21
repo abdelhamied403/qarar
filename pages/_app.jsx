@@ -18,7 +18,7 @@ import './qarar.css';
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
-    const store = ctx.reduxStore;
+    const store = ctx.ctx.reduxStore;
     const { dispatch } = store;
     const cookies = parseCookies(ctx);
     if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
@@ -52,8 +52,7 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, reduxStore, cookies } = this.props;
-    console.log('client', cookies);
+    const { Component, pageProps, reduxStore } = this.props;
     return (
       <Provider store={reduxStore}>
         <PersistGate loading={<Loading />} persistor={this.persistor}>
@@ -80,7 +79,7 @@ class MyApp extends App {
                 href="https://unpkg.com/@coreui/icons/css/free.min.css"
               />
             </Head>
-            <ClientLayout cookies={cookies}>
+            <ClientLayout>
               {/* eslint-disable-next-line react/jsx-props-no-spreading */}
               <Component {...pageProps} />
             </ClientLayout>
