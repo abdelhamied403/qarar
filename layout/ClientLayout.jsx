@@ -18,32 +18,33 @@ class ClientLayout extends Component {
 
   login = async () => {
     const { loggedIn, dispatch } = this.props;
-    console.log('loggedIn', loggedIn);
     if (loggedIn && loggedIn.type) {
       dispatch(loggedIn);
     }
   };
 
   render() {
-    const { children, token } = this.props;
+    const { children, accessToken } = this.props;
     return (
       <div className="app client-layout">
         <ClientHeader
           signOut={this.signOut}
           login={this.login}
-          isAuthentcated={Boolean(token)}
+          isAuthentcated={Boolean(accessToken)}
         />
         <div className="flex-page-content">
-          <main className={token ? ' user-loggedin' : ''}>{children}</main>
+          <main className={accessToken ? ' user-loggedin' : ''}>
+            {children}
+          </main>
         </div>
-        <CLientFooter isAuthentcated={Boolean(token)} />
+        <CLientFooter isAuthentcated={Boolean(accessToken)} />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ auth: { token, logoutToken } }) => ({
-  token,
+const mapStateToProps = ({ auth: { accessToken, logoutToken } }) => ({
+  accessToken,
   logoutToken
 });
 export default connect(mapStateToProps)(ClientLayout);
