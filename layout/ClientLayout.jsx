@@ -10,10 +10,11 @@ class ClientLayout extends Component {
     this.login();
   }
 
-  signOut = () => {
+  signOut = async () => {
     const { dispatch, logoutToken } = this.props;
-    Api.post(`/user/logout?logout_token=${logoutToken}`);
+    await Api.post(`/user/logout?logout_token=${logoutToken}`);
     dispatch({ type: 'LOGOUT' });
+    window.location.href = 'https://apps.balady.gov.sa/UsersMgmt/logout';
   };
 
   login = async () => {
