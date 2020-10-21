@@ -6,7 +6,7 @@ import withAnalytics from 'next-analytics';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import cookies from 'next-cookies';
+import { parseCookies } from 'nookies';
 import withReduxStore from '../redux/with-redux-store';
 import ClientLayout from '../layout';
 import Loading from '../components/loading';
@@ -17,18 +17,23 @@ import './qarar.css';
 
 class MyApp extends App {
   static async getInitialProps(ctx) {
+    const allCookies = parseCookies(ctx);
+
+    console.log('server', ctx?.ctx?.req?.headers?.cookie);
     return {
-      cookies: cookies(ctx)
+      cookies: parseCookies(ctx)
     };
   }
 
   constructor(props) {
     super(props);
+    this.state = { cookies: props.cookies };
     this.persistor = persistStore(props.reduxStore);
   }
 
   render() {
     const { Component, pageProps, reduxStore, cookies } = this.props;
+    console.log('client', cookies);
     return (
       <Provider store={reduxStore}>
         <PersistGate loading={<Loading />} persistor={this.persistor}>
