@@ -103,9 +103,24 @@ const Landing = () => {
     const response = await Api.get(
       '/qarar_api/count/voting_stats?_format=json'
     );
+    console.log(response);
     if (response.ok) {
-      setLikePercentage(response.data.like);
-      setDislikePercentage(response.data.dislike);
+      setLikePercentage(
+        parseFloat(
+          (response.data.like /
+            (parseInt(response.data.like, 10) +
+              parseInt(response.data.dislike, 10))) *
+            100
+        ).toFixed(1)
+      );
+      setDislikePercentage(
+        parseFloat(
+          (response.data.dislike /
+            (parseInt(response.data.like, 10) +
+              parseInt(response.data.dislike, 10))) *
+            100
+        ).toFixed(1)
+      );
     }
   };
   const getCityData = async () => {
