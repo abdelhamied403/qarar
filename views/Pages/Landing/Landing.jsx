@@ -103,7 +103,6 @@ const Landing = () => {
     const response = await Api.get(
       '/qarar_api/count/voting_stats?_format=json'
     );
-    console.log(response);
     if (response.ok) {
       setLikePercentage(
         parseFloat(
