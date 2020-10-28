@@ -389,7 +389,7 @@ const Landing = () => {
                     src="/static/img/interactive/like.svg"
                   />
                   <div>
-                    <h3>{likePercentage}%</h3>
+                    <h3 style={{ color: '#85bd48' }}>{likePercentage}%</h3>
                     <h5>إعجاب</h5>
                   </div>
                 </div>
