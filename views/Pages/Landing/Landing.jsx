@@ -105,20 +105,20 @@ const Landing = () => {
     );
     if (response.ok) {
       setLikePercentage(
-        parseFloat(
+        Math.round(
           (response.data.like /
             (parseInt(response.data.like, 10) +
               parseInt(response.data.dislike, 10))) *
             100
-        ).toFixed(1)
+        )
       );
       setDislikePercentage(
-        parseFloat(
+        Math.round(
           (response.data.dislike /
             (parseInt(response.data.like, 10) +
               parseInt(response.data.dislike, 10))) *
             100
-        ).toFixed(1)
+        )
       );
     }
   };
