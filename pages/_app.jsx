@@ -48,8 +48,9 @@ class MyApp extends App {
     if (window.ReactNativeWebView) {
       postMessage = window.ReactNativeWebView.postMessage;
     }
-    postMessage('test');
     const { reduxStore } = this.props;
+    postMessage(JSON.stringify(reduxStore.getState()));
+
     if (reduxStore.getState()?.auth?.accessToken) {
       postMessage(JSON.stringify(reduxStore.getState().auth));
     }
