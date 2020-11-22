@@ -43,19 +43,6 @@ class MyApp extends App {
     this.persistor = persistStore(props.reduxStore);
   }
 
-  componentDidMount() {
-    let { postMessage } = window.parent;
-    if (window.ReactNativeWebView) {
-      postMessage = window.ReactNativeWebView.postMessage;
-    }
-    const { reduxStore } = this.props;
-    postMessage(JSON.stringify(reduxStore.getState()));
-
-    if (reduxStore.getState()?.auth?.accessToken) {
-      postMessage(JSON.stringify(reduxStore.getState().auth));
-    }
-  }
-
   render() {
     const { Component, pageProps, reduxStore, loggedIn } = this.props;
     return (

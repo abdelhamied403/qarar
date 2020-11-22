@@ -19,8 +19,13 @@ class ClientLayout extends Component {
 
   login = async () => {
     const { loggedIn, dispatch } = this.props;
+    let { postMessage } = window.parent;
+    if (window.ReactNativeWebView) {
+      postMessage = window.ReactNativeWebView.postMessage;
+    }
     if (loggedIn && loggedIn.type) {
       dispatch(loggedIn);
+      postMessage(JSON.stringify(loggedIn));
     }
   };
 
