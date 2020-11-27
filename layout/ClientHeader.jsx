@@ -190,7 +190,7 @@ class ClientHeader extends React.Component {
                 <Media
                   className="image-icon"
                   object
-                  src="/static/img/interactive/qarar-logo.svg"
+                  src="/static/img/interactive/qarar-logo-white.svg"
                 />
               </a>
             </Link>
