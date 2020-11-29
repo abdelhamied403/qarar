@@ -2439,7 +2439,7 @@ fieldset:disabled a.btn {
 }
 
 .navbar-nav .dropdown-toggle{
-color: #07706d !important;
+color: #fff !important;
 }
 
 button.btn.btn-primary {
@@ -3070,9 +3070,6 @@ input[type='button'].btn-block {
 .dropdown-menu-right {
   right: 0;
   left: auto;
-}
-.drop-header a.dropdown-toggle:hover {
-  background-color: white !important;
 }
 
 @media (min-width: 576px) {
@@ -16864,8 +16861,8 @@ footer a:hover {
 .groups,
 .invitaion,
 .award {
-  width: calc(100% - 100px);
-  margin-right: 100px;
+  width: calc(100% - 200px);
+  margin-right: 200px;
 }
 
 @media (max-width: 768px) {
@@ -18077,11 +18074,14 @@ textarea.form-control {
 
 .client-layout .flex-page-content .sideBar {
   background-color: white;
-  width: auto;
+  width: 200px;
   position: absolute;
   top: 157px;
 }
 
+.sideBar .nav-link::after {
+  background-color: #fff !important;
+}
 .client-layout .fixed-navbar {
   position: fixed;
   width: 100%;
@@ -18229,18 +18229,6 @@ textarea.form-control {
   margin-bottom: auto;
 }
 
-.shared,
-.aboutpage,
-.notifications,
-.shared,
-.shared-item,
-.follow,
-.groups,
-.invitaion,
-.award {
-  width: calc(100% - 100px);
-  margin-right: 100px;
-}
 
 @media (max-width: 768px) {
   .shared,

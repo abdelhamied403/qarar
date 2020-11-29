@@ -190,7 +190,7 @@ class ClientHeader extends React.Component {
                 <Media
                   className="image-icon"
                   object
-                  src="/static/img/interactive/qarar-logo.svg"
+                  src="/static/img/interactive/qarar-logo-white.svg"
                 />
               </a>
             </Link>
@@ -262,17 +262,7 @@ class ClientHeader extends React.Component {
                       </a>
                     </Link>
                   </NavItem>
-                  {isAuthentcated ? (
-                    <NavItem
-                      style={{
-                        cursor: 'pointer',
-                        display: 'inline-block'
-                      }}
-                      onClick={signOut}
-                    >
-                      خروج
-                    </NavItem>
-                  ) : (
+                  {!isAuthentcated && (
                     <NavItem active={router.pathname === '/login'}>
                       <Link href="/login">
                         <a>
