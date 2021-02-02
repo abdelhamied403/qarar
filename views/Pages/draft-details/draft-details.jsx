@@ -12,7 +12,9 @@ import {
   DropdownItem,
   UncontrolledTooltip,
   Alert,
-  Badge
+  Badge,
+  TabContent,
+  TabPane
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -50,6 +52,7 @@ class DraftDetailsInfo extends Component {
   constructor() {
     super();
     this.state = {
+      activeTab: '1',
       draft: {
         tags: []
       },
@@ -448,7 +451,8 @@ class DraftDetailsInfo extends Component {
       errorComment,
       loadingDraft,
       breadcrumbs,
-      openArticle
+      openArticle,
+      activeTab
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -621,6 +625,7 @@ class DraftDetailsInfo extends Component {
                 </Row>
               </CardBody>
             </Card>
+
             <div className="draftInfoShare d-flex justify-content-between mb-4">
               <div className="shareInfoRight">
                 {items && (
@@ -668,172 +673,378 @@ class DraftDetailsInfo extends Component {
                 </FacebookShareButton>
               </div>
             </div>
-            {items &&
-              items.map(item => (
-                <Card
-                  key={item.nid}
-                  className="cardDraft text-justify collapseDraftCard"
+            <div className="draftInfoShare d-flex justify-content-between mb-4">
+              <div>
+                <Button
+                  color={activeTab === '1' ? 'primary' : 'default'}
+                  onClick={() => this.setState({ activeTab: '1' })}
                 >
-                  <CardHeader
-                    className="d-flex justify-content-between"
-                    style={{ backgroundColor: item.modified_id && '#ee5253' }}
-                    onClick={() =>
-                      this.setState({ [item.nid]: !this.state[item.nid] })
-                    }
-                  >
-                    <p>{item.title}</p>
-                    <div className="dratCartTitlelt d-flex">
-                      {item.modified_id && (
-                        <>
-                          <Button
-                            color="transparent"
-                            onClick={e => {
-                              e.stopPropagation();
-                              this.setState({
-                                [`modified-${item.nid}`]: !this.state[
-                                  `modified-${item.nid}`
-                                ]
-                              });
-                            }}
-                            className="p-0 m-0 text-white border-0"
-                          >
-                            سجل التعديلات
-                          </Button>
-                        </>
-                      )}
-                      <div className="manyComments d-flex align-items-center">
-                        <img src="/static/img/interactive/chat.svg" alt="" />
-                        <span>{item.comments} تعليق</span>
-                      </div>
-                      <img
-                        src="/static/img/interactive/whiteTabs.svg"
-                        alt=""
-                        className={this.state[item.nid] ? 'rotated' : ''}
-                      />
-                    </div>
-                  </CardHeader>
-                  {this.state[`modified-${item.nid}`] && (
-                    <DecisionEdits
-                      edits={this.state[`edit-${item.nid}`]?.modifications}
-                    />
-                  )}
-                  <CardBody
-                    style={
-                      this.state[item.nid]
-                        ? { display: 'block' }
-                        : { display: 'none' }
-                    }
-                  >
-                    <Row className="mt-3">
-                      <Col md="7" className="draftBodyRt">
-                        <p>{renderHTML(item.body_value || '')}</p>
-                        <Link href={`/draft-details/${item.nid}`}>
-                          <Button
-                            onMouseOut={() => {
-                              this.setState({
-                                img2: '/static/img/interactive/greenArrow.svg'
-                              });
-                            }}
-                            onMouseEnter={() =>
-                              this.setState({
-                                img2: '/static/img/interactive/whiteArrow.svg'
-                              })
-                            }
-                          >
-                            المزيد
-                            <img src={this.state.img2} alt="" />
-                          </Button>
-                        </Link>
-                      </Col>
-                      <Col md="5">
-                        <div className="d-flex justify-content-end draftLikeDislike">
-                          <span>{item.likes}</span>
-                          {this.state.like && this.state.id === item.nid && (
-                            <ReactLoading
-                              className="mx-1"
-                              type="spin"
-                              color="#046F6D"
-                              height={20}
-                              width={20}
+                  المواد تحت التصويت
+                </Button>
+                <Button
+                  color={activeTab === '2' ? 'primary' : 'default'}
+                  onClick={() => this.setState({ activeTab: '2' })}
+                >
+                  كل المواد
+                </Button>
+              </div>
+            </div>
+            <TabContent activeTab={activeTab}>
+              <TabPane tabId="1">
+                {items &&
+                  items.map(item => (
+                    <Card
+                      key={item.nid}
+                      className="cardDraft text-justify collapseDraftCard"
+                    >
+                      <CardHeader
+                        className="d-flex justify-content-between"
+                        style={{
+                          backgroundColor: item.modified_id && '#ee5253'
+                        }}
+                        onClick={() =>
+                          this.setState({ [item.nid]: !this.state[item.nid] })
+                        }
+                      >
+                        <p>{item.title}</p>
+                        <div className="dratCartTitlelt d-flex">
+                          {item.modified_id && (
+                            <>
+                              <Button
+                                color="transparent"
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  this.setState({
+                                    [`modified-${item.nid}`]: !this.state[
+                                      `modified-${item.nid}`
+                                    ]
+                                  });
+                                }}
+                                className="p-0 m-0 text-white border-0"
+                              >
+                                سجل التعديلات
+                              </Button>
+                            </>
+                          )}
+                          <div className="manyComments d-flex align-items-center">
+                            <img
+                              src="/static/img/interactive/chat.svg"
+                              alt=""
                             />
-                          )}
+                            <span>{item.comments} تعليق</span>
+                          </div>
                           <img
-                            onClick={() => this.vote('like', item.nid)}
-                            src={
-                              item.flag === 'like'
-                                ? '/static/img/interactive/blueLikeActive.svg'
-                                : '/static/img/interactive/dislikeGreen.svg'
-                            }
+                            src="/static/img/interactive/whiteTabs.svg"
                             alt=""
-                            id={`tooltip-l-${item.nid}`}
+                            className={this.state[item.nid] ? 'rotated' : ''}
                           />
-
-                          {!openArticle && (
-                            <UncontrolledTooltip
-                              placement="top"
-                              target={`tooltip-l-${item.nid}`}
-                            >
-                              تم إيقاف التصويت
-                            </UncontrolledTooltip>
-                          )}
-                          {openArticle && !uid && (
-                            <UncontrolledTooltip
-                              placement="top"
-                              target={`tooltip-l-${item.nid}`}
-                            >
-                              يجب عليك تسجيل الدخول
-                            </UncontrolledTooltip>
-                          )}
-                          <span className="ml-3">{item.dislikes}</span>
-                          {this.state.dislike && this.state.id === item.nid && (
-                            <ReactLoading
-                              className="mx-1"
-                              type="spin"
-                              color="#046F6D"
-                              height={20}
-                              width={20}
-                            />
-                          )}
-                          <img
-                            onClick={() => this.vote('dislike', item.nid)}
-                            src={
-                              item.flag === 'dislike'
-                                ? '/static/img/interactive/blueDislikeActive.svg'
-                                : '/static/img/interactive/likeGreen.svg'
-                            }
-                            alt=""
-                            id={`tooltip-d-${item.nid}`}
-                          />
-                          {!openArticle && (
-                            <UncontrolledTooltip
-                              placement="top"
-                              target={`tooltip-d-${item.nid}`}
-                            >
-                              تم إيقاف التصويت
-                            </UncontrolledTooltip>
-                          )}
-                          {openArticle && !uid && (
-                            <UncontrolledTooltip
-                              placement="top"
-                              target={`tooltip-d-${item.nid}`}
-                            >
-                              يجب عليك تسجيل الدخول
-                            </UncontrolledTooltip>
-                          )}
                         </div>
-
-                        <ArticleComment
-                          enableCommentForm={openArticle}
-                          enableVote={openArticle}
-                          likeComment={this.likeComment}
-                          dislikeComment={this.dislikeComment}
-                          itemId={item.nid}
+                      </CardHeader>
+                      {this.state[`modified-${item.nid}`] && (
+                        <DecisionEdits
+                          edits={this.state[`edit-${item.nid}`]?.modifications}
                         />
-                      </Col>
-                    </Row>
-                  </CardBody>
-                </Card>
-              ))}
+                      )}
+                      <CardBody
+                        style={
+                          this.state[item.nid]
+                            ? { display: 'block' }
+                            : { display: 'none' }
+                        }
+                      >
+                        <Row className="mt-3">
+                          <Col md="7" className="draftBodyRt">
+                            <p>{renderHTML(item.body_value || '')}</p>
+                            <Link href={`/draft-details/${item.nid}`}>
+                              <Button
+                                onMouseOut={() => {
+                                  this.setState({
+                                    img2:
+                                      '/static/img/interactive/greenArrow.svg'
+                                  });
+                                }}
+                                onMouseEnter={() =>
+                                  this.setState({
+                                    img2:
+                                      '/static/img/interactive/whiteArrow.svg'
+                                  })
+                                }
+                              >
+                                المزيد
+                                <img src={this.state.img2} alt="" />
+                              </Button>
+                            </Link>
+                          </Col>
+                          <Col md="5">
+                            <div className="d-flex justify-content-end draftLikeDislike">
+                              <span>{item.likes}</span>
+                              {this.state.like &&
+                                this.state.id === item.nid && (
+                                  <ReactLoading
+                                    className="mx-1"
+                                    type="spin"
+                                    color="#046F6D"
+                                    height={20}
+                                    width={20}
+                                  />
+                                )}
+                              <img
+                                onClick={() => this.vote('like', item.nid)}
+                                src={
+                                  item.flag === 'like'
+                                    ? '/static/img/interactive/blueLikeActive.svg'
+                                    : '/static/img/interactive/dislikeGreen.svg'
+                                }
+                                alt=""
+                                id={`tooltip-l-${item.nid}`}
+                              />
+
+                              {!openArticle && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-l-${item.nid}`}
+                                >
+                                  تم إيقاف التصويت
+                                </UncontrolledTooltip>
+                              )}
+                              {openArticle && !uid && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-l-${item.nid}`}
+                                >
+                                  يجب عليك تسجيل الدخول
+                                </UncontrolledTooltip>
+                              )}
+                              <span className="ml-3">{item.dislikes}</span>
+                              {this.state.dislike &&
+                                this.state.id === item.nid && (
+                                  <ReactLoading
+                                    className="mx-1"
+                                    type="spin"
+                                    color="#046F6D"
+                                    height={20}
+                                    width={20}
+                                  />
+                                )}
+                              <img
+                                onClick={() => this.vote('dislike', item.nid)}
+                                src={
+                                  item.flag === 'dislike'
+                                    ? '/static/img/interactive/blueDislikeActive.svg'
+                                    : '/static/img/interactive/likeGreen.svg'
+                                }
+                                alt=""
+                                id={`tooltip-d-${item.nid}`}
+                              />
+                              {!openArticle && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-d-${item.nid}`}
+                                >
+                                  تم إيقاف التصويت
+                                </UncontrolledTooltip>
+                              )}
+                              {openArticle && !uid && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-d-${item.nid}`}
+                                >
+                                  يجب عليك تسجيل الدخول
+                                </UncontrolledTooltip>
+                              )}
+                            </div>
+
+                            <ArticleComment
+                              enableCommentForm={openArticle}
+                              enableVote={openArticle}
+                              likeComment={this.likeComment}
+                              dislikeComment={this.dislikeComment}
+                              itemId={item.nid}
+                            />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                  ))}
+              </TabPane>
+              <TabPane tabId="2">
+                {items &&
+                  items.map(item => (
+                    <Card
+                      key={item.nid}
+                      className="cardDraft text-justify collapseDraftCard"
+                    >
+                      <CardHeader
+                        className="d-flex justify-content-between"
+                        style={{
+                          backgroundColor: item.modified_id && '#ee5253'
+                        }}
+                        onClick={() =>
+                          this.setState({ [item.nid]: !this.state[item.nid] })
+                        }
+                      >
+                        <p>{item.title}</p>
+                        <div className="dratCartTitlelt d-flex">
+                          {item.modified_id && (
+                            <>
+                              <Button
+                                color="transparent"
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  this.setState({
+                                    [`modified-${item.nid}`]: !this.state[
+                                      `modified-${item.nid}`
+                                    ]
+                                  });
+                                }}
+                                className="p-0 m-0 text-white border-0"
+                              >
+                                سجل التعديلات
+                              </Button>
+                            </>
+                          )}
+                          <div className="manyComments d-flex align-items-center">
+                            <img
+                              src="/static/img/interactive/chat.svg"
+                              alt=""
+                            />
+                            <span>{item.comments} تعليق</span>
+                          </div>
+                          <img
+                            src="/static/img/interactive/whiteTabs.svg"
+                            alt=""
+                            className={this.state[item.nid] ? 'rotated' : ''}
+                          />
+                        </div>
+                      </CardHeader>
+                      {this.state[`modified-${item.nid}`] && (
+                        <DecisionEdits
+                          edits={this.state[`edit-${item.nid}`]?.modifications}
+                        />
+                      )}
+                      <CardBody
+                        style={
+                          this.state[item.nid]
+                            ? { display: 'block' }
+                            : { display: 'none' }
+                        }
+                      >
+                        <Row className="mt-3">
+                          <Col md="7" className="draftBodyRt">
+                            <p>{renderHTML(item.body_value || '')}</p>
+                            <Link href={`/draft-details/${item.nid}`}>
+                              <Button
+                                onMouseOut={() => {
+                                  this.setState({
+                                    img2:
+                                      '/static/img/interactive/greenArrow.svg'
+                                  });
+                                }}
+                                onMouseEnter={() =>
+                                  this.setState({
+                                    img2:
+                                      '/static/img/interactive/whiteArrow.svg'
+                                  })
+                                }
+                              >
+                                المزيد
+                                <img src={this.state.img2} alt="" />
+                              </Button>
+                            </Link>
+                          </Col>
+                          <Col md="5">
+                            <div className="d-flex justify-content-end draftLikeDislike">
+                              <span>{item.likes}</span>
+                              {this.state.like &&
+                                this.state.id === item.nid && (
+                                  <ReactLoading
+                                    className="mx-1"
+                                    type="spin"
+                                    color="#046F6D"
+                                    height={20}
+                                    width={20}
+                                  />
+                                )}
+                              <img
+                                onClick={() => this.vote('like', item.nid)}
+                                src={
+                                  item.flag === 'like'
+                                    ? '/static/img/interactive/blueLikeActive.svg'
+                                    : '/static/img/interactive/dislikeGreen.svg'
+                                }
+                                alt=""
+                                id={`tooltip-l-${item.nid}`}
+                              />
+
+                              {!openArticle && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-l-${item.nid}`}
+                                >
+                                  تم إيقاف التصويت
+                                </UncontrolledTooltip>
+                              )}
+                              {openArticle && !uid && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-l-${item.nid}`}
+                                >
+                                  يجب عليك تسجيل الدخول
+                                </UncontrolledTooltip>
+                              )}
+                              <span className="ml-3">{item.dislikes}</span>
+                              {this.state.dislike &&
+                                this.state.id === item.nid && (
+                                  <ReactLoading
+                                    className="mx-1"
+                                    type="spin"
+                                    color="#046F6D"
+                                    height={20}
+                                    width={20}
+                                  />
+                                )}
+                              <img
+                                onClick={() => this.vote('dislike', item.nid)}
+                                src={
+                                  item.flag === 'dislike'
+                                    ? '/static/img/interactive/blueDislikeActive.svg'
+                                    : '/static/img/interactive/likeGreen.svg'
+                                }
+                                alt=""
+                                id={`tooltip-d-${item.nid}`}
+                              />
+                              {!openArticle && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-d-${item.nid}`}
+                                >
+                                  تم إيقاف التصويت
+                                </UncontrolledTooltip>
+                              )}
+                              {openArticle && !uid && (
+                                <UncontrolledTooltip
+                                  placement="top"
+                                  target={`tooltip-d-${item.nid}`}
+                                >
+                                  يجب عليك تسجيل الدخول
+                                </UncontrolledTooltip>
+                              )}
+                            </div>
+
+                            <ArticleComment
+                              enableCommentForm={openArticle}
+                              enableVote={openArticle}
+                              likeComment={this.likeComment}
+                              dislikeComment={this.dislikeComment}
+                              itemId={item.nid}
+                            />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                  ))}
+              </TabPane>
+            </TabContent>
             <Element name="test1" className="element">
               {!uid ? (
                 <div className="draftShouldLogin d-flex flex-column">

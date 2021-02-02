@@ -1,6 +1,0 @@
-{
-  "name": "DraftDetails",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./draft-details.js"
-}
