@@ -2438,8 +2438,8 @@ fieldset:disabled a.btn {
   border-color: #046f6d;
 }
 
-.navbar-nav .dropdown-toggle{
-color: #fff !important;
+.navbar-nav .dropdown-toggle {
+  color: #fff !important;
 }
 
 button.btn.btn-primary {
@@ -18229,7 +18229,6 @@ textarea.form-control {
   margin-bottom: auto;
 }
 
-
 @media (max-width: 768px) {
   .shared,
   .aboutpage,
@@ -18349,21 +18348,21 @@ textarea.form-control {
 
 @media screen and (max-width: 767px) {
   .navbar-expand-md .navbar-collapse {
-    background-color: white;
+    background-color: #06706d;
     margin-top: 9px !important;
     margin: -20px;
     padding-right: 18px;
   }
   .ministry .newNav {
     justify-content: flex-start;
-}
-.nav-item.active .nav-link:after{
-  width: 0px;
-}
+  }
+  .nav-item.active .nav-link:after {
+    width: 0px;
+  }
 
-.newUILanding .header .section-flex{
-  margin-top: 48px;
-}
+  .newUILanding .header .section-flex {
+    margin-top: 48px;
+  }
 }
 
 .landing-container {
@@ -18963,29 +18962,29 @@ textarea.form-control {
   }
   .section-flex .icons-group {
     padding: 24px 0 48px 0;
-}
-.section-flex .icons-group .image-icon {
-  width: 48px;
-  height: 48px;
-}
-.about-qarar {
-  padding: 15px;
-  padding-bottom: 0px;
-  padding-bottom: 0px;
-}
-.about-qarar:after {
-  margin-bottom: 0px;
-}
-.chart-section{
-  margin-top: 72px;
-}
-.chart{
-  flex-direction: column;
-  align-items: flex-start;
-}
-.chart-item {
-  margin-top: 24px;
-}
+  }
+  .section-flex .icons-group .image-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .about-qarar {
+    padding: 15px;
+    padding-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  .about-qarar:after {
+    margin-bottom: 0px;
+  }
+  .chart-section {
+    margin-top: 72px;
+  }
+  .chart {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .chart-item {
+    margin-top: 24px;
+  }
   .newUILanding .activities {
     background-image: none;
   }
@@ -19018,15 +19017,14 @@ textarea.form-control {
     align-items: flex-end;
   }
   .leftSide p {
-
     flex-direction: column;
     margin-right: 7px;
     margin-bottom: 0px;
   }
   .newsInfo {
-  min-height: 100px;
+    min-height: 100px;
     padding-bottom: 16px;
-}
+  }
   .activities .btn-group {
     display: block;
   }
@@ -19048,12 +19046,12 @@ textarea.form-control {
   .args .btn {
     margin-top: 0;
   }
-  .collapseDraftCard .card-header{
+  .collapseDraftCard .card-header {
     flex-direction: column;
   }
   .dratCartTitlelt {
     justify-content: flex-end;
-}
+  }
 }
 .rdw-option-wrapper {
   border: 1px solid #f1f1f1;
@@ -20120,15 +20118,12 @@ textarea.form-control {
 
 /*# sourceMappingURL=react-draft-wysiwyg.css.map*/
 
-.filter-section{
-
+.filter-section {
   padding-bottom: 0px;
 }
-.draft-cards{
-
+.draft-cards {
   padding-top: 18px;
 }
-
 
 .filter-section .form-control {
   padding: inherit;
@@ -20136,64 +20131,66 @@ textarea.form-control {
   height: 40px;
 }
 
-.filter-section  .form-group label{
-font-size: 16px;
-font-weight: 600;
+.filter-section .form-group label {
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .filter-section .filter-btn.control-active {
   background: #0a6562;
   color: #fff;
 }
-.filter-section .filter-buttons label{
+.filter-section .filter-buttons label {
   margin-left: 20px;
   font-size: 16px;
 }
-.filter-section .filter-buttons label input{ 
-margin-left: 10px;
+.filter-section .filter-buttons label input {
+  margin-left: 10px;
 }
 .filter-section .filter-buttons label input {
-height: 16px;
-width: 16px;
+  height: 16px;
+  width: 16px;
 }
-.react-select__value-container, .react-select-container, .react-select__control {
+.react-select__value-container,
+.react-select-container,
+.react-select__control {
   height: 30px !important;
 }
 .react-select__input input {
   border: 0px !important;
 }
-.react-select__single-value, .react-select__placeholder {
+.react-select__single-value,
+.react-select__placeholder {
   top: 65% !important;
 }
 
 .modal-dialog .modal-body li:before {
-  content: "";
+  content: '';
   width: 10px;
   height: 10px;
-  background-color: #00AABA;
+  background-color: #00aaba;
   position: absolute;
   border-radius: 50px;
   right: 12px;
 }
 
-.modal-dialog .modal-body li{
-
+.modal-dialog .modal-body li {
   list-style: none;
   margin-top: 10px;
 }
-.modal-dialog .modal-body ul{
-border-right: 1px solid #979797;
-padding-right: 14px;
+.modal-dialog .modal-body ul {
+  border-right: 1px solid #979797;
+  padding-right: 14px;
 }
 a#loginWithBaladyLink {
-	border: 1px solid;
-	border-radius: 8px;
-	padding: 15px;
-	border-color: #ddd;
-	margin: 0 auto;
-	width: 100%;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 15px;
+  border-color: #ddd;
+  margin: 0 auto;
+  width: 100%;
 }
 a#loginWithBaladyLink img {
   height: 37px;
-  width:  37px;
+  width: 37px;
 }
