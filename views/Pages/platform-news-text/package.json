@@ -1,6 +1,0 @@
-{
-  "name": "DecisionDraft",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./decision-draft.js"
-}

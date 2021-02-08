@@ -1,6 +1,0 @@
-{
-  "name": "FollowItem",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./follow-item.js"
-}

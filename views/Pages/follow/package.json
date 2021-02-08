@@ -1,6 +1,0 @@
-{
-  "name": "Follow",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./follow.js"
-}
