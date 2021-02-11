@@ -1,0 +1,73 @@
+.card-draft {
+  border-right: 6px solid var(--primary-blue);
+}
+.like-dis > * {
+  border: 1px solid var(--primary-blue);
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  cursor: pointer;
+}
+.flex-card {
+  display: flex;
+  align-items: stretch;
+}
+.flex-card .content {
+  flex: 9;
+}
+.flex-card .side {
+  flex: 1;
+}
+.flex-card .header-link {
+  color: #232323;
+  display: block;
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+.flex-card .header {
+  margin-top: 12px;
+  margin-bottom: 30px;
+}
+
+.flex-card .header span,
+.flex-card .side span,
+.footer-card {
+  color: #828a93;
+  font-size: 12px;
+}
+.footer-card {
+  display: flex;
+  justify-content: space-between;
+}
+.flex-card .moaad p {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.flex-card .side {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 120px;
+}
+.flex-card .side i {
+  color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  margin: 0px 2px;
+  cursor: pointer;
+}
+.card-footer {
+  background-color: white;
+  border: none;
+}
+.voting {
+  background-color: var(--primary-blue);
+}

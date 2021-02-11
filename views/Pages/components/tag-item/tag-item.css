@@ -1,0 +1,33 @@
+.tag-card .abs-remove-icon {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  background-color: #df004e;
+  color: white;
+  border-radius: 50%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+}
+
+.flex-show {
+  display: flex !important;
+}
+.tag-card {
+  opacity: 0.8;
+  position: relative;
+  padding: 10px 5px;
+  width: 150px;
+  height: auto;
+  background-color: var(--primary-blue);
+  /* border: 1px solid #D1D0D0; */
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: white;
+}

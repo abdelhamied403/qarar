@@ -1,0 +1,131 @@
+.about-update {
+  background-color: white;
+}
+.about-update .form-control {
+  width: 80%;
+  margin-bottom: 56px !;
+}
+.about-update .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.about-update .about-update-card {
+  background-color: #f4f4f4 !important;
+  min-height: 0px !important;
+  padding: 0 !important;
+  margin: 10px;
+}
+.red {
+  color: crimson !important;
+}
+.about-update .container {
+  width: 80% !important;
+  padding-right: 0;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: #73818f;
+  content: '>' !important;
+}
+.about-update .breadcrumb a {
+  color: #73818f;
+  font-weight: 600 !important;
+}
+.about-update ol.breadcrumb {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.about-update h2 {
+  font-weight: 600;
+  margin-top: 15px;
+  font-size: 32px;
+}
+.uploadImg {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 170, 186, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 15px;
+}
+.uploadImg img.overlayImg {
+  position: absolute;
+  width: 16px;
+  height: auto;
+}
+.about-update .btn {
+  border-radius: 50px;
+  border-color: #84bc47;
+  color: #84bc47;
+  width: auto;
+  font-size: 12px !important;
+  width: 67px !important;
+}
+.about-update input {
+  margin-bottom: 45px !important;
+}
+.about-update button.btn.btn-primary {
+  background-color: #84bc47;
+  color: #fff;
+  border-radius: 50px;
+}
+.about-update .sub-header {
+  font-weight: 500;
+}
+h6.sub-header {
+  margin-bottom: 15px !important;
+}
+
+.about-update .row {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 16px 0;
+}
+.form-check {
+  padding-left: 0 !important;
+}
+.changePassNew {
+  background-color: #fff !important;
+  border-radius: 4px !important;
+  margin: auto !important;
+  border: 1px solid #d1d0d0;
+  padding: 16px !important;
+  margin-top: 50px !important;
+}
+.changePassNew .row {
+  background-color: transparent !important;
+}
+.changePassNew .sub-header {
+  margin-bottom: 40px !important;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+}
+.changePassNew input {
+  background-color: #f4f4f4;
+  color: #232323;
+}
+.changePassNew .form-control {
+  margin-bottom: 0 !important;
+}
+.changePassNew .row {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+.changePassNew .btn {
+  margin-top: 20px;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background: url(/static/img/chavon.png) 0 0 no-repeat;
+  background-repeat: no-repeat;
+  background-size: 13px 13px;
+  background-position: 5px 9px;
+}

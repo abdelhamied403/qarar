@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="20" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_navigation_breadcrumbs" data-name="Icon / navigation / breadcrumbs" transform="translate(0 20) rotate(-90)" clip-path="url(#clip-path)">
+    <rect id="Rectangle" width="20" height="20" fill="#d8d8d8" opacity="0"/>
+    <path id="_" data-name="" d="M4.944.944,1.872,4,4.944,7.056,4,8,0,4,4,0Z" transform="translate(12.944 14) rotate(180)" fill="#046F6D"/>
+  </g>
+</svg>

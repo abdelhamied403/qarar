@@ -1,0 +1,85 @@
+.flex-header {
+  display: flex;
+}
+.user-info {
+  display: flex;
+  flex-flow: column;
+}
+
+.card-info .user-info .description {
+  margin: 0 20px;
+}
+.card-info .user-info .points {
+  color: var(--dark-gray);
+}
+
+.card-info .about {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.card-info .about .info {
+  color: rgba(49, 49, 49, 0.6);
+  font-size: 14px;
+  text-align: left;
+}
+.card-info .about .num {
+  font-size: 28px;
+}
+.card-info .about .col-about {
+  display: flex;
+  flex-flow: column;
+}
+
+.card-info .icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.card-info .icon img {
+  max-width: 128px;
+  height: 80px;
+}
+.card-info h4 {
+  font-size: 16px;
+}
+.card-small {
+  padding: 10px;
+}
+.card-small .col-type {
+  display: flex;
+  flex-flow: column;
+}
+.card-small .col-type > * {
+  padding: 0;
+  margin: 0;
+}
+.dark-card-info,
+.dark-card-info .card-header {
+  background-color: #f4f4f4;
+  border: none;
+}
+.dark-card-info.card {
+  /* display: none; */
+}
+.cards-info .card {
+  min-height: 100px;
+}
+.cards-info i {
+  font-size: 40px;
+}
+.card-small .col-type .type {
+  color: var(--dark-gray);
+  font-size: 12px;
+}
+.card-small .icon {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  /* opacity: 0.2; */
+  /* font-size: 50px; */
+}
+.card-small .icon img {
+  max-width: 30px;
+  height: auto;
+}

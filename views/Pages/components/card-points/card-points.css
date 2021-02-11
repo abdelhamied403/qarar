@@ -1,0 +1,50 @@
+.card-points:hover {
+  box-shadow: 0px 3px 9px -3px #332233;
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+.card {
+  border-radius: 3px !important;
+}
+.card-header {
+  padding: 20px 16px;
+}
+.card-points .flex-header-points {
+  display: flex;
+}
+.card-points .flex-header-points img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+.card-points .user-info {
+  display: flex;
+  flex-flow: column;
+  margin-right: 16px;
+}
+.card-points .user-info .name {
+  color: #232323 !important;
+  font-weight: 500;
+}
+.sub-header {
+  margin-bottom: 0px !important;
+}
+.card-points .user-info .points {
+  color: #828a93;
+  font-size: 12px;
+}
+
+.card-points .icons-cont {
+  display: flex;
+  align-items: center;
+  color: #828a93;
+}
+.card-points .icons-cont > * {
+  margin-left: 12px;
+}
+
+.dark-card,
+.dark-card .card-header {
+  background-color: #f4f4f4;
+  border: none;
+}

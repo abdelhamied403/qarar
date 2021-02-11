@@ -1,0 +1,11 @@
+.card-blog .card-header {
+  padding: 0;
+}
+.card-blog .card-header img {
+  height: 150px;
+  object-fit: cover;
+}
+.card-blog .header span,
+.card-blog .tag {
+  color: var(--dark-gray);
+}

@@ -1,0 +1,405 @@
+.DraftDetailsheader {
+  background-color: white;
+  padding: 70px 0;
+  position: relative;
+}
+
+.filter {
+  position: absolute;
+  bottom: 15px;
+}
+
+.filter > * {
+  color: var(--dark-gray);
+  border-bottom: 2px solid var(--dark-gray);
+  padding-bottom: 15px;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+  /* padding: 0 5px; */
+}
+.filter .active-link {
+  border-color: var(--primary-blue);
+  margin: 0px 30px;
+}
+.newHeader {
+  background-color: #006c68;
+  padding: 70px 0;
+  position: relative;
+  color: white;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+.header-content {
+  padding: 0 !important;
+}
+.newHeader ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  opacity: 0.7;
+}
+.newHeader ul li {
+  list-style: none;
+  margin-bottom: 20px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.newHeader ul li:not(:last-child)::after {
+  content: '>';
+  color: #fff;
+  margin: 0 10px;
+}
+.newHeader .sub-header {
+  color: #fff;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+.newHeader button {
+  margin-top: 30px;
+  border: 1px solid #84bc47;
+  color: #fff;
+  background-color: transparent;
+}
+.newHeader .icons-group p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 0;
+}
+.newHeader .icons-group h5 {
+  font-size: 16px;
+  color: #84bc47;
+  font-weight: 600;
+}
+.newHeader .icons-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 0 50px 0;
+}
+.newHeader .icons-group > * {
+  margin: 20px;
+  padding: 5px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22%;
+  border: 0.5px solid rgba(255, 255, 255, 0.4);
+  padding: 10px;
+}
+.cardDraft {
+  margin-top: 80px;
+}
+.cardDraft .card-header {
+  background-color: #046f6d;
+  color: #fff;
+}
+.cardDraft .card-body .draftBodyRt p {
+  color: #000;
+  font-weight: 600;
+}
+.dateDraft p {
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 300;
+  opacity: 0.7;
+  margin-right: 15px;
+}
+.draftCardLt img {
+  width: 17px;
+  margin-left: 10px;
+}
+.draftCardLt div {
+  margin-bottom: 15px;
+}
+.draftCardLt p {
+  color: #006c68;
+}
+.hrDraft {
+  border-color: #046f6d;
+}
+.collapseDraftCard {
+  margin-top: 25px;
+}
+.draftContainer {
+  background-color: #fff;
+  padding: 80px 0;
+  margin-top: -80px;
+  border-bottom: 1px solid #046f6d;
+  position: relative;
+}
+.client-layout .flex-page-content main {
+  padding-bottom: 0;
+}
+.collapseDraftCard .card-header {
+  cursor: pointer;
+}
+.collapseDraftCard .card-header p {
+  margin-bottom: 0;
+  color: #fff;
+}
+.collapseDraftCard .card-header p span {
+  margin-left: 10px;
+}
+.collapseDraftCard .card-header img {
+  width: 13px;
+}
+.collapseDraftCard .card-header img.rotated {
+  transform: rotate(180deg); /* Equal to rotateZ(45deg) */
+}
+.collapseDraftCard .card-body {
+  background-color: #f3f3f3;
+}
+.draftContainer .card-body {
+  border: 1px solid #046f6d;
+}
+.collapseDraftCard button {
+  border: 1px solid #84bc47;
+  color: #84bc47;
+  display: flex;
+  background-color: transparent;
+  margin: auto;
+  margin-top: 40px;
+}
+.draftShouldLogin {
+  border: 1px solid #046f6d;
+  padding: 30px;
+  border-radius: 5px;
+  text-align: center;
+}
+.draftShouldLogin > img {
+  height: 35px;
+  margin-bottom: 20px;
+}
+.draftShouldLogin h4 {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.draftShouldLogin button {
+  width: 200px;
+  margin: auto;
+  border: 1px solid #84bc47;
+  background-color: transparent;
+  color: #006c68;
+  margin-bottom: 10px;
+  font-weight: 13px;
+}
+.draftShouldLogin a {
+  color: #006c68;
+  text-decoration: underline !important;
+  font-weight: 600;
+}
+.draftBg1 {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.draftBg2 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.shareInfoRight button {
+  background-color: #84bc47;
+  color: #fff;
+  margin-left: 10px;
+}
+.shareInfoRight button span {
+  margin-left: 10px;
+}
+.shareInfoRight button.infoFollow {
+  border: 1px solid #84bc47;
+  background-color: transparent;
+  color: #84bc47;
+}
+.shareInfoLeft p {
+  margin-bottom: 0;
+  margin-left: 10px;
+  color: #006c68;
+  font-weight: 600;
+  font-size: 13px;
+}
+.shareInfoLeft img {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.manyComments img {
+  width: 16px !important;
+  margin-left: 10px;
+}
+.manyComments {
+  margin-left: 20px;
+}
+.drafInfo .collapseDraftCard .card-body {
+  background-color: #fff;
+}
+.drafInfo .collapseDraftCard .card-body button {
+  margin-right: 0;
+}
+.draftLikeDislike img {
+  margin-right: 15px;
+  cursor: pointer;
+  width: 22px;
+}
+.insideComment {
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px;
+}
+.insideComment h5 {
+  color: #006c68;
+  font-size: 14px;
+  font-weight: 600;
+}
+.insideComment p {
+  margin-bottom: 0;
+}
+.insideComment span {
+  color: #006c68;
+}
+.ArticleComment {
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px;
+}
+.ArticleComment h5 {
+  color: #006c68;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.ArticleComment .comment-info p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.ArticleComment span {
+  color: #006c68;
+}
+.ArticleComment .avatarUser {
+  border-radius: 50%;
+  padding: 2px;
+  width: 40px;
+  object-fit: contain;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.likeImg {
+  margin: 0 10px;
+}
+.cardDraft .col-md-5 {
+  padding: 0;
+}
+.likeDiv {
+  padding: 0 10px;
+}
+.draftLikeDislike span {
+  color: #006c68;
+}
+.insideComment .avatarUser {
+  border-radius: 50%;
+  padding: 2px;
+  width: 40px;
+  object-fit: contain;
+  height: 40px;
+  margin-left: 10px;
+}
+.drafInfo .input-group {
+  margin-top: 15px;
+}
+.drafInfo .input-group-prepend {
+  background-color: #046f6d;
+  border-radius: 50%;
+  border: 1px solid #046f6d;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -42px;
+  position: relative;
+  z-index: 99999999999;
+}
+.drafInfo .input-group-prepend img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+.drafInfo input.form-control {
+  border: 1px solid #046f6d !important;
+  width: 100%;
+  border-radius: 50px !important;
+}
+.rdw-editor-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  border: 1px solid #046f6d;
+  border-radius: 5px;
+  padding: 10px;
+}
+.rdw-editor-toolbar {
+  border: 0 !important;
+  margin-top: 20px;
+}
+.commentsBtn {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+.commentsBtn a {
+  font-weight: 600;
+  color: #006c68;
+}
+.commentsBtn button {
+  background-color: #84bc47;
+  color: #fff;
+  font-weight: 400;
+  margin-right: 10px;
+}
+.draftNewComments .insideComment {
+  padding: 30px 20px;
+}
+.newHeader button:hover {
+  background-color: #84bc47;
+  color: #fff;
+}
+.shareInfoRight button:hover {
+  background-color: #84bc47;
+  color: #fff;
+  margin-left: 10px;
+}
+.collapseDraftCard .ArticleComment {
+  display: block !important;
+}
+.collapseDraftCard .ArticleComment .draftLikeDislike {
+  margin-top: 16px;
+}
+.comment-user-info {
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 8px;
+}
+.comment-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+  .newHeader .icons-group > * {
+    width: 80%;
+  }
+  .newHeader {
+    padding-top: 100px;
+  }
+  .draftInfoShare {
+    flex-direction: column;
+  }
+  .draftInfoShare button {
+    margin-top: 5px;
+  }
+}

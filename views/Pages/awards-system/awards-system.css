@@ -1,0 +1,56 @@
+.about {
+  background-color: white;
+}
+
+.about .image-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.about .about-card {
+  background-color: var(--normal-gray);
+  height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+
+.activities.award-section .card-description .card-header {
+  background-color: #d1d0d0 !important;
+  color: var(--primary-black) !important;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.socail-item,
+.desc-item {
+  margin-bottom: 0px !important;
+}
+
+.awards-header h4 {
+  display: flex;
+}
+
+.awards-header .title-color {
+  color: #9d9d9d;
+}
+
+.awards-description h4 {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.awards-description p {
+  font-size: 16px;
+  color: #696f75;
+  line-height: 32px;
+}
+
+.public-awards {
+  margin-top: 21px;
+}
+.private-awards {
+  margin-top: 57px;
+}

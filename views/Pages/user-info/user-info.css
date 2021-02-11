@@ -1,0 +1,48 @@
+.user-profile {
+  background-color: white !important;
+  padding: 50px 0;
+}
+.user-profile .image-avatar {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  margin-left: 16px;
+}
+.user-profile .user-profile-card {
+  background-color: var(--normal-gray);
+  height: 150px;
+  padding: 20px 10px;
+  margin: 10px;
+}
+.card-not > div {
+  margin: 10px 0;
+}
+
+.icon-primary {
+  padding: 0px 10px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+  color: white;
+}
+
+.user-profile .card {
+  border: none;
+  background-color: #f4f4f4;
+  margin-bottom: 50px;
+}
+
+.flex-page-content .user-profile h3 {
+  font-size: 22px;
+}
+.newHeaderProfile {
+  height: 85px;
+  width: 100%;
+  background-color: #006c68;
+}

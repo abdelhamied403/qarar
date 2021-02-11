@@ -1,0 +1,6 @@
+<svg id="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="icon_arrow" data-name="icon / arrow">
+    <rect id="Rectangle" width="30" height="30" fill="#d8d8d8" opacity="0"/>
+  </g>
+  <path id="_" data-name="" d="M11,.856a.345.345,0,0,1-.11.237L5.754,5.9a.363.363,0,0,1-.507,0L.11,1.093A.345.345,0,0,1,0,.856.345.345,0,0,1,.11.619L.661.1A.371.371,0,0,1,.915,0a.393.393,0,0,1,.254.1L5.5,4.155,9.832.1a.363.363,0,0,1,.507,0l.551.515A.345.345,0,0,1,11,.856Z" transform="translate(10 12)" fill="#fff"/>
+</svg>

@@ -1,0 +1,19 @@
+.card-icon {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.card-icon .card-header {
+  padding: 0;
+}
+.card-icon .card-header img {
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 48px;
+}
+.card-icon .header span,
+.card-icon .tag {
+  color: var(--dark-gray);
+}

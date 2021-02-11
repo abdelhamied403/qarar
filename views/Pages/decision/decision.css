@@ -1,0 +1,54 @@
+.decisionHeader {
+  background-color: white;
+  padding: 70px 0;
+  position: relative;
+}
+
+.decsion-page .tabs-content {
+  margin-top: -98px;
+  /* background-color: red; */
+}
+.decsion-page .tabs-content,
+.decsion-page .tabs-content > * {
+  border: none;
+}
+.decsion-page .table-content {
+  margin: 15px 0;
+  padding: 15px;
+}
+.decsion-page .tab-pane.active {
+  background-color: #f4f4f4 !important;
+}
+.decsion-page .nav-tabs .nav-link {
+  border: none;
+  border-bottom: 1px solid #cccccc !important;
+  padding-bottom: 8px;
+}
+
+.decsion-page .card-draft .card-body {
+  padding-right: 26px;
+}
+
+.decsion-page .flex-card .moaad p {
+  padding-left: 15%;
+}
+
+.decsion-page .flex-card .moaad .btn {
+  height: unset;
+  font-weight: 500;
+}
+
+.decsion-page .flex-card .header {
+  margin-top: 15px;
+  margin-bottom: 23px;
+}
+.tags {
+  align-items: center;
+  display: flex;
+}
+.footer-card .btn-link {
+  font-size: 12px;
+}
+.decsion-page .tabs-content {
+  margin-top: 0;
+}

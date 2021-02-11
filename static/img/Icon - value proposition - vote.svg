@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="80" height="80" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_value_proposition_vote" data-name="Icon / value proposition / vote" clip-path="url(#clip-path)">
+    <path id="Icon_value_proposition_vote-2" data-name="Icon / value proposition / vote" d="M24.8,32h0l-1.056-1.056a1.437,1.437,0,0,1-.416-1.056c.149-.807.452-2.3.928-4.576H17.312A1.309,1.309,0,0,1,16,24V22.3A2.148,2.148,0,0,1,16.025,22a.058.058,0,0,0,0,.02,2.678,2.678,0,0,0,.1-.385L19.2,14.56a2.2,2.2,0,0,1,.72-.88,1.771,1.771,0,0,1,1.072-.368h9.024A1.967,1.967,0,0,1,32,15.3V24a1.965,1.965,0,0,1-.576,1.44L24.8,32ZM11.008,18.688H2.016A1.969,1.969,0,0,1,0,16.672V8A1.962,1.962,0,0,1,.576,6.56L7.2,0,8.256,1.056A1.452,1.452,0,0,1,8.7,2.112l-.96,4.576h6.944A1.312,1.312,0,0,1,16,8V9.7a3.66,3.66,0,0,1-.128.672L12.8,17.44a2.19,2.19,0,0,1-.72.88A1.772,1.772,0,0,1,11.008,18.688Z" transform="translate(24 23.8)" fill="#fff"/>
+    <circle id="Oval_Copy" data-name="Oval Copy" cx="40" cy="40" r="40" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

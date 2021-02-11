@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_check_Copy" data-name="Icon / check Copy" clip-path="url(#clip-path)">
+    <rect id="Rectangle" width="16" height="16" fill="#d8d8d8" opacity="0"/>
+    <path id="_" data-name="" d="M6.75.094V2.156H5.523c-.961,0-1.141.461-1.141,1.125V4.758H6.672l-.3,2.313H4.383V13H1.992V7.07H0V4.758H1.992v-1.7A2.788,2.788,0,0,1,4.969,0,15.31,15.31,0,0,1,6.75.094Z" transform="translate(5 1)" fill="#828a93"/>
+  </g>
+</svg>

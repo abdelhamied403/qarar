@@ -1,0 +1,19 @@
+.decisionHeader {
+  background-color: white;
+  padding: 70px 0;
+  position: relative;
+}
+.cust-d .dropdown-toggle,
+.dropdown-toggle:hover,
+.cust-d .show > .btn-secondary.dropdown-toggle {
+  background-color: var(--primary-blue) !important;
+  color: white !important;
+}
+.platform-news .card-blog .card-header img {
+  height: 200px;
+}
+
+.platform-news .btn-group {
+  margin-bottom: 24px;
+  margin-top: 50px;
+}

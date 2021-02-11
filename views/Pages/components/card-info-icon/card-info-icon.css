@@ -1,0 +1,99 @@
+.card-info-container .flex-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-info-container .user-info {
+  display: flex;
+  flex-flow: column;
+}
+.card-info-container .card-info-icon {
+  min-height: 225px;
+}
+.card-info-container .card-info-icon .user-info .description {
+  color: var(--primary-black);
+  font-weight: 500;
+  padding-top: 10px;
+  padding-right: 6px;
+}
+
+.card-info-container .card-info-icon .user-info .points {
+  color: var(--dark-gray);
+}
+
+.card-info-container .card-info-icon .about {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card-info-container .card-info-icon .about .info {
+  color: var(--dark-gray);
+  font-size: 12px;
+}
+
+.card-info-container .num {
+  font-size: 28px;
+  color: var(--primary-black);
+  font-weight: 500;
+}
+
+.card-info-container .card-info-icon .about .col-about {
+  display: flex;
+  flex-flow: column;
+}
+
+.card-info-container .col-about {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card-info-container .icon {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+.card-info-container .icon img {
+  /* font-size: 90px; */
+  /* opacity: .05; */
+  width: 100px;
+}
+
+.card-info-container .card-small {
+  padding: 10px;
+}
+
+.card-small .col-type {
+  display: flex;
+  flex-flow: column;
+}
+
+.card-small .col-type > * {
+  padding: 0;
+  margin: 0;
+}
+
+.dark-card-info,
+.dark-card-info .card-header {
+  background-color: #f4f4f4;
+  border: none;
+}
+
+.dark-card-info {
+  height: 125px;
+}
+
+.card-small .col-type .type {
+  color: var(--dark-gray);
+  font-size: 12px;
+}
+
+.card-small .icon {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  opacity: 0.2;
+  font-size: 50px;
+}

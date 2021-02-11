@@ -1,0 +1,38 @@
+/* .list-item-card .abs-remove-icon {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  background-color: #DF004E;
+  color: white;
+  border-radius: 50%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  opacity: .8;
+} */
+
+.flex-show {
+  display: flex !important;
+}
+.back-hover-dark {
+  background-color: #e8e8e8;
+}
+.list-item button {
+  display: none;
+}
+.list-item > div {
+  /* height: 50px; */
+  width: 100%;
+  padding: 10px;
+}
+.red-contetn {
+  color: #df004e;
+}
+.header-list-item {
+  width: 100%;
+  margin-bottom: 20px;
+}
