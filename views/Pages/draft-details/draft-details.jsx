@@ -41,6 +41,7 @@ import Skeleton from '../components/skeleton/skeleton';
 import ArticleComment from '../components/ArticleComment';
 import DecisionEdits from '../components/decision-edit/decision-edit';
 import Api from '../../../api';
+import PartcipantModal from './partcipantModal';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -74,7 +75,10 @@ class DraftDetailsInfo extends Component {
       editorState: EditorState.createEmpty(),
       img1: '/static/img/interactive/greenArrow.svg',
       img2: '/static/img/interactive/greenArrow.svg',
-      img3: '/static/img/interactive/greenArrow.svg'
+      img3: '/static/img/interactive/greenArrow.svg',
+      commentsActions: {},
+      selectedSubject: null,
+      modalOpen: false
     };
   }
 
@@ -228,6 +232,7 @@ class DraftDetailsInfo extends Component {
   getComments = async () => {
     const { draftId } = this.props;
     const { commentPage } = this.state;
+    // alert("called")
     const response = await Api.get(
       `/qarar_api/comments/${draftId}/DESC?_format=json`
     );
@@ -312,6 +317,44 @@ class DraftDetailsInfo extends Component {
     }
     const data = {
       entity_id: [{ target_id: draftId }],
+      subject: [{ value: 'comment' }],
+      comment_body: [
+        { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
+      ],
+      pid: [{ target_id: '0' }]
+    };
+    const response = await Api.post(
+      `/qarar_api/post-comment?_format=json`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
+    if (response.ok) {
+      this.setState({
+        comment: '',
+        successComment: true,
+        editorState: EditorState.createEmpty()
+      });
+      this.getDraft();
+      this.getComments();
+      setTimeout(() => this.setState({ successComment: false }), 3000);
+    } else {
+      this.setState({ errorComment: 'من فضلك حاول مرة أخري' });
+      setTimeout(() => this.setState({ errorComment: false }), 3000);
+    }
+  };
+
+  saveDraftDetailsComment = async () => {
+    const { accessToken } = this.props;
+    const { editorState, selectedSubject } = this.state;
+    if (!editorState.getCurrentContent().hasText()) {
+      this.setState({ errorComment: 'لم تقم بكتابة أي تعليق' });
+      setTimeout(() => this.setState({ errorComment: false }), 3000);
+      return;
+    }
+    const data = {
+      entity_id: [{ target_id: selectedSubject }],
       subject: [{ value: 'comment' }],
       comment_body: [
         { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
@@ -452,9 +495,11 @@ class DraftDetailsInfo extends Component {
       loadingDraft,
       breadcrumbs,
       openArticle,
-      activeTab
+      activeTab,
+      selectedSubject,
+      modalOpen
     } = this.state;
-    const { uid } = this.props;
+    const { uid, accessToken } = this.props;
     if (loadingDraft) {
       return <Skeleton details />;
     }
@@ -726,6 +771,26 @@ class DraftDetailsInfo extends Component {
                               </Button>
                             </>
                           )}
+                          <div className="action-item likes d-flex align-items-center">
+                            <img
+                              src="/static/img/Icon - dropdown - arrow down.svg"
+                              alt=""
+                            />
+                            <span>
+                              {this.state.commentsActions[item.nid]?.likes}{' '}
+                              ايجابي
+                            </span>
+                          </div>
+                          <div className="action-item dislikes d-flex align-items-center">
+                            <img
+                              src="/static/img/Icon - dropdown - arrow down danger.svg"
+                              alt=""
+                            />
+                            <span>
+                              {this.state.commentsActions[item.nid]?.dislikes}{' '}
+                              سلبي
+                            </span>
+                          </div>
                           <div className="manyComments d-flex align-items-center">
                             <img
                               src="/static/img/interactive/chat.svg"
@@ -752,6 +817,19 @@ class DraftDetailsInfo extends Component {
                             : { display: 'none' }
                         }
                       >
+                        <Button
+                          color="secondary"
+                          size="lg"
+                          block
+                          onClick={() =>
+                            this.setState({
+                              modalOpen: true,
+                              selectedSubject: item.nid
+                            })
+                          }
+                        >
+                          ِشارك الان
+                        </Button>
                         <Row className="mt-3">
                           <Col md="7" className="draftBodyRt">
                             <p>{renderHTML(item.body_value || '')}</p>
@@ -860,6 +938,14 @@ class DraftDetailsInfo extends Component {
                               likeComment={this.likeComment}
                               dislikeComment={this.dislikeComment}
                               itemId={item.nid}
+                              commentsMapper={commentsAction =>
+                                this.setState(prev => ({
+                                  commentsActions: {
+                                    ...prev.commentsActions,
+                                    [item.nid]: commentsAction
+                                  }
+                                }))
+                              }
                             />
                           </Col>
                         </Row>
@@ -1262,6 +1348,23 @@ class DraftDetailsInfo extends Component {
             />
           ) : null}
         </Container> */}
+        <PartcipantModal
+          open={modalOpen}
+          id={selectedSubject}
+          canVote={!!openArticle}
+          uid={uid}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+          // like={() => this.vote('like', selectedSubject)}
+          // disLike={() => this.vote('dislike', selectedSubject)}
+          // saveComment={() => this.saveDraftDetailsComment()}
+          close={() =>
+            this.setState({
+              modalOpen: false
+            })
+          }
+        />
       </>
     );
   }

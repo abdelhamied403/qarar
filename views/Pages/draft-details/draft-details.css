@@ -403,3 +403,23 @@
     margin-top: 5px;
   }
 }
+
+.action-item {
+  padding-left: 10px;
+}
+.action-item.likes {
+  color: #7bb749;
+}
+.action-item.dislikes {
+  color: #ff8080;
+}
+.action-item.dislikes img {
+  padding-top: 5px;
+}
+.action-item img {
+  width: 22px !important;
+  object-fit: contain;
+}
+.action-item span {
+  font-size: 14px;
+}

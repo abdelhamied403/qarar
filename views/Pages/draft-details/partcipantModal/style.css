@@ -1,0 +1,18 @@
+.action-items {
+  display: flex;
+  justify-content: center;
+}
+.action-items > * {
+  padding: 10px 20px;
+  background-color: #eeee;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button-comment {
+  margin: 20px 0;
+}
+
+.modal-title {
+  width: 100%;
+}
