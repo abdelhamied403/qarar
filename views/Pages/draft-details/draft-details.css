@@ -407,12 +407,6 @@
 .action-item {
   padding-left: 10px;
 }
-.action-item.likes {
-  color: #7bb749;
-}
-.action-item.dislikes {
-  color: #ff8080;
-}
 .action-item.dislikes img {
   padding-top: 5px;
 }
@@ -422,4 +416,54 @@
 }
 .action-item span {
   font-size: 14px;
+}
+
+.btn-inline-block {
+  display: inline-block !important;
+  margin-left: 10px !important;
+}
+
+.dateDraft {
+  display: inline-flex !important;
+  align-items: center !important;
+  border: 1px solid #06706d4d;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.btn-ligh {
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 768px) {
+  .line-bottom {
+    padding-bottom: 30px;
+    padding-left: 20px;
+  }
+  .line-right {
+    display: flex;
+    align-items: center;
+  }
+  .line-right,
+  .line-bottom {
+    position: relative;
+  }
+  .line-right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 90%;
+    width: 2px;
+    background-color: #06706d4d;
+  }
+  .line-bottom::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 90%;
+    height: 2px;
+    bottom: 0;
+    background-color: #06706d4d;
+  }
 }

@@ -122,6 +122,7 @@ const PartcipantModal = props => {
         { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
       ],
       pid: [{ target_id: '0' }]
+      // comment_type: commentType
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
@@ -147,6 +148,7 @@ const PartcipantModal = props => {
         });
       }, 3000);
       setState(ModalState.LIKES);
+      close();
     } else {
       setMsg({
         error: true,
@@ -175,7 +177,7 @@ const PartcipantModal = props => {
       <div
         style={{ display: 'flex', alignItems: 'center', flexFlow: 'column' }}
       >
-        <h4>رايك في المادة</h4>
+        <h4>ما رايك في الماده؟</h4>
         <div className="action-items">
           <div className="done" onClick={() => like()}>
             <img src="/static/img/Icon - dropdown - arrow down.svg" alt="" />
@@ -277,7 +279,7 @@ const PartcipantModal = props => {
   };
   return (
     <Modal isOpen={open} backdrop toggle={close}>
-      <ModalHeader style={{ width: '100%' }}>
+      <ModalHeader className="header" style={{ width: '100%' }}>
         <div
           style={{
             display: 'flex',
@@ -290,10 +292,10 @@ const PartcipantModal = props => {
         </div>
       </ModalHeader>
       <ModalBody>
-        {!canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}
         {msg.show && (
           <Alert color={msg.error ? 'danger' : 'success'}>{msg.txt}</Alert>
         )}
+        {canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}
       </ModalBody>
     </Modal>
   );
