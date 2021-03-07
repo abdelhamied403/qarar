@@ -44,6 +44,7 @@ import ArticleComment from '../components/ArticleComment';
 import DecisionEdits from '../components/decision-edit/decision-edit';
 import Api from '../../../api';
 import PartcipantModal from './partcipantModal';
+import CommentSteps from './comments-stetps';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -647,35 +648,54 @@ class DraftDetailsInfo extends Component {
                 <Row>
                   <Col md="9" className="draftBodyRt text-justify line-bottom">
                     <p>{renderHTML(draft.body || '')}</p>
+                    <div className="dateDraft d-flex align-items-center lf-10">
+                      <img
+                        src="/static/img/interactive/calendar (2).svg"
+                        alt=""
+                      />
+                      <p className="bold">
+                        <strong>تاريخ بداية الطرح</strong>:
+                      </p>
+                      <span>
+                        {moment(draft.applied_date).format('dddd, D MMMM YYYY')}
+                      </span>
+                    </div>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
                         alt=""
                       />
-                      <p>
-                        {moment(draft.end_date).format('dddd, D MMMM YYYY')}
+                      <p className="bold">
+                        <strong>تاريخ اغلاق المسودة و النقاش</strong>:
                       </p>
+                      <span>
+                        {moment(draft.end_date).format('dddd, D MMMM YYYY')}
+                      </span>
                     </div>
                   </Col>
-                  <Col md="3" className="line-right">
-                    <img src="/static/img/logo.svg" alt="qarar" />
-                    {/* <div className="d-flex flex-column justify-items-start draftCardLt">
-                      <div className="d-flex justify-content-end">
-                        <img src="/static/img/interactive/lock.svg" alt="" />
-                        {openArticle ? (
-                          <span> التعليق مفتوح</span>
-                        ) : (
-                          <span> التعليق مغلق</span>
-                        )}
-                      </div>
-                      <div className="d-flex justify-content-end">
-                        <img
-                          src="/static/img/interactive/stopwatch.svg"
-                          alt=""
-                        />
-                        <span>{moment(draft.end_date).fromNow()}</span>
-                      </div>
-                    </div> */}
+                  <Col md="3" className="line-right just-center">
+                    <img
+                      style={{ marginBottom: '5px' }}
+                      src={
+                        draft?.related_project?.entity_logo ||
+                        '/static/img/logo.svg'
+                      }
+                      alt="qarar"
+                    />
+                    {draft?.related_project ? (
+                      <>
+                        <p className="bold m-0">
+                          {' '}
+                          {draft?.related_project?.entity_name}
+                        </p>
+                        <p className="m-0">
+                          {' '}
+                          <span className="bold"> نوع المشروع: </span>
+                          {draft?.related_project?.project_type}
+                        </p>
+                        {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
+                      </>
+                    ) : null}
                   </Col>
                 </Row>
                 <Row style={{ padding: '20px' }}>
@@ -804,11 +824,13 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
-            <Card className="cardDraft">
-              <CardBody>
-                <DraftTabs />
-              </CardBody>
-            </Card>
+            {draft?.related_project ? (
+              <Card className="cardDraft">
+                <CardBody>
+                  <DraftTabs project={draft?.related_project} />
+                </CardBody>
+              </Card>
+            ) : null}
             <div className="draftInfoShare d-flex justify-content-between mb-4">
               <div className="shareInfoRight">
                 {items && (
@@ -975,6 +997,16 @@ class DraftDetailsInfo extends Component {
             </div>
           </Container>
         </div>
+        <CommentSteps
+          title="المسودة"
+          open={modalOpen}
+          id={this.props.draftId}
+          canVote={!!openArticle}
+          uid={uid}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+        />
         {/*  <Container>
           <div className="description">
             <CardDraft

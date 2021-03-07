@@ -128,7 +128,7 @@
   background-color: #fff;
   padding: 80px 0;
   margin-top: -80px;
-  border-bottom: 1px solid #046f6d;
+  /* border-bottom: 1px solid #046f6d; */
   position: relative;
 }
 .client-layout .flex-page-content main {
@@ -466,4 +466,25 @@
     bottom: 0;
     background-color: #06706d4d;
   }
+}
+
+.lf-10 {
+  margin-left: 10px;
+}
+.bold {
+  font-weight: bold !important;
+}
+
+.just-center {
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+.just-center img {
+  width: 50%;
+}
+
+.uploads button {
+  color: #81bd41 !important;
+  border-color: #81bd41 !important;
 }

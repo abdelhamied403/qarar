@@ -4,11 +4,14 @@
   border-radius: 0;
   color: #1e6f6d !important;
   text-align: center;
+  font-weight: bold;
 }
 .opt-tabs .nav-item:hover a {
   background-color: none !important;
 }
-
+.opt-tabs .nav-link::after {
+  display: none !important;
+}
 .opt-tabs .nav-link.active,
 .opt-tabs .nav-link.active:hover {
   background-color: #1e6f6d !important;
@@ -25,6 +28,10 @@ a:not([href]):not([tabindex]):focus {
 }
 .opt-tabs .tab-content {
   border: none !important;
+}
+
+.opt-tabs .tab-content .tab-pane.bold.active {
+  background-color: white !important;
 }
 .borderright0 {
   border-right: 0 !important;

@@ -17,12 +17,13 @@ import './styles.css';
 
 const TabsOptions = props => {
   const [activeTab, setActiveTab] = useState('1');
+  const project = props?.project;
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
-  return (
+  return project ? (
     <div className="opt-tabs">
       <Nav tabs>
         <NavItem>
@@ -45,7 +46,7 @@ const TabsOptions = props => {
               toggle('2');
             }}
           >
-            السمات المعنية
+            الجهات المعنية
           </NavLink>
         </NavItem>
         <NavItem>
@@ -63,26 +64,19 @@ const TabsOptions = props => {
         </NavItem>
       </Nav>
       <TabContent activeTab={activeTab}>
-        <TabPane tabId="1">
-          لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل
-          وليس المحتوى) ويُستخدم في صناعات المطابع ودلشكلي منذ القلشكلي منذ
-          القور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن
-          الخامس عشر عندما قامت
+        <TabPane tabId="1" className="bold">
+          {project?.project_target || ''}
         </TabPane>
-        <TabPane tabId="2">
-          لوريم إيبسوم(Lorلشكلي منذ القلشكلي منذ القem Ipsum) هو ببساطة نص شكلي
-          (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع
-          ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن
-          الخامس عشر عندما قامت
+        <TabPane tabId="2" className="bold">
+          {project?.entity_name || ''}
         </TabPane>
-        <TabPane tabId="3">
-          لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل
-          وليس المحتوى) ويُستخدم في صناعات المطابع لشكلي منذ القلشكلي منذ
-          القلشكلي منذ القودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص
-          الشكلي منذ القرن الخامس عشر عندما قامت
+        <TabPane tabId="3" className="bold">
+          {project?.project_effect || ''}
         </TabPane>
       </TabContent>
     </div>
+  ) : (
+    <></>
   );
 };
 
