@@ -224,7 +224,7 @@ const Landing = () => {
       <section className="activities about">
         <Container>
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="header">عن قرار</h3>
+            <h3 className="text-center header">عن قرار</h3>
           </div>
           <Row>
             <Col className="mb-3 about-qarar" xs="12">

@@ -4129,7 +4129,6 @@ input[type='button'].btn-block {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-  width: 100%;
 }
 .navbar-nav .nav-link {
   padding-right: 0;
@@ -11739,7 +11738,6 @@ canvas {
 .app-header .navbar-nav {
   flex-direction: row;
   align-items: center;
-  width: 100%;
 }
 .app-header .nav-item {
   position: relative;
@@ -16414,7 +16412,6 @@ button.btn.btn-primary {
   }
   .navbar-nav {
     padding-top: 24px;
-    width: 100%;
   }
 }
 
@@ -16829,7 +16826,6 @@ footer a:hover {
 
 .navbar-nav {
   padding-right: 0px;
-  width: 100%;
 }
 
 .bg-light {
@@ -18207,7 +18203,6 @@ textarea.form-control {
 
 .navbar-nav {
   padding-right: 0px;
-  width: 100%;
 }
 
 .bg-light {

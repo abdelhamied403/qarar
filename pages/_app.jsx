@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Children, Fragment } from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
@@ -15,6 +15,8 @@ import 'simple-line-icons/css/simple-line-icons.css';
 import 'flag-icon-css/css/flag-icon.min.css';
 import './main.css';
 import './qarar.css';
+import setLanguage from 'next-translate/setLanguage';
+import { translationInit } from '../utlis/translation';
 
 class MyApp extends App {
   static async getInitialProps({ ctx }) {
@@ -43,12 +45,19 @@ class MyApp extends App {
     this.persistor = persistStore(props.reduxStore);
   }
 
+  async componentDidMount() {
+    const lang = localStorage.getItem('LANG') || 'ar';
+    translationInit(lang);
+    document.body.dir = lang === 'en' ? 'ltr' : 'rtl';
+    document.body.lang = lang;
+  }
+
   render() {
     const { Component, pageProps, reduxStore, loggedIn } = this.props;
     const G = typeof window === 'undefined' ? PersistGate : Fragment;
     return (
       <Provider store={reduxStore}>
-        <G loading={Loading} persistor={this.persistor}>
+        <G>
           <Head>
             <link
               rel="icon"
@@ -72,7 +81,6 @@ class MyApp extends App {
             />
           </Head>
           <ClientLayout loggedIn={loggedIn}>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...pageProps} />
           </ClientLayout>
         </G>

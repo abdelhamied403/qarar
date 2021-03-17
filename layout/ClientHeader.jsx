@@ -23,6 +23,8 @@ import './client.css';
 
 import dynamic from 'next/dynamic';
 
+import {translate } from '../utlis/translation';
+
 const ScrollToggle = dynamic(() => import('react-scroll-toggle'), {
   ssr: false
 });
@@ -155,10 +157,21 @@ class ClientHeader extends React.Component {
   render() {
     const { isAuthentcated, signOut, router } = this.props;
 
+    const gotoLang = lang => {
+      localStorage.setItem('LANG', lang);
+      location.reload();
+    };
+
     return (
       <div className="ministry">
         <div className="header-nav">
-          <Container>
+          <Container
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
             <div className="flex">
               <a href="https://engage.balady.gov.sa" className="interactive">
                 منصة بلدي التفاعلية
@@ -176,6 +189,14 @@ class ClientHeader extends React.Component {
                 {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
                 الاستبيانات
               </a>
+            </div>
+            <div className="flex">
+              <span className="afkarLink" onClick={() => gotoLang('en')}>
+                en
+              </span>
+              <span className="afkarLink" onClick={() => gotoLang('ar')} s>
+                ar
+              </span>
             </div>
           </Container>
         </div>
@@ -201,7 +222,7 @@ class ClientHeader extends React.Component {
                   <NavItem active={router.pathname === '/'}>
                     <Link href="/">
                       <a>
-                        <NavLink onClick={this.closeMobile}>الرئيسية</NavLink>
+                        <NavLink onClick={this.closeMobile}>{translate("home")}</NavLink>
                       </a>
                     </Link>
                   </NavItem>

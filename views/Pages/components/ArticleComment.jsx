@@ -27,32 +27,13 @@ class ArticleComment extends Component {
   }
 
   getComments = async () => {
-    const { itemId, commentsMapper } = this.props;
+    const { itemId } = this.props;
     const response = await Api.get(
       `/qarar_api/comments/${itemId}/DESC?_format=json`
     );
     if (response.ok) {
       this.setState({ comments: response.data });
-      // eslint-disable-next-line react/destructuring-assignment
-      if (commentsMapper) {
-        commentsMapper(this.setCommentsLikesAndDisLikesCounter(response.data));
-      }
     }
-  };
-
-  setCommentsLikesAndDisLikesCounter = comments => {
-    let likes = 0;
-    let dislikes = 0;
-    if (comments && comments.length) {
-      comments.forEach(comment => {
-        likes += +comment.likes;
-        dislikes += +comment.dislikes;
-      });
-    }
-    return {
-      likes,
-      dislikes
-    };
   };
 
   saveComment = async () => {

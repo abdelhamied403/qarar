@@ -270,7 +270,6 @@ body {
 
 .navbar-nav {
   padding-right: 0px;
-  width: 100%;
 }
 
 .bg-light {
@@ -396,6 +395,7 @@ body {
   color: rgba(255, 255, 255, 0.54);
   display: flex;
   font-size: 14px;
+  cursor: pointer;
 }
 .ministry .header-nav a img {
   width: 90px;
@@ -605,7 +605,7 @@ a.astbyanLink,
     height: 0 !important;
   }
   .ministry nav.navbar {
-    /* background-color: white; */
+    background-color: white;
   }
 
   .bottomFooter {
