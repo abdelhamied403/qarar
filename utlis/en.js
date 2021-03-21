@@ -52,5 +52,21 @@ export const en = {
   },
   homePage: {
     titel: 'tt'
+  },
+  footer: {
+    number: "Direct Number",
+    balady: "Balady",
+    baladyServices: "Balady Services",
+    query: "Electronic query",
+    portal: "Investment opportunity portal",
+    policy: " Balady Policy",
+    privacy: "Privacy policy",
+    content: "Content Management Policy",
+    conditions: "Terms and Conditions",
+    links: "Important Links",
+    employees: "Employees portal",
+    offices: "Engineering offices portal",
+    copyrights: "All rights reserved - the national portal in support of the community ©",
+    websiteMap: "Website Map",
   }
 };

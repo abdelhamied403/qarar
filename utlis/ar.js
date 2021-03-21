@@ -52,5 +52,21 @@ export const ar = {
   },
   homePage: {
     titel: 'tt'
+  },
+  footer: {
+    number: "الرقم المباشر",
+    balady: "بلدي",
+    baladyServices: "خدمات بلدي",
+    query: "الاستعلام الإلكتروني",
+    portal: "بوابة الفرص الاستثمارية",
+    policy: "سياسة بلدي",
+    privacy: "سياسة الخصوصية",
+    content: "سياسة إدارة المحتوى",
+    conditions: "الشروط والأحكام",
+    links: "روابط هامه",
+    employees: "بوابة الموظفين",
+    offices: "بوابة المكاتب الهندسية",
+    copyrights: "جميع الحقوق محفوظة – البوابة الوطنية الداعمة للمجتمع البلدي ©",
+    websiteMap: "خريطة الموقع",
   }
 };
