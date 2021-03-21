@@ -173,8 +173,8 @@ class ClientHeader extends React.Component {
             }}
           >
             <div className="flex">
-              <a href="https://engage.balady.gov.sa" className="interactive">
-                منصة بلدي التفاعلية
+              <a href="https://engage.balady.gov.sa" dir={translate("dir")} className="interactive">
+                {translate("header.navBar.balady")}
               </a>
 
               <a
@@ -182,12 +182,12 @@ class ClientHeader extends React.Component {
                 className="afkarLink speech-bubble"
               >
                 {/* <img src="/static/img/qararNew.svg" alt="" /> */}
-                قرارك
+                {translate("header.navBar.yourDecision")}
               </a>
 
               <a href="https://eforms.balady.gov.sa" className="afkarLink">
                 {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
-                الاستبيانات
+                {translate("header.navBar.questionnaires")}
               </a>
             </div>
             <div className="flex">
@@ -222,14 +222,14 @@ class ClientHeader extends React.Component {
                   <NavItem active={router.pathname === '/'}>
                     <Link href="/">
                       <a>
-                        <NavLink onClick={this.closeMobile}>{translate("home")}</NavLink>
+                        <NavLink onClick={this.closeMobile}>{translate("header.navBar.home")}</NavLink>
                       </a>
                     </Link>
                   </NavItem>
                   <NavItem active={router.pathname === '/about'}>
                     <Link href="/about">
                       <a>
-                        <NavLink onClick={this.closeMobile}>عن قرار</NavLink>
+                        <NavLink onClick={this.closeMobile}>{translate("header.navBar.about")}</NavLink>
                       </a>
                     </Link>
                   </NavItem>
@@ -237,7 +237,7 @@ class ClientHeader extends React.Component {
                     <Link href="/drafts">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          قرارات تحت التصويت
+                          {translate("header.navBar.drafts")}
                         </NavLink>
                       </a>
                     </Link>
@@ -246,7 +246,7 @@ class ClientHeader extends React.Component {
                     <Link href="/decisions">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          القرارات السابقة
+                          {translate("header.navBar.decisions")}
                         </NavLink>
                       </a>
                     </Link>
@@ -262,7 +262,7 @@ class ClientHeader extends React.Component {
                     <Link href="/news">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          اخبار المنصة
+                          {translate("header.navBar.platform")}
                         </NavLink>
                       </a>
                     </Link>
@@ -278,7 +278,7 @@ class ClientHeader extends React.Component {
                     <Link href="/social-reports">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          المشاركة المجتمعية
+                          {translate("header.navBar.socialParticipation")}
                         </NavLink>
                       </a>
                     </Link>

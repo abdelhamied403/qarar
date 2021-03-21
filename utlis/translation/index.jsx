@@ -9,7 +9,7 @@ const translationInit = (lang) => {
     translation = translationi18n[lang];
 };
 const translate = (key) => {
-    return translation[key];
+    return key.split('.').reduce((prev, curr) => (prev && prev[curr]) || key, translation)
 };
 
 export {
