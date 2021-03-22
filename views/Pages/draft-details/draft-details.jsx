@@ -705,7 +705,9 @@ class DraftDetailsInfo extends Component {
                     { draft?.related_project ?
                       <>
                         <p className="bold m-0"> {draft?.related_project?.entity_name}</p>
-                        <p className="m-0"> <span className="bold"> نوع المشروع: </span>{draft?.related_project?.project_type}</p>
+                        <p className="m-0"> <span className="bold"> 
+                        {translate('draftDetails.projectType')}
+                        </span>{draft?.related_project?.project_type}</p>
                         {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
                       </>
                       : null

@@ -228,7 +228,11 @@ export const en = {
     negative: 'Negative',
     more: 'More',
     participate: 'Join Now',
-    downloadPdf: 'Download pdf'
+    downloadPdf: 'Download pdf',
+    projectType:'Project Type:',
+    purpose:'Purpose',
+    entities:'Concerned entities',
+    effect:'Expected effect'
 
   }
 };

@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 import './styles.css';
+import { translate } from '../../../../utlis/translation';
 
 const TabsOptions = (props) => {
   const [activeTab, setActiveTab] = useState('1');
@@ -33,7 +34,8 @@ const TabsOptions = (props) => {
               toggle('1');
             }}
           >
-            الغرض منه
+            {translate('draftDetails.purpose')}
+        
           </NavLink>
         </NavItem>
         <NavItem>
@@ -46,7 +48,7 @@ const TabsOptions = (props) => {
               toggle('2');
             }}
           >
-            الجهات المعنية
+           {translate('draftDetails.entities')}
           </NavLink>
         </NavItem>
         <NavItem>
@@ -58,8 +60,8 @@ const TabsOptions = (props) => {
             onClick={() => {
               toggle('3');
             }}
-          >
-            الاثر المتوقع
+          >  
+           {translate('draftDetails.effect')}
           </NavLink>
         </NavItem>
       </Nav>

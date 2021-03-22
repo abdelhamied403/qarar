@@ -222,7 +222,12 @@ export const ar = {
     negative: 'سلبي',
     more: 'المزيد',
     participate: 'شارك الان',
-    downloadPdf: 'تحميل pdf'
+    downloadPdf: 'تحميل pdf',
+    projectType:'نوع المشروع:',
+    purpose:'الغرض منه',
+    entities:'الجهات المعنية',
+    effect:'الاثر المتوقع'
+
 
   }
 
