@@ -57,7 +57,6 @@ export const ar = {
 
     opinion: 'رأيك يهمنا .. صوتك يهمنا',
     exploreDrafts: ' اكتشف قائمة المسودات',
-    createAccount: "انشاء حساب",
     login: "دخول",
 
   },

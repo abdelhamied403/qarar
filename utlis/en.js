@@ -58,7 +58,8 @@ export const en = {
     allNews: 'All News',
 
     opinion: 'Your opinion matters to us .. Your voice matters to us',
-    exploreDrafts: 'Explore the drafts list'
+    exploreDrafts: 'Explore the drafts list',
+    login: 'Login',
   },
   aboutQararPage: {
     title: 'About The "Qarar" Platform',
