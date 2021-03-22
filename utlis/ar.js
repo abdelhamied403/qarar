@@ -20,7 +20,7 @@ export const ar = {
       following: 'متابعاتي',
       groups: 'مجموعاتي',
       login: 'دخول',
-      logout:'خروج',
+      logout: 'خروج',
     }
   },
   landingPage: {
@@ -187,9 +187,45 @@ export const ar = {
     offices: 'بوابة المكاتب الهندسية',
     copyrights: 'جميع الحقوق محفوظة – البوابة الوطنية الداعمة للمجتمع البلدي ©',
     websiteMap: 'خريطة الموقع',
-
     aboutBalady: 'عن بلدي',
     userGuides: 'أدلة المستخدمين',
     electronicServices: 'خدمات إلكترونية'
+  },
+  draftDetails: {
+    decisions: 'القرارات',
+    voteClosed: 'أغلق التصويت بتاريخ',
+    application: 'تم التطبيق بتاريخ',
+    votingCloses: 'يغلق التصويت بتاريخ',
+    shareIdeas: 'شارك برأيك',
+    user: 'مشترك',
+    comment: 'تعليق',
+    vote: 'صوت',
+    createDate: 'تاريخ بداية الطرح',
+    closeDate: 'تاريخ اغلاق المسودة و النقاش',
+    attachments: 'المرفقات',
+    pdf: 'الاشتراكات المعمرية pdf',
+    download: '  تحميل pdf',
+    jpg: 'البيئة العمرانية JPG',
+    charts: 'مؤشرات',
+    openAll: 'فتح الكل',
+    closeAll: 'اغلاق الكل',
+    shareDraft: 'شارك هذه المادة',
+    votable: 'المواد القابلة للتصويت',
+    otherArticles: 'بقية المواد',
+    loginComment: 'يجب تسجيل الدخول لأضافة تعليق',
+    login: 'تسجيل الدخول',
+    createAccount: 'تسجيل حساب',
+    commentAdded: ' تم إضافة التعليق في إنتظار موافقة إدارة الموقع',
+    commentStoped: 'تم إيقاف التعليقات',
+    conditionsParticipation: '  شروط المشاركة',
+    addComment: 'اضف تعليقك',
+    positive: 'ايجابي',
+    negative: 'سلبي',
+    more: 'المزيد',
+    participate: 'شارك الان',
+    downloadPdf: 'تحميل pdf'
+
   }
+
+
 };

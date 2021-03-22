@@ -193,5 +193,41 @@ export const en = {
     aboutBalady: 'About Balady',
     userGuides: 'Users Guides',
     electronicServices: 'Onlin Services'
+  },
+  
+  draftDetails: {
+    decisions: 'Decisions',
+    voteClosed: 'Voting closed on',
+    application: 'Applied on',
+    votingCloses: 'Voting closes on',
+    shareIdeas: 'Share your opinion',
+    user: 'User',
+    comment: 'Comment',
+    vote: 'Vote',
+    createDate: 'Create Date',
+    closeDate: 'Date of closing the draft and discussion',
+    attachments: 'Attachments',
+    pdf: 'الاشتراكات المعمرية pdf',
+    download: '  تحميل pdf',
+    jpg: 'البيئة العمرانية JPG',
+    charts: 'Charts',
+    openAll: 'Open All',
+    closeAll: 'Close All',
+    shareDraft: 'Share this article',
+    votable: 'Votable Articles',
+    otherArticles: 'Other Articles',
+    loginComment: 'You must be logged in to add comments',
+    login: 'Login',
+    createAccount: 'Create Account',
+    commentAdded: ' Comment has been added pending the approval of the site administration',
+    commentStoped: 'Comments have been stopped',
+    conditionsParticipation: 'Joining Conditions',
+    addComment: 'Add your comment',
+    positive: 'Positive',
+    negative: 'Negative',
+    more: 'More',
+    participate: 'Join Now',
+    downloadPdf: 'Download pdf'
+
   }
 };

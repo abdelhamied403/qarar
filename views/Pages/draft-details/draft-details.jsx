@@ -536,7 +536,7 @@ class DraftDetailsInfo extends Component {
                       <li>
                         <Link href="/drafts/">
                           <a>
-                            القرارات
+                          {translate('draftDetails.decisions')}
                           </a>
                         </Link>
                       </li>
@@ -561,14 +561,22 @@ class DraftDetailsInfo extends Component {
                       />
 
                       {draft.archived_date && (
-                        <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
+                        <span>
+                           {translate('draftDetails.voteClosed')}
+                          
+                          {draft.archived_date}</span>
                       )}
                       {draft.applied_date && (
-                        <span>تم التطبيق بتاريخ {draft.applied_date}</span>
+                        <span>
+                           {translate('draftDetails.application')}
+                    
+                          {draft.applied_date}</span>
                       )}
                       {draft.end_date &&
                         !(draft.applied_date || draft.archived_date) && (
-                          <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                          <span>
+                            {translate('draftDetails.votingCloses')}
+                           {draft.end_date}</span>
                         )}
                     </div>
                     <div className="button-group">
@@ -581,7 +589,7 @@ class DraftDetailsInfo extends Component {
                         duration={500}
                       >
                         <Button color="primary">
-                          شارك برأيك
+                          {translate('draftDetails.shareIdeas')}
                           <img
                             src="/static/img/interactive/whiteArrow.svg"
                             alt=""
@@ -611,7 +619,9 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.followers}</p>
-                      <h5>مشترك</h5>
+                      <h5>
+                      {translate('draftDetails.user')}
+                        </h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -622,7 +632,9 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.comments}</p>
-                      <h5>تعليق</h5>
+                      <h5>
+                      {translate('draftDetails.comment')}
+                        </h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -636,7 +648,7 @@ class DraftDetailsInfo extends Component {
                         {parseInt(draft.likes, 10) +
                           parseInt(draft.dislikes, 10)}
                       </p>
-                      <h5>صوت</h5>
+                      <h5> {translate('draftDetails.vote')}</h5>
                     </div>
                   </div>
                 </Col>
@@ -658,7 +670,9 @@ class DraftDetailsInfo extends Component {
                         alt=""
                       />
                       <p className="bold">
-                        <strong>تاريخ بداية الطرح</strong>:
+                        <strong>
+                        {translate('draftDetails.createDate')}
+                      </strong>:
                       </p>
                       <span>
                         {moment(draft.applied_date).format('dddd, D MMMM YYYY')}
@@ -670,7 +684,9 @@ class DraftDetailsInfo extends Component {
                         alt=""
                       />
                       <p className="bold">
-                        <strong>تاريخ اغلاق المسودة و النقاش</strong>:
+                        <strong>
+                        {translate('draftDetails.closeDate')}
+                        </strong>:
                       </p>
                       <span>
                         {moment(draft.end_date).format('dddd, D MMMM YYYY')}
@@ -699,14 +715,14 @@ class DraftDetailsInfo extends Component {
                 <Row style={{ padding: '20px' }}>
                   <div className="uploads">
                     <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
-                      المرفقات
+                    {translate('draftDetails.attachments')}
                     </span>
                     <Button
                       className="btn-inline-block btn-ligh"
                       color="secondary"
                       size="sm"
                     >
-                      الاشتراكات المعمرية pdf
+                      {translate('draftDetails.pdf')}
                     </Button>
                     <Button
                       className="btn-inline-block btn-ligh"
@@ -715,14 +731,14 @@ class DraftDetailsInfo extends Component {
                       // disabled={!draft?.pdf_url}
                       onClick={() => window.open(draft?.pdf_url)}
                     >
-                      تحميل pdf
+                       {translate('draftDetails.download')}
                     </Button>
                     <Button
                       className="btn-inline-block btn-ligh"
                       color="secondary"
                       size="sm"
                     >
-                      البيئة العمرانية JPG
+                      {translate('draftDetails.jpg')}
                     </Button>
                   </div>
                 </Row>
@@ -730,7 +746,9 @@ class DraftDetailsInfo extends Component {
             </Card>
 
             <Card className="cardDraft">
-              <CardHeader>مؤشرات</CardHeader>
+              <CardHeader>
+              {translate('draftDetails.charts')}
+                </CardHeader>
               <CardBody>
                 <Row>
                   <Col md="4">
@@ -840,7 +858,7 @@ class DraftDetailsInfo extends Component {
                       }}
                     >
                       <span>+</span>
-                      فتح الكل
+                      {translate('draftDetails.openAll')}
                     </Button>
                     <Button
                       onClick={() => {
@@ -848,7 +866,7 @@ class DraftDetailsInfo extends Component {
                       }}
                     >
                       <span>-</span>
-                      اغلاق الكل
+                      {translate('draftDetails.closeAll')}
                     </Button>
                   </>
                 )}
@@ -864,7 +882,9 @@ class DraftDetailsInfo extends Component {
                 )}
               </div>
               <div className="shareInfoLeft d-flex align-items-center">
-                <p>شارك هذه المادة</p>
+                <p>
+                {translate('draftDetails.shareDraft')}
+                </p>
                 <LinkedinShareButton url={window && window.location}>
                   <img src="/static/img/interactive/linkedinDraft.svg" alt="" />
                 </LinkedinShareButton>
@@ -877,13 +897,15 @@ class DraftDetailsInfo extends Component {
               </div>
             </div>
             <div>
-              <h4>المواد القابلة للتصويت</h4>
+              <h4> {translate('draftDetails.votable')}</h4>
               {items &&
                 items
                   .filter(item => item.openArticle)
                   .map(item => this.subjectsList(item, openArticle, uid))}
               <hr style={{ borderColor: '#1e6f6d' }} />
-              <h4>بقية المواد</h4>
+              <h4>
+              {translate('draftDetails.otherArticles')}
+              </h4>
               {items &&
                 items
                   .filter(item => !item.openArticle)
@@ -893,15 +915,19 @@ class DraftDetailsInfo extends Component {
               {!uid ? (
                 <div className="draftShouldLogin d-flex flex-column">
                   <img src="/static/img/interactive/disabled.svg" alt="" />
-                  <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+                  <h4>
+                  {translate('draftDetails.loginComment')}
+                 </h4>
                   <Link href="/login">
                     <Button>
-                      تسجيل الدخول
+                    {translate('draftDetails.login')}
+  
                       <img src="/static/img/interactive/btnArrow3.svg" alt="" />
                     </Button>
                   </Link>
                   <Link href="/register">
-                    <a>تسجيل حساب</a>
+                    <a>{translate('draftDetails.createAccount')}
+                  </a>
                   </Link>
                 </div>
               ) : (
@@ -909,7 +935,7 @@ class DraftDetailsInfo extends Component {
                   <div>
                     {successComment && (
                       <Alert color="success">
-                        تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+                        {translate('draftDetails.commentAdded')}
                       </Alert>
                     )}
                     {errorComment && (
@@ -938,14 +964,18 @@ class DraftDetailsInfo extends Component {
                         onEditorStateChange={this.onEditorStateChange}
                       />
                     ) : (
-                      <Alert color="success">تم إيقاف التعليقات</Alert>
+                      <Alert color="success">
+                                      {translate('draftDetails.commentStoped')}
+                  </Alert>
                     )}
                   </div>
                   {openArticle && (
                     <div className="commentsBtn d-flex justify-content-end align-items-center">
-                      <a href="">شروط المشاركة</a>
+                      <a href="">
+                      {translate('draftDetails.conditionsParticipation')}
+                      </a>
                       <Button onClick={this.saveComment}>
-                        اضف تعليقك
+                      {translate('draftDetails.addComment')}
                         <img
                           src="/static/img/interactive/whiteArrow.svg"
                           alt=""
@@ -1169,18 +1199,24 @@ class DraftDetailsInfo extends Component {
             )}
             <div className="action-item likes d-flex align-items-center">
               <img src="/static/img/Icon - dropdown - like white.svg" alt="" />
-              <span>{item.likes || 0} ايجابي</span>
+              <span>{item.likes || 0} 
+              {translate('draftDetails.positive')}
+
+              </span>
             </div>
             <div className="action-item dislikes d-flex align-items-center">
               <img
                 src="/static/img/Icon - dropdown - dislike white.svg"
                 alt=""
               />
-              <span>{item.dislikes || 0} سلبي</span>
+              <span>{item.dislikes || 0} 
+              {translate('draftDetails.negative')}
+              </span>
             </div>
             <div className="manyComments d-flex align-items-center">
               <img src="/static/img/interactive/chat.svg" alt="" />
-              <span>{item.comments} تعليق</span>
+              <span>{item.comments}
+              {translate('draftDetails.comment')}</span>
             </div>
             <img
               src="/static/img/interactive/whiteTabs.svg"
@@ -1216,7 +1252,7 @@ class DraftDetailsInfo extends Component {
                     })
                   }
                 >
-                  المزيد
+                   {translate('draftDetails.more')}
                   <img src={this.state.img2} alt="" />
                 </Button>
               </Link>
@@ -1231,7 +1267,7 @@ class DraftDetailsInfo extends Component {
                   })
                 }
               >
-                ِشارك الان
+                  {translate('draftDetails.participate')}
               </Button>
               <Button
                 className="btn-inline-block"
@@ -1240,7 +1276,7 @@ class DraftDetailsInfo extends Component {
                 disabled={!item?.pdf_url}
                 onClick={() => window.open(item?.pdf_url)}
               >
-                تحميل pdf
+               {translate('draftDetails.downloadPdf')}
               </Button>
             </Col>
             <Col md="5">
@@ -1254,7 +1290,7 @@ class DraftDetailsInfo extends Component {
                   })
                 }
               >
-                ِشارك الان
+                  {translate('draftDetails.participate')}
               </Button>
               <ArticleComment
                 enableCommentForm={openArticle}
