@@ -86,7 +86,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/about'}
                   onClick={this.closeMobile}
                 >
-                  معلومات الشخصية
+                  {translate("header.navBar.personalInfo")}
                 </DropdownItem>
               </a>
             </Link>
@@ -96,7 +96,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/notifications'}
                   onClick={this.closeMobile}
                 >
-                  اشعارات
+                 {translate("header.navBar.notifications")}
                 </DropdownItem>
               </a>
             </Link>
@@ -106,7 +106,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/shared'}
                   onClick={this.closeMobile}
                 >
-                  مشاركاتي
+                   {translate("header.navBar.notifications")}
                 </DropdownItem>
               </a>
             </Link>
@@ -116,7 +116,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/awards'}
                   onClick={this.closeMobile}
                 >
-                  اوسمتي
+                   {translate("header.navBar.honors")}
                 </DropdownItem>
               </a>
             </Link>
@@ -126,7 +126,8 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/follow'}
                   onClick={this.closeMobile}
                 >
-                  متابعاتي
+                  {translate("header.navBar.following")}
+               
                 </DropdownItem>
               </a>
             </Link>
@@ -136,12 +137,12 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/groups'}
                   onClick={this.closeMobile}
                 >
-                  مجموعاتي
+                   {translate("header.navBar.groups")}
                 </DropdownItem>
               </a>
             </Link>
             <DropdownItem className="danger" onClick={signOut}>
-              خروج
+            {translate("header.navBar.logout")}
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
@@ -287,7 +288,9 @@ class ClientHeader extends React.Component {
                     <NavItem active={router.pathname === '/login'}>
                       <Link href="/login">
                         <a>
-                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                          <NavLink onClick={this.closeMobile}>
+                          {translate("header.navBar.login")}
+                             </NavLink>
                         </a>
                       </Link>
                     </NavItem>

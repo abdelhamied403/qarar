@@ -55,14 +55,19 @@ const ClientFooter = ({ isAuthentcated }) => {
           <div className="mid-footer">
             <Row>
               <Col md={3}>
-                <h4> بلدي</h4>
+                <h4> {translate("footer.balady")}</h4>
                 <h4>{translate("footer.balady")}</h4>
-                <a href="https://balady.gov.sa/About">عن بلدي</a>
-                <a href="https://balady.gov.sa/UserGuide">أدلة المستخدمين</a>
+                <a href="https://balady.gov.sa/About">
+                {translate("footer.aboutBalady")}</a>
+                <a href="https://balady.gov.sa/UserGuide">
+                {translate("footer.userGuides")}
+                </a>
               </Col>
               <Col md={3}>
                 <h4> {translate("footer.baladyServices")}</h4>
-                <a href="https://balady.gov.sa/Services"> خدمات إلكترونية</a>
+                <a href="https://balady.gov.sa/Services">
+                {translate("footer.electronicServices")}
+                  </a>
                 <a href="https://balady.gov.sa/Informative">
                   {' '}
                   {translate("footer.query")}

@@ -207,13 +207,14 @@ const Landing = () => {
               <div>
                 <Link href="/register">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
-                    انشاء حساب
+                    {translate('landingPage.createAccount')}
                     <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
                 <Link href="/login">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
-                    دخول
+                    
+                    {translate('landingPage.login')}
                     <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>

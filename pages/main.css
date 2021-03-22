@@ -110,6 +110,10 @@ body {
   /* white-space: pre-line;*/
 }
 
+body[dir="ltr"]{
+  text-align: left;
+}
+
 [tabindex='-1']:focus {
   outline: 0 !important;
 }
@@ -18998,6 +19002,15 @@ textarea.form-control {
   margin: 22px 0;
   background: #85bd48;
   bottom: 0;
+}
+
+.header-button .btn-primary{
+width: 24px;
+margin-right: 14px;
+}
+
+.header-button .btn-primary img[dir="ltr"] {
+  transform: scale(-1, 1);
 }
 
 .header-button:hover {
