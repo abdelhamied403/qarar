@@ -44,6 +44,7 @@ import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
 import InsideComment from '../components/InsideComment';
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -449,6 +450,7 @@ class DraftDetailsInfo extends Component {
                         object
                         src="/static/img/calendarWhite.svg"
                         className="icon-small"
+                        dir={translate('dir')}
                       />
 
                       {draft.archived_date && (

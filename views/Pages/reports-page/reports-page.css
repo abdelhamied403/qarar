@@ -14,11 +14,19 @@
   max-width: 50%;
   /* word-break: break-all; */
   margin-bottom: 20px;
+  text-align: start;
 }
-.active-drafts-card {
+.active-drafts-card[dir="rtl"] {
   background-color: var(--normal-gray);
   border-radius: 5px;
   border-right: 5px solid var(--primary-blue);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.active-drafts-card[dir="ltr"] {
+  background-color: var(--normal-gray);
+  border-radius: 5px;
+  border-left: 5px solid var(--primary-blue);
   padding: 20px;
   margin-bottom: 20px;
 }

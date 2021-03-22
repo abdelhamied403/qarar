@@ -45,6 +45,7 @@ import DecisionEdits from '../components/decision-edit/decision-edit';
 import Api from '../../../api';
 import PartcipantModal from './partcipantModal';
 import CommentSteps from './comments-stetps';
+import { translate } from '../../../utlis/translation';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -556,6 +557,7 @@ class DraftDetailsInfo extends Component {
                         object
                         src="/static/img/calendarWhite.svg"
                         className="icon-small"
+                        dir={translate('dir')}
                       />
 
                       {draft.archived_date && (

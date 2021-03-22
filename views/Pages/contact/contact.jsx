@@ -17,6 +17,7 @@ import {
 } from 'reactstrap';
 
 import './contact.css';
+import { translate } from '../../../utlis/translation';
 
 class Contact extends Component {
   constructor(props) {
@@ -148,6 +149,7 @@ class Contact extends Component {
                     object
                     src="/static/img/Icon - check.svg"
                     className="icon-small"
+                    dir={translate('dir')}
                   />
 
                   <div>00966 123 4567</div>
@@ -157,6 +159,7 @@ class Contact extends Component {
                     object
                     src="/static/img/Icon - check Copy.svg"
                     className="icon-small"
+                    dir={translate('dir')}
                   />
 
                   <div>/sharedtechKSA</div>
@@ -166,6 +169,7 @@ class Contact extends Component {
                     object
                     src="/static/img/Icon - check Copy 2.svg"
                     className="icon-small"
+                    dir={translate('dir')}
                   />
 
                   <div>/sharedtechKSA</div>

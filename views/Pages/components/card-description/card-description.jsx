@@ -4,6 +4,7 @@ import { Card, CardHeader, CardBody, Media } from 'reactstrap';
 import Link from 'next/link';
 
 import './card-description.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -29,7 +30,7 @@ const CardDescription = ({ header, type, arrayOfContnt, points }) => (
                   return (
                     <span className="social-icon">
                       {/* <i className={s.icon + " icons d-block"}></i> */}
-                      <Media object src={s.icon} className="icon-small" />
+                      <Media dir={translate('dir')} object src={s.icon} className="icon-small" />
 
                       <span>{s.number}</span>
                     </span>
@@ -47,7 +48,7 @@ const CardDescription = ({ header, type, arrayOfContnt, points }) => (
             {content.description.map(s => {
               return (
                 <span className="desc-content">
-                  <Media object src={s.icon} className="icon-small" />
+                  <Media dir={translate('dir')} object src={s.icon} className="icon-small" />
 
                   {/* <i className={s.icon + " icons d-block"}></i> */}
                   <span>{s.text}</span>

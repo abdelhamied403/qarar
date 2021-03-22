@@ -6,6 +6,7 @@ import './reports-page.css';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 import Link from 'next/link';
+import { translate } from '../../../utlis/translation';
 
 class About extends Component {
   constructor() {
@@ -89,7 +90,7 @@ class About extends Component {
       <>
         <div className="draftHeader">
           <Container>
-            <h3>تقارير المشاركة المجتمعية</h3>
+            <h3>{translate('reportsPage.title')}</h3>
           </Container>
         </div>
         <Container className="reports-page">
@@ -97,16 +98,16 @@ class About extends Component {
             <Row>
               <Col xs="12" md="6">
                 <CardInfoIcon
-                  description="عدد مستخدمي المنصة الحالي"
-                  info="مستخدم"
+                  description={translate('reportsPage.platformUsers')}
+                  info={translate('reportsPage.users')}
                   number={userCount}
                   icon="/static/img/Icon - draft activity - users.svg"
                 />
               </Col>
               <Col xs="12" md="6">
                 <CardInfoIcon
-                  description="عدد المسودات التي تمت مناقشتها"
-                  info="مسودة"
+                  description={translate('reportsPage.draftsDiscussed')}
+                  info={translate('reportsPage.drafts')}
                   number={draftCount}
                   icon="/static/img/Report Icon.svg"
                 />
@@ -118,7 +119,7 @@ class About extends Component {
             <Card className="card-users-part">
               <CardHeader>
                 <div className="flex-header">
-                  <h6 className="name">المستخدمين الاكثر نشاطا</h6>
+                  <h6 className="name">{translate('reportsPage.activeUsers')}</h6>
                 </div>
               </CardHeader>
               <CardBody>
@@ -143,14 +144,14 @@ class About extends Component {
             <Card className="card-users-part">
               <CardHeader>
                 <div className="flex-header">
-                  <h6 className="name">المسودات الاكثر نشاطا</h6>
+                  <h6 className="name">{translate('reportsPage.activeDrafts')}</h6>
                 </div>
               </CardHeader>
               <CardBody>
                 <Row className="active-users">
                   {activeDrafts.map(draft => (
                     <Col key={draft.id} sm="12" md="6">
-                      <div className="active-drafts-card">
+                      <div dir={translate('dir')} className="active-drafts-card">
                         <div className="flex flex-justifiy-sp flex-align-center">
                           <h6 className="break">
                             <Link
@@ -161,14 +162,14 @@ class About extends Component {
                             </Link>
                           </h6>
                           <span className="sub-header">
-                            <i className="fa fa-thumbs-up" /> {draft.likes} صوت
+                            <i className="fa fa-thumbs-up" /> {draft.likes}{translate('reportsPage.vote')}
                           </span>
                         </div>
                         <div className="flex flex-justifiy-sp">
                           <span className="sub-header">{draft.end_date}</span>
                           <span className="sub-header">
                             <i className="fa fa-comment" /> {draft.comments}{' '}
-                            تعليق
+                            {translate('reportsPage.comment')}
                           </span>
                         </div>
                       </div>
@@ -183,7 +184,7 @@ class About extends Component {
             <Card className="card-users-part">
               <CardHeader>
                 <div className="flex-header">
-                  <h6 className="name">المستخدمين الحاصلين على جوائز</h6>
+                  <h6 className="name">{translate('reportsPage.winningUsers')}</h6>
                 </div>
               </CardHeader>
               <CardBody>
@@ -196,7 +197,7 @@ class About extends Component {
                         name={user.full_name || user.name}
                         points={user.awards_count}
                         uid={user.uid}
-                        suffix="جائزة"
+                        suffix={translate('reportsPage.award')}
                         content={
                           user.awards && user.awards.length
                             ? user.awards[0].title

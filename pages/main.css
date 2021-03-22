@@ -9593,6 +9593,18 @@ a.text-dark:focus {
   visibility: hidden !important;
 }
 
+.text-start {
+  text-align: start;
+}
+
+.direction-ltr {
+  direction: ltr !important;
+}
+
+.direction-rtl {
+  direction: rtl !important;
+}
+
 @media print {
   *,
   *::before,
@@ -16380,8 +16392,12 @@ button.btn.btn-primary {
   padding: 0;
 }
 
-.icon-small {
+.icon-small[dir="rtl"] {
   margin-left: 10px;
+}
+
+.icon-small[dir="ltr"] {
+  margin-right: 10px;
 }
 
 .icon {
@@ -17213,10 +17229,16 @@ footer a:hover {
   text-align: center;
 }
 
-.card-info-container .icon {
+.card-info-container .icon[dir="rtl"] {
   position: absolute;
   bottom: 16px;
   left: 16px;
+}
+
+.card-info-container .icon[dir="ltr"] {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
 }
 
 .card-info-container .icon img {
@@ -17254,9 +17276,17 @@ footer a:hover {
   font-size: 12px;
 }
 
-.card-small .icon {
+.card-small .icon[dir="rtl"] {
   position: absolute;
   left: 2px;
+  bottom: 2px;
+  opacity: 0.2;
+  font-size: 50px;
+}
+
+.card-small .icon[dir="ltr"] {
+  position: absolute;
+  right: 2px;
   bottom: 2px;
   opacity: 0.2;
   font-size: 50px;
@@ -17733,6 +17763,7 @@ textarea.form-control {
 }
 .reports-page .card-header {
   padding: 20px 16px;
+  text-align: start;
 }
 .reports-page .card-points .flex-header-points {
   display: flex;
@@ -17790,11 +17821,19 @@ textarea.form-control {
   max-width: 50%;
   /* word-break: break-all; */
   margin-bottom: 20px;
+  text-align: start;
 }
-.active-drafts-card {
+.active-drafts-card[dir="rtl"] {
   background-color: var(--normal-gray);
   border-radius: 5px;
   border-right: 5px solid var(--primary-blue);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.active-drafts-card[dir="ltr"] {
+  background-color: var(--normal-gray);
+  border-radius: 5px;
+  border-left: 5px solid var(--primary-blue);
   padding: 20px;
   margin-bottom: 20px;
 }
@@ -18339,7 +18378,7 @@ textarea.form-control {
 .draftHeader p,
 .draftHeader h3 {
   color: #fff;
-  text-align: right;
+  text-align: start;
 }
 .btn img[dir="rtl"] {
   width: 15px;
@@ -20178,7 +20217,6 @@ textarea.form-control {
   color: #fff;
 }
 .filter-section .filter-buttons label {
-  margin-left: 20px;
   font-size: 16px;
 }
 .filter-section .filter-buttons label input {
