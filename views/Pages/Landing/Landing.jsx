@@ -203,7 +203,7 @@ const Landing = () => {
                 </div>
               </div>
             </div>
-            {!uid && (
+            {/* {!uid && (
               <div>
                 <Link href="/register">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
@@ -219,7 +219,7 @@ const Landing = () => {
                   </a>
                 </Link>
               </div>
-            )}
+            )} */}
           </section>
         </Container>
       </div>
@@ -523,7 +523,7 @@ const Landing = () => {
       <section className="blogger">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
-            <h2 className="text-center header">{translate('landingPage.platformNews')}</h2>
+            <h2 className="header">{translate('landingPage.platformNews')}</h2>
             <ButtonGroup>
               <Button
                 onClick={() => setActiveBtnNews(0)}

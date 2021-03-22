@@ -56,7 +56,6 @@ const ClientFooter = ({ isAuthentcated }) => {
             <Row>
               <Col md={3}>
                 <h4> {translate("footer.balady")}</h4>
-                <h4>{translate("footer.balady")}</h4>
                 <a href="https://balady.gov.sa/About">
                 {translate("footer.aboutBalady")}</a>
                 <a href="https://balady.gov.sa/UserGuide">

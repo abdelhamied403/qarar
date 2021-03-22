@@ -18500,6 +18500,13 @@ textarea.form-control {
   margin-right: 18px;
 }
 
+*[dir='ltr'] .section-flex .icons-group > * > div{
+  justify-content: flex-end;
+  text-align: left;
+  margin-right: 0;
+  margin-left: 18px;
+}
+
 .section-flex .icons-group i {
   border-radius: 50%;
   width: 50px;
@@ -20281,4 +20288,14 @@ a#loginWithBaladyLink {
 a#loginWithBaladyLink img {
   height: 37px;
   width: 37px;
+}
+
+/*  */
+
+*[dir='ltr'] .afkarLink.englishlink{
+  display: none !important;
+}
+
+*[dir='rtl'] .afkarLink.arabiclink{
+display: none !important;
 }

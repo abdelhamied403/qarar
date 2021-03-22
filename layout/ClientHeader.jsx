@@ -74,7 +74,7 @@ class ClientHeader extends React.Component {
   userDropdown() {
     const { signOut, router, name, profileImage } = this.props;
     return (
-      <div className="m-right-auto flex drop-header">
+      <div className="flex drop-header">
         <UncontrolledDropdown>
           <DropdownToggle tag="a" className="nav-link" caret>
             {name}
@@ -192,11 +192,11 @@ class ClientHeader extends React.Component {
               </a>
             </div>
             <div className="flex">
-              <span className="afkarLink" onClick={() => gotoLang('en')}>
-                en
+              <span className="afkarLink englishlink" onClick={() => gotoLang('en')}>
+                English
               </span>
-              <span className="afkarLink" onClick={() => gotoLang('ar')} s>
-                ar
+              <span className="afkarLink arabiclink" onClick={() => gotoLang('ar')} s>
+                عربي
               </span>
             </div>
           </Container>
