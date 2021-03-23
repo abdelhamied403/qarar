@@ -33,6 +33,6 @@ a:not([href]):not([tabindex]):focus {
 .opt-tabs .tab-content .tab-pane.bold.active {
   background-color: white !important;
 }
-.borderright0 {
+/* .borderright0 {
   border-right: 0 !important;
-}
+} */

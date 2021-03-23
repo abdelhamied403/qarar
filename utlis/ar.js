@@ -226,7 +226,15 @@ export const ar = {
     projectType:'نوع المشروع:',
     purpose:'الغرض منه',
     entities:'الجهات المعنية',
-    effect:'الاثر المتوقع'
+    effect:'الاثر المتوقع',
+    addComment:'اضف تعليقك',
+    loginFirst:'يجب تسجيل الدخول اولا',
+    loginComment:'يجب تسجيل الدخول لأضافة تعليق',
+    votingStopped:'تم ايقاف التصويت',
+    addNewComment:'هل ترغب باضافة تعليق؟',
+    yes:'نعم',
+    no:'لا'
+
 
 
   }

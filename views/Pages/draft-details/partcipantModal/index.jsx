@@ -242,7 +242,7 @@ const PartcipantModal = props => {
         />
         <Button className="button-comment" onClick={() => saveComment()}>
           اضف تعليقك
-          <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+          <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
         </Button>
       </>
     );
@@ -259,7 +259,7 @@ const PartcipantModal = props => {
             <Link href="/login">
               <Button>
                 تسجيل الدخول
-                <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
               </Button>
             </Link>
             <Link href="/register">

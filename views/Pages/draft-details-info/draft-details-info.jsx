@@ -433,7 +433,7 @@ class DraftDetailsInfo extends Component {
                     <ul>
                       <li>
                         <Link href="/drafts/">
-                          <a>القرارات</a>
+                          <a>          {translate('draftDetails.decisions')}</a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -475,7 +475,7 @@ class DraftDetailsInfo extends Component {
                       >
                         <Button color="primary">
                           شارك برأيك
-                          <img
+                          <img dir={translate('dir')}
                             src="/static/img/interactive/whiteArrow.svg"
                             alt=""
                           />
@@ -700,7 +700,7 @@ class DraftDetailsInfo extends Component {
                   <Link href="/login">
                     <Button>
                       تسجيل الدخول
-                      <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                      <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
                     </Button>
                   </Link>
                   <Link href="/register">

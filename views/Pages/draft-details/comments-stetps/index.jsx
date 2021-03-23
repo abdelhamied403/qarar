@@ -17,6 +17,8 @@ import { EditorState, convertToRaw } from 'draft-js';
 import Api from '../../../../api';
 
 import './style.css';
+import { translate } from '../../../../utlis/translation';
+
 
 const ModalState = {
   LIKES: 0,
@@ -200,13 +202,13 @@ const PartcipantSteps = props => {
     };
     return (
       <div>
-        <h4>هلي ترغب باضافة تعليق</h4>
+        <h4> {translate('draftDetails.addNewComment')}</h4>
         <div className="action-itemsb">
           <div className="done" onClick={() => nextStep()}>
-            <span>نعم</span>
+            <span> {translate('draftDetails.yes')}</span>
           </div>
           <div className="error" onClick={close}>
-            <span>لا</span>
+            <span> {translate('draftDetails.no')}</span>
           </div>
         </div>
       </div>
@@ -215,7 +217,8 @@ const PartcipantSteps = props => {
   const Comment = props => {
     return (
       <div style={{ padding: '30px 0' }}>
-        ><h4>اضف تعليقك</h4>
+        <h4>
+        {translate('draftDetails.addComment')}</h4>
         <Editor
           placeholder="اضف تعليقك هنا"
           toolbar={{
@@ -238,8 +241,8 @@ const PartcipantSteps = props => {
           onEditorStateChange={setEditorState}
         />
         <Button className="button-comment" onClick={() => saveComment()}>
-          اضف تعليقك
-          <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+          {translate('draftDetails.addComment')}
+          <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
         </Button>
       </div>
     );
@@ -248,19 +251,21 @@ const PartcipantSteps = props => {
     if (!uid) {
       return (
         <>
-          <Alert color="danger">يجب تسجيل الدخول اولا</Alert>
+          <Alert color="danger">
+            {translate('draftDetails.loginFirst')}
+          </Alert>
 
           <div className="draftShouldLogin d-flex flex-column">
             <img src="/static/img/interactive/disabled.svg" alt="" />
-            <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+            <h4>{translate('draftDetails.loginComment')}</h4>
             <Link href="/login">
               <Button>
-                تسجيل الدخول
-                <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+              {translate('draftDetails.login')}
+                <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
               </Button>
             </Link>
             <Link href="/register">
-              <a>تسجيل حساب</a>
+              <a>{translate('draftDetails.createAccount')}</a>
             </Link>
           </div>
         </>
@@ -278,7 +283,7 @@ const PartcipantSteps = props => {
       {msg.show && (
         <Alert color={msg.error ? 'danger' : 'success'}>{msg.txt}</Alert>
       )}
-      {canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}
+      {canVote ? <Alert color="danger">{translate('draftDetails.votingStopped')}</Alert> : <Steps />}
     </>
   );
 };

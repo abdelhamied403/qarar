@@ -232,7 +232,14 @@ export const en = {
     projectType:'Project Type:',
     purpose:'Purpose',
     entities:'Concerned entities',
-    effect:'Expected effect'
+    effect:'Expected effect',
+    addComment:'Add your comment',
+    loginFirst:'You should login first',
+    loginComment:'You should login to add comments',
+    votingStopped:'Voting has been stopped',
+    addNewComment:'Do you want to add a comment?',
+    yes:'Yes',
+    no:'No'
 
   }
 };

@@ -590,7 +590,7 @@ class DraftDetailsInfo extends Component {
                       >
                         <Button color="primary">
                           {translate('draftDetails.shareIdeas')}
-                          <img
+                          <img dir={translate('dir')}
                             src="/static/img/interactive/whiteArrow.svg"
                             alt=""
                           />
@@ -924,7 +924,7 @@ class DraftDetailsInfo extends Component {
                     <Button>
                     {translate('draftDetails.login')}
   
-                      <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                      <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
                     </Button>
                   </Link>
                   <Link href="/register">
@@ -979,7 +979,7 @@ class DraftDetailsInfo extends Component {
                       <Button onClick={this.saveComment}>
                       {translate('draftDetails.addComment')}
                         <img
-                          src="/static/img/interactive/whiteArrow.svg"
+                     dir={translate('dir')}     src="/static/img/interactive/whiteArrow.svg"
                           alt=""
                         />
                       </Button>
