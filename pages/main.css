@@ -18509,10 +18509,12 @@ textarea.form-control {
 
 *[dir='ltr'] .section-flex .icon-group{
   margin-left: 0px !important;
-}
+} 
 
+@media screen and (min-width: 1140px) {
 *[dir='ltr'] .section-flex .icons-group{
   flex-wrap: unset;
+}
 }
 
 *[dir='ltr'] .manyComments img {

@@ -116,6 +116,13 @@
   width: 17px;
   margin-left: 10px;
 }
+
+*[dir='ltr'] .draftCardLt img {
+  width: 17px;
+  margin-right: 10px;
+  margin-left: 0px;
+}
+
 .draftCardLt div {
   margin-bottom: 15px;
 }
@@ -211,6 +218,13 @@
   color: #fff;
   margin-left: 10px;
 }
+
+*[dir='ltr'] .shareInfoRight button {
+  margin-left: 0px; 
+  margin-right: 10px;
+  direction: rtl;
+}
+
 .shareInfoRight button span {
   margin-left: 10px;
 }
