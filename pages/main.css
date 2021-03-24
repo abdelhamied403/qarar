@@ -18507,6 +18507,14 @@ textarea.form-control {
   margin-left: 18px;
 }
 
+*[dir='ltr'] .section-flex .icon-group{
+  margin-left: 0px !important;
+}
+
+*[dir='ltr'] .section-flex .icons-group{
+  flex-wrap: unset;
+}
+
 .section-flex .icons-group i {
   border-radius: 50%;
   width: 50px;
