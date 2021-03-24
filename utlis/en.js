@@ -241,7 +241,7 @@ export const en = {
     yes:'Yes',
     no:'No',
     commentAvailable:'Commenting is open',
-    commentNotAvailable:  Commenting is closed',
+    commentNotAvailable:  'Commenting is closed',
 
   },
 
