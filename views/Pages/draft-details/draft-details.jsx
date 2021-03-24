@@ -609,9 +609,13 @@ class DraftDetailsInfo extends Component {
                       <div className="d-flex justify-content-end">
                         <img src="/static/img/interactive/lock.svg" alt="" />
                         {openArticle ? (
-                          <span> التعليق مفتوح</span>
+                          <span> 
+                               {translate('draftDetails.commentAvailable')}
+                          </span>
                         ) : (
-                          <span> التعليق مغلق</span>
+                          <span> 
+                               {translate('draftDetails.commentNotAvailable')}
+                          </span>
                         )}
                       </div>
                       <div className="d-flex justify-content-end">
@@ -732,7 +736,7 @@ class DraftDetailsInfo extends Component {
                               src="/static/img/interactive/chat.svg"
                               alt=""
                             />
-                            <span>{item.comments} تعليق</span>
+                            <span>{item.comments} {translate('draftDetails.comment')}</span>
                           </div>
                           <img
                             src="/static/img/interactive/whiteTabs.svg"
@@ -771,8 +775,10 @@ class DraftDetailsInfo extends Component {
                                   })
                                 }
                               >
-                                المزيد
-                                <img src={this.state.img2} alt="" />
+                       
+                    {translate('draftDetails.more')}
+                
+                                            <img dir={translate('dir')}  src={this.state.img2} alt="" />
                               </Button>
                             </Link>
                           </Col>

@@ -7,7 +7,7 @@ export const en = {
   header: {
     navBar: {
       balady: 'Baladay Interactive Platform',
-      yourDecision: 'Your Decision',
+      yourDecision: 'Qarar',
       questionnaires: 'Questionnaires',
       home: 'Home',
       about: 'About Qarar',
@@ -239,7 +239,28 @@ export const en = {
     votingStopped:'Voting has been stopped',
     addNewComment:'Do you want to add a comment?',
     yes:'Yes',
-    no:'No'
+    no:'No',
+    commentAvailable:'Commenting is open',
+    commentNotAvailable:  Commenting is closed',
 
+  },
+
+  aboutProfile: {
+    socialStatus:' Social Status',
+    work:'Work Sector',
+    job:'Job',
+    education:'The highest level of education',
+    area:' Living Area',
+    city:'City',
+    country:'Country',
+    email:' Email',
+    follower:'Follower',
+    comment:'Comment',
+    vote:'Vote',
+    editInfo:'Edit Information',
+    aboutInfo:' My Personal information',
+    hello:'Welcome to your profile',
   }
+
+
 };

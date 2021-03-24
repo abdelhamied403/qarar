@@ -18515,6 +18515,12 @@ textarea.form-control {
   flex-wrap: unset;
 }
 
+*[dir='ltr'] .manyComments img {
+  width: 16px !important;
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
 .section-flex .icons-group i {
   border-radius: 50%;
   width: 50px;

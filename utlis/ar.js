@@ -233,10 +233,26 @@ export const ar = {
     votingStopped:'تم ايقاف التصويت',
     addNewComment:'هل ترغب باضافة تعليق؟',
     yes:'نعم',
-    no:'لا'
+    no:'لا',
+    commentAvailable:'التعليق مفتوح',
+    commentNotAvailable:' التعليق مغلق',
+  },
 
-
-
+  aboutProfile: {
+    socialStatus:'الحالة الاجتماعية',
+    work:'قطاع العمل',
+    job:'الوظيفة',
+    education:' أعلى مستوى تعليمي',
+    area:'منطقة السكن',
+    city:'المدينة',
+    country:'البلد',
+    email:'البريد الالكتروني',
+    follower:'متابع',
+    comment:'تعليق',
+    vote:'صوت',
+    editInfo:'تعديل المعلومات',
+    aboutInfo:'معلوماتي الشخصية',
+    hello:'مرحبا بك في ملفك الشخصي',
   }
 
 

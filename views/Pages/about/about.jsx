@@ -14,6 +14,8 @@ import Link from 'next/link';
 import ClientSidebar from '../../../layout/ClientSidebar';
 
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
+
 
 class About extends Component {
   constructor(props) {
@@ -45,14 +47,16 @@ class About extends Component {
           <Container>
             <UncontrolledAlert color="primary">
               <img src="/static/img/notice.png" alt="" className="mr-1" />
-              مرحبا بك في ملفك الشخصي
+              {translate('aboutProfile.hello')}
             </UncontrolledAlert>
             <div className="flex flex-justifiy-sp m-50-b">
-              <h2>معلوماتي الشخصية</h2>
+              <h2>
+              {translate('aboutProfile.aboutInfo')}
+              </h2>
 
               <Link href="/me/update">
                 <Button color="primary" outline>
-                  تعديل المعلومات
+                  {translate('aboutProfile.editInfo')}
                 </Button>
               </Link>
             </div>
@@ -67,15 +71,21 @@ class About extends Component {
                 <span className="sub-header">@{user.name}</span>
                 <div className="flex">
                   <div className="m-20-lr">
-                    {user.likes || 0} <span className="sub-header">صوت</span>
+                    {user.likes || 0} <span className="sub-header">
+                    {translate('aboutProfile.vote')}
+                      </span>
                   </div>
                   <div className="m-20-lr">
                     {user.comments || 0}{' '}
-                    <span className="sub-header">تعليق</span>
+                    <span className="sub-header">
+                    {translate('aboutProfile.comment')}
+                    </span>
                   </div>
                   <div className="m-20-lr">
                     {user.followers || 0}{' '}
-                    <span className="sub-header">متابع</span>
+                    <span className="sub-header">
+                    {translate('aboutProfile.follower')}
+                      </span>
                   </div>
                 </div>
               </div>
@@ -83,50 +93,59 @@ class About extends Component {
             <Row>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">البريد الالكتروني</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.email')}</h6>
                   <h4>{user.mail || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">البلد </h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.country')}
+                     </h6>
                   <h4>{(user.country && user.country.name) || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">المدينة</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.city')}</h6>
                   <h4>{(user.city && user.city.name) || '--'}</h4>
                 </div>
               </Col>
 
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">منطقة السكن</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.area')}</h6>
                   <h4>{user.neighborhood || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">أعلى مستوى تعليمي</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.education')}</h6>
                   <h4>{user.educational_level || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">الوظيفة</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.job')}</h6>
                   <h4>{user.job || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">قطاع العمل</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.work')}</h6>
                   <h4>{user.labor_sector || '--'}</h4>
                 </div>
               </Col>
               <Col xs="12" md="6">
                 <div className="about-card flex flex-col flex-justifiy-sp">
-                  <h6 className="sub-header">الحالة الاجتماعية</h6>
+                  <h6 className="sub-header">
+                  {translate('aboutProfile.socialStatus')}</h6>
                   <h4>{user.social_status || '--'}</h4>
                 </div>
               </Col>
