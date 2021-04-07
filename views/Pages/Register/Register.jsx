@@ -17,11 +17,12 @@ import * as yup from 'yup';
 import './Register.css';
 import { isThisISOWeek } from 'date-fns';
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
 
 const messages = {
-  'No password provided.': 'لم تقم بكتابة كلمة المرور.',
+  'No password provided.': 'noPasswordError',
   'Unprocessable Entity: validation failed.\nname: \u064a\u062c\u0628 \u0623\u0646 \u062a\u062f\u062e\u0644 \u0627\u0633\u0645 \u0645\u0633\u062a\u062e\u062f\u0645.\nname: This value should not be null.\nmail: \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a field is required.\n':
-    'البريد الإلكتروني و الإسم حقول مطلوبة'
+    'validationError'
 };
 const gendersLabel = {
   male: 'ذكر',
@@ -101,14 +102,14 @@ class Register extends Component {
       <div className="form-horizontal">
         <FormGroup row>
           <Col md="4">
-            <Label htmlFor="hf-username"> اسم المستخدم</Label>
+            <Label htmlFor="hf-username">{translate('registerPage.userName')}</Label>
           </Col>
           <Col xs="12" md="8">
             <Input
               type="username"
               id="hf-username"
               name="hf-username"
-              placeholder="إسم المستخدم"
+              placeholder={translate('registerPage.userName')}
               value={user && user.name ? user.name[0].value : ''}
               onChange={e =>
                 this.setState({
@@ -146,7 +147,7 @@ class Register extends Component {
         </FormGroup> */}
         <FormGroup row>
           <Col md="4">
-            <Label htmlFor="hf-email">البريد الالكتروني</Label>
+            <Label htmlFor="hf-email">{translate('registerPage.email')}</Label>
           </Col>
           <Col xs="12" md="8">
             <Input
@@ -169,14 +170,14 @@ class Register extends Component {
         </FormGroup>
         <FormGroup row>
           <Col md="4">
-            <Label htmlFor="hf-password">كلمة المرور</Label>
+            <Label htmlFor="hf-password">{translate('registerPage.password')}</Label>
           </Col>
           <Col xs="12" md="8">
             <Input
               type="password"
               id="hf-password"
               name="hf-password"
-              placeholder="ادخل كلمة المرور هنا"
+              placeholder={translate('registerPage.passwordPlaceholder')}
               autoComplete="current-password"
               value={user && user.pass ? user.pass[0].value : ''}
               onChange={e =>
@@ -195,8 +196,8 @@ class Register extends Component {
         </FormGroup>
         <div className="button-group flex flex-justifiy-end">
           <Button color="primary" onClick={this.nextStep}>
-            التالي
-            <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+            {translate('registerPage.next')}
+            <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
           </Button>
         </div>
       </div>
@@ -209,11 +210,11 @@ class Register extends Component {
       <div className="form-horizontal">
         <FormGroup row>
           <Col md="3">
-            <Label>الجنس</Label>
+            <Label>{translate('registerPage.gender')}</Label>
           </Col>
           <Col md="9" className="flex">
             {Object.keys(genders).map(gender => (
-              <FormGroup key={gender} check className="radio">
+              <FormGroup dir={translate('dir')} key={gender} check className="radio">
                 <Input
                   className="form-check-input"
                   type="radio"
@@ -234,8 +235,8 @@ class Register extends Component {
                     user.field_gender[0].value === gender
                   }
                 />
-                <Label check className="form-check-label" htmlFor={gender}>
-                  {gendersLabel[gender]}
+                <Label dir={translate('dir')} check className="form-check-label" htmlFor={gender}>
+                  {translate(`registerPage.${gender}Label`)}
                 </Label>
               </FormGroup>
             ))}
@@ -243,7 +244,7 @@ class Register extends Component {
         </FormGroup>
         <FormGroup row>
           <Col md="3">
-            <Label htmlFor="select">المستوى التعليمي</Label>
+            <Label htmlFor="select">{translate('registerPage.educational')}</Label>
           </Col>
           <Col xs="12" md="9">
             <Input
@@ -264,7 +265,7 @@ class Register extends Component {
               name="select"
               id="select"
             >
-              <option value="">اختر</option>
+              <option value="">{translate('registerPage.choose')}</option>
               {Object.keys(eLevels).map(level => (
                 <option key={level} value={level}>
                   {eLevels[level]}
@@ -275,7 +276,7 @@ class Register extends Component {
         </FormGroup>
         <FormGroup row>
           <Col md="3">
-            <Label htmlFor="select">المدينة</Label>
+            <Label htmlFor="select">{translate('registerPage.city')}</Label>
           </Col>
           <Col xs="12" md="9">
             <Input
@@ -294,7 +295,7 @@ class Register extends Component {
               name="select"
               id="select"
             >
-              <option value="">اختر</option>
+              <option value="">{translate('registerPage.choose')}</option>
               {cities.map(city => (
                 <option key={city.id} value={city.id}>
                   {city.name}
@@ -305,11 +306,11 @@ class Register extends Component {
         </FormGroup>
         <div className="button-group flex flex-justifiy-end">
           <Button color="primary" outline onClick={this.PreviousStep}>
-            السابق
+            {translate('registerPage.back')}
           </Button>
           <Button color="primary" onClick={this.nextStep}>
-            التالي
-            <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+            {translate('registerPage.next')}
+            <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
           </Button>
         </div>
       </div>
@@ -319,7 +320,7 @@ class Register extends Component {
   register = async () => {
     const { agree } = this.state;
     if (!agree) {
-      this.setState({ errorMessage: 'لم تقم بالموافقة علي الشروط' });
+      this.setState({ errorMessage: translate('registerPage.errorMessage') });
       return;
     }
     this.setState({ errorMessage: '', disableSubmit: true });
@@ -331,11 +332,11 @@ class Register extends Component {
           yup.object().shape({
             value: yup
               .string()
-              .min(5, 'إسم المستخدم ينبغي أن لا يقل عن ٥ أحرف')
-              .required('حقل إسم المستخدم مطلوب')
+              .min(5, translate('registerPage.userNameYupError'))
+              .required(translate('registerPage.userNameRequired'))
           })
         )
-        .required('حقل إسم المستخدم مطلوب'),
+        .required(translate('registerPage.userNameRequired')),
       /* field_full_name: yup
         .array()
         .of(
@@ -353,46 +354,46 @@ class Register extends Component {
           yup.object().shape({
             value: yup
               .string()
-              .email('البريد الإلكتروني غير صحيح')
-              .required('حقل البريد الإلكتروني مطلوب')
+              .email(translate('registerPage.emailYupError'))
+              .required(translate('registerPage.emailRequired'))
           })
         )
-        .required('حقل البريد الإلكتروني مطلوب'),
+        .required(translate('registerPage.emailRequired')),
       pass: yup
         .array()
         .of(
           yup.object().shape({
             value: yup
               .string()
-              .min(6, 'كلمة المرور  ينبغي أن لا يقل عن ٦ أحرف')
-              .required('حقل كلمة المرور مطلوب')
+              .min(6, translate('registerPage.passwordYupError'))
+              .required(translate('registerPage.passwordRequired'))
           })
         )
-        .required('حقل  كلمة المرور مطلوب'),
+        .required(translate('registerPage.passwordRequired')),
       field_gender: yup
         .array()
         .of(
           yup.object().shape({
-            value: yup.string().required('حقل الجنس مطلوب')
+            value: yup.string().required(translate('registerPage.genderRequired'))
           })
         )
-        .required('حقل الجنس مطلوب'),
+        .required(translate('registerPage.genderRequired')),
       field_educational_level: yup
         .array()
         .of(
           yup.object().shape({
-            value: yup.string().required('حقل المستوي التعليمي مطلوب')
+            value: yup.string().required(translate('registerPage.educationalRequired'))
           })
         )
-        .required('حقل المستوي التعليمي مطلوب'),
+        .required(translate('registerPage.educationalRequired')),
       field_city: yup
         .array()
         .of(
           yup.object().shape({
-            target_id: yup.number().required('حقل المدينة مطلوب')
+            target_id: yup.number().required(translate('registerPage.cityRequired'))
           })
         )
-        .required('حقل المدينة مطلوب')
+        .required(translate('registerPage.cityRequired'))
     });
 
     schema.validate(user).catch(err => {
@@ -407,7 +408,7 @@ class Register extends Component {
     const response = await Api.post('/user/register?_format=json', user);
     if (response.ok) {
       this.setState({
-        successMessage: 'تم التسجيل بنجاح بإمكانك تسجيل الدخول'
+        successMessage: translate('registerPage.successMessage')
       });
     } else {
       const resMessage =
@@ -415,12 +416,12 @@ class Register extends Component {
       if (resMessage && messages.hasOwnProperty(resMessage)) {
         this.setState({
           disableSubmit: false,
-          errorMessage: messages[resMessage]
+          errorMessage: translate(`registerPage.${messages[resMessage]}`)
         });
       } else {
         this.setState({
           disableSubmit: false,
-          errorMessage: 'حدث خطأ ما أثناء التسجيل'
+            errorMessage: translate('registerPage.failMessage')
         });
       }
     }
@@ -431,10 +432,9 @@ class Register extends Component {
     return (
       <div className="step3 flex flex-col flex-justifiy-sp">
         <div className="flex flex-col ">
-          <h6 className="m-50-b">هذا كل شئ</h6>
+          <h6 className="m-50-b">{translate('registerPage.all')}</h6>
           <h6>
-            يمكنك العودة للصفحات السابقة لتعديل معلوماتك. عند الانتهاء اضغط
-            تأكيد انشاء حساب.
+            {translate('registerPage.editInfo')}
           </h6>
         </div>
         <div className="flex flex flex-justifiy-sp flex-align-end">
@@ -444,7 +444,7 @@ class Register extends Component {
             outline
             onClick={this.PreviousStep}
           >
-            السابق
+            {translate('registerPage.back')}
           </Button>
           <div className="flex flex-col">
             <div style={{ marginBottom: '20px', marginRight: '20px' }}>
@@ -457,8 +457,8 @@ class Register extends Component {
                   checked={agree}
                   onChange={() => this.setState({ agree: !agree })}
                 />
-                <Label check className="form-check-label" htmlFor="checkbox1">
-                  اوافق على شروط الاستخدام
+                <Label dir={translate('dir')} check className="form-check-label" htmlFor="checkbox1">
+                  {translate('registerPage.agree')}
                 </Label>
               </FormGroup>
             </div>
@@ -467,8 +467,8 @@ class Register extends Component {
               color="primary"
               onClick={this.register}
             >
-              تأكيد إنشاء الحساب
-              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+              {translate('registerPage.confirm')}
+              <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
             </Button>
           </div>
         </div>
@@ -504,17 +504,16 @@ class Register extends Component {
       <>
         <div className="navHeader" />
         <div className="register-container flex flex-justifiy-center flex-align-stretch">
-          <div className="register-content">
+          <div dir={translate('dir')} className="register-content">
             <div className="custom-container">
               <div className="register-header">
                 <Link href="/login">
-                  <a className="NewUserLink">هل قمت بانشاء حساب مسبقا؟</a>
+                  <a className="NewUserLink">{translate('registerPage.haveAccount')}</a>
                 </Link>
-                <h3>إنشاء حساب - مرحبا بك!</h3>
+                <h3>{translate('registerPage.title')}</h3>
               </div>
               <p className="sub-header">
-                قم بإنشاء حساب الآن لتلعب دوراً مباشراً و فعالاً في اتخاذ
-                القرارات التي تمس حياتك.
+                {translate('registerPage.createDesc')}
               </p>
 
               <Alert

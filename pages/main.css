@@ -1975,6 +1975,10 @@ textarea.form-control {
   padding-left: 1.25rem;
 }
 
+.form-check[dir="ltr"] {
+  padding-left: 0;
+  padding-right: 1.25rem;
+}
 .form-check-input {
   position: absolute;
   margin-top: 0.3rem;
@@ -15862,6 +15866,10 @@ img {
   transform: none;
 }
 
+.flex-bread {
+  text-align: start;
+}
+
 html,
 body {
   background-color: white !important;
@@ -17652,6 +17660,12 @@ textarea.form-control {
   display: flex;
   min-height: 200px;
   border-left: 1px solid #07706d;
+}
+
+.register-content[dir="ltr"] {
+  border-left: 0;
+  border-right: 1px solid #07706d;
+  margin: 10px 0 10px 0;
 }
 .register-content form {
   margin: 50px 0;

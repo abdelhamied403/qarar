@@ -51,6 +51,7 @@ moment.locale('ar');
 class DraftDetailsInfo extends Component {
   constructor() {
     super();
+    moment.locale(localStorage.getItem('LANG') || 'ar');
     this.state = {
       activeTab: '1',
       draft: {
@@ -464,9 +465,9 @@ class DraftDetailsInfo extends Component {
       voting: 'success'
     };
     const statusName = {
-      archived: 'مؤرشف',
-      applied: 'مطبق',
-      voting: 'تحت التصويت'
+      archived: 'archived',
+      applied: 'applied',
+      voting: 'voting'
     };
     return (
       <>
@@ -492,7 +493,7 @@ class DraftDetailsInfo extends Component {
                     </ul>
                     <h2>{draft.title}</h2>
                     <Badge color={statusColor[draft.qarar_status]}>
-                      {statusName[draft.qarar_status]}
+                      {translate(`draftDetails.${statusName[draft.qarar_status]}`)}
                     </Badge>
                     <div className="sub-header">
                       <Media
