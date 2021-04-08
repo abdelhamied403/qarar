@@ -73,10 +73,10 @@ const ClientFooter = ({ isAuthentcated }) => {
               <Col md={3}>
                 <h4> سياسة بلدي</h4>
                 <a
-                  href="https://momra.gov.sa/files/privacy.pdf"
+                  href="https://www.momra.gov.sa/ar/node/50"
                   target="_blank"
                 >
-                  سياسة الخصوصية
+                  إشعار الخصوصية
                 </a>
                 <a href="https://momra.gov.sa/files/Policy.pdf" target="_blank">
                   سياسة إدارة المحتوى
