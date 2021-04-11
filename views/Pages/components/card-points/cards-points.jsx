@@ -4,6 +4,7 @@ import { Card, CardHeader, CardBody, CardImg, Button, Media } from 'reactstrap';
 import Link from 'next/link';
 
 import './card-points.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -60,8 +61,8 @@ const CardPoints = ({
         </p>
       ) : (
         <div className="icons-cont">
-          <span className="icon">
-            <Media object src={icon} className="icon-small" />
+          <span dir={translate('dir')} className="icon">
+            <Media dir={translate('dir')} object src={icon} className="icon-small" />
             {/* <i className={icon + " icons d-block"}></i> */}
           </span>
           <span>{number}</span>

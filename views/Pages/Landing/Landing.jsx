@@ -9,6 +9,7 @@ import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
 import CardDescription from '../components/card-description/card-description';
 import CardBlog from '../components/card-blog/card-blog';
+import {translate } from '../../../utlis/translation';
 
 import Api from '../../../api';
 
@@ -143,8 +144,8 @@ const Landing = () => {
       <div className="header header-image-bg">
         <Container>
           <section className="section-flex">
-            <h2 animation="fadeIn">شارك بصنع القرار</h2>
-            <h3>ارفع صوتك</h3>
+            <h2 animation="fadeIn">{translate('landingPage.decisionMaking')}</h2>
+            <h3>{translate('landingPage.speakUp')}</h3>
             <div className="icons-group">
               <div>
                 <div className="icon-border">
@@ -156,7 +157,7 @@ const Landing = () => {
                 </div>
                 <div>
                   <p>1</p>
-                  <h5> أنشئ حساب</h5>
+                  <h5>{translate('landingPage.createAccount')}</h5>
                 </div>
               </div>
 
@@ -170,7 +171,7 @@ const Landing = () => {
                 </div>
                 <div>
                   <p>2</p>
-                  <h5>صوت للمسودة التي تهمك</h5>
+                  <h5>{translate('landingPage.voteForDraft')}</h5>
                 </div>
               </div>
 
@@ -184,7 +185,7 @@ const Landing = () => {
                 </div>
                 <div>
                   <p>3</p>
-                  <h5> تتم مناقشة المسودة</h5>
+                  <h5>{translate('landingPage.draftDiscuss')}</h5>
                 </div>
               </div>
 
@@ -198,33 +199,34 @@ const Landing = () => {
                 </div>
                 <div>
                   <p>4</p>
-                  <h5>يتم اتخاذ القرار بشأن المسودة</h5>
+                  <h5>{translate('landingPage.draftDecision')}</h5>
                 </div>
               </div>
             </div>
-            {!uid && (
+            {/* {!uid && (
               <div>
                 <Link href="/register">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
-                    انشاء حساب
+                    {translate('landingPage.createAccount')}
                     <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
                 <Link href="/login">
                   <a className="mx-3 opactiy-8 scale-hover header-button btn btn-primary">
-                    دخول
+                    
+                    {translate('landingPage.login')}
                     <img src="/static/img/interactive/headerArrow.svg" alt="" />
                   </a>
                 </Link>
               </div>
-            )}
+            )} */}
           </section>
         </Container>
       </div>
       <section className="activities about">
         <Container>
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="header">عن قرار</h3>
+            <h3 className="header width-fit">{translate('landingPage.aboutQarar')}</h3>
           </div>
           <Row>
             <Col className="mb-3 about-qarar" xs="12">
@@ -234,8 +236,8 @@ const Landing = () => {
           <div className="text-center">
             <Link href="/about">
               <Button outline color="primary" size="md">
-                المزيد
-                <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                {translate('landingPage.more')}
+                <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
               </Button>
             </Link>
           </div>
@@ -268,7 +270,7 @@ const Landing = () => {
             </ButtonGroup> */}
 
             <Col xs="12" md="6" lg="6">
-              <h2 className="header"> مسودات نشرت حديثاً</h2>
+              <h2 className="header">{translate('landingPage.recentlyDrafts')}</h2>
 
               <Row
                 style={
@@ -285,10 +287,11 @@ const Landing = () => {
                             <h4>{item.title}</h4>
                             <p>
                               <img
+                                dir={translate('dir')}
                                 src="/static/img/interactive/calendar-2.svg"
                                 alt=""
                               />
-                              يغلق التصويت بتاريخ {item.end_date}
+                              {translate('landingPage.votingCloses')} {item.end_date}
                             </p>
                           </div>
                         </a>
@@ -311,10 +314,11 @@ const Landing = () => {
                             <h4>{item.title}</h4>
                             <p>
                               <img
+                                dir={translate('dir')}
                                 src="/static/img/interactive/calendar-2.svg"
                                 alt=""
                               />
-                              يغلق التصويت بتاريخ {item.end_date}
+                              {translate('landingPage.votingCloses')} {item.end_date}
                             </p>
                           </div>
                         </a>
@@ -337,10 +341,11 @@ const Landing = () => {
                             <h4>{item.title}</h4>
                             <p>
                               <img
+                                dir={translate('dir')}
                                 src="/static/img/interactive/calendar-2.svg"
                                 alt=""
                               />
-                              يغلق التصويت بتاريخ {item.end_date}
+                              {translate('landingPage.votingCloses')} {item.end_date}
                             </p>
                           </div>
                         </a>
@@ -349,18 +354,18 @@ const Landing = () => {
                   ))}
               </Row>
 
-              <div className="text-right">
+              <div className="text-right d-flex">
                 <Link href="/drafts">
                   <Button outline color="primary" size="md">
-                    كل المسودات
-                    <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                    {translate('landingPage.allDrafts')}
+                    <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
                   </Button>
                 </Link>
               </div>
             </Col>
 
             <Col xs="12" md="6" lg="6" className="chart-section">
-              <h2 className="header"> نسبة إعجاب المشاركين</h2>
+              <h2 className="header">{translate('landingPage.admirationPercentage')}</h2>
               <div className="chart">
                 {/* <Media
                   className="chart-image"
@@ -390,7 +395,7 @@ const Landing = () => {
                   />
                   <div>
                     <h3 style={{ color: '#85bd48' }}>{likePercentage}%</h3>
-                    <h5>إعجاب</h5>
+                    <h5>{translate('landingPage.likes')}</h5>
                   </div>
                 </div>
                 <div className="chart-item">
@@ -401,7 +406,7 @@ const Landing = () => {
                   />
                   <div>
                     <h3>{dislikePercentage}%</h3>
-                    <h4>عدم إعجاب </h4>
+                    <h4>{translate('landingPage.dislikes')}</h4>
                   </div>
                 </div>
               </div>
@@ -413,8 +418,8 @@ const Landing = () => {
         <Container>
           <Row>
             <Col md="8">
-              <h2 className="header">المشاركة المجتمعية</h2>
-              <h5>من الأكثر تأثيراً؟</h5>
+              <h2 className="header width-fit">{translate('landingPage.socialParticipation')}</h2>
+              <h5 className="width-fit">{translate('landingPage.influential')}</h5>
               <Row>
                 {mostActiveUsersAword.map(mostActiveUserAword => (
                   <Col md="6">
@@ -433,7 +438,7 @@ const Landing = () => {
                             <p>{mostActiveUserAword.name}</p>
                           </a>
                         </Link>
-                        <span>{mostActiveUserAword.points} نقطة</span>
+                        <span>{mostActiveUserAword.points} {translate('landingPage.point')}</span>
                       </div>
                       <div className="trophy d-flex align-items-center">
                         <img src="/static/img/interactive/trophy.svg" alt="" />
@@ -452,7 +457,7 @@ const Landing = () => {
                       </Col>
                       <Col xs="8">
                         <h4>{userCount}</h4>
-                        <p>مستخدم للمنصة حاليا</p>
+                        <p>{translate('landingPage.users')}</p>
                       </Col>
                     </Row>
                   </div>
@@ -468,7 +473,7 @@ const Landing = () => {
                       </Col>
                       <Col xs="8">
                         <h4>{draftCount}</h4>
-                        <p>مسودة تمت مناقشتها</p>
+                        <p>{translate('landingPage.draftDiscussed')}</p>
                       </Col>
                     </Row>
                   </div>
@@ -477,7 +482,7 @@ const Landing = () => {
             </Col>
 
             <Col xs="12" md="4" lg="4">
-              <h2 className="header">التوزيع الجغرافي للمشاركين</h2>
+              <h2 className="header">{translate('landingPage.participantsGeographical')}</h2>
               <div className="chart">
                 {/* <Media
                   className="chart-image"
@@ -518,19 +523,19 @@ const Landing = () => {
       <section className="blogger">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
-            <h2 className="text-center header">أخبار المنصة</h2>
+            <h2 className="header">{translate('landingPage.platformNews')}</h2>
             <ButtonGroup>
               <Button
                 onClick={() => setActiveBtnNews(0)}
                 className={activeBtnNews === 0 ? 'active' : ''}
               >
-                أخر الأخبار
+                {translate('landingPage.latestNews')}
               </Button>
               <Button
                 onClick={() => setActiveBtnNews(1)}
                 className={activeBtnNews === 1 ? 'active' : ''}
               >
-                أهم الأخبار
+                {translate('landingPage.importantNews')}
               </Button>
             </ButtonGroup>
           </div>
@@ -648,21 +653,21 @@ const Landing = () => {
           <div className="text-center">
             <Link href="/news">
               <Button outline color="primary" size="md">
-                كل الاخبار
-                <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                {translate('landingPage.allNews')}
+                <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
               </Button>
             </Link>
           </div>
         </Container>
       </section>
-      <section className="args">
+      <section className="args" dir={translate('dir')}>
         <Container>
-          <h2 className="content">رأيك يهمنا .. صوتك يهمنا </h2>
+          <h2 className="content width-fit"> {translate('landingPage.opinion')} </h2>
 
           <Link href="/drafts">
-            <Button outline color="primary" size="md">
-              اكتشف قائمة المسودات
-              <img src="/static/img/interactive/greenArrow.svg" alt="" />
+            <Button className="d-flex" outline color="primary" size="md">
+              {translate('landingPage.exploreDrafts')}
+              <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
             </Button>
           </Link>
         </Container>

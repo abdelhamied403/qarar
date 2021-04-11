@@ -4,6 +4,7 @@ import { Input, Card, Button, Media } from 'reactstrap';
 import Link from 'next/link';
 
 import './text-box.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -42,21 +43,21 @@ class TextBox extends Component {
           />
           <div className="flex-tools">
             <div>
-              <span className="icon">
+              <span dir={translate('dir')} className="icon">
                 <Media
                   object
                   src="/static/img/attachment-icon.svg"
                   className="icon-media"
                 />
               </span>
-              <span className="icon">
+              <span dir={translate('dir')} className="icon">
                 <Media
                   object
                   src="/static/img/underline-icon.svg"
                   className="icon-media"
                 />
               </span>
-              <span className="icon">
+              <span dir={translate('dir')} className="icon">
                 <Media
                   object
                   src="/static/img/bold-icon.svg"

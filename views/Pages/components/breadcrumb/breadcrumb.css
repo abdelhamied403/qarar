@@ -2,3 +2,7 @@
   width: 20px;
   margin-left: 2px;
 }
+
+.flex-bread .image-icon[dir="ltr"] {
+  transform: rotate(180deg);
+}

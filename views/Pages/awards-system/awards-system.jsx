@@ -6,6 +6,7 @@ import Api from '../../../api';
 import Skeleton from '../components/skeleton/skeleton';
 
 import './awards-system.css';
+import { translate } from '../../../utlis/translation';
 
 class About extends Component {
   constructor() {
@@ -88,7 +89,7 @@ class About extends Component {
                   size="md"
                 >
                   عرض الكل
-                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                  <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
                 </Button>
               </Col>
             </Row>
@@ -133,7 +134,7 @@ class About extends Component {
                   size="md"
                 >
                   عرض الكل
-                  <img src="/static/img/interactive/greenArrow.svg" alt="" />
+                  <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
                 </Button>
               </Col>
             </Row>

@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import renderHTML from 'react-render-html';
 import Api from '../../../../api';
 import './card-draft.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -178,6 +179,7 @@ class CardDraft extends Component {
                         object
                         src={subHeaderIcon}
                         className="icon-small"
+                        dir={translate('dir')}
                       />
                     ) : (
                       // <i className={subHeaderIcon}></i>
@@ -195,7 +197,7 @@ class CardDraft extends Component {
                   {renderHTML(content || '')}
                   {link ? (
                     <Link href={link}>
-                      <Button color="link">المزيد</Button>
+                      <Button color="link">{translate('cardDraft.more')}</Button>
                     </Link>
                   ) : (
                     ''
@@ -205,7 +207,7 @@ class CardDraft extends Component {
             </div>
             {votes ? (
               <div className="side">
-                <h5>أبدِ رأيك</h5>
+                <h5>{translate('cardDraft.yourOpinion')}</h5>
 
                 <div className="like-dis">
                   <div
@@ -236,7 +238,7 @@ class CardDraft extends Component {
                   </div>
                 </div>
 
-                <span className="vote">{this.state.count} صوت</span>
+                <span className="vote">{this.state.count}{translate('cardDraft.vote')}</span>
               </div>
             ) : (
               ''
@@ -260,7 +262,7 @@ class CardDraft extends Component {
             ) : (
               <Link href="/">
                 <a color="link" className="btn btn-link">
-                  طلب تعديل
+                  {translate('cardDraft.modificationRequest')}
                 </a>
               </Link>
             )}

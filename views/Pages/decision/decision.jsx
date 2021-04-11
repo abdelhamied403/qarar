@@ -19,6 +19,7 @@ import CardDraft from '../components/card-draft/card-draft';
 import './decision.css';
 import Api from '../../../api';
 import Skeleton from '../components/skeleton/skeleton';
+import { translate } from '../../../utlis/translation';
 
 const animatedComponents = makeAnimated();
 
@@ -174,26 +175,26 @@ class Decision extends Component {
       <>
         <div className="draftHeader">
           <Container>
-            <h3>قرارات مطبقة</h3>
+            <h3>{translate('decisionPage.title')}</h3>
           </Container>
         </div>
         <Container className="decsion-page">
-          <section className="filter-section">
+          <section className="filter-section text-start">
             <Container>
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>نوع القرار </label>
+                    <label>{translate('decisionPage.decisionType')}</label>
                     <select className="not-select2 form-control">
-                      <option value="1">مسودة نظام كامل</option>
-                      <option value="2">مادة</option>
+                      <option value="1">{translate('decisionPage.decisionOptionOne')}</option>
+                      <option value="2">{translate('decisionPage.decisionOptionTwo')}</option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList"> وقت الطرح </label>
+                    <label htmlFor="orderDropDownList">{translate('decisionPage.subtraction')}</label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -205,17 +206,17 @@ class Decision extends Component {
                         )
                       }
                     >
-                      <option value={0}>مطروحة حديثا</option>
-                      <option value={1}>تنتهي قريبا </option>
+                      <option value={0}>{translate('decisionPage.subtractionOptionOne')}</option>
+                      <option value={1}>{translate('decisionPage.subtractionOptionTwo')}</option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">الكلمات الدلالية</label>
+                    <label htmlFor="orderDropDownList">{translate('decisionPage.keywords')}</label>
                     <ReactSelect
                       isRtl
-                      className="text-right"
+                      className={`text-start direction-${translate('dir')}`}
                       components={animatedComponents}
                       cacheOptions
                       classNamePrefix="react-select"
@@ -228,9 +229,15 @@ class Decision extends Component {
                           : []
                       }
                       isClearable
-                      placeholder="ابحث عن كلمة دلالية..."
-                      noOptionsMessage={() => 'لا يوجد خيارات...'}
-                      loadingMessage={() => 'تحميل...'}
+                      placeholder={translate(
+                        'decisionPage.keywordsPlaceholder'
+                      )}
+                      noOptionsMessage={() =>
+                        translate('decisionPage.keywordsNoOptionsMessage')
+                      }
+                      loadingMessage={() =>
+                        translate('decisionPage.keywordsLoadingMessage')
+                      }
                       cl
                       onChange={selected =>
                         this.setState({ selectedTag: selected?.value }, () =>
@@ -243,7 +250,7 @@ class Decision extends Component {
               </Row>
             </Container>
           </section>
-          <section className="tabs-content">
+          <section className="tabs-content text-start">
             <Nav tabs>
               <NavItem>
                 <NavLink
@@ -252,7 +259,7 @@ class Decision extends Component {
                     this.toggle(0, '1');
                   }}
                 >
-                  قرارات مطبقة
+                  {translate('decisionPage.applicableDecisions')}
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -262,7 +269,7 @@ class Decision extends Component {
                     this.toggle(0, '2');
                   }}
                 >
-                  قرارات مؤرشفة
+                  {translate('decisionPage.archivedDecisions')}
                 </NavLink>
               </NavItem>
             </Nav>
@@ -271,7 +278,7 @@ class Decision extends Component {
                 <>
                   <section className="p-0">
                     <Row className="mb-3">
-                      <Col>قرارات تم تطبيقها بعد الطرح وتعتبر نسخه معتمده</Col>
+                      <Col>{translate('decisionPage.decisionsImplemented')}</Col>
                     </Row>
                     <Row>
                       {appliedItems.length ? (
@@ -279,7 +286,7 @@ class Decision extends Component {
                           <Col key={item.id} xs="12" md="6">
                             <CardDraft
                               header={item.title}
-                              subHeader={`تم التطبيق بتاريخ ${item.end_date}`}
+                              subHeader={`${translate('decisionPage.appliedItemsDate')}${item.end_date}`}
                               content={`${item.body.substr(0, 200)} ...`}
                               tags={item.tags.map(tag => ({
                                 tag: tag.name.substr(0, 20),
@@ -295,7 +302,7 @@ class Decision extends Component {
                       ) : (
                         <Col>
                           <Alert type="sucess">
-                            لاتوجد قرارات مطبقة حتى الآن
+                            {translate('decisionPage.noDecisionsImplemented')}
                           </Alert>
                         </Col>
                       )}
@@ -321,10 +328,7 @@ class Decision extends Component {
                 <>
                   <section className="p-0">
                     <Row className="mb-3">
-                      <Col>
-                        قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة
-                        للاطلاع
-                      </Col>
+                      <Col>{translate('decisionPage.archivedDecisionsNotImplemented')}</Col>
                     </Row>
                     <Row>
                       {archivedItems.length ? (
@@ -332,7 +336,7 @@ class Decision extends Component {
                           <Col key={item.id} xs="12" md="6">
                             <CardDraft
                               header={item.title}
-                              subHeader={`تم الأرشفة بتاريخ ${item.end_date}`}
+                              subHeader={`${translate('decisionPage.archivedItemDate')}${item.end_date}`}
                               content={`${item.body.substr(0, 200)} ...`}
                               tags={
                                 item.tags
@@ -351,7 +355,7 @@ class Decision extends Component {
                         ))
                       ) : (
                         <Col>
-                          <Alert type="sucess">لا توجد قرارات مؤرشفة</Alert>
+                          <Alert type="sucess">{translate('decisionPage.noArchivedDecisionsImplemented')}</Alert>
                         </Col>
                       )}
                     </Row>

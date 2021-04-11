@@ -14,16 +14,17 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 import './styles.css';
+import { translate } from '../../../../utlis/translation';
 
-const TabsOptions = props => {
+const TabsOptions = (props) => {
   const [activeTab, setActiveTab] = useState('1');
-  const project = props?.project;
+  const project = (props?.project);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
-  return project ? (
+  return ( project ?
     <div className="opt-tabs">
       <Nav tabs>
         <NavItem>
@@ -33,7 +34,8 @@ const TabsOptions = props => {
               toggle('1');
             }}
           >
-            الغرض منه
+            {translate('draftDetails.purpose')}
+        
           </NavLink>
         </NavItem>
         <NavItem>
@@ -46,7 +48,7 @@ const TabsOptions = props => {
               toggle('2');
             }}
           >
-            الجهات المعنية
+           {translate('draftDetails.entities')}
           </NavLink>
         </NavItem>
         <NavItem>
@@ -58,26 +60,24 @@ const TabsOptions = props => {
             onClick={() => {
               toggle('3');
             }}
-          >
-            الاثر المتوقع
+          >  
+           {translate('draftDetails.effect')}
           </NavLink>
         </NavItem>
       </Nav>
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1" className="bold">
-          {project?.project_target || ''}
+          {project?.project_target || ""}
         </TabPane>
         <TabPane tabId="2" className="bold">
-          {project?.entity_name || ''}
+          {project?.entity_name || ""}
         </TabPane>
         <TabPane tabId="3" className="bold">
-          {project?.project_effect || ''}
+          {project?.project_effect || ""}
         </TabPane>
       </TabContent>
     </div>
-  ) : (
-    <></>
-  );
+   : <></>);
 };
 
 export default TabsOptions;

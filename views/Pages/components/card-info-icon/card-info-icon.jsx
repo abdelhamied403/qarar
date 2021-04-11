@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Media } from 'reactstrap';
 import './card-info-icon.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -24,7 +25,7 @@ class CardInfoIcon extends Component {
                 <span className="type">{type}</span>
               </div>
               {icon ? (
-                <span className="icon">
+                <span dir={translate('dir')} className="icon">
                   <Media object src={icon} className="icon-media" />
                   {/* <i className={icon + " icons d-block"}></i> */}
                 </span>
@@ -47,7 +48,7 @@ class CardInfoIcon extends Component {
               </div>
             </CardHeader>
             <CardBody>
-              <span className="icon">
+              <span dir={translate('dir')} className="icon">
                 <Media object src={icon} className="icon-media" />
               </span>
             </CardBody>

@@ -23,6 +23,8 @@ import './client.css';
 
 import dynamic from 'next/dynamic';
 
+import {translate } from '../utlis/translation';
+
 const ScrollToggle = dynamic(() => import('react-scroll-toggle'), {
   ssr: false
 });
@@ -72,7 +74,7 @@ class ClientHeader extends React.Component {
   userDropdown() {
     const { signOut, router, name, profileImage } = this.props;
     return (
-      <div className="m-right-auto flex drop-header">
+      <div className="flex drop-header">
         <UncontrolledDropdown>
           <DropdownToggle tag="a" className="nav-link" caret>
             {name}
@@ -84,7 +86,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/about'}
                   onClick={this.closeMobile}
                 >
-                  معلومات الشخصية
+                  {translate("header.navBar.personalInfo")}
                 </DropdownItem>
               </a>
             </Link>
@@ -94,7 +96,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/notifications'}
                   onClick={this.closeMobile}
                 >
-                  اشعارات
+                 {translate("header.navBar.notifications")}
                 </DropdownItem>
               </a>
             </Link>
@@ -104,7 +106,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/shared'}
                   onClick={this.closeMobile}
                 >
-                  مشاركاتي
+                   {translate("header.navBar.notifications")}
                 </DropdownItem>
               </a>
             </Link>
@@ -114,7 +116,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/awards'}
                   onClick={this.closeMobile}
                 >
-                  اوسمتي
+                   {translate("header.navBar.honors")}
                 </DropdownItem>
               </a>
             </Link>
@@ -124,7 +126,8 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/follow'}
                   onClick={this.closeMobile}
                 >
-                  متابعاتي
+                  {translate("header.navBar.following")}
+               
                 </DropdownItem>
               </a>
             </Link>
@@ -134,12 +137,12 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/groups'}
                   onClick={this.closeMobile}
                 >
-                  مجموعاتي
+                   {translate("header.navBar.groups")}
                 </DropdownItem>
               </a>
             </Link>
             <DropdownItem className="danger" onClick={signOut}>
-              خروج
+            {translate("header.navBar.logout")}
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
@@ -155,13 +158,24 @@ class ClientHeader extends React.Component {
   render() {
     const { isAuthentcated, signOut, router } = this.props;
 
+    const gotoLang = lang => {
+      localStorage.setItem('LANG', lang);
+      location.reload();
+    };
+
     return (
       <div className="ministry">
         <div className="header-nav">
-          <Container>
+          <Container
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
             <div className="flex">
-              <a href="https://engage.balady.gov.sa" className="interactive">
-                منصة بلدي التفاعلية
+              <a href="https://engage.balady.gov.sa" dir={translate("dir")} className="interactive">
+                {translate("header.navBar.balady")}
               </a>
 
               <a
@@ -169,13 +183,21 @@ class ClientHeader extends React.Component {
                 className="afkarLink speech-bubble"
               >
                 {/* <img src="/static/img/qararNew.svg" alt="" /> */}
-                قرارك
+                {translate("header.navBar.yourDecision")}
               </a>
 
               <a href="https://eforms.balady.gov.sa" className="afkarLink">
                 {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
-                الاستبيانات
+                {translate("header.navBar.questionnaires")}
               </a>
+            </div>
+            <div className="flex">
+              <span className="afkarLink englishlink" onClick={() => gotoLang('en')}>
+                English
+              </span>
+              <span className="afkarLink arabiclink" onClick={() => gotoLang('ar')} s>
+                عربي
+              </span>
             </div>
           </Container>
         </div>
@@ -201,14 +223,14 @@ class ClientHeader extends React.Component {
                   <NavItem active={router.pathname === '/'}>
                     <Link href="/">
                       <a>
-                        <NavLink onClick={this.closeMobile}>الرئيسية</NavLink>
+                        <NavLink onClick={this.closeMobile}>{translate("header.navBar.home")}</NavLink>
                       </a>
                     </Link>
                   </NavItem>
                   <NavItem active={router.pathname === '/about'}>
                     <Link href="/about">
                       <a>
-                        <NavLink onClick={this.closeMobile}>عن قرار</NavLink>
+                        <NavLink onClick={this.closeMobile}>{translate("header.navBar.about")}</NavLink>
                       </a>
                     </Link>
                   </NavItem>
@@ -216,7 +238,7 @@ class ClientHeader extends React.Component {
                     <Link href="/drafts">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          قرارات تحت التصويت
+                          {translate("header.navBar.drafts")}
                         </NavLink>
                       </a>
                     </Link>
@@ -225,7 +247,7 @@ class ClientHeader extends React.Component {
                     <Link href="/decisions">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          القرارات السابقة
+                          {translate("header.navBar.decisions")}
                         </NavLink>
                       </a>
                     </Link>
@@ -241,7 +263,7 @@ class ClientHeader extends React.Component {
                     <Link href="/news">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          اخبار المنصة
+                          {translate("header.navBar.platform")}
                         </NavLink>
                       </a>
                     </Link>
@@ -257,7 +279,7 @@ class ClientHeader extends React.Component {
                     <Link href="/social-reports">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          المشاركة المجتمعية
+                          {translate("header.navBar.socialParticipation")}
                         </NavLink>
                       </a>
                     </Link>
@@ -266,7 +288,9 @@ class ClientHeader extends React.Component {
                     <NavItem active={router.pathname === '/login'}>
                       <Link href="/login">
                         <a>
-                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                          <NavLink onClick={this.closeMobile}>
+                          {translate("header.navBar.login")}
+                             </NavLink>
                         </a>
                       </Link>
                     </NavItem>

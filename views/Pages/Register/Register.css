@@ -147,6 +147,16 @@
   margin-top: 72px;
   width: auto;
 }
+
+.form-check-input {
+  margin-left: 0 !important;
+}
+
+.form-check-label[dir="ltr"] {
+  margin-left: 20px;
+  margin-right: 0 !important;
+}
+
 @media screen and (max-width: 992px) {
   .client-layout .flex-page-content .sideBar {
     display: none;

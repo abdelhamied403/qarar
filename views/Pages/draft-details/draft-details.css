@@ -108,10 +108,21 @@
   opacity: 0.7;
   margin-right: 15px;
 }
+*[dir='ltr'] .dateDraft p {
+  margin-right: 0px;
+  margin-left: 15px;
+}
 .draftCardLt img {
   width: 17px;
   margin-left: 10px;
 }
+
+*[dir='ltr'] .draftCardLt img {
+  width: 17px;
+  margin-right: 10px;
+  margin-left: 0px;
+}
+
 .draftCardLt div {
   margin-bottom: 15px;
 }
@@ -207,6 +218,13 @@
   color: #fff;
   margin-left: 10px;
 }
+
+*[dir='ltr'] .shareInfoRight button {
+  margin-left: 0px; 
+  margin-right: 10px;
+  direction: rtl;
+}
+
 .shareInfoRight button span {
   margin-left: 10px;
 }

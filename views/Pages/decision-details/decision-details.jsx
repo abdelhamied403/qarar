@@ -10,6 +10,7 @@ import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 
 import './decision-details.css';
+import { translate } from '../../../utlis/translation';
 
 class DecisionDetails extends Component {
   constructor() {
@@ -66,6 +67,7 @@ class DecisionDetails extends Component {
                       object
                       src="/static/img/vote-closed.svg"
                       className="icon-small"
+                      dir={translate('dir')}
                     />
                     {/* <i className="fa fa-stop-circle "></i> */}
                     {draft.archived_date && (
@@ -81,6 +83,7 @@ class DecisionDetails extends Component {
                       object
                       src="/static/img/Icon - most active - views Copy 3.svg"
                       className="icon-small"
+                      dir={translate('dir')}
                     />
                     {/* <i className="fa fa-calendar "></i> */}
                     {draft.applied_date && (
