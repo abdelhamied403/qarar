@@ -261,6 +261,8 @@ export const ar = {
     application: 'تم التطبيق بتاريخ',
     votingCloses: 'يغلق التصويت بتاريخ',
     shareIdeas: 'شارك برأيك',
+    follow: 'متابعة',
+    unfollow: 'الغاء المتابعة',
     user: 'مشترك',
     comment: 'تعليق',
     vote: 'صوت',

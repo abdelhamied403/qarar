@@ -220,7 +220,7 @@
 }
 
 *[dir='ltr'] .shareInfoRight button {
-  margin-left: 0px; 
+  margin-left: 0px;
   margin-right: 10px;
   direction: rtl;
 }
@@ -505,4 +505,5 @@
 .uploads button {
   color: #81bd41 !important;
   border-color: #81bd41 !important;
+  background-color: transparent;
 }

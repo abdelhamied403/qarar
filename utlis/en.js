@@ -273,6 +273,8 @@ export const en = {
     application: 'Applied on',
     votingCloses: 'Voting closes on',
     shareIdeas: 'Share your opinion',
+    follow: 'Follow',
+    unfollow: 'Un Follow',
     user: 'User',
     comment: 'Comment',
     vote: 'Vote',
