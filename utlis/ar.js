@@ -20,7 +20,13 @@ export const ar = {
       following: 'متابعاتي',
       groups: 'مجموعاتي',
       login: 'دخول',
-      logout: 'خروج'
+      logout: 'خروج',
+      libQara: 'مكتبة القرارات',
+      updatedQarar: 'القرارات المعدلة',
+      drafts: 'المسودات',
+      votingDrafts: 'المسودات تحت التصويت',
+      appliedVoting: 'المسودات مطبقه',
+      archievedDraft: 'المسودات مؤرشفة'
     }
   },
   loginPage: {
@@ -91,11 +97,15 @@ export const ar = {
 
     aboutQarar: 'عن قرار',
     more: 'المزيد',
-
+    update: 'تعديل',
+    showDraft: 'استعراض المسودة',
     recentlyDrafts: 'مسودات نشرت حديثاً',
+    recentlyQarars: 'قرارات نشرت حديثا',
     allDrafts: 'كل المسودات',
+    allQarars: 'كل القرارات',
     votingCloses: 'يغلق التصويت بتاريخ',
 
+    votingStart: 'تاريخ النشر',
     admirationPercentage: ' نسبة إعجاب المشاركين',
     likes: ' إعجاب',
     dislikes: ' عدم إعجاب',

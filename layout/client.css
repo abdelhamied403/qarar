@@ -432,7 +432,7 @@ body {
   background-color: transparent !important;
 }
 .ministry .nav-item a {
-  color: #fff !important;
+  color: #fff;
   font-weight: 600;
   font-size: 15px;
 }
@@ -520,7 +520,7 @@ a.astbyanLink,
   transition: all 1s;
 }
 
-.ministry .header-nav .interactive[dir="rtl"] {
+.ministry .header-nav .interactive[dir='rtl'] {
   display: flex;
   color: #fff;
   align-items: center;
@@ -529,7 +529,7 @@ a.astbyanLink,
   padding-left: 30px;
 }
 
-.ministry .header-nav .interactive[dir="ltr"] {
+.ministry .header-nav .interactive[dir='ltr'] {
   display: flex;
   color: #fff;
   align-items: center;
@@ -654,5 +654,14 @@ a.astbyanLink,
   }
   .aboutpage .flex.flex-justifiy-sp.m-50-b {
     flex-direction: column;
+  }
+}
+
+.dropdown-item {
+  color: #07706d !important;
+}
+@media (max-width: 691px) {
+  .drop-nav.show a {
+    color: #07706d !important;
   }
 }

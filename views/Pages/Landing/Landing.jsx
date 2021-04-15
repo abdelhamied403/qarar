@@ -9,7 +9,9 @@ import CardPoints from '../components/card-points/cards-points';
 import CardInfo from '../components/card-info/card-info';
 import CardDescription from '../components/card-description/card-description';
 import CardBlog from '../components/card-blog/card-blog';
-import {translate } from '../../../utlis/translation';
+import { translate } from '../../../utlis/translation';
+import moment from 'moment';
+import UpdatedItemsModal from './updatedModalItems';
 
 import Api from '../../../api';
 
@@ -20,6 +22,40 @@ const colors = [
   '#85bd48',
   '#1dd1a1',
   '#341f97'
+];
+
+// Todo: remove with api response
+const items = [
+  {
+    updatedAt: '1611569816',
+    title: 'عنوان هنااااااا',
+    id: 12
+  },
+  {
+    updatedAt: '1611569816',
+    title: 'عنوان هنااااااا',
+    id: 12
+  },
+  {
+    updatedAt: '1611569816',
+    title: 'عنوان هنااااااا',
+    id: 12
+  },
+  {
+    updatedAt: '1611569816',
+    title: 'عنوان هنااااااا',
+    id: 12
+  },
+  {
+    updatedAt: '1611569816',
+    title: 'عنوان هنااااااا',
+    id: 12
+  },
+  {
+    updatedAt: '1611569816',
+    title: 'عنوان هنااااااا',
+    id: 12
+  }
 ];
 const Landing = () => {
   const uid = useSelector(state => state.auth.uid);
@@ -36,6 +72,7 @@ const Landing = () => {
   const [likePercentage, setLikePercentage] = useState(0);
   const [dislikePercentage, setDislikePercentage] = useState(0);
   const [cityPercentage, setCityPercentage] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const getActiveUsers = async () => {
     const userAAResponse = await Api.get(
       '/qarar_api/top/10/user/awards?_format=json'
@@ -66,6 +103,10 @@ const Landing = () => {
       setDraftCount(draftCountResponse.data);
     }
   };
+  const updateModal = async () => {
+    setToggle(true);
+  };
+
   const getAbout = async () => {
     const response = await Api.get('/qarar_api/load/node/904?_format=json');
     if (response.ok) {
@@ -144,7 +185,9 @@ const Landing = () => {
       <div className="header header-image-bg">
         <Container>
           <section className="section-flex">
-            <h2 animation="fadeIn">{translate('landingPage.decisionMaking')}</h2>
+            <h2 animation="fadeIn">
+              {translate('landingPage.decisionMaking')}
+            </h2>
             <h3>{translate('landingPage.speakUp')}</h3>
             <div className="icons-group">
               <div>
@@ -226,7 +269,9 @@ const Landing = () => {
       <section className="activities about">
         <Container>
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="header width-fit">{translate('landingPage.aboutQarar')}</h3>
+            <h3 className="header width-fit">
+              {translate('landingPage.aboutQarar')}
+            </h3>
           </div>
           <Row>
             <Col className="mb-3 about-qarar" xs="12">
@@ -237,40 +282,23 @@ const Landing = () => {
             <Link href="/about">
               <Button outline color="primary" size="md">
                 {translate('landingPage.more')}
-                <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
+                <img
+                  dir={translate('dir')}
+                  src="/static/img/interactive/whiteArrow.svg"
+                  alt=""
+                />
               </Button>
             </Link>
           </div>
         </Container>
       </section>
-      <section className="activities">
+      <section className="activities green">
         <Container>
           <Row>
-            {/* <div className="d-flex justify-content-between align-items-center mb-5">
-         
-            {/* <ButtonGroup>
-              <Button
-                onClick={() => setActiveBtn(0)}
-                className={activeBtn === 0 ? 'active' : ''}
-              >
-                اكثر نشاطا هذا الاسبوع
-              </Button>
-              <Button
-                className={activeBtn === 1 ? 'active' : ''}
-                onClick={() => setActiveBtn(1)}
-              >
-                نشرت حديثا
-              </Button>
-              <Button
-                className={activeBtn === 2 ? 'active' : ''}
-                onClick={() => setActiveBtn(2)}
-              >
-                تغلق قريبا
-              </Button>
-            </ButtonGroup> */}
-
             <Col xs="12" md="6" lg="6">
-              <h2 className="header">{translate('landingPage.recentlyDrafts')}</h2>
+              <h2 className="header">
+                {translate('landingPage.recentlyQarars')}
+              </h2>
 
               <Row
                 style={
@@ -285,17 +313,28 @@ const Landing = () => {
                         <a>
                           <div className="oneActivity">
                             <h4>{item.title}</h4>
-                            <p>
-                              <img
-                                dir={translate('dir')}
-                                src="/static/img/interactive/calendar-2.svg"
-                                alt=""
-                              />
-                              {translate('landingPage.votingCloses')} {item.end_date}
-                            </p>
                           </div>
                         </a>
                       </Link>
+                      <p className="oneActivityRow">
+                        <img
+                          dir={translate('dir')}
+                          src="/static/img/interactive/calendar-2.svg"
+                          alt=""
+                        />
+                        {translate('landingPage.votingStart')}{' '}
+                        {moment(item.creatednode * 1000).format(
+                          'dddd, D MMMM YYYY'
+                        )}
+                        <span className="modalUpdate" onClick={updateModal}>
+                          <img
+                            dir={translate('dir')}
+                            src="/static/img/interactive/calendar-2.svg"
+                            alt=""
+                          />
+                          12 {translate('landingPage.update')}
+                        </span>
+                      </p>
                     </Col>
                   ))}
               </Row>
@@ -312,17 +351,28 @@ const Landing = () => {
                         <a>
                           <div className="oneActivity">
                             <h4>{item.title}</h4>
-                            <p>
-                              <img
-                                dir={translate('dir')}
-                                src="/static/img/interactive/calendar-2.svg"
-                                alt=""
-                              />
-                              {translate('landingPage.votingCloses')} {item.end_date}
-                            </p>
                           </div>
                         </a>
                       </Link>
+                      <p className="oneActivityRow">
+                        <img
+                          dir={translate('dir')}
+                          src="/static/img/interactive/calendar-2.svg"
+                          alt=""
+                        />
+                        {translate('landingPage.votingStart')}{' '}
+                        {moment(item.creatednode * 1000).format(
+                          'dddd, D MMMM YYYY'
+                        )}
+                        <span className="modalUpdate" onClick={updateModal}>
+                          <img
+                            dir={translate('dir')}
+                            src="/static/img/interactive/calendar-2.svg"
+                            alt=""
+                          />
+                          12 {translate('landingPage.update')}
+                        </span>
+                      </p>
                     </Col>
                   ))}
               </Row>
@@ -339,17 +389,28 @@ const Landing = () => {
                         <a>
                           <div className="oneActivity">
                             <h4>{item.title}</h4>
-                            <p>
-                              <img
-                                dir={translate('dir')}
-                                src="/static/img/interactive/calendar-2.svg"
-                                alt=""
-                              />
-                              {translate('landingPage.votingCloses')} {item.end_date}
-                            </p>
                           </div>
                         </a>
                       </Link>
+                      <p className="oneActivityRow">
+                        <img
+                          dir={translate('dir')}
+                          src="/static/img/interactive/calendar-2.svg"
+                          alt=""
+                        />
+                        {translate('landingPage.votingStart')}{' '}
+                        {moment(item.creatednode * 1000).format(
+                          'dddd, D MMMM YYYY'
+                        )}
+                        <span className="modalUpdate" onClick={updateModal}>
+                          <img
+                            dir={translate('dir')}
+                            src="/static/img/interactive/calendar-2.svg"
+                            alt=""
+                          />
+                          12 {translate('landingPage.update')}
+                        </span>
+                      </p>
                     </Col>
                   ))}
               </Row>
@@ -357,15 +418,21 @@ const Landing = () => {
               <div className="text-right d-flex">
                 <Link href="/drafts">
                   <Button outline color="primary" size="md">
-                    {translate('landingPage.allDrafts')}
-                    <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
+                    {translate('landingPage.allQarars')}
+                    <img
+                      dir={translate('dir')}
+                      src="/static/img/interactive/greenArrow.svg"
+                      alt=""
+                    />
                   </Button>
                 </Link>
               </div>
             </Col>
 
             <Col xs="12" md="6" lg="6" className="chart-section">
-              <h2 className="header">{translate('landingPage.admirationPercentage')}</h2>
+              <h2 className="header">
+                {translate('landingPage.admirationPercentage')}
+              </h2>
               <div className="chart">
                 {/* <Media
                   className="chart-image"
@@ -414,12 +481,177 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
+
+      <section className="activities green">
+        <Container>
+          <Row>
+            <Col xs="12" md="6" lg="6">
+              <h2 className="header">
+                {translate('landingPage.recentlyDrafts')}
+              </h2>
+
+              <Row
+                style={
+                  activeBtn === 0 ? { display: 'flex' } : { display: 'none' }
+                }
+              >
+                {activeDrafts
+                  .filter((item, index) => index < 6)
+                  .map(item => (
+                    <Col className="mb-3" key={item.key} xs="12">
+                      <Link href={`/draft-details/${item.id}`}>
+                        <a>
+                          <div className="oneActivity">
+                            <h4>{item.title}</h4>
+                            <p>
+                              <img
+                                dir={translate('dir')}
+                                src="/static/img/interactive/calendar-2.svg"
+                                alt=""
+                              />
+                              {translate('landingPage.votingCloses')}{' '}
+                              {item.end_date}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </Col>
+                  ))}
+              </Row>
+              <Row
+                style={
+                  activeBtn === 1 ? { display: 'flex' } : { display: 'none' }
+                }
+              >
+                {drafts
+                  .filter((item, index) => index < 6)
+                  .map(item => (
+                    <Col className="mb-3" key={item.key} xs="12">
+                      <Link href={`/draft-details/${item.id}`}>
+                        <a>
+                          <div className="oneActivity">
+                            <h4>{item.title}</h4>
+                            <p>
+                              <img
+                                dir={translate('dir')}
+                                src="/static/img/interactive/calendar-2.svg"
+                                alt=""
+                              />
+                              {translate('landingPage.votingCloses')}{' '}
+                              {item.end_date}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </Col>
+                  ))}
+              </Row>
+              <Row
+                style={
+                  activeBtn === 2 ? { display: 'flex' } : { display: 'none' }
+                }
+              >
+                {soonCloseDrafts
+                  .filter((item, index) => index < 6)
+                  .map(item => (
+                    <Col key={item.key} className="mb-3" xs="12">
+                      <Link href={`/draft-details/${item.id}`}>
+                        <a>
+                          <div className="oneActivity">
+                            <h4>{item.title}</h4>
+                            <p>
+                              <img
+                                dir={translate('dir')}
+                                src="/static/img/interactive/calendar-2.svg"
+                                alt=""
+                              />
+                              {translate('landingPage.votingCloses')}{' '}
+                              {item.end_date}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </Col>
+                  ))}
+              </Row>
+
+              <div className="text-right d-flex">
+                <Link href="/drafts">
+                  <Button outline color="primary" size="md">
+                    {translate('landingPage.allDrafts')}
+                    <img
+                      dir={translate('dir')}
+                      src="/static/img/interactive/greenArrow.svg"
+                      alt=""
+                    />
+                  </Button>
+                </Link>
+              </div>
+            </Col>
+
+            <Col xs="12" md="6" lg="6" className="chart-section">
+              <h2 className="header">
+                {translate('landingPage.admirationPercentage')}
+              </h2>
+              <div className="chart">
+                {/* <Media
+                  className="chart-image"
+                  object
+                  src="/static/img/interactive/pie-chart.svg"
+                /> */}
+                <PieChart
+                  data={[
+                    {
+                      title: 'One',
+                      value: parseInt(likePercentage, 10),
+                      color: '#85bd48'
+                    },
+                    {
+                      title: 'Two',
+                      value: parseInt(dislikePercentage, 10),
+                      color: '#07706d'
+                    }
+                  ]}
+                />
+
+                <div className="chart-item">
+                  <Media
+                    className="chart-icon"
+                    object
+                    src="/static/img/interactive/like.svg"
+                  />
+                  <div>
+                    <h3 style={{ color: '#85bd48' }}>{likePercentage}%</h3>
+                    <h5>{translate('landingPage.likes')}</h5>
+                  </div>
+                </div>
+                <div className="chart-item">
+                  <Media
+                    className="chart-icon"
+                    object
+                    src="/static/img/interactive/unlike.svg"
+                  />
+                  <div>
+                    <h3>{dislikePercentage}%</h3>
+                    <h4>{translate('landingPage.dislikes')}</h4>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
       <section className="social-sharing">
         <Container>
           <Row>
             <Col md="8">
-              <h2 className="header width-fit">{translate('landingPage.socialParticipation')}</h2>
-              <h5 className="width-fit">{translate('landingPage.influential')}</h5>
+              <h2 className="header width-fit">
+                {translate('landingPage.socialParticipation')}
+              </h2>
+              <h5 className="width-fit">
+                {translate('landingPage.influential')}
+              </h5>
               <Row>
                 {mostActiveUsersAword.map(mostActiveUserAword => (
                   <Col md="6">
@@ -438,7 +670,10 @@ const Landing = () => {
                             <p>{mostActiveUserAword.name}</p>
                           </a>
                         </Link>
-                        <span>{mostActiveUserAword.points} {translate('landingPage.point')}</span>
+                        <span>
+                          {mostActiveUserAword.points}{' '}
+                          {translate('landingPage.point')}
+                        </span>
                       </div>
                       <div className="trophy d-flex align-items-center">
                         <img src="/static/img/interactive/trophy.svg" alt="" />
@@ -482,7 +717,9 @@ const Landing = () => {
             </Col>
 
             <Col xs="12" md="4" lg="4">
-              <h2 className="header">{translate('landingPage.participantsGeographical')}</h2>
+              <h2 className="header">
+                {translate('landingPage.participantsGeographical')}
+              </h2>
               <div className="chart">
                 {/* <Media
                   className="chart-image"
@@ -529,7 +766,7 @@ const Landing = () => {
                 onClick={() => setActiveBtnNews(0)}
                 className={activeBtnNews === 0 ? 'active' : ''}
               >
-                {translate('landingPage.latestNews')}
+                {translate('landingPage.laعنوان هناااااااNews')}
               </Button>
               <Button
                 onClick={() => setActiveBtnNews(1)}
@@ -654,7 +891,11 @@ const Landing = () => {
             <Link href="/news">
               <Button outline color="primary" size="md">
                 {translate('landingPage.allNews')}
-                <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
+                <img
+                  dir={translate('dir')}
+                  src="/static/img/interactive/greenArrow.svg"
+                  alt=""
+                />
               </Button>
             </Link>
           </div>
@@ -662,16 +903,29 @@ const Landing = () => {
       </section>
       <section className="args" dir={translate('dir')}>
         <Container>
-          <h2 className="content width-fit"> {translate('landingPage.opinion')} </h2>
+          <h2 className="content width-fit">
+            {' '}
+            {translate('landingPage.opinion')}{' '}
+          </h2>
 
           <Link href="/drafts">
             <Button className="d-flex" outline color="primary" size="md">
               {translate('landingPage.exploreDrafts')}
-              <img dir={translate('dir')} src="/static/img/interactive/greenArrow.svg" alt="" />
+              <img
+                dir={translate('dir')}
+                src="/static/img/interactive/greenArrow.svg"
+                alt=""
+              />
             </Button>
           </Link>
         </Container>
       </section>
+      <UpdatedItemsModal
+        title={'عنوان هنااااااا'}
+        items={items}
+        toggle={toggle}
+        setToggle={() => setToggle(!toggle)}
+      />
     </div>
   );
 };

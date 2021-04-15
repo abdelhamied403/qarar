@@ -115,11 +115,11 @@
 .newUILanding .header-image-bg .section {
   padding-top: 100px;
 }
-.newUILanding .btn img[dir="rtl"] {
+.newUILanding .btn img[dir='rtl'] {
   width: 15px;
   margin-right: 10px;
 }
-.newUILanding .btn img[dir="ltr"] {
+.newUILanding .btn img[dir='ltr'] {
   width: 15px;
   margin-left: 10px;
   transform: rotate(180deg);
@@ -181,13 +181,13 @@
   color: #006c68;
   margin-bottom: 15px;
 }
-.newUILanding .activities .oneActivity img[dir="rtl"] {
+.newUILanding .activities .oneActivity img[dir='rtl'] {
   width: 15px;
   height: 15px;
   object-fit: contain;
   margin-left: 10px;
 }
-.newUILanding .activities .oneActivity img[dir="ltr"] {
+.newUILanding .activities .oneActivity img[dir='ltr'] {
   width: 15px;
   height: 15px;
   object-fit: contain;
@@ -496,4 +496,14 @@
     width: 50%;
     margin-bottom: 10px;
   }
+}
+
+.about {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.item-body-modal {
+  max-height: 50vh;
+  overflow-y: scroll;
 }

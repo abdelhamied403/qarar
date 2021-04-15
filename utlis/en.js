@@ -94,10 +94,16 @@ export const en = {
 
     aboutQarar: 'About Qarar',
     more: 'More',
+    update: 'update',
+    showDraft: 'Show Draft',
 
     recentlyDrafts: 'Recently Published Drafts',
+    recentlyQarars: 'Recently Published Decisions',
     allDrafts: 'All Drafts',
+    allQarars: 'All Decisions',
     votingCloses: 'Voting closes on',
+
+    votingStart: 'Published at',
 
     admirationPercentage: 'Participants Admiration Percentage',
     likes: ' Likes',
@@ -118,7 +124,14 @@ export const en = {
 
     opinion: 'Your opinion matters to us .. Your voice matters to us',
     exploreDrafts: 'Explore the drafts list',
-    login: 'Login'
+    login: 'Login',
+
+    libQara: 'Decisions Library',
+    updatedQarar: 'Updated decisions',
+    drafts: 'Drafts',
+    votingDrafts: 'Voting Drafts',
+    appliedVoting: 'Applied Drafts',
+    archievedDraft: 'Archived Drafts'
   },
   aboutQararPage: {
     title: 'About The "Qarar" Platform',
