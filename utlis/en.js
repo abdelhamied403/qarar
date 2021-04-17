@@ -2,7 +2,7 @@ import CardBlog from '../views/Pages/components/card-blog/card-blog';
 
 export const en = {
   dir: 'ltr',
-  decisions: 'decisions',
+  decisions: 'Decisions',
   home: 'home',
   header: {
     navBar: {
@@ -11,7 +11,7 @@ export const en = {
       questionnaires: 'Questionnaires',
       home: 'Home',
       about: 'About Qarar',
-      drafts: 'Decisions Under Vote',
+      // drafts: 'Decisions Under Vote',
       decisions: 'Previous Decisions',
       platform: 'Platform News',
       socialParticipation: 'Social Participation',
@@ -22,7 +22,13 @@ export const en = {
       following: 'Following',
       groups: 'My Groups',
       login: 'Login',
-      logout: 'Logout'
+      logout: 'Logout',
+      libQara: 'Decisions Library',
+      updatedQarar: 'Modified Decisions',
+      drafts: 'Drafts',
+      votingDrafts: 'Drafts Under Vote',
+      appliedVoting: 'Applied Drafts',
+      archievedDraft: 'Archived Drafts'
     }
   },
   loginPage: {
@@ -188,7 +194,64 @@ export const en = {
       ' intensifies his posts, or expresses good opinions that can be used.'
   },
   draftsPage: {
-    title: 'Decisions Under Vote',
+    title: 'Decisions Library',
+    decisionType: 'Type of decision',
+    decisionOptionOne: 'Draft complete system',
+    decisionOptionTwo: 'Article',
+    subtraction: 'Subtraction time',
+    subtractionOptionOne: 'Newly introduced',
+    subtractionOptionTwo: 'End soon',
+    keywords: 'Keywords',
+    keywordsPlaceholder: 'Find a keyword...',
+    keywordsNoOptionsMessage: 'There are no options...',
+    keywordsLoadingMessage: 'Download...',
+    draftCard: {
+      votingCloses: 'Voting closes on '
+    },
+    noDecisions:
+      'There are no decisions under voting right now..you can move on to ',
+    archivedDecisions: 'Archived Decisions'
+  },
+  draftsUnderVotePage: {
+    title: 'Drafts Under Vote',
+    decisionType: 'Type of decision',
+    decisionOptionOne: 'Draft complete system',
+    decisionOptionTwo: 'Article',
+    subtraction: 'Subtraction time',
+    subtractionOptionOne: 'Newly introduced',
+    subtractionOptionTwo: 'End soon',
+    keywords: 'Keywords',
+    keywordsPlaceholder: 'Find a keyword...',
+    keywordsNoOptionsMessage: 'There are no options...',
+    keywordsLoadingMessage: 'Download...',
+    draftCard: {
+      votingCloses: 'Voting closes on '
+    },
+    noDecisions:
+      'There are no decisions under voting right now..you can move on to ',
+    archivedDecisions: 'Archived Decisions'
+  },
+  draftsAppliedPage: {
+    title: 'Applied Drafts',
+    decisionType: 'Type of decision',
+    decisionOptionOne: 'Draft complete system',
+    decisionOptionTwo: 'Article',
+    subtraction: 'Subtraction time',
+    subtractionOptionOne: 'Newly introduced',
+    subtractionOptionTwo: 'End soon',
+    keywords: 'Keywords',
+    keywordsPlaceholder: 'Find a keyword...',
+    keywordsNoOptionsMessage: 'There are no options...',
+    keywordsLoadingMessage: 'Download...',
+    draftCard: {
+      votingCloses: 'Voting closes on '
+    },
+    noDecisions:
+      'There are no decisions under voting right now..you can move on to ',
+    archivedDecisions: 'Archived Decisions'
+  },
+  archivedDraftsPage: {
+    title: 'Archived Drafts',
     decisionType: 'Type of decision',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
@@ -207,7 +270,7 @@ export const en = {
     archivedDecisions: 'Archived Decisions'
   },
   decisionPage: {
-    title: 'Applicable Decisions',
+    title: 'Modified Decisions',
     decisionType: 'Type of decision',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
@@ -329,7 +392,25 @@ export const en = {
     commentNotAvailable: 'Commenting is closed',
     archived: 'Archived',
     applied: 'Applied',
-    voting: 'Under vote'
+    voting: 'Under vote',
+    shareIdeasModal: {
+      title: 'Share now',
+      stepOne: 'What do you think about the article?',
+      stepOneOption1: 'Never supported',
+      stepOneOption2: 'Not supported',
+      stepOneOption3: 'Neutral',
+      stepOneOption4: 'Supporter',
+      stepOneOption5: 'Very supporter',
+      stepTwo: 'Do you want to add a comment?',
+      stepTwoOption1: 'Yes',
+      stepTwoOption2: 'No',
+      stepThree: 'Choose a rating for your comment',
+      stepThreeOption1: 'Suggestion',
+      stepThreeOption2: 'Modification',
+      stepThreeOption3: 'Complaint',
+      stepFourPlaceholder: 'Add your comment here',
+      stepFourComment: 'Add your comment'
+    }
   },
 
   aboutProfile: {

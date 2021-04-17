@@ -1,3 +1,5 @@
+import ShareIdeasModal from '../views/Pages/draft-details/shareIdeasModal';
+
 export const ar = {
   dir: 'rtl',
   decisions: 'القرارات',
@@ -9,7 +11,7 @@ export const ar = {
       questionnaires: 'الاستبيانات',
       home: 'الرئيسية',
       about: 'عن قرار',
-      drafts: 'قرارات تحت التصويت',
+      // drafts: 'قرارات تحت التصويت',
       decisions: 'القرارات السابقة',
       platform: 'اخبار المنصة',
       socialParticipation: 'المشاركة المجتمعية',
@@ -177,7 +179,61 @@ export const ar = {
       'أو أبدى آراءً وجيهة قابلة للاستفادة منها.'
   },
   draftsPage: {
-    title: 'قرارات تحت التصويت',
+    title: 'مكتبة القرارات',
+    decisionType: 'نوع القرار',
+    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionTwo: 'مادة',
+    subtraction: 'وقت الطرح',
+    subtractionOptionOne: 'مطروحة حديثا',
+    subtractionOptionTwo: 'تنتهي قريبا',
+    keywords: 'الكلمات الدلالية',
+    keywordsPlaceholder: 'ابحث عن كلمة دلالية...',
+    keywordsNoOptionsMessage: 'لا يوجد خيارات...',
+    keywordsLoadingMessage: 'تحميل...',
+    draftCard: {
+      votingCloses: 'يغلق التصويت بتاريخ '
+    },
+    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'القرارات المؤرشفة'
+  },
+  draftsUnderVotePage: {
+    title: 'مسودات تحت التصويت',
+    decisionType: 'نوع القرار',
+    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionTwo: 'مادة',
+    subtraction: 'وقت الطرح',
+    subtractionOptionOne: 'مطروحة حديثا',
+    subtractionOptionTwo: 'تنتهي قريبا',
+    keywords: 'الكلمات الدلالية',
+    keywordsPlaceholder: 'ابحث عن كلمة دلالية...',
+    keywordsNoOptionsMessage: 'لا يوجد خيارات...',
+    keywordsLoadingMessage: 'تحميل...',
+    draftCard: {
+      votingCloses: 'يغلق التصويت بتاريخ '
+    },
+    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'القرارات المؤرشفة'
+  },
+  draftsAppliedPage: {
+    title: 'مسودات مطبقة',
+    decisionType: 'نوع القرار',
+    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionTwo: 'مادة',
+    subtraction: 'وقت الطرح',
+    subtractionOptionOne: 'مطروحة حديثا',
+    subtractionOptionTwo: 'تنتهي قريبا',
+    keywords: 'الكلمات الدلالية',
+    keywordsPlaceholder: 'ابحث عن كلمة دلالية...',
+    keywordsNoOptionsMessage: 'لا يوجد خيارات...',
+    keywordsLoadingMessage: 'تحميل...',
+    draftCard: {
+      votingCloses: 'يغلق التصويت بتاريخ '
+    },
+    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'القرارات المؤرشفة'
+  },
+  archivedDraftsPage: {
+    title: 'مسودات مطبقة',
     decisionType: 'نوع القرار',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
@@ -195,7 +251,7 @@ export const ar = {
     archivedDecisions: 'القرارات المؤرشفة'
   },
   decisionPage: {
-    title: 'قرارات مطبقة',
+    title: 'القرارات المعدلة',
     decisionType: 'نوع القرار',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
@@ -313,7 +369,25 @@ export const ar = {
     commentNotAvailable: ' التعليق مغلق',
     archived: 'مؤرشف',
     applied: 'مطبق',
-    voting: 'تحت التصويت'
+    voting: 'تحت التصويت',
+    shareIdeasModal: {
+      title: 'شارك الان',
+      stepOne: 'ما رأيك في المادة؟',
+      stepOneOption1: 'غير مؤيد أبدا',
+      stepOneOption2: 'غير مؤيد',
+      stepOneOption3: 'محايد',
+      stepOneOption4: 'مؤيد',
+      stepOneOption5: 'مؤيد جدا',
+      stepTwo: 'هل ترغب بإضافة تعليق؟',
+      stepTwoOption1: 'نعم',
+      stepTwoOption2: 'لا',
+      stepThree: 'اختر تصنيفا لتعليقك',
+      stepThreeOption1: 'اقتراح',
+      stepThreeOption2: 'تعديل',
+      stepThreeOption3: 'شكوي',
+      stepFourPlaceholder: 'اضف تعليقك هنا',
+      stepFourComment: 'اضف تعليقك'
+    }
   },
 
   aboutProfile: {

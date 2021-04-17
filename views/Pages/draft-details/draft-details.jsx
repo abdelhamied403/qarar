@@ -46,6 +46,7 @@ import Api from '../../../api';
 import PartcipantModal from './partcipantModal';
 import CommentSteps from './comments-stetps';
 import { translate } from '../../../utlis/translation';
+import ShareIdeasModal from './shareIdeasModal';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -84,7 +85,8 @@ class DraftDetailsInfo extends Component {
       img3: '/static/img/interactive/greenArrow.svg',
       commentsActions: {},
       selectedSubject: null,
-      modalOpen: false
+      modalOpen: false,
+      shareIdeasModalOpen: false
     };
   }
 
@@ -509,7 +511,8 @@ class DraftDetailsInfo extends Component {
       openArticle,
       activeTab,
       selectedSubject,
-      modalOpen
+      modalOpen,
+      shareIdeasModalOpen
     } = this.state;
     const { uid, accessToken } = this.props;
     if (loadingDraft) {
@@ -584,15 +587,22 @@ class DraftDetailsInfo extends Component {
                         )}
                     </div>
                     <div className="button-group">
-                      <ScrollLink
-                        activeClass="active"
-                        className="test1"
-                        to="test1"
-                        spy
-                        smooth
-                        duration={500}
-                      >
-                        <Button color="primary">
+                      {/*<ScrollLink*/}
+                      {/*  activeClass="active"*/}
+                      {/*  className="test1"*/}
+                      {/*  to="test1"*/}
+                      {/*  spy*/}
+                      {/*  smooth*/}
+                      {/*  duration={500}*/}
+                      {/*>*/}
+                        <Button
+                          color="primary"
+                          onClick={() =>
+                            this.setState({
+                              shareIdeasModalOpen: true
+                            })
+                          }
+                        >
                           {translate('draftDetails.shareIdeas')}
                           <img
                             dir={translate('dir')}
@@ -600,16 +610,34 @@ class DraftDetailsInfo extends Component {
                             alt=""
                           />
                         </Button>
-                      </ScrollLink>
+
+                        {/*<Button*/}
+                        {/*  className="btn-inline-block"*/}
+                        {/*  color="secondary"*/}
+                        {/*  size="lg"*/}
+                        {/*  onClick={() =>*/}
+                        {/*    this.setState({*/}
+                        {/*      modalOpen: true,*/}
+                        {/*      selectedSubject: item.nid*/}
+                        {/*    })*/}
+                        {/*  }*/}
+                        {/*>*/}
+                        {/*  {translate('draftDetails.participate')}*/}
+                        {/*</Button>*/}
+
+
+
+                      {/*</ScrollLink>*/}
                       {uid && (
                         <Button
                           color="primary"
                           onClick={() => this.follow()}
                           outline={!flagged}
+                          style={{margin: '10px'}}
                         >
                           {flagged
                             ? translate('draftDetails.follow')
-                            : translate('draftDetails.unfollowfollow')}
+                            : translate('draftDetails.unfollow')}
                         </Button>
                       )}
                     </div>
@@ -1172,6 +1200,24 @@ class DraftDetailsInfo extends Component {
           close={() =>
             this.setState({
               modalOpen: false
+            })
+          }
+        />
+
+        <ShareIdeasModal
+          open={shareIdeasModalOpen}
+          id={this.props.id}
+          canVote={!!openArticle}
+          uid={uid}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+          // like={() => this.vote('like', selectedSubject)}
+          // disLike={() => this.vote('dislike', selectedSubject)}
+          // saveComment={() => this.saveDraftDetailsComment()}
+          close={() =>
+            this.setState({
+              shareIdeasModalOpen: false
             })
           }
         />

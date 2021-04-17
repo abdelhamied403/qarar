@@ -270,13 +270,13 @@ class ClientHeader extends React.Component {
                       {translate('header.navBar.drafts')}
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>
+                      <DropdownItem href="/drafts-under-vote">
                         {translate('header.navBar.votingDrafts')}
                       </DropdownItem>
-                      <DropdownItem>
+                      <DropdownItem href="/drafts-applied">
                         {translate('header.navBar.appliedVoting')}
                       </DropdownItem>
-                      <DropdownItem>
+                      <DropdownItem href="/archived-drafts">
                         {translate('header.navBar.archievedDraft')}
                       </DropdownItem>
                     </DropdownMenu>
