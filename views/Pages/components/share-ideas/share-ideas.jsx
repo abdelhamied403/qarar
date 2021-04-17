@@ -16,7 +16,7 @@ import { EditorState, convertToRaw } from 'draft-js';
 
 import Api from '../../../../api';
 
-import './style.css';
+import './share-ideas.css';
 import { translate } from '../../../../utlis/translation';
 
 const ModalState = {
