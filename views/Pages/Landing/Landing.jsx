@@ -11,7 +11,7 @@ import CardDescription from '../components/card-description/card-description';
 import CardBlog from '../components/card-blog/card-blog';
 import { translate } from '../../../utlis/translation';
 import moment from 'moment';
-import UpdatedItemsModal from './updatedModalItems';
+import UpdatedItemsModal from './updatedModalItems/index';
 
 import Api from '../../../api';
 
