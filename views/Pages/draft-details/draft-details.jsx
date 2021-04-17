@@ -46,7 +46,7 @@ import Api from '../../../api';
 import PartcipantModal from './partcipantModal';
 import CommentSteps from './comments-stetps';
 import { translate } from '../../../utlis/translation';
-import ShareIdeasModal from './shareIdeasModal';
+import ShareIdeasModal from './shareIdeasModal/index';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
