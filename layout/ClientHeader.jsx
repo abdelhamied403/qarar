@@ -257,7 +257,7 @@ class ClientHeader extends React.Component {
                       {translate('decisions')}
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem href="/drafts">
+                      <DropdownItem href="/decisions-library">
                         {translate('header.navBar.libQara')}
                       </DropdownItem>
                       <DropdownItem href="/decisions">

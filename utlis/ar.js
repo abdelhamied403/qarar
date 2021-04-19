@@ -178,6 +178,24 @@ export const ar = {
       ' التي تزداد في حال كثّف المستخدم مشاركاته، ' +
       'أو أبدى آراءً وجيهة قابلة للاستفادة منها.'
   },
+  decisionsLibPage: {
+    title: 'مكتبة القرارات',
+    decisionType: 'نوع القرار',
+    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionTwo: 'مادة',
+    subtraction: 'وقت الطرح',
+    subtractionOptionOne: 'مطروحة حديثا',
+    subtractionOptionTwo: 'تنتهي قريبا',
+    keywords: 'الكلمات الدلالية',
+    keywordsPlaceholder: 'ابحث عن كلمة دلالية...',
+    keywordsNoOptionsMessage: 'لا يوجد خيارات...',
+    keywordsLoadingMessage: 'تحميل...',
+    draftCard: {
+      votingCloses: 'يغلق التصويت بتاريخ '
+    },
+    noDecisions: 'لا توجد قرارات تحت التصويت الآن . ',
+    archivedDecisions: 'القرارات المؤرشفة'
+  },
   draftsPage: {
     title: 'مكتبة القرارات',
     decisionType: 'نوع القرار',
@@ -321,6 +339,23 @@ export const ar = {
     userGuides: 'أدلة المستخدمين',
     electronicServices: 'خدمات إلكترونية'
   },
+  decisionDetails: {
+    decisions: 'القرارات',
+    views: 'مشاهدة',
+    modification: 'تعديل',
+    article: 'مادة',
+    projectType: 'نوع المشروع:',
+    attachments: 'المرفقات',
+    pdf: 'الاشتراكات المعمرية pdf',
+    download: '  تحميل pdf',
+    jpg: 'البيئة العمرانية JPG',
+    attachment: 'عرض المرفق',
+    openAll: 'فتح الكل',
+    closeAll: 'اغلاق الكل',
+    shareDecision: 'شارك هذا القرار',
+    published: 'تاريخ النشر',
+    more: 'المزيد'
+  },
   draftDetails: {
     decisions: 'القرارات',
     voteClosed: 'أغلق التصويت بتاريخ',
@@ -404,6 +439,13 @@ export const ar = {
     vote: 'صوت',
     editInfo: 'تعديل المعلومات',
     aboutInfo: 'معلوماتي الشخصية',
-    hello: 'مرحبا بك في ملفك الشخصي'
+    hello: 'مرحبا بك في ملفك الشخصي',
+  },
+  comments: {
+    value_1: 'مؤيد جدا',
+    value_2: 'مؤيد',
+    value_3: 'محايد',
+    value_4: 'غير مؤيد',
+    value_5: 'غير مؤيد أبدا'
   }
 };

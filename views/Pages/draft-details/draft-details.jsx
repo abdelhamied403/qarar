@@ -86,7 +86,8 @@ class DraftDetailsInfo extends Component {
       commentsActions: {},
       selectedSubject: null,
       modalOpen: false,
-      shareIdeasModalOpen: false
+      shareIdeasModalOpen: false,
+      forced_adj_city_investemtn: "0"
     };
   }
 
@@ -1324,7 +1325,8 @@ class DraftDetailsInfo extends Component {
                 onClick={() =>
                   this.setState({
                     modalOpen: true,
-                    selectedSubject: item.nid
+                    selectedSubject: item.nid,
+                    forced_adj_city_investemtn: item?.forced_adj_city_investemtn
                   })
                 }
               >
@@ -1347,7 +1349,8 @@ class DraftDetailsInfo extends Component {
                 onClick={() =>
                   this.setState({
                     modalOpen: true,
-                    selectedSubject: item.nid
+                    selectedSubject: item.nid,
+                    forced_adj_city_investemtn: item?.forced_adj_city_investemtn
                   })
                 }
               >
@@ -1359,6 +1362,7 @@ class DraftDetailsInfo extends Component {
                 likeComment={this.likeComment}
                 dislikeComment={this.dislikeComment}
                 itemId={item.nid}
+                forced_adj_city_investemtn={forced_adj_city_investemtn}
               />
             </Col>
           </Row>

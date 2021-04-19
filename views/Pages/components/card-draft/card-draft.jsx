@@ -28,6 +28,8 @@ class CardDraft extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: new Array(6).fill(false),
@@ -136,6 +138,8 @@ class CardDraft extends Component {
       dropdownList,
       subHeaderIcon
     } = this.props;
+
+    console.log(link);
 
     return (
       <Card className="card-draft" style={{ borderRightColor: borderColor }}>

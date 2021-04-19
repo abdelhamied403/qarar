@@ -66,20 +66,31 @@ class DraftsUnderVote extends Component {
     if (draftCountResponse.ok) {
       this.setState({ draftCount: draftCountResponse.data });
     }
+    // const draftsResponse = accessToken
+    //   ? await Api.get(
+    //       `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
+    //         selectedTag ? `&tag=${selectedTag}` : ''
+    //       }${selectedDate ? `&ends=-1 month` : ''}`,
+    //       {},
+    //       {
+    //         headers: { Authorization: `Bearer ${accessToken}` }
+    //       }
+    //     )
+    //   : await Api.get(
+    //       `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
+    //         selectedTag ? `&tag=${selectedTag}` : ''
+    //       }${selectedDate ? `&ends=-1 month` : ''}`
+    //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
-            selectedTag ? `&tag=${selectedTag}` : ''
-          }${selectedDate ? `&ends=-1 month` : ''}`,
+          `/qarar_api/data/draft/0/DESC/1?_format=json&status=voting`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
           }
         )
       : await Api.get(
-          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
-            selectedTag ? `&tag=${selectedTag}` : ''
-          }${selectedDate ? `&ends=-1 month` : ''}`
+          `/qarar_api/data/draft/0/DESC/1?_format=json&status=voting`
         );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });

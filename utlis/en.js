@@ -193,6 +193,24 @@ export const en = {
       ' and participate, by accumulating points, which increase if the user' +
       ' intensifies his posts, or expresses good opinions that can be used.'
   },
+  decisionsLibPage: {
+    title: 'Decisions Library',
+    decisionType: 'Type of decision',
+    decisionOptionOne: 'Draft complete system',
+    decisionOptionTwo: 'Article',
+    subtraction: 'Subtraction time',
+    subtractionOptionOne: 'Newly introduced',
+    subtractionOptionTwo: 'End soon',
+    keywords: 'Keywords',
+    keywordsPlaceholder: 'Find a keyword...',
+    keywordsNoOptionsMessage: 'There are no options...',
+    keywordsLoadingMessage: 'Download...',
+    draftCard: {
+      votingCloses: 'Voting closes on '
+    },
+    noDecisions: 'There are no decisions right now.',
+    archivedDecisions: 'Archived Decisions'
+  },
   draftsPage: {
     title: 'Decisions Library',
     decisionType: 'Type of decision',
@@ -342,7 +360,23 @@ export const en = {
     userGuides: 'Users Guides',
     electronicServices: 'Onlin Services'
   },
-
+  decisionDetails: {
+    decisions: 'Decisions',
+    published: 'Published on',
+    views: 'Views',
+    projectType: 'Project Type:',
+    modification: 'Modifications',
+    article: 'Articles',
+    attachments: 'Attachments',
+    pdf: 'الاشتراكات المعمرية pdf',
+    download: '  تحميل pdf',
+    jpg: 'البيئة العمرانية JPG',
+    attachment: 'View Attachment',
+    openAll: 'Open All',
+    closeAll: 'Close All',
+    shareDecision: 'Share this decision',
+    more: 'More'
+  },
   draftDetails: {
     decisions: 'Decisions',
     voteClosed: 'Voting closed on',
@@ -428,5 +462,12 @@ export const en = {
     editInfo: 'Edit Information',
     aboutInfo: ' My Personal information',
     hello: 'Welcome to your profile'
+  },
+  comments: {
+    value_1: 'very pro',
+    value_2: "supporter",
+    value_3: "neutral",
+    value_4: 'Not supported',
+    value_5: 'Not supported at all'
   }
 };

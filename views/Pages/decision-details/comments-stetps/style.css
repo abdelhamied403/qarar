@@ -1,21 +1,23 @@
-.action-items {
+.action-itemsb {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
 }
-.action-items > * {
+.action-itemsb > * {
   padding: 10px 20px;
   cursor: pointer;
   margin: 5px;
-  border: 1px solid;
+  /* border: 1px solid; */
   border-radius: 25px;
   width: 120px;
-  text-align: center;
+  /* text-align: center; */
 }
-.action-items .done {
+.action-itemsb .done {
+  border: 1px solid;
   border-color: #9bc869;
   color: #9bc869;
 }
-.action-items .error {
+.action-itemsb .error {
+  border: 1px solid;
   border-color: crimson;
   color: crimson;
 }
@@ -33,36 +35,16 @@
 }
 .header {
   width: 100%;
-  background-color: #1e6f6d;
+  background-color: transparent;
   border: none;
   border-radius: 0;
   color: white;
 }
-.primary-h {
-  background-color: #1e6f6d!important;
-}
+
 .button-comment {
   float: right;
   color: white;
   border-color: #84bc47;
   background-color: #84bc47;
   float: left;
-}
-
-.vote-stars {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  width: 60px;
-  text-align: center;
-}
-.vote-stars img {
-  width: 30px;
-  height: 30px;
-}
-.stars {
-  display: flex;
-  align-items: baseline;
 }

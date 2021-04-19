@@ -9,7 +9,6 @@ import {
   Spinner
 } from 'reactstrap';
 import Link from 'next/link';
-import { translate } from '../../../../utlis/translation';
 
 import dynamic from 'next/dynamic';
 import draftToHtml from 'draftjs-to-html';
@@ -37,8 +36,7 @@ const PartcipantModal = props => {
     canVote,
     accessToken,
     getDraft,
-    getComments,
-    forced_adj_city_investemtn
+    getComments
   } = props;
   const [state, setState] = useState(ModalState.LIKES);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -93,8 +91,8 @@ const PartcipantModal = props => {
         show: false,
         txt: ''
       });
-      setLoading(false);
     }, 2000);
+    setLoading(false);
   };
 
   const saveComment = async () => {
@@ -175,26 +173,13 @@ const PartcipantModal = props => {
     const disLike = async () => {
       await vote('dislike', id);
     };
-    const voteStar = async () => {
-      setState(ModalState.SUGGEST);
-    };
     return (
       <div
         style={{ display: 'flex', alignItems: 'center', flexFlow: 'column' }}
       >
         <h4>ما رايك في الماده؟</h4>
-        <div className="stars">
-          {
-            [1,2,3,4,5].map(
-              val => (
-                <div className="vote-stars">
-                  <img src='/static/img/Assets/star.svg' style={{cursor: 'pointer'}} onClick={() => voteStar(val)} />
-                  <span>{translate(`comments.value_${val}`)}</span>
-                </div>
-              ))
-          }
-          <div></div>
-          {/* <div className="done" onClick={() => like()}>
+        <div className="action-items">
+          <div className="done" onClick={() => like()}>
             <img src="/static/img/Icon - dropdown - arrow down.svg" alt="" />
             <span>ايجابي</span>
           </div>
@@ -204,7 +189,7 @@ const PartcipantModal = props => {
               alt=""
             />
             <span>سلبي</span>
-          </div> */}
+          </div>
         </div>
       </div>
     );
@@ -292,9 +277,9 @@ const PartcipantModal = props => {
       </>
     );
   };
-  <Modal isOpen={open} backdrop toggle={close}>
-      return (
-      <ModalHeader className="header primary-h" style={{ width: '100%' }}>
+  return (
+    <Modal isOpen={open} backdrop toggle={close}>
+      <ModalHeader className="header" style={{ width: '100%' }}>
         <div
           style={{
             display: 'flex',

@@ -38,31 +38,11 @@
   border-radius: 0;
   color: white;
 }
-.primary-h {
-  background-color: #1e6f6d!important;
-}
+
 .button-comment {
   float: right;
   color: white;
   border-color: #84bc47;
   background-color: #84bc47;
   float: left;
-}
-
-.vote-stars {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  width: 60px;
-  text-align: center;
-}
-.vote-stars img {
-  width: 30px;
-  height: 30px;
-}
-.stars {
-  display: flex;
-  align-items: baseline;
 }

@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import Link from 'next/link';
 import ReactSelect from 'react-select';
 import makeAnimated from 'react-select/animated';
-import './drafts.css';
+import './decisions-library.css';
 import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
@@ -21,7 +21,7 @@ import { translate } from '../../../utlis/translation';
 
 const animatedComponents = makeAnimated();
 
-class Drafts extends Component {
+class DecisionsLibrary extends Component {
   constructor(props) {
     super(props);
 
@@ -184,7 +184,7 @@ class Drafts extends Component {
       <div className="drafts">
         <div className="draftHeader">
           <Container>
-            <h3>{translate('draftsPage.title')}</h3>
+            <h3>{translate('decisionsLibPage.title')}</h3>
           </Container>
         </div>
         <Container>
@@ -193,17 +193,17 @@ class Drafts extends Component {
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>{translate('draftsPage.decisionType')}</label>
+                    <label>{translate('decisionsLibPage.decisionType')}</label>
                     <select className="not-select2 form-control">
-                      <option value="1">{translate('draftsPage.decisionOptionOne')}</option>
-                      <option value="2">{translate('draftsPage.decisionOptionTwo')}</option>
+                      <option value="1">{translate('decisionsLibPage.decisionOptionOne')}</option>
+                      <option value="2">{translate('decisionsLibPage.decisionOptionTwo')}</option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('draftsPage.subtraction')}</label>
+                    <label htmlFor="orderDropDownList">{translate('decisionsLibPage.subtraction')}</label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -215,14 +215,14 @@ class Drafts extends Component {
                         )
                       }
                     >
-                      <option value={0}>{translate('draftsPage.subtractionOptionOne')}</option>
-                      <option value={1}>{translate('draftsPage.subtractionOptionTwo')}</option>
+                      <option value={0}>{translate('decisionsLibPage.subtractionOptionOne')}</option>
+                      <option value={1}>{translate('decisionsLibPage.subtractionOptionTwo')}</option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('draftsPage.keywords')}</label>
+                    <label htmlFor="orderDropDownList">{translate('decisionsLibPage.keywords')}</label>
                     <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
@@ -238,12 +238,12 @@ class Drafts extends Component {
                           : []
                       }
                       isClearable
-                      placeholder={translate('draftsPage.keywordsPlaceholder')}
+                      placeholder={translate('decisionsLibPage.keywordsPlaceholder')}
                       noOptionsMessage={() =>
-                        translate('draftsPage.keywordsNoOptionsMessage')
+                        translate('decisionsLibPage.keywordsNoOptionsMessage')
                       }
                       loadingMessage={() =>
-                        translate('draftsPage.keywordsLoadingMessage')
+                        translate('decisionsLibPage.keywordsLoadingMessage')
                       }
                       cl
                       onChange={selected =>
@@ -266,7 +266,7 @@ class Drafts extends Component {
                   header={draft.title}
                   refetch={() => this.getDrafts()}
                   subHeader={`${translate(
-                    'draftsPage.draftCard.votingCloses'
+                    'decisionsLibPage.draftCard.votingCloses'
                   )}${draft.end_date}`}
                   content={draft.body}
                   votes={
@@ -274,7 +274,7 @@ class Drafts extends Component {
                     '0'
                   }
                   date={draft.end_date}
-                  link={`/draft-details/${draft.id}`}
+                  link={`/decision-details/${draft.id}`}
                   tags={
                     draft.tags
                       ? draft.tags.map(tagItem => ({
@@ -291,10 +291,10 @@ class Drafts extends Component {
             ) : (
               <Col className="text-start">
                 <Alert type="sucess">
-                  {translate('draftsPage.noDecisions')}
-                  <Link href="/decisions">
-                    <a>{translate('draftsPage.archivedDecisions')}</a>
-                  </Link>
+                  {translate('decisionsLibPage.noDecisions')}
+                  {/*<Link href="/decisions">*/}
+                  {/*  <a>{translate('draftsPage.archivedDecisions')}</a>*/}
+                  {/*</Link>*/}
                 </Alert>
               </Col>
             )}
@@ -320,4 +320,4 @@ const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
   uid,
   accessToken
 });
-export default connect(mapStateToProps)(Drafts);
+export default connect(mapStateToProps)(DecisionsLibrary);

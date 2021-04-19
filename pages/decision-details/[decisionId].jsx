@@ -12,7 +12,7 @@ const DecisionDetails = () => {
         <Head>
           <title>مسودة عمل - قرار- وزارة الشؤون البلدية والقروية</title>
         </Head>
-        <DecisionDetailsPage draftId={decisionId} />
+        <DecisionDetailsPage decisionId={decisionId} />
       </div>
     </div>
   );

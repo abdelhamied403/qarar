@@ -9,7 +9,6 @@ import {
   Spinner
 } from 'reactstrap';
 import Link from 'next/link';
-import { translate } from '../../../../utlis/translation';
 
 import dynamic from 'next/dynamic';
 import draftToHtml from 'draftjs-to-html';
@@ -18,6 +17,8 @@ import { EditorState, convertToRaw } from 'draft-js';
 import Api from '../../../../api';
 
 import './style.css';
+import { translate } from '../../../../utlis/translation';
+
 
 const ModalState = {
   LIKES: 0,
@@ -28,7 +29,7 @@ const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 );
-const PartcipantModal = props => {
+const PartcipantSteps = props => {
   const {
     open,
     close,
@@ -38,8 +39,8 @@ const PartcipantModal = props => {
     accessToken,
     getDraft,
     getComments,
-    forced_adj_city_investemtn
   } = props;
+  const title = props.title || "المادة";
   const [state, setState] = useState(ModalState.LIKES);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [loading, setLoading] = useState(false);
@@ -93,8 +94,8 @@ const PartcipantModal = props => {
         show: false,
         txt: ''
       });
-      setLoading(false);
     }, 2000);
+    setLoading(false);
   };
 
   const saveComment = async () => {
@@ -175,26 +176,11 @@ const PartcipantModal = props => {
     const disLike = async () => {
       await vote('dislike', id);
     };
-    const voteStar = async () => {
-      setState(ModalState.SUGGEST);
-    };
     return (
-      <div
-        style={{ display: 'flex', alignItems: 'center', flexFlow: 'column' }}
-      >
-        <h4>ما رايك في الماده؟</h4>
-        <div className="stars">
-          {
-            [1,2,3,4,5].map(
-              val => (
-                <div className="vote-stars">
-                  <img src='/static/img/Assets/star.svg' style={{cursor: 'pointer'}} onClick={() => voteStar(val)} />
-                  <span>{translate(`comments.value_${val}`)}</span>
-                </div>
-              ))
-          }
-          <div></div>
-          {/* <div className="done" onClick={() => like()}>
+      <div style={{ padding: '30px 0', borderBottom: '2px solid #046f6d61' }}>
+        <h4>ما رايك في {title}؟</h4>
+        <div className="action-itemsb">
+          <div className="done" onClick={() => like()}>
             <img src="/static/img/Icon - dropdown - arrow down.svg" alt="" />
             <span>ايجابي</span>
           </div>
@@ -204,7 +190,7 @@ const PartcipantModal = props => {
               alt=""
             />
             <span>سلبي</span>
-          </div> */}
+          </div>
         </div>
       </div>
     );
@@ -215,16 +201,14 @@ const PartcipantModal = props => {
       setState(ModalState.COMMENT);
     };
     return (
-      <div
-        style={{ display: 'flex', alignItems: 'center', flexFlow: 'column' }}
-      >
-        <h4>هلي ترغب باضافة تعليق</h4>
-        <div className="action-items">
+      <div>
+        <h4> {translate('draftDetails.addNewComment')}</h4>
+        <div className="action-itemsb">
           <div className="done" onClick={() => nextStep()}>
-            <span>نعم</span>
+            <span> {translate('draftDetails.yes')}</span>
           </div>
           <div className="error" onClick={close}>
-            <span>لا</span>
+            <span> {translate('draftDetails.no')}</span>
           </div>
         </div>
       </div>
@@ -232,8 +216,9 @@ const PartcipantModal = props => {
   };
   const Comment = props => {
     return (
-      <>
-        <h4>اضف تعليقك</h4>
+      <div style={{ padding: '30px 0' }}>
+        <h4>
+        {translate('draftDetails.addComment')}</h4>
         <Editor
           placeholder="اضف تعليقك هنا"
           toolbar={{
@@ -256,64 +241,51 @@ const PartcipantModal = props => {
           onEditorStateChange={setEditorState}
         />
         <Button className="button-comment" onClick={() => saveComment()}>
-          اضف تعليقك
+          {translate('draftDetails.addComment')}
           <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
         </Button>
-      </>
+      </div>
     );
   };
   const Steps = () => {
     if (!uid) {
       return (
         <>
-          <Alert color="danger">يجب تسجيل الدخول اولا</Alert>
+          <Alert color="danger">
+            {translate('draftDetails.loginFirst')}
+          </Alert>
 
           <div className="draftShouldLogin d-flex flex-column">
             <img src="/static/img/interactive/disabled.svg" alt="" />
-            <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+            <h4>{translate('draftDetails.loginComment')}</h4>
             <Link href="/login">
               <Button>
-                تسجيل الدخول
+              {translate('draftDetails.login')}
                 <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
               </Button>
             </Link>
             <Link href="/register">
-              <a>تسجيل حساب</a>
+              <a>{translate('draftDetails.createAccount')}</a>
             </Link>
           </div>
         </>
       );
     }
     return (
-      <>
-        {state === ModalState.LIKES && <Likes />}
-        {state === ModalState.SUGGEST && <Suggest />}
-        {state === ModalState.COMMENT && <Comment />}
-      </>
+      <div className="container">
+        {<Likes />}
+        {<Comment />}
+      </div>
     );
   };
-  <Modal isOpen={open} backdrop toggle={close}>
-      return (
-      <ModalHeader className="header primary-h" style={{ width: '100%' }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <span>شارك الان</span>
-          {loading && <Spinner color="secondary" />}
-        </div>
-      </ModalHeader>
-      <ModalBody>
-        {msg.show && (
-          <Alert color={msg.error ? 'danger' : 'success'}>{msg.txt}</Alert>
-        )}
-        {canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}
-      </ModalBody>
-    </Modal>
+  return (
+    <>
+      {msg.show && (
+        <Alert color={msg.error ? 'danger' : 'success'}>{msg.txt}</Alert>
+      )}
+      {canVote ? <Alert color="danger">{translate('draftDetails.votingStopped')}</Alert> : <Steps />}
+    </>
   );
 };
 
-export default PartcipantModal;
+export default PartcipantSteps;
