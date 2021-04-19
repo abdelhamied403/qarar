@@ -313,7 +313,7 @@ const PartcipantModal = props => {
         {canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}
       </ModalBody>
     </Modal>
-  );
+ 
 };
 
 export default PartcipantModal;
