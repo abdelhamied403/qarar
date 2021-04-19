@@ -6,7 +6,7 @@ import { create } from 'apisauce';
 // define the api
 
 import './client.css';
-import {translate } from '../utlis/translation';
+import { translate } from '../utlis/translation';
 
 const api = create({
   baseURL: 'https://momragov.sharedt.com/ar/'
@@ -46,7 +46,7 @@ const ClientFooter = ({ isAuthentcated }) => {
               </Col>
               <Col md={6}>
                 <div className="direct-num">
-                  <h3>{translate("footer.number")}</h3>
+                  <h3>{translate('footer.number')}</h3>
                   <a href="tel:+199099">199099 </a>
                 </div>
               </Col>
@@ -55,64 +55,55 @@ const ClientFooter = ({ isAuthentcated }) => {
           <div className="mid-footer">
             <Row>
               <Col md={3}>
-                <h4> {translate("footer.balady")}</h4>
+                <h4> {translate('footer.balady')}</h4>
                 <a href="https://balady.gov.sa/About">
-                {translate("footer.aboutBalady")}</a>
+                  {translate('footer.aboutBalady')}
+                </a>
                 <a href="https://balady.gov.sa/UserGuide">
-                {translate("footer.userGuides")}
+                  {translate('footer.userGuides')}
                 </a>
               </Col>
               <Col md={3}>
-                <h4> {translate("footer.baladyServices")}</h4>
+                <h4> {translate('footer.baladyServices')}</h4>
                 <a href="https://balady.gov.sa/Services">
-                {translate("footer.electronicServices")}
-                  </a>
+                  {translate('footer.electronicServices')}
+                </a>
                 <a href="https://balady.gov.sa/Informative">
                   {' '}
-                  {translate("footer.query")}
+                  {translate('footer.query')}
                 </a>
                 <a href="https://balady.gov.sa/Services?id=6">
                   {' '}
-                  {translate("footer.portal")}
+                  {translate('footer.portal')}
                 </a>
               </Col>
               <Col md={3}>
-                <h4>{translate("footer.policy")}</h4>
-                <a
-                  href="https://momra.gov.sa/files/privacy.pdf"
-                  target="_blank"
-                >
-                <h4>{translate("footer.privacy")}</h4>
-
+                <h4>{translate('footer.policy')}</h4>
+                <a href="https://www.momra.gov.sa/ar/node/50" target="_blank">
+                  {translate('footer.privacy')}
                 </a>
                 <a href="https://momra.gov.sa/files/Policy.pdf" target="_blank">
-                <h4>{translate("footer.content")}</h4>
-
+                  {translate('footer.content')}
                 </a>
                 <a href="https://balady.gov.sa/Terms" target="_blank">
-                <h4>{translate("footer.conditions")}</h4>
-              
+                  {translate('footer.conditions')}
                 </a>
               </Col>
               <Col md={3}>
-                <h4 className="loader-label">
-                {translate("footer.links")}</h4>
+                <h4 className="loader-label">{translate('footer.links')}</h4>
                 <a
                   href="https://balady.gov.sa/CenteralServices"
                   target="_blank"
                 >
                   {' '}
-                  {translate("footer.employees")}
-                  {' '}
+                  {translate('footer.employees')}{' '}
                 </a>
                 <a
                   href="https://ebalady.momra.gov.sa/EnOffice/faces/Applyorlogin"
                   target="_blank"
                 >
                   {' '}
-                  {translate("footer.offices")}
-
-              {' '}
+                  {translate('footer.offices')}{' '}
                 </a>
               </Col>
             </Row>
@@ -122,8 +113,7 @@ const ClientFooter = ({ isAuthentcated }) => {
               <div className="d-flex">
                 <div className="copyright">
                   {' '}
-                  {translate("footer.copyrights")}
-              
+                  {translate('footer.copyrights')}
                   <script>document.write((new Date()).getFullYear())</script>
                   2020{' '}
                 </div>
@@ -132,7 +122,9 @@ const ClientFooter = ({ isAuthentcated }) => {
                     <a
                       href="https://balady.gov.sa/Services/SiteMap"
                       target="_blank"
-                    >   {translate("footer.websiteMap")}
+                    >
+                      {' '}
+                      {translate('footer.websiteMap')}
                     </a>
                   </li>
                 </ul>

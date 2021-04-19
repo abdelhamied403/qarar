@@ -513,7 +513,8 @@ class DraftDetailsInfo extends Component {
       activeTab,
       selectedSubject,
       modalOpen,
-      shareIdeasModalOpen
+      shareIdeasModalOpen,
+      forced_adj_city_investemtn
     } = this.state;
     const { uid, accessToken } = this.props;
     if (loadingDraft) {
@@ -1362,7 +1363,6 @@ class DraftDetailsInfo extends Component {
                 likeComment={this.likeComment}
                 dislikeComment={this.dislikeComment}
                 itemId={item.nid}
-                forced_adj_city_investemtn={forced_adj_city_investemtn}
               />
             </Col>
           </Row>

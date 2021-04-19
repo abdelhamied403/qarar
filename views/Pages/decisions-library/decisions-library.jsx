@@ -83,15 +83,13 @@ class DecisionsLibrary extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/system/0/DESC/1?_format=json`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
-      : await Api.get(
-        `/qarar_api/data/system/0/DESC/1?_format=json`
-      );
+          `/qarar_api/data/system/0/DESC/1?_format=json`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
+      : await Api.get(`/qarar_api/data/system/0/DESC/1?_format=json`);
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
@@ -195,15 +193,21 @@ class DecisionsLibrary extends Component {
                   <div className="form-group">
                     <label>{translate('decisionsLibPage.decisionType')}</label>
                     <select className="not-select2 form-control">
-                      <option value="1">{translate('decisionsLibPage.decisionOptionOne')}</option>
-                      <option value="2">{translate('decisionsLibPage.decisionOptionTwo')}</option>
+                      <option value="1">
+                        {translate('decisionsLibPage.decisionOptionOne')}
+                      </option>
+                      <option value="2">
+                        {translate('decisionsLibPage.decisionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('decisionsLibPage.subtraction')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('decisionsLibPage.subtraction')}
+                    </label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -215,14 +219,20 @@ class DecisionsLibrary extends Component {
                         )
                       }
                     >
-                      <option value={0}>{translate('decisionsLibPage.subtractionOptionOne')}</option>
-                      <option value={1}>{translate('decisionsLibPage.subtractionOptionTwo')}</option>
+                      <option value={0}>
+                        {translate('decisionsLibPage.subtractionOptionOne')}
+                      </option>
+                      <option value={1}>
+                        {translate('decisionsLibPage.subtractionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('decisionsLibPage.keywords')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('decisionsLibPage.keywords')}
+                    </label>
                     <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
@@ -238,7 +248,9 @@ class DecisionsLibrary extends Component {
                           : []
                       }
                       isClearable
-                      placeholder={translate('decisionsLibPage.keywordsPlaceholder')}
+                      placeholder={translate(
+                        'decisionsLibPage.keywordsPlaceholder'
+                      )}
                       noOptionsMessage={() =>
                         translate('decisionsLibPage.keywordsNoOptionsMessage')
                       }
@@ -269,10 +281,6 @@ class DecisionsLibrary extends Component {
                     'decisionsLibPage.draftCard.votingCloses'
                   )}${draft.end_date}`}
                   content={draft.body}
-                  votes={
-                    parseInt(draft.likes, 10) + parseInt(draft.dislikes, 10) ||
-                    '0'
-                  }
                   date={draft.end_date}
                   link={`/decision-details/${draft.id}`}
                   tags={

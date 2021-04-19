@@ -168,7 +168,6 @@ const PartcipantModal = props => {
     setLoading(false);
   };
 
-  const Likes = props => {
     const like = async () => {
       await vote('like', id);
     };
@@ -178,7 +177,8 @@ const PartcipantModal = props => {
     const voteStar = async () => {
       setState(ModalState.SUGGEST);
     };
-    return (
+    const Likes = props => {
+      return (
       <div
         style={{ display: 'flex', alignItems: 'center', flexFlow: 'column' }}
       >
@@ -292,8 +292,8 @@ const PartcipantModal = props => {
       </>
     );
   };
+  return(
   <Modal isOpen={open} backdrop toggle={close}>
-      return (
       <ModalHeader className="header primary-h" style={{ width: '100%' }}>
         <div
           style={{
@@ -313,7 +313,7 @@ const PartcipantModal = props => {
         {canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}
       </ModalBody>
     </Modal>
- 
+  );
 };
 
 export default PartcipantModal;

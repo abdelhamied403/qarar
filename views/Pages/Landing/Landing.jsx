@@ -302,89 +302,13 @@ const Landing = () => {
 
               <Row
                 style={
-                  activeBtn === 0 ? { display: 'flex' } : { display: 'none' }
-                }
-              >
-                {activeDrafts
-                  .filter((item, index) => index < 6)
-                  .map(item => (
-                    <Col className="mb-3" key={item.key} xs="12">
-                      <Link href={`/draft-details/${item.id}`}>
-                        <a>
-                          <div className="oneActivity">
-                            <h4>{item.title}</h4>
-                          </div>
-                        </a>
-                      </Link>
-                      <p className="oneActivityRow">
-                        <img
-                          dir={translate('dir')}
-                          src="/static/img/interactive/calendar-2.svg"
-                          alt=""
-                        />
-                        {translate('landingPage.votingStart')}{' '}
-                        {moment(item.creatednode * 1000).format(
-                          'dddd, D MMMM YYYY'
-                        )}
-                        <span className="modalUpdate" onClick={updateModal}>
-                          <img
-                            dir={translate('dir')}
-                            src="/static/img/interactive/calendar-2.svg"
-                            alt=""
-                          />
-                          12 {translate('landingPage.update')}
-                        </span>
-                      </p>
-                    </Col>
-                  ))}
-              </Row>
-              <Row
-                style={
                   activeBtn === 1 ? { display: 'flex' } : { display: 'none' }
                 }
               >
                 {drafts
                   .filter((item, index) => index < 6)
                   .map(item => (
-                    <Col className="mb-3" key={item.key} xs="12">
-                      <Link href={`/draft-details/${item.id}`}>
-                        <a>
-                          <div className="oneActivity">
-                            <h4>{item.title}</h4>
-                          </div>
-                        </a>
-                      </Link>
-                      <p className="oneActivityRow">
-                        <img
-                          dir={translate('dir')}
-                          src="/static/img/interactive/calendar-2.svg"
-                          alt=""
-                        />
-                        {translate('landingPage.votingStart')}{' '}
-                        {moment(item.creatednode * 1000).format(
-                          'dddd, D MMMM YYYY'
-                        )}
-                        <span className="modalUpdate" onClick={updateModal}>
-                          <img
-                            dir={translate('dir')}
-                            src="/static/img/interactive/calendar-2.svg"
-                            alt=""
-                          />
-                          12 {translate('landingPage.update')}
-                        </span>
-                      </p>
-                    </Col>
-                  ))}
-              </Row>
-              <Row
-                style={
-                  activeBtn === 2 ? { display: 'flex' } : { display: 'none' }
-                }
-              >
-                {soonCloseDrafts
-                  .filter((item, index) => index < 6)
-                  .map(item => (
-                    <Col key={item.key} className="mb-3" xs="12">
+                    <Col className="mb-6" key={item.key} xs="12">
                       <Link href={`/draft-details/${item.id}`}>
                         <a>
                           <div className="oneActivity">
@@ -426,56 +350,6 @@ const Landing = () => {
                     />
                   </Button>
                 </Link>
-              </div>
-            </Col>
-
-            <Col xs="12" md="6" lg="6" className="chart-section">
-              <h2 className="header">
-                {translate('landingPage.admirationPercentage')}
-              </h2>
-              <div className="chart">
-                {/* <Media
-                  className="chart-image"
-                  object
-                  src="/static/img/interactive/pie-chart.svg"
-                /> */}
-                <PieChart
-                  data={[
-                    {
-                      title: 'One',
-                      value: parseInt(likePercentage, 10),
-                      color: '#85bd48'
-                    },
-                    {
-                      title: 'Two',
-                      value: parseInt(dislikePercentage, 10),
-                      color: '#07706d'
-                    }
-                  ]}
-                />
-
-                <div className="chart-item">
-                  <Media
-                    className="chart-icon"
-                    object
-                    src="/static/img/interactive/like.svg"
-                  />
-                  <div>
-                    <h3 style={{ color: '#85bd48' }}>{likePercentage}%</h3>
-                    <h5>{translate('landingPage.likes')}</h5>
-                  </div>
-                </div>
-                <div className="chart-item">
-                  <Media
-                    className="chart-icon"
-                    object
-                    src="/static/img/interactive/unlike.svg"
-                  />
-                  <div>
-                    <h3>{dislikePercentage}%</h3>
-                    <h4>{translate('landingPage.dislikes')}</h4>
-                  </div>
-                </div>
               </div>
             </Col>
           </Row>
