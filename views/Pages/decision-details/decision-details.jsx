@@ -578,10 +578,10 @@ class DecisionDetailsInfo extends Component {
                         <Media
                           className="image-icon"
                           object
-                          src="/static/img/interactive/draft1 (1).svg"
+                          src="/static/img/decision/Group 1423.svg"
                         />
                       </div>
-                      <p>{decision.followers || '0'}</p>
+                      <p>{decision.followers || '260'}</p>
                       <h5>{translate('decisionDetails.views')}</h5>
                     </div>
                     <div>
@@ -589,10 +589,10 @@ class DecisionDetailsInfo extends Component {
                         <Media
                           className="image-icon"
                           object
-                          src="/static/img/interactive/draft1 (2).svg"
+                          src="/static/img/decision/Group 1424.svg"
                         />
                       </div>
-                      <p>{decision.comments || '0'}</p>
+                      <p>{decision.comments || '98'}</p>
                       <h5>{translate('decisionDetails.modification')}</h5>
                     </div>
                     <div>
@@ -600,10 +600,10 @@ class DecisionDetailsInfo extends Component {
                         <Media
                           className="image-icon"
                           object
-                          src="/static/img/interactive/draft1 (3).svg"
+                          src="/static/img/decision/Group 1425.svg"
                         />
                       </div>
-                      <p>{decision.articles || '0'}</p>
+                      <p>{decision.articles || '12'}</p>
                       <h5> {translate('decisionDetails.article')}</h5>
                     </div>
                   </div>

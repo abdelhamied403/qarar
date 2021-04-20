@@ -136,7 +136,8 @@ class CardDraft extends Component {
       link,
       borderColor,
       dropdownList,
-      subHeaderIcon
+      subHeaderIcon,
+      type,
     } = this.props;
 
     console.log(link);
@@ -196,9 +197,11 @@ class CardDraft extends Component {
                   ''
                 )}
               </div>
-              <div className="moaad text-justify">
+              <div className="text-justify">
                 <div>
-                  {renderHTML(content || '')}
+                  <div className="wrap">
+                    {renderHTML(content || '')}
+                  </div>
                   {link ? (
                     <Link href={link}>
                       <Button color="link">{translate('cardDraft.more')}</Button>

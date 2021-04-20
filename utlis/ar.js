@@ -181,9 +181,11 @@ export const ar = {
   decisionsLibPage: {
     title: 'مكتبة القرارات',
     decisionType: 'نوع القرار',
+    classification: 'التصنيف الرئيسي',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
+    subClassification: 'التصنيف الفرعي',
     subtractionOptionOne: 'مطروحة حديثا',
     subtractionOptionTwo: 'تنتهي قريبا',
     keywords: 'الكلمات الدلالية',
@@ -191,7 +193,8 @@ export const ar = {
     keywordsNoOptionsMessage: 'لا يوجد خيارات...',
     keywordsLoadingMessage: 'تحميل...',
     draftCard: {
-      votingCloses: 'يغلق التصويت بتاريخ '
+      votingCloses: 'يغلق التصويت بتاريخ ',
+      publication: 'تاريخ النشر '
     },
     noDecisions: 'لا توجد قرارات تحت التصويت الآن . ',
     archivedDecisions: 'القرارات المؤرشفة'
@@ -216,7 +219,7 @@ export const ar = {
   },
   draftsUnderVotePage: {
     title: 'مسودات تحت التصويت',
-    decisionType: 'نوع القرار',
+    decisionType: 'نوع المسودة',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -234,7 +237,7 @@ export const ar = {
   },
   draftsAppliedPage: {
     title: 'مسودات مطبقة',
-    decisionType: 'نوع القرار',
+    decisionType: 'نوع المسودة',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -251,8 +254,8 @@ export const ar = {
     archivedDecisions: 'القرارات المؤرشفة'
   },
   archivedDraftsPage: {
-    title: 'مسودات مطبقة',
-    decisionType: 'نوع القرار',
+    title: 'مسودات مؤرشفة',
+    decisionType: 'نوع المسودة',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -271,6 +274,8 @@ export const ar = {
   decisionPage: {
     title: 'القرارات المعدلة',
     decisionType: 'نوع القرار',
+    classification: 'التصنيف الرئيسي',
+    subClassification: 'التصنيف الفرعي',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -358,6 +363,7 @@ export const ar = {
   },
   draftDetails: {
     decisions: 'القرارات',
+    drafts: 'المسودات',
     voteClosed: 'أغلق التصويت بتاريخ',
     application: 'تم التطبيق بتاريخ',
     votingCloses: 'يغلق التصويت بتاريخ',
@@ -374,6 +380,16 @@ export const ar = {
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'مؤشرات',
+    chartTitle: 'نسبة رضى مستفيدي منصة بلدي',
+    chartTypeOne: 'مؤيد جدا',
+    chartTypeTwo: 'مؤيد',
+    chartTypeThree: 'محايد',
+    chartTypeFour: 'غير مؤيد',
+    chartTypeFive: 'غير مؤيد أبدا',
+    mostCommented: 'الاكثر تعليقا',
+    mostVoted: 'الاكثر تصويتا',
+    userName:'اسم المستخدم',
+    points: '120 نقطة',
     openAll: 'فتح الكل',
     closeAll: 'اغلاق الكل',
     shareDraft: 'شارك هذه المادة',

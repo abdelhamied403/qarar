@@ -47,6 +47,7 @@ import PartcipantModal from './partcipantModal';
 import CommentSteps from './comments-stetps';
 import { translate } from '../../../utlis/translation';
 import ShareIdeasModal from './shareIdeasModal';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -211,6 +212,7 @@ class DraftDetailsInfo extends Component {
         return item;
       });
       console.log('items ', items);
+      console.log('draft', data);
       this.setState(
         { draft: data, items, loadingDraft: false, openArticle },
         () => {
@@ -541,7 +543,7 @@ class DraftDetailsInfo extends Component {
                     <ul>
                       <li>
                         <Link href="/drafts/">
-                          <a>{translate('draftDetails.decisions')}</a>
+                          <a>{translate('draftDetails.drafts')}</a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -711,7 +713,7 @@ class DraftDetailsInfo extends Component {
                           :
                         </p>
                         <span>
-                          {moment(draft.applied_date).format(
+                          {moment(draft.applied_date || new Date()).format(
                             'dddd, D MMMM YYYY'
                           )}
                         </span>
@@ -796,89 +798,97 @@ class DraftDetailsInfo extends Component {
               <CardBody>
                 <Row>
                   <Col md="4">
-                    <Doughnut
-                      data={{
-                        datasets: [
+                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.chartTitle')}</p>
+                    <Row>
+                      <Col md="6">
+                        <div>
                           {
-                            label: 'نسبة رضي مستفيدي منصة بلدي',
-                            backgroundColor: [
-                              '#81bd41',
-                              '#3fc1cb',
-                              '#1e6c67',
-                              '#f3f3f3'
-                            ],
-                            data: [50, 25, 20, 15]
+
+                            [{name: translate('draftDetails.chartTypeOne'), color: '#81BD41'},
+                              {name: translate('draftDetails.chartTypeTwo'), color: '#40C2CC'},
+                              {name: translate('draftDetails.chartTypeThree'), color: '#006C68'},
+                              {name: translate('draftDetails.chartTypeFour'), color: '#F3F3F3'},
+                              {name: translate('draftDetails.chartTypeFive'), color: '#FF4A4A'}].map(
+                              val => (
+                                <div className="d-flex flex-row align-items-center">
+                                  <span
+                                    style={{ backgroundColor: val.color,
+                                      height: '20px',
+                                      width: '20px',
+                                      borderRadius: '50%',
+                                      display: 'inline-block'
+                                    }}
+                                  />
+                                  <p style={{margin: '0 10px 0 10px', color: '#006C68'}}>{val.name}</p>
+                                </div>
+                              ))
                           }
-                        ],
-                        labels: ['راضي جدا', 'راضي', 'مقبول', 'غير مقبول']
-                      }}
-                    />
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <PieChart
+                          data={[
+                            { title: translate('draftDetails.chartTypeOne'), value: 50, color: '#81BD41' },
+                            { title: translate('draftDetails.chartTypeTwo'), value: 25, color: '#40C2CC' },
+                            { title: translate('draftDetails.chartTypeThree'), value: 20, color: '#006C68' },
+                            { title: translate('draftDetails.chartTypeFour'), value: 15, color: '#F3F3F3' },
+                            { title: translate('draftDetails.chartTypeFive'), value: 5, color: '#FF4A4A' },
+                          ]}
+                        />
+                      </Col>
+                    </Row>
                   </Col>
-                  <Col className="line-right" md="4">
-                    <Line
-                      options={{
-                        scales: {
-                          xAxes: [
-                            {
-                              gridLines: {
-                                drawOnChartArea: false
-                              }
-                            }
-                          ],
-                          yAxes: [
-                            {
-                              gridLines: {
-                                drawOnChartArea: false
-                              }
-                            }
-                          ]
-                        }
-                      }}
-                      data={{
-                        datasets: [
-                          {
-                            label: '36 قرار جديد في شهر يناير',
-                            backgroundColor: 'white',
-                            borderColor: '#046f6d',
-                            data: [10, 40, 50, 80, 110]
-                          }
-                        ],
-                        labels: ['2', '4', '6', '8', '10']
-                      }}
-                    />
+                  <Col md="4" className="border-right-line" dir={translate('dir')}>
+                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.mostCommented')}</p>
+                    <Row>
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src='/static/img/Group 991.svg'/>
+                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
+                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                        </div>
+                      </Col>
+                      <Col md="4" className="p-2">
+                        <div className="user-card" >
+                          <img src='/static/img/Group 991.svg'/>
+                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
+                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                        </div>
+                      </Col>
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src='/static/img/Group 991.svg'/>
+                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
+                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                        </div>
+                      </Col>
+                    </Row>
                   </Col>
-                  <Col className="line-right" md="4">
-                    <Line
-                      options={{
-                        scales: {
-                          xAxes: [
-                            {
-                              gridLines: {
-                                drawOnChartArea: false
-                              }
-                            }
-                          ],
-                          yAxes: [
-                            {
-                              gridLines: {
-                                drawOnChartArea: false
-                              }
-                            }
-                          ]
-                        }
-                      }}
-                      data={{
-                        datasets: [
-                          {
-                            label: '16 عضو جديد في شهر يناير',
-                            backgroundColor: 'white',
-                            borderColor: '#046f6d',
-                            data: [10, 40, 50, 80, 110]
-                          }
-                        ],
-                        labels: ['2', '4', '6', '8', '10']
-                      }}
-                    />
+                  <Col md="4" className="border-right-line" dir={translate('dir')}>
+                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.mostVoted')}</p>
+                    <Row>
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src='/static/img/Group 991.svg'/>
+                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
+                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                        </div>
+                      </Col>
+                      <Col md="4" className="p-2">
+                        <div className="user-card" >
+                          <img src='/static/img/Group 991.svg'/>
+                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
+                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                        </div>
+                      </Col>
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src='/static/img/Group 991.svg'/>
+                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
+                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                        </div>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </CardBody>

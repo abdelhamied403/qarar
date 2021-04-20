@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { translate } from '../../../../utlis/translation';
 import moment from 'moment';
+import './style.css';
 
 const UpdatedItemsModal = props => {
   const { title, toggle, items, setToggle } = props;
@@ -14,6 +15,7 @@ const UpdatedItemsModal = props => {
         }}
         isOpen={toggle}
         toggle={setToggle}
+        className="test"
       >
         <div className={'modal-header'}>
           <h4>{title}</h4>

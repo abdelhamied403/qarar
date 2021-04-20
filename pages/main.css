@@ -16013,7 +16013,7 @@ a:hover {
 }
 
 .nav-tabs .nav-link.active {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 .mg-b-18 {
@@ -16451,7 +16451,7 @@ button.btn.btn-primary {
 }
 
 .nav-tabs .nav-link.active {
-  border: none !important;
+  border: none;
 }
 
 .b-pink {
@@ -16640,10 +16640,10 @@ footer a:hover {
 }
 
 .client-layout .tabs-content .nav-tabs .nav-link.active {
-  background-color: transparent !important;
+  background-color: transparent;
   border: none;
-  border-bottom: 3px solid var(--primary-blue) !important;
-  color: #232323 !important;
+  border-bottom: 3px solid var(--primary-blue);
+  color: #232323;
   padding-bottom: 6px;
 }
 
@@ -18050,10 +18050,10 @@ textarea.form-control {
 }
 
 .client-layout .tabs-content .nav-tabs .nav-link.active {
-  background-color: transparent !important;
+  background-color: transparent;
   border: none;
-  border-bottom: 3px solid var(--primary-blue) !important;
-  color: #232323 !important;
+  border-bottom: 3px solid var(--primary-blue);
+  color: #232323;
   padding-bottom: 6px;
 }
 
@@ -18627,8 +18627,11 @@ textarea.form-control {
   bottom: 0;
 } */
 .newUILanding .activities.about {
-  background: linear-gradient(rgb(1 95 108 / 90%), rgb(118 223 209 / 90%)),
-    url(/static/img/bg.jpg);
+  background-image: 
+    url(/static/img/aboutqarar-bg-2.svg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    padding: 10vh 0;
 }
 .newUILanding .activities.about .container {
   display: flex;

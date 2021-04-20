@@ -115,9 +115,10 @@ const Landing = () => {
   };
   const getDrafts = async () => {
     const draftsResponse = await Api.get(
-      '/qarar_api/data/draft/2/DESC/1?_format=json'
+      '/qarar_api/data/draft/4/DESC/1?_format=json'
     );
     if (draftsResponse.ok) {
+      console.log(draftsResponse.data);
       setDrafts(draftsResponse.data);
     }
     const activeDraftsResponse = await Api.get(
@@ -295,7 +296,7 @@ const Landing = () => {
       <section className="activities green">
         <Container>
           <Row>
-            <Col xs="12" md="6" lg="6">
+            <Col xs="12" md="12" lg="12">
               <h2 className="header">
                 {translate('landingPage.recentlyQarars')}
               </h2>
@@ -308,7 +309,7 @@ const Landing = () => {
                 {drafts
                   .filter((item, index) => index < 6)
                   .map(item => (
-                    <Col className="mb-6" key={item.key} xs="12">
+                    <Col className="mb-6" key={item.key} xs="12" md="6" lg="6">
                       <Link href={`/draft-details/${item.id}`}>
                         <a>
                           <div className="oneActivity">
@@ -329,7 +330,7 @@ const Landing = () => {
                         <span className="modalUpdate" onClick={updateModal}>
                           <img
                             dir={translate('dir')}
-                            src="/static/img/interactive/calendar-2.svg"
+                            src="/static/img/decision/Path 2925.svg"
                             alt=""
                           />
                           12 {translate('landingPage.update')}
@@ -370,7 +371,7 @@ const Landing = () => {
                 }
               >
                 {activeDrafts
-                  .filter((item, index) => index < 6)
+                  .filter((item, index) => index < 4)
                   .map(item => (
                     <Col className="mb-3" key={item.key} xs="12">
                       <Link href={`/draft-details/${item.id}`}>
@@ -398,7 +399,7 @@ const Landing = () => {
                 }
               >
                 {drafts
-                  .filter((item, index) => index < 6)
+                  .filter((item, index) => index < 2)
                   .map(item => (
                     <Col className="mb-3" key={item.key} xs="12">
                       <Link href={`/draft-details/${item.id}`}>

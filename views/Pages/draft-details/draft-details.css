@@ -9,6 +9,36 @@
   bottom: 15px;
 }
 
+.user-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #40C2CC;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.user-card-name {
+  margin: 0;
+  color: #06706D;
+  font-weight: bold;
+}
+
+.user-card-points {
+  color: #06706D;
+}
+
+.border-right-line {
+  border-right: 1px solid #046F6D;
+}
+
+.border-right-line[dir='ltr'] {
+  border-right: 0;
+  border-left: 1px solid #046F6D;
+}
+
 .filter > * {
   color: var(--dark-gray);
   border-bottom: 2px solid var(--dark-gray);

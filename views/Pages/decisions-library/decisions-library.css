@@ -16,6 +16,16 @@
   margin: 0px 30px;
 }
 
+.draft-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-draft {
+  height: calc(100% - 40px);
+  margin: 20px 0 20px 0;
+}
+
 .drafts .tabs-content {
   margin-top: -48px;
 }

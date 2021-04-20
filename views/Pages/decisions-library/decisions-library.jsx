@@ -91,6 +91,7 @@ class DecisionsLibrary extends Component {
         )
       : await Api.get(`/qarar_api/data/system/0/DESC/1?_format=json`);
     if (draftsResponse.ok) {
+      console.log(draftsResponse.data);
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
   };
@@ -191,7 +192,7 @@ class DecisionsLibrary extends Component {
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>{translate('decisionsLibPage.decisionType')}</label>
+                    <label>{translate('decisionsLibPage.classification')}</label>
                     <select className="not-select2 form-control">
                       <option value="1">
                         {translate('decisionsLibPage.decisionOptionOne')}
@@ -206,7 +207,7 @@ class DecisionsLibrary extends Component {
                 <Col xs="12" md="4">
                   <div className="form-group">
                     <label htmlFor="orderDropDownList">
-                      {translate('decisionsLibPage.subtraction')}
+                      {translate('decisionsLibPage.subClassification')}
                     </label>
                     <select
                       id="orderDropDownList"
@@ -272,14 +273,16 @@ class DecisionsLibrary extends Component {
           <section className="draft-cards">
             {drafts.length ? (
               drafts.map(draft => (
+                <Col lg="6">
                 <CardDraft
+                  type='decision'
                   key={draft.id}
                   id={draft.id}
                   header={draft.title}
                   refetch={() => this.getDrafts()}
                   subHeader={`${translate(
-                    'decisionsLibPage.draftCard.votingCloses'
-                  )}${draft.end_date}`}
+                    'decisionsLibPage.draftCard.publication'
+                  )}${draft.end_date || ''}`}
                   content={draft.body}
                   date={draft.end_date}
                   link={`/decision-details/${draft.id}`}
@@ -295,6 +298,7 @@ class DecisionsLibrary extends Component {
                   disliked={draft.disliked}
                   subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
                 />
+                </Col>
               ))
             ) : (
               <Col className="text-start">

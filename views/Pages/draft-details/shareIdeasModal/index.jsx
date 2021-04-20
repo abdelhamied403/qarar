@@ -180,8 +180,8 @@ const ShareIdeasModal = props => {
         <div className="action-items-modal">
           <div style={{width: '10px'}} onMouseOver={e => setStarHoverIndex(0)}></div>
           <div className="star">
-            <img src={starHoverIndex > 0 ? "/static/img/Icon - dropdown - arrow down.svg" :
-                     "/static/img/Icon - dropdown - arrow down danger.svg"}
+            <img src={starHoverIndex > 0 ? "/static/img/Assets/star.svg" :
+                     "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(1)}
                  onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
@@ -189,8 +189,8 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption1')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 1 ? "/static/img/Icon - dropdown - arrow down.svg" :
-              "/static/img/Icon - dropdown - arrow down danger.svg"}
+            <img src={starHoverIndex > 1 ? "/static/img/Assets/star.svg" :
+              "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(2)}
                  onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
@@ -198,8 +198,8 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption2')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 2 ? "/static/img/Icon - dropdown - arrow down.svg" :
-              "/static/img/Icon - dropdown - arrow down danger.svg"}
+            <img src={starHoverIndex > 2 ? "/static/img/Assets/star.svg" :
+              "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(3)}
                  onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
@@ -207,8 +207,8 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption3')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 3 ? "/static/img/Icon - dropdown - arrow down.svg" :
-              "/static/img/Icon - dropdown - arrow down danger.svg"}
+            <img src={starHoverIndex > 3 ? "/static/img/Assets/star.svg" :
+              "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(4)}
                  onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
@@ -216,8 +216,8 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption4')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 4 ? "/static/img/Icon - dropdown - arrow down.svg" :
-              "/static/img/Icon - dropdown - arrow down danger.svg"}
+            <img src={starHoverIndex > 4 ? "/static/img/Assets/star.svg" :
+              "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(5)}
                  onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}

@@ -196,6 +196,8 @@ export const en = {
   decisionsLibPage: {
     title: 'Decisions Library',
     decisionType: 'Type of decision',
+    classification: 'Main classification',
+    subClassification: 'Sub-classification',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
@@ -206,7 +208,8 @@ export const en = {
     keywordsNoOptionsMessage: 'There are no options...',
     keywordsLoadingMessage: 'Download...',
     draftCard: {
-      votingCloses: 'Voting closes on '
+      votingCloses: 'Voting closes on ',
+      publication: 'Publication date '
     },
     noDecisions: 'There are no decisions right now.',
     archivedDecisions: 'Archived Decisions'
@@ -232,7 +235,7 @@ export const en = {
   },
   draftsUnderVotePage: {
     title: 'Drafts Under Vote',
-    decisionType: 'Type of decision',
+    decisionType: 'Type of draft',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
@@ -251,7 +254,7 @@ export const en = {
   },
   draftsAppliedPage: {
     title: 'Applied Drafts',
-    decisionType: 'Type of decision',
+    decisionType: 'Type of draft',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
@@ -270,7 +273,7 @@ export const en = {
   },
   archivedDraftsPage: {
     title: 'Archived Drafts',
-    decisionType: 'Type of decision',
+    decisionType: 'Type of draft',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
@@ -290,6 +293,8 @@ export const en = {
   decisionPage: {
     title: 'Modified Decisions',
     decisionType: 'Type of decision',
+    classification: 'Main classification',
+    subClassification: 'Sub-classification',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
@@ -379,6 +384,7 @@ export const en = {
   },
   draftDetails: {
     decisions: 'Decisions',
+    drafts: 'Drafts',
     voteClosed: 'Voting closed on',
     application: 'Applied on',
     votingCloses: 'Voting closes on',
@@ -395,6 +401,16 @@ export const en = {
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'Charts',
+    chartTitle: 'The percentage of satisfaction of the beneficiaries of the Balady platform',
+    chartTypeOne: 'Very supporter',
+    chartTypeTwo: 'Supporter',
+    chartTypeThree: 'Neutral',
+    chartTypeFour: 'Not supported',
+    chartTypeFive: 'Never supported',
+    mostCommented: 'Most commented',
+    mostVoted: 'Most voted',
+    userName:'User Name',
+    points: '120 Points',
     openAll: 'Open All',
     closeAll: 'Close All',
     shareDraft: 'Share this article',

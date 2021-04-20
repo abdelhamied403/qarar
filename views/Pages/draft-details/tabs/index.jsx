@@ -42,7 +42,7 @@ const TabsOptions = (props) => {
           <NavLink
             className={classnames({
               active: activeTab === '2',
-              borderright0: true
+              borderRight: true
             })}
             onClick={() => {
               toggle('2');
@@ -55,7 +55,7 @@ const TabsOptions = (props) => {
           <NavLink
             className={classnames({
               active: activeTab === '3',
-              borderright0: true
+              borderRight: true
             })}
             onClick={() => {
               toggle('3');

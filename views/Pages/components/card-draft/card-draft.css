@@ -16,6 +16,14 @@
 .flex-card .content {
   flex: 9;
 }
+
+.wrap {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 .flex-card .side {
   flex: 1;
 }

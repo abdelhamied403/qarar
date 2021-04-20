@@ -184,7 +184,7 @@ class Decision extends Component {
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>{translate('decisionPage.decisionType')}</label>
+                    <label>{translate('decisionPage.classification')}</label>
                     <select className="not-select2 form-control">
                       <option value="1">{translate('decisionPage.decisionOptionOne')}</option>
                       <option value="2">{translate('decisionPage.decisionOptionTwo')}</option>
@@ -194,7 +194,7 @@ class Decision extends Component {
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('decisionPage.subtraction')}</label>
+                    <label htmlFor="orderDropDownList">{translate('decisionPage.subClassification')}</label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
