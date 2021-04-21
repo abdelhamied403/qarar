@@ -232,8 +232,8 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
-    archivedDecisions: 'القرارات المؤرشفة'
+    noDecisions: 'لا توجد مسودات تحت التصويت الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'المسودات المؤرشفة'
   },
   draftsAppliedPage: {
     title: 'مسودات مطبقة',
@@ -250,8 +250,8 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
-    archivedDecisions: 'القرارات المؤرشفة'
+    noDecisions: 'لا توجد مسودات مطبقة الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'المسودات المؤرشفة'
   },
   archivedDraftsPage: {
     title: 'مسودات مؤرشفة',
@@ -268,8 +268,8 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
-    archivedDecisions: 'القرارات المؤرشفة'
+    noDecisions: 'لا توجد مسودات مؤرشفة الآن .. ',
+    archivedDecisions: ''
   },
   decisionPage: {
     title: 'القرارات المعدلة',
@@ -387,7 +387,8 @@ export const ar = {
     chartTypeFour: 'غير مؤيد',
     chartTypeFive: 'غير مؤيد أبدا',
     mostCommented: 'الاكثر تعليقا',
-    mostVoted: 'الاكثر تصويتا',
+    mostDrafts: 'المواد الاكثر مشاركة',
+    mostVoted: 'ابرز المشاركين',
     userName:'اسم المستخدم',
     points: '120 نقطة',
     openAll: 'فتح الكل',

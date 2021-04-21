@@ -293,7 +293,7 @@ const Landing = () => {
           </div>
         </Container>
       </section>
-      <section className="activities green">
+      <section className="activities green recently-qarars">
         <Container>
           <Row>
             <Col xs="12" md="12" lg="12">
@@ -310,7 +310,7 @@ const Landing = () => {
                   .filter((item, index) => index < 6)
                   .map(item => (
                     <Col className="mb-6" key={item.key} xs="12" md="6" lg="6">
-                      <Link href={`/draft-details/${item.id}`}>
+                      <Link href={`/decision-details/${item.id}`}>
                         <a>
                           <div className="oneActivity">
                             <h4>{item.title}</h4>
@@ -341,7 +341,7 @@ const Landing = () => {
               </Row>
 
               <div className="text-right d-flex">
-                <Link href="/drafts">
+                <Link href="/decisions-library">
                   <Button outline color="primary" size="md">
                     {translate('landingPage.allQarars')}
                     <img

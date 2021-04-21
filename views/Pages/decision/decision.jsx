@@ -251,85 +251,12 @@ class Decision extends Component {
             </Container>
           </section>
           <section className="tabs-content text-start">
-            <Nav tabs>
-              <NavItem>
-                <NavLink
-                  active={this.state.activeTab[0] === '1'}
-                  onClick={() => {
-                    this.toggle(0, '1');
-                  }}
-                >
-                  {translate('decisionPage.applicableDecisions')}
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  active={this.state.activeTab[0] === '2'}
-                  onClick={() => {
-                    this.toggle(0, '2');
-                  }}
-                >
-                  {translate('decisionPage.archivedDecisions')}
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.activeTab[0]}>
-              <TabPane tabId="1">
-                <>
-                  <section className="p-0">
-                    <Row className="mb-3">
-                      <Col>{translate('decisionPage.decisionsImplemented')}</Col>
-                    </Row>
-                    <Row>
-                      {appliedItems.length ? (
-                        appliedItems.map(item => (
-                          <Col key={item.id} xs="12" md="6">
-                            <CardDraft
-                              header={item.title}
-                              subHeader={`${translate('decisionPage.appliedItemsDate')}${item.end_date}`}
-                              content={`${item.body.substr(0, 200)} ...`}
-                              tags={item.tags.map(tag => ({
-                                tag: tag.name.substr(0, 20),
-                                id: tag.id
-                              }))}
-                              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                              date=" "
-                              borderColor="#9D9D9D"
-                              link={`/draft-details/${item.id}`}
-                            />
-                          </Col>
-                        ))
-                      ) : (
-                        <Col>
-                          <Alert type="sucess">
-                            {translate('decisionPage.noDecisionsImplemented')}
-                          </Alert>
-                        </Col>
-                      )}
-                    </Row>
-                  </section>
-                  <div className="pagination-container">
-                    <Pagination
-                      total={appliedCount}
-                      pageSize={appliedPageSize}
-                      current={page}
-                      onChange={pageCurrent =>
-                        this.setState({ page: pageCurrent }, () =>
-                          this.getAppliedItems()
-                        )
-                      }
-                      className="pagination"
-                      itemRender={this.paginagtionItemRender}
-                    />
-                  </div>
-                </>
-              </TabPane>
+  
+      
               <TabPane tabId="2">
                 <>
                   <section className="p-0">
-                    <Row className="mb-3">
-                      <Col>{translate('decisionPage.archivedDecisionsNotImplemented')}</Col>
-                    </Row>
+               
                     <Row>
                       {archivedItems.length ? (
                         archivedItems.map(item => (
@@ -376,7 +303,6 @@ class Decision extends Component {
                   </div>
                 </>
               </TabPane>
-            </TabContent>
           </section>
         </Container>
       </>

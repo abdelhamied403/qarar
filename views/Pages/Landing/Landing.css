@@ -149,6 +149,7 @@
 .newUILanding .activities {
   background-color: #fff;
 }
+
 .newUILanding .activities h2 {
   color: #84bc47;
   font-weight: 600;
@@ -503,7 +504,9 @@
   display: flex;
   justify-content: center;
 }
+
 .item-body-modal {
   max-height: 50vh;
   overflow-y: scroll;
 }
+

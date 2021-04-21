@@ -292,7 +292,7 @@ class DraftsApplied extends Component {
               <Col className="text-start">
                 <Alert type="sucess">
                   {translate('draftsAppliedPage.noDecisions')}
-                  <Link href="/decisions">
+                  <Link href="/archived-drafts">
                     <a>{translate('draftsAppliedPage.archivedDecisions')}</a>
                   </Link>
                 </Alert>

@@ -20403,3 +20403,7 @@ a#loginWithBaladyLink img {
 .drop-nav .dropdown-menu button:hover {
   background-color: white;
 }
+
+.newUILanding .activities.recently-qarars{
+  border-bottom: 5px solid #ECEFF4;
+}

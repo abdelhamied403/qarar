@@ -839,29 +839,12 @@ class DraftDetailsInfo extends Component {
                     </Row>
                   </Col>
                   <Col md="4" className="border-right-line" dir={translate('dir')}>
-                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.mostCommented')}</p>
+                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.mostDrafts')}</p>
                     <Row>
                       <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src='/static/img/Group 991.svg'/>
-                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
-                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
-                        </div>
+                     
                       </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card" >
-                          <img src='/static/img/Group 991.svg'/>
-                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
-                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
-                        </div>
-                      </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src='/static/img/Group 991.svg'/>
-                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
-                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
-                        </div>
-                      </Col>
+                 
                     </Row>
                   </Col>
                   <Col md="4" className="border-right-line" dir={translate('dir')}>
@@ -1077,16 +1060,25 @@ class DraftDetailsInfo extends Component {
             </div>
           </Container>
         </div>
+  
         <CommentSteps
-          title="المسودة"
-          open={modalOpen}
-          id={this.props.draftId}
-          canVote={!!openArticle}
-          uid={uid}
-          getDraft={() => this.getDraft()}
-          getComments={() => this.getComments()}
-          accessToken={this.props.accessToken}
-        />
+        open={modalOpen}
+        id={selectedSubject}
+        canVote={!!openArticle}
+        uid={uid}
+        getDraft={() => this.getDraft()}
+        getComments={() => this.getComments()}
+        accessToken={this.props.accessToken}
+        // like={() => this.vote('like', selectedSubject)}
+        // disLike={() => this.vote('dislike', selectedSubject)}
+        // saveComment={() => this.saveDraftDetailsComment()}
+        close={() =>
+          this.setState({
+            modalOpen: false
+          })
+        }
+      />
+
         {/*  <Container>
           <div className="description">
             <CardDraft

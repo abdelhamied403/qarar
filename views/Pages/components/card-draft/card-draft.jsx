@@ -269,7 +269,6 @@ class CardDraft extends Component {
             ) : (
               <Link href="/">
                 <a color="link" className="btn btn-link">
-                  {translate('cardDraft.modificationRequest')}
                 </a>
               </Link>
             )}

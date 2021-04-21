@@ -292,7 +292,7 @@ class DraftsUnderVote extends Component {
               <Col className="text-start">
                 <Alert type="sucess">
                   {translate('draftsUnderVotePage.noDecisions')}
-                  <Link href="/decisions">
+                  <Link href="/archived-drafts">
                     <a>{translate('draftsUnderVotePage.archivedDecisions')}</a>
                   </Link>
                 </Alert>
