@@ -182,6 +182,7 @@ export const ar = {
     title: 'مكتبة القرارات',
     decisionType: 'نوع القرار',
     classification: 'التصنيف الرئيسي',
+    choose: 'اختر',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',

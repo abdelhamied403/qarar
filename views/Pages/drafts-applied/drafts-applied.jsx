@@ -83,14 +83,14 @@ class DraftsApplied extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&status=applied`,
+        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`,
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` }
         }
       )
       : await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&status=applied`
+        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`
       );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });

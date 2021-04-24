@@ -197,6 +197,7 @@ export const en = {
     title: 'Decisions Library',
     decisionType: 'Type of decision',
     classification: 'Main classification',
+    choose: 'Choose',
     subClassification: 'Sub-classification',
     decisionOptionOne: 'Draft complete system',
     decisionOptionTwo: 'Article',

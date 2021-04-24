@@ -83,14 +83,14 @@ class ArchivedDrafts extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&status=archived`,
+        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=archived`,
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` }
         }
       )
       : await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&status=archived`
+        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=archived`
       );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });

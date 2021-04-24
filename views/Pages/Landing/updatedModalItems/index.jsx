@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { translate } from '../../../../utlis/translation';
 import moment from 'moment';
 import './style.css';
+import Link from 'next/link';
 
 const UpdatedItemsModal = props => {
   const { title, toggle, items, setToggle } = props;
@@ -26,12 +27,12 @@ const UpdatedItemsModal = props => {
               alt=""
             />
             <span>
-              {items.length} {translate('landingPage.update')}
+              {items && items.length} {translate('landingPage.update')}
             </span>
           </div>
         </div>
         <ModalBody className="item-body-modal">
-          {items.map(item => {
+          {items && items.map(item => {
             return (
               <div className="item-update">
                 <div>
@@ -44,16 +45,16 @@ const UpdatedItemsModal = props => {
                     />
                     <span>
                       {translate('landingPage.votingStart')}{' '}
-                      {moment(item.updatedAt * 1000).format(
-                        'dddd, D MMMM YYYY'
-                      )}
+                      {item.publishDate}
                     </span>
                   </p>
                 </div>
                 <div>
-                  <Button outline color="primary" size="md">
-                    {translate('landingPage.showDraft')}
-                  </Button>
+                  <Link href={`/draft-details/${item.id}`}>
+                    <Button outline color="primary" size="md">
+                      {translate('landingPage.showDraft')}
+                    </Button>
+                  </Link>
                 </div>
               </div>
             );

@@ -91,6 +91,7 @@ class DecisionDetailsInfo extends Component {
   }
 
   componentDidMount() {
+    this.updateVisits();
     this.getDecision();
     // this.getComments();
     this.isFollowed();
@@ -189,6 +190,17 @@ class DecisionDetailsInfo extends Component {
     Events.scrollEvent.remove('end');
   }
 
+  updateVisits = async () => {
+    const { decisionId, accessToken } = this.props;
+    const itemResponse = await Api.post(
+      `/qarar_api/update-visits-number?_format=json`,
+      {id: decisionId}
+    );
+    if (itemResponse.ok) {
+      console.log(itemResponse);
+    }
+  };
+
   getDecision = async () => {
     const { decisionId, accessToken } = this.props;
     const { breadcrumbs } = this.state;
@@ -201,17 +213,18 @@ class DecisionDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       console.log(itemResponse);
-      const { items, data } = itemResponse.data;
+      const { data } = itemResponse.data;
+      const { items } = data;
       const openArticle =
         new Date(data.end_date).getTime() > new Date().getTime();
-      if (items) {
-        items.map(item => item.modified_id && this.getEdits(item.nid));
-        items.map((item, index) => {
-          item.openArticle =
-            new Date(item.end_date).getTime() > new Date().getTime();
-          return item;
-        });
-      }
+      // if (items) {
+        // items.map(item => item.modified_id && this.getEdits(item.nid));
+        // items.map((item, index) => {
+        //   item.openArticle =
+        //     new Date(item.end_date).getTime() > new Date().getTime();
+        //   return item;
+        // });
+      // }
       console.log('items ', items);
       this.setState(
         { decision: data, items, loadingDecision: false, openArticle },
@@ -266,7 +279,7 @@ class DecisionDetailsInfo extends Component {
             <DropdownItem
               className="border-bottom"
               onClick={() => this.setState({ selected: item })}
-              key={item.nid}
+              key={item.id}
               value={item}
             >
               {item.title}{' '}
@@ -547,7 +560,7 @@ class DecisionDetailsInfo extends Component {
                         </Link>
                       </li>
                     </ul>
-                    <h2>{decision.title}</h2>
+                    <h2>{decision && decision.title}</h2>
                     <div className="sub-header">
                       <Media
                         object
@@ -558,16 +571,8 @@ class DecisionDetailsInfo extends Component {
                       <span>
                         {translate('decisionDetails.published')}
                         {' '}
-                        {moment(decision.applied_date).format(
-                          'dddd, D MMMM YYYY'
-                        )}
+                        {decision && decision.publisheDate}
                         </span>
-                      {decision.archived_date && (
-                        <span>
-                          {translate('decisionDetails.voteClosed')}
-                          {decision.archived_date}
-                        </span>
-                      )}
                     </div>
                   </div>
                 </Col>
@@ -581,7 +586,7 @@ class DecisionDetailsInfo extends Component {
                           src="/static/img/decision/Group 1423.svg"
                         />
                       </div>
-                      <p>{decision.followers || '260'}</p>
+                      <p>{(decision && decision.visits_number) || '260'}</p>
                       <h5>{translate('decisionDetails.views')}</h5>
                     </div>
                     <div>
@@ -592,7 +597,7 @@ class DecisionDetailsInfo extends Component {
                           src="/static/img/decision/Group 1424.svg"
                         />
                       </div>
-                      <p>{decision.comments || '98'}</p>
+                      <p>{(decision && decision.modificationsCount) || '98'}</p>
                       <h5>{translate('decisionDetails.modification')}</h5>
                     </div>
                     <div>
@@ -603,7 +608,7 @@ class DecisionDetailsInfo extends Component {
                           src="/static/img/decision/Group 1425.svg"
                         />
                       </div>
-                      <p>{decision.articles || '12'}</p>
+                      <p>{(decision && decision.itemsCount) || '12'}</p>
                       <h5> {translate('decisionDetails.article')}</h5>
                     </div>
                   </div>
@@ -634,9 +639,7 @@ class DecisionDetailsInfo extends Component {
                           :{' '}
                         </p>
                         <span>
-                          {moment(decision.applied_date).format(
-                            'dddd, D MMMM YYYY'
-                          )}
+                          {decision && decision.publisheDate}
                         </span>
                       </div>
                     </div>
@@ -714,7 +717,7 @@ class DecisionDetailsInfo extends Component {
                     {' '}
                     <Button
                       onClick={() => {
-                        items.map(item => this.setState({ [item.nid]: true }));
+                        items.map(item => this.setState({ [item.id]: true }));
                       }}
                     >
                       <span>+</span>
@@ -722,7 +725,7 @@ class DecisionDetailsInfo extends Component {
                     </Button>
                     <Button
                       onClick={() => {
-                        items.map(item => this.setState({ [item.nid]: false }));
+                        items.map(item => this.setState({ [item.id]: false }));
                       }}
                     >
                       <span>-</span>
@@ -758,13 +761,13 @@ class DecisionDetailsInfo extends Component {
 
   subjectsList = (item, openArticle, uid) => {
     return (
-      <Card key={item.nid} className="cardDraft text-justify collapseDraftCard">
+      <Card key={item.id} className="cardDraft text-justify collapseDraftCard">
         <CardHeader
           className="d-flex justify-content-between"
-          style={{
-            backgroundColor: item.modified_id && '#ee5253'
-          }}
-          onClick={() => this.setState({ [item.nid]: !this.state[item.nid] })}
+          // style={{
+          //   backgroundColor: item.modified_id && '#ee5253'
+          // }}
+          onClick={() => this.setState({ [item.id]: !this.state[item.id] })}
         >
           <p>{item.title}</p>
           <div className="dratCartTitlelt d-flex">
@@ -775,8 +778,8 @@ class DecisionDetailsInfo extends Component {
                   onClick={e => {
                     e.stopPropagation();
                     this.setState({
-                      [`modified-${item.nid}`]: !this.state[
-                        `modified-${item.nid}`
+                      [`modified-${item.id}`]: !this.state[
+                        `modified-${item.id}`
                       ]
                     });
                   }}
@@ -797,24 +800,24 @@ class DecisionDetailsInfo extends Component {
             <img
               src="/static/img/interactive/whiteTabs.svg"
               alt=""
-              className={this.state[item.nid] ? 'rotated' : ''}
+              className={this.state[item.id] ? 'rotated' : ''}
             />
           </div>
         </CardHeader>
-        {this.state[`modified-${item.nid}`] && (
+        {this.state[`modified-${item.id}`] && (
           <DecisionEdits
-            edits={this.state[`edit-${item.nid}`]?.modifications}
+            edits={this.state[`edit-${item.id}`]?.modifications}
           />
         )}
         <CardBody
           style={
-            this.state[item.nid] ? { display: 'block' } : { display: 'none' }
+            this.state[item.id] ? { display: 'block' } : { display: 'none' }
           }
         >
           <Row className="mt-3">
             <Col md="7" className="draftBodyRt">
-              <p>{renderHTML(item.body_value || '')}</p>
-              <Link href={`/draft-details/${item.nid}`}>
+              <p>{renderHTML(item.body || '')}</p>
+              <Link href={`/draft-details/${item.id}`}>
                 <Button
                   className="btn-inline-block"
                   onMouseOut={() => {

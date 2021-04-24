@@ -83,14 +83,14 @@ class DraftsUnderVote extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/draft/0/DESC/1?_format=json&status=voting`,
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=voting`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
           }
         )
       : await Api.get(
-          `/qarar_api/data/draft/0/DESC/1?_format=json&status=voting`
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=voting`
         );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });

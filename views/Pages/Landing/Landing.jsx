@@ -64,6 +64,8 @@ const Landing = () => {
   const [draftCount, setDraftCount] = useState('');
   const [aboutData, setAboutData] = useState({});
   const [drafts, setDrafts] = useState([]);
+  const [decisions, setDecisions] = useState([]);
+  const [selectedDecision, setSelectedDecision] = useState();
   const [activeDrafts, setActiveDrafts] = useState([]);
   const [soonCloseDrafts, setSoonCloseDrafts] = useState([]);
   const [news, setNews] = useState([]);
@@ -103,7 +105,8 @@ const Landing = () => {
       setDraftCount(draftCountResponse.data);
     }
   };
-  const updateModal = async () => {
+  const updateModal = async (selectedItem) => {
+    setSelectedDecision(selectedItem);
     setToggle(true);
   };
 
@@ -134,6 +137,17 @@ const Landing = () => {
       setSoonCloseDrafts(soonCloseDraftsResponse.data);
     }
   };
+
+  const getDecisions = async () => {
+    const decisionsResponse = await Api.get(
+      '/qarar_api/latest-decisions?limit=4'
+    );
+    if (decisionsResponse.ok) {
+      console.log(decisionsResponse.data);
+      setDecisions(decisionsResponse.data);
+    }
+  };
+
   const getNews = async () => {
     const newsResponse = await Api.get(
       '/qarar_api/data/news/3/DESC/1?_format=json'
@@ -176,6 +190,7 @@ const Landing = () => {
     getUserCount();
     getDraftCount();
     getDrafts();
+    getDecisions();
     getNews();
     getAbout();
     getLikesPercentage();
@@ -306,8 +321,8 @@ const Landing = () => {
                   activeBtn === 1 ? { display: 'flex' } : { display: 'none' }
                 }
               >
-                {drafts
-                  .filter((item, index) => index < 6)
+                {decisions && decisions
+                  .filter((item, index) => index < 4)
                   .map(item => (
                     <Col className="mb-6" key={item.key} xs="12" md="6" lg="6">
                       <Link href={`/decision-details/${item.id}`}>
@@ -324,16 +339,14 @@ const Landing = () => {
                           alt=""
                         />
                         {translate('landingPage.votingStart')}{' '}
-                        {moment(item.creatednode * 1000).format(
-                          'dddd, D MMMM YYYY'
-                        )}
-                        <span className="modalUpdate" onClick={updateModal}>
+                        {item.publishDate}
+                        <span className="modalUpdate" onClick={() => updateModal(item)}>
                           <img
                             dir={translate('dir')}
                             src="/static/img/decision/Path 2925.svg"
                             alt=""
                           />
-                          12 {translate('landingPage.update')}
+                          {item.modificationsCount} {translate('landingPage.update')}
                         </span>
                       </p>
                     </Col>
@@ -796,8 +809,8 @@ const Landing = () => {
         </Container>
       </section>
       <UpdatedItemsModal
-        title={'عنوان هنااااااا'}
-        items={items}
+        title={selectedDecision && selectedDecision?.title}
+        items={selectedDecision && selectedDecision?.modifications}
         toggle={toggle}
         setToggle={() => setToggle(!toggle)}
       />

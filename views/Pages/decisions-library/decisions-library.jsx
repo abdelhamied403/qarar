@@ -37,11 +37,16 @@ class DecisionsLibrary extends Component {
       loading: true,
       tags: [],
       selectedTag: false,
-      selectedDate: 0
+      selectedDate: 0,
+      systemOptions: [],
+      vocabularyOptions: [],
+      selectedMainCategoryId: -1,
+      selectedSubCategoryId: -1,
     };
   }
 
   componentDidMount() {
+    this.getOptions();
     this.getDrafts();
     this.getTags();
   }
@@ -57,15 +62,15 @@ class DecisionsLibrary extends Component {
 
   getDrafts = async () => {
     const { accessToken } = this.props;
-    const { page, draftsPageSize, selectedTag, selectedDate } = this.state;
-    const draftCountResponse = await Api.get(
-      `/qarar_api/count/voting_qarar?_format=json${
-        selectedTag ? `&tag=${selectedTag}` : ''
-      }${selectedDate ? `&ends=-1 month` : ''}`
-    );
-    if (draftCountResponse.ok) {
-      this.setState({ draftCount: draftCountResponse.data });
-    }
+    const { page, draftsPageSize, selectedTag, selectedDate, selectedSubCategoryId, selectedMainCategoryId } = this.state;
+    // const draftCountResponse = await Api.get(
+    //   `/qarar_api/count/voting_qarar?_format=json${
+    //     selectedTag ? `&tag=${selectedTag}` : ''
+    //   }${selectedDate ? `&ends=-1 month` : ''}`
+    // );
+    // if (draftCountResponse.ok) {
+      this.setState({ draftCount: 1 });
+    // }
     // const draftsResponse = accessToken
     //   ? await Api.get(
     //       `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
@@ -83,42 +88,49 @@ class DecisionsLibrary extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/system/0/DESC/1?_format=json`,
+          `/qarar_api/data/system/0/DESC/1?_format=json${selectedSubCategoryId !== -1 ? '&main_category='+selectedSubCategoryId : ''}${selectedMainCategoryId !== -1 ? '&sub_category='+selectedMainCategoryId : ''}`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
           }
         )
-      : await Api.get(`/qarar_api/data/system/0/DESC/1?_format=json`);
+      : await Api.get(`/qarar_api/data/system/0/DESC/1?_format=json${selectedSubCategoryId !== -1 ? '&main_category='+selectedSubCategoryId : ''}${selectedMainCategoryId !== -1 ? '&sub_category='+selectedMainCategoryId : ''}`);
     if (draftsResponse.ok) {
       console.log(draftsResponse.data);
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
   };
 
-  getItems = async () => {
+  getOptions = async () => {
     const { accessToken } = this.props;
-    const { itemsPage, itemsPageSize } = this.state;
-    const itemsCountResponse = await Api.get(
-      `/qarar_api/count/item?_format=json`
-    );
-    if (itemsCountResponse.ok) {
-      this.setState({ itemsCount: itemsCountResponse.data });
-    }
-    const itemsResponse = accessToken
+    const systemOptionsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${accessToken}` }
-          }
-        )
-      : await Api.get(
-          `/qarar_api/data/item/${itemsPageSize}/DESC/${itemsPage}?_format=json`
-        );
-    if (itemsResponse.ok) {
-      this.setState({ items: itemsResponse.data });
+        `/qarar_api/load/vocabulary/systems_types?_format=json`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        }
+      )
+      : await Api.get(`/qarar_api/load/vocabulary/systems_types?_format=json`);
+    if (systemOptionsResponse.ok) {
+      console.log(systemOptionsResponse.data);
+      this.setState({ systemOptions: systemOptionsResponse.data});
     }
+
+    const vocabularyOptionsResponse = accessToken
+      ? await Api.get(
+        `/qarar_api/load/vocabulary/altshry_at?_format=json`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        }
+      )
+      : await Api.get(`/qarar_api/load/vocabulary/altshry_at?_format=json`);
+    if (vocabularyOptionsResponse.ok) {
+      console.log(vocabularyOptionsResponse.data);
+      this.setState({ vocabularyOptions: vocabularyOptionsResponse.data});
+    }
+
   };
 
   toggle(tabPane, tab) {
@@ -174,7 +186,11 @@ class DecisionsLibrary extends Component {
       page,
       tags,
       loading,
-      selectedDate
+      selectedDate,
+      systemOptions,
+      vocabularyOptions,
+      selectedSubCategoryId,
+      selectedMainCategoryId
     } = this.state;
     if (loading) {
       return <Skeleton />;
@@ -193,13 +209,27 @@ class DecisionsLibrary extends Component {
                 <Col xs="12" md="4">
                   <div className="form-group">
                     <label>{translate('decisionsLibPage.classification')}</label>
-                    <select className="not-select2 form-control">
-                      <option value="1">
-                        {translate('decisionsLibPage.decisionOptionOne')}
+                    <select className="not-select2 form-control"
+                            value={selectedMainCategoryId}
+                            onChange={e =>
+                              this.setState(
+                                { selectedMainCategoryId: parseInt(e.target.value, 10) },
+                                () => this.getDrafts()
+                              )
+                            }
+                    >
+                      <option value="-1">
+                        {translate('decisionsLibPage.choose')} {' '}
+                        {translate('decisionsLibPage.classification')}
                       </option>
-                      <option value="2">
-                        {translate('decisionsLibPage.decisionOptionTwo')}
-                      </option>
+                      {
+                        systemOptions &&
+                        systemOptions.map(option => (
+                          <option value={option.id}>
+                            {option.name}
+                          </option>
+                        ))
+                      }
                     </select>
                   </div>
                 </Col>
@@ -212,20 +242,26 @@ class DecisionsLibrary extends Component {
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
-                      value={selectedDate}
+                      value={selectedSubCategoryId}
                       onChange={e =>
                         this.setState(
-                          { selectedDate: parseInt(e.target.value, 10) },
+                          { selectedSubCategoryId: parseInt(e.target.value, 10) },
                           () => this.getDrafts()
                         )
                       }
                     >
-                      <option value={0}>
-                        {translate('decisionsLibPage.subtractionOptionOne')}
+                      <option value="-1">
+                        {translate('decisionsLibPage.choose')} {' '}
+                        {translate('decisionsLibPage.subClassification')}
                       </option>
-                      <option value={1}>
-                        {translate('decisionsLibPage.subtractionOptionTwo')}
-                      </option>
+                      {
+                        vocabularyOptions &&
+                        vocabularyOptions.map(option => (
+                          <option value={option.id}>
+                            {option.name}
+                          </option>
+                        ))
+                      }
                     </select>
                   </div>
                 </Col>
@@ -271,7 +307,7 @@ class DecisionsLibrary extends Component {
             </Container>
           </section>
           <section className="draft-cards">
-            {drafts.length ? (
+            {(drafts && drafts.length) ? (
               drafts.map(draft => (
                 <Col lg="6">
                 <CardDraft
@@ -282,9 +318,9 @@ class DecisionsLibrary extends Component {
                   refetch={() => this.getDrafts()}
                   subHeader={`${translate(
                     'decisionsLibPage.draftCard.publication'
-                  )}${draft.end_date || ''}`}
+                  )}${draft.publisheDate || ''}`}
                   content={draft.body}
-                  date={draft.end_date}
+                  date={draft.publisheDate}
                   link={`/decision-details/${draft.id}`}
                   tags={
                     draft.tags
