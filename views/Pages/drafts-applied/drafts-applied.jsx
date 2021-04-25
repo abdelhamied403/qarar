@@ -83,15 +83,15 @@ class DraftsApplied extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
       : await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`
-      );
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`
+        );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
@@ -195,15 +195,21 @@ class DraftsApplied extends Component {
                   <div className="form-group">
                     <label>{translate('draftsAppliedPage.decisionType')}</label>
                     <select className="not-select2 form-control">
-                      <option value="1">{translate('draftsAppliedPage.decisionOptionOne')}</option>
-                      <option value="2">{translate('draftsAppliedPage.decisionOptionTwo')}</option>
+                      <option value="1">
+                        {translate('draftsAppliedPage.decisionOptionOne')}
+                      </option>
+                      <option value="2">
+                        {translate('draftsAppliedPage.decisionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('draftsAppliedPage.subtraction')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('draftsAppliedPage.subtraction')}
+                    </label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -215,14 +221,20 @@ class DraftsApplied extends Component {
                         )
                       }
                     >
-                      <option value={0}>{translate('draftsAppliedPage.subtractionOptionOne')}</option>
-                      <option value={1}>{translate('draftsAppliedPage.subtractionOptionTwo')}</option>
+                      <option value={0}>
+                        {translate('draftsAppliedPage.subtractionOptionOne')}
+                      </option>
+                      <option value={1}>
+                        {translate('draftsAppliedPage.subtractionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('draftsAppliedPage.keywords')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('draftsAppliedPage.keywords')}
+                    </label>
                     <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
@@ -238,7 +250,9 @@ class DraftsApplied extends Component {
                           : []
                       }
                       isClearable
-                      placeholder={translate('draftsAppliedPage.keywordsPlaceholder')}
+                      placeholder={translate(
+                        'draftsAppliedPage.keywordsPlaceholder'
+                      )}
                       noOptionsMessage={() =>
                         translate('draftsAppliedPage.keywordsNoOptionsMessage')
                       }

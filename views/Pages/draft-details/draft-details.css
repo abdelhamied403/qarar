@@ -15,28 +15,28 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  border: 1px solid #40C2CC;
+  border: 1px solid #40c2cc;
   border-radius: 5px;
   padding: 5px;
 }
 
 .user-card-name {
   margin: 0;
-  color: #06706D;
+  color: #06706d;
   font-weight: bold;
 }
 
 .user-card-points {
-  color: #06706D;
+  color: #06706d;
 }
 
 .border-right-line {
-  border-right: 1px solid #046F6D;
+  border-right: 1px solid #046f6d;
 }
 
 .border-right-line[dir='ltr'] {
   border-right: 0;
-  border-left: 1px solid #046F6D;
+  border-left: 1px solid #046f6d;
 }
 
 .filter > * {

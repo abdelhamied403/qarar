@@ -6,7 +6,7 @@ import {
   ModalBody,
   Button,
   Alert,
-  Spinner
+  Spinner, Row, Col
 } from 'reactstrap';
 import Link from 'next/link';
 
@@ -22,9 +22,10 @@ import { translate } from '../../../../utlis/translation';
 const ModalState = {
   RATE: 0,
   ASK_TO_ADD_COMMENT: 1,
-  CHOSE_COMMENT: 2,
-  COMMENT: 3,
-  END: 4
+  FILL_FORM: 2,
+  CHOSE_COMMENT: 3,
+  COMMENT: 4,
+  END: 5
 };
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -39,18 +40,39 @@ const ShareIdeasModal = props => {
     canVote,
     accessToken,
     getDraft,
-    getComments
+    getComments,
+    getLegalCapacity,
+    getCity,
+    getInvestmentField,
   } = props;
   const [state, setState] = useState(ModalState.RATE);
   const [starHoverIndex , setStarHoverIndex] = useState(0);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [loading, setLoading] = useState(false);
+  const [selectedLegalCapacity, setSelectedLegalCapacity] = useState(-1);
+  const [selectedCity, setSelectedCity] = useState(-1);
+  const [selectedInvestmentField, setSelectedInvestmentField] = useState(-1);
+  const [legalCapacityList, setLegalCapacityList] = useState([]);
+  const [cityList, setCityList] = useState([]);
+  const [investmentFieldList, setInvestmentFieldList] = useState([]);
   const [msg, setMsg] = useState({
     error: false,
     txt: '',
     show: false
   });
+
+  const updateLists = async () => {
+    const list = await getLegalCapacity();
+    const list2 = await getCity();
+    const list3 = await getInvestmentField();
+    console.log(list);
+    setLegalCapacityList(list);
+    setCityList(list2);
+    setInvestmentFieldList(list3)
+  };
+
   useEffect(() => {
+    updateLists();
     setState(ModalState.RATE);
   }, [open]);
 
@@ -180,7 +202,7 @@ const ShareIdeasModal = props => {
         <div className="action-items-modal">
           <div style={{width: '10px'}} onMouseOver={e => setStarHoverIndex(0)}></div>
           <div className="star">
-            <img src={starHoverIndex > 0 ? "/static/img/Assets/star.svg" :
+            <img src={starHoverIndex > 0 ? "/static/img/Assets/star (-3.svg" :
                      "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(1)}
@@ -189,7 +211,7 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption1')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 1 ? "/static/img/Assets/star.svg" :
+            <img src={starHoverIndex > 1 ? "/static/img/Assets/star (-3.svg" :
               "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(2)}
@@ -198,7 +220,7 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption2')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 2 ? "/static/img/Assets/star.svg" :
+            <img src={starHoverIndex > 2 ? "/static/img/Assets/star (-3.svg" :
               "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(3)}
@@ -207,7 +229,7 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption3')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 3 ? "/static/img/Assets/star.svg" :
+            <img src={starHoverIndex > 3 ? "/static/img/Assets/star (-3.svg" :
               "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(4)}
@@ -216,7 +238,7 @@ const ShareIdeasModal = props => {
             <span>{translate('draftDetails.shareIdeasModal.stepOneOption4')}</span>
           </div>
           <div className="star">
-            <img src={starHoverIndex > 4 ? "/static/img/Assets/star.svg" :
+            <img src={starHoverIndex > 4 ? "/static/img/Assets/star (-3.svg" :
               "/static/img/Assets/star.svg"}
                  alt=""
                  onMouseOver={e => setStarHoverIndex(5)}
@@ -227,7 +249,7 @@ const ShareIdeasModal = props => {
         </div>
       </div>
     );
-  }
+  };
 
   const AskToAddComment = props => {
     return (
@@ -237,7 +259,7 @@ const ShareIdeasModal = props => {
         <h4>{translate('draftDetails.shareIdeasModal.stepTwo')}</h4>
         <div className="action-items-modal">
           <div>
-            <Button className="button-ask-to-add-comment-yes" onClick={() => setState(ModalState.CHOSE_COMMENT)}>
+            <Button className="button-ask-to-add-comment-yes" onClick={() => setState(ModalState.FILL_FORM)}>
               {translate('draftDetails.shareIdeasModal.stepTwoOption1')}
             </Button>
           </div>
@@ -277,6 +299,85 @@ const ShareIdeasModal = props => {
       </div>
     );
   }
+
+  const FillForm = props => {
+    return (
+      <div
+        style={{ display: 'flex', alignItems: 'center', width: '50vw', flexFlow: 'column' }}
+      >
+        <div className="action-items-modal" style={{width: '100%'}}>
+          <Col className="comment-form">
+            <select className="not-select2 form-control"
+              value={selectedLegalCapacity}
+              onChange={e =>
+                setSelectedLegalCapacity(parseInt(e.target.value, 10))
+              }
+            >
+              <option value="-1">
+                {translate('draftDetails.shareIdeasModal.choose')} {' '}
+                {translate('draftDetails.shareIdeasModal.legalCapacity')}
+              </option>
+              {
+                legalCapacityList &&
+                legalCapacityList.map(option => (
+                  <option value={option.id}>
+                    {option.name}
+                  </option>
+                ))
+              }
+            </select>
+
+            <select className="not-select2 form-control"
+                    value={selectedCity}
+                    onChange={e =>
+                      setSelectedCity(parseInt(e.target.value, 10))
+                    }
+            >
+              <option value="-1">
+                {translate('draftDetails.shareIdeasModal.choose')} {' '}
+                {translate('draftDetails.shareIdeasModal.city')}
+              </option>
+              {
+                cityList &&
+                cityList.map(option => (
+                  <option value={option.id}>
+                    {option.name}
+                  </option>
+                ))
+              }
+            </select>
+
+            { selectedLegalCapacity === 65 &&
+              <select className="not-select2 form-control"
+                     value={selectedInvestmentField}
+                     onChange={e =>
+                       setSelectedInvestmentField(parseInt(e.target.value, 10))
+                     }
+            >
+              <option value="-1">
+                {translate('draftDetails.shareIdeasModal.choose')} {' '}
+                {translate('draftDetails.shareIdeasModal.investmentField')}
+              </option>
+              {
+                investmentFieldList &&
+                investmentFieldList.map(option => (
+                  <option value={option.id}>
+                    {option.name}
+                  </option>
+                ))
+              }
+            </select>
+            }
+            <Button className="button-comment" disabled={selectedLegalCapacity === -1 || selectedCity === -1 || (selectedInvestmentField === -1 && selectedLegalCapacity === 65)} onClick={() => setState(ModalState.CHOSE_COMMENT)}>
+              {translate('draftDetails.shareIdeasModal.nextStep')}
+              <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
+            </Button>
+          </Col>
+        </div>
+      </div>
+    );
+  };
+
 
   const AddComment = props => {
     return (
@@ -440,6 +541,7 @@ const ShareIdeasModal = props => {
       <ModalBody>
           {state === ModalState.RATE && <Rate />}
           {state === ModalState.ASK_TO_ADD_COMMENT && <AskToAddComment />}
+          {state === ModalState.FILL_FORM && <FillForm />}
           {state === ModalState.CHOSE_COMMENT && <ChoseComment />}
           {state === ModalState.COMMENT && <AddComment />}
           {/*{state === ModalState.SUGGEST && <Suggest />}*/}

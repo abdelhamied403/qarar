@@ -137,7 +137,7 @@ class CardDraft extends Component {
       borderColor,
       dropdownList,
       subHeaderIcon,
-      type,
+      type
     } = this.props;
 
     console.log(link);
@@ -199,12 +199,12 @@ class CardDraft extends Component {
               </div>
               <div className="text-justify">
                 <div>
-                  <div className="wrap">
-                    {renderHTML(content || '')}
-                  </div>
+                  <div className="wrap">{renderHTML(content || '')}</div>
                   {link ? (
                     <Link href={link}>
-                      <Button color="link">{translate('cardDraft.more')}</Button>
+                      <Button color="link">
+                        {translate('cardDraft.more')}
+                      </Button>
                     </Link>
                   ) : (
                     ''
@@ -245,7 +245,10 @@ class CardDraft extends Component {
                   </div>
                 </div>
 
-                <span className="vote">{this.state.count}{translate('cardDraft.vote')}</span>
+                <span className="vote">
+                  {this.state.count}
+                  {translate('cardDraft.vote')}
+                </span>
               </div>
             ) : (
               ''
@@ -269,6 +272,7 @@ class CardDraft extends Component {
             ) : (
               <Link href="/">
                 <a color="link" className="btn btn-link">
+                  {translate('cardDraft.modificationRequest')}
                 </a>
               </Link>
             )}

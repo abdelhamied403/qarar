@@ -88,7 +88,7 @@ class DraftDetailsInfo extends Component {
       selectedSubject: null,
       modalOpen: false,
       shareIdeasModalOpen: false,
-      forced_adj_city_investemtn: "0"
+      forced_adj_city_investemtn: '0'
     };
   }
 
@@ -221,6 +221,36 @@ class DraftDetailsInfo extends Component {
           }
         }
       );
+    }
+  };
+
+  getLegalCapacity = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/legal_capacity?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  getCity = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/city?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  getInvestmentField = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/investment_field?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
     }
   };
 
@@ -591,21 +621,21 @@ class DraftDetailsInfo extends Component {
                         )}
                     </div>
                     <div className="button-group">
-                      {/*<ScrollLink*/}
-                      {/*  activeClass="active"*/}
-                      {/*  className="test1"*/}
-                      {/*  to="test1"*/}
-                      {/*  spy*/}
-                      {/*  smooth*/}
-                      {/*  duration={500}*/}
-                      {/*>*/}
+                      <ScrollLink
+                        activeClass="active"
+                        className="test1"
+                        to="test1"
+                        spy
+                        smooth
+                        duration={500}
+                      >
                         <Button
                           color="primary"
-                          onClick={() =>
-                            this.setState({
-                              shareIdeasModalOpen: true
-                            })
-                          }
+                          // onClick={() =>
+                          //   this.setState({
+                          //     shareIdeasModalOpen: true
+                          //   })
+                          // }
                         >
                           {translate('draftDetails.shareIdeas')}
                           <img
@@ -628,16 +658,13 @@ class DraftDetailsInfo extends Component {
                         {/*>*/}
                         {/*  {translate('draftDetails.participate')}*/}
                         {/*</Button>*/}
-
-
-
-                      {/*</ScrollLink>*/}
+                      </ScrollLink>
                       {uid && (
                         <Button
                           color="primary"
                           onClick={() => this.follow()}
                           outline={!flagged}
-                          style={{margin: '10px'}}
+                          style={{ margin: '10px' }}
                         >
                           {flagged
                             ? translate('draftDetails.follow')
@@ -798,77 +825,191 @@ class DraftDetailsInfo extends Component {
               <CardBody>
                 <Row>
                   <Col md="4">
-                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.chartTitle')}</p>
+                    <p
+                      style={{
+                        color: '#81BD41',
+                        fontWeight: 'bold',
+                        lineHeight: '16px'
+                      }}
+                    >
+                      {translate('draftDetails.chartTitle')}
+                    </p>
                     <Row>
                       <Col md="6">
                         <div>
-                          {
-
-                            [{name: translate('draftDetails.chartTypeOne'), color: '#81BD41'},
-                              {name: translate('draftDetails.chartTypeTwo'), color: '#40C2CC'},
-                              {name: translate('draftDetails.chartTypeThree'), color: '#006C68'},
-                              {name: translate('draftDetails.chartTypeFour'), color: '#F3F3F3'},
-                              {name: translate('draftDetails.chartTypeFive'), color: '#FF4A4A'}].map(
-                              val => (
-                                <div className="d-flex flex-row align-items-center">
-                                  <span
-                                    style={{ backgroundColor: val.color,
-                                      height: '20px',
-                                      width: '20px',
-                                      borderRadius: '50%',
-                                      display: 'inline-block'
-                                    }}
-                                  />
-                                  <p style={{margin: '0 10px 0 10px', color: '#006C68'}}>{val.name}</p>
-                                </div>
-                              ))
-                          }
+                          {[
+                            {
+                              name: translate('draftDetails.chartTypeOne'),
+                              color: '#81BD41'
+                            },
+                            {
+                              name: translate('draftDetails.chartTypeTwo'),
+                              color: '#40C2CC'
+                            },
+                            {
+                              name: translate('draftDetails.chartTypeThree'),
+                              color: '#006C68'
+                            },
+                            {
+                              name: translate('draftDetails.chartTypeFour'),
+                              color: '#F3F3F3'
+                            },
+                            {
+                              name: translate('draftDetails.chartTypeFive'),
+                              color: '#FF4A4A'
+                            }
+                          ].map(val => (
+                            <div className="d-flex flex-row align-items-center">
+                              <span
+                                style={{
+                                  backgroundColor: val.color,
+                                  height: '20px',
+                                  width: '20px',
+                                  borderRadius: '50%',
+                                  display: 'inline-block'
+                                }}
+                              />
+                              <p
+                                style={{
+                                  margin: '0 10px 0 10px',
+                                  color: '#006C68'
+                                }}
+                              >
+                                {val.name}
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       </Col>
                       <Col md="6">
                         <PieChart
                           data={[
-                            { title: translate('draftDetails.chartTypeOne'), value: 50, color: '#81BD41' },
-                            { title: translate('draftDetails.chartTypeTwo'), value: 25, color: '#40C2CC' },
-                            { title: translate('draftDetails.chartTypeThree'), value: 20, color: '#006C68' },
-                            { title: translate('draftDetails.chartTypeFour'), value: 15, color: '#F3F3F3' },
-                            { title: translate('draftDetails.chartTypeFive'), value: 5, color: '#FF4A4A' },
+                            {
+                              title: translate('draftDetails.chartTypeOne'),
+                              value: 50,
+                              color: '#81BD41'
+                            },
+                            {
+                              title: translate('draftDetails.chartTypeTwo'),
+                              value: 25,
+                              color: '#40C2CC'
+                            },
+                            {
+                              title: translate('draftDetails.chartTypeThree'),
+                              value: 20,
+                              color: '#006C68'
+                            },
+                            {
+                              title: translate('draftDetails.chartTypeFour'),
+                              value: 15,
+                              color: '#F3F3F3'
+                            },
+                            {
+                              title: translate('draftDetails.chartTypeFive'),
+                              value: 5,
+                              color: '#FF4A4A'
+                            }
                           ]}
                         />
                       </Col>
                     </Row>
                   </Col>
-                  <Col md="4" className="border-right-line" dir={translate('dir')}>
-                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.mostDrafts')}</p>
+                  <Col
+                    md="4"
+                    className="border-right-line"
+                    dir={translate('dir')}
+                  >
+                    <p
+                      style={{
+                        color: '#81BD41',
+                        fontWeight: 'bold',
+                        lineHeight: '16px'
+                      }}
+                    >
+                      {translate('draftDetails.mostDrafts')}
+                    </p>
                     <Row>
                       <Col md="4" className="p-2">
-                     
+                        <div className="user-card">
+                          <img src="/static/img/Group 991.svg" />
+                          <p className="user-card-name">
+                            {translate('draftDetails.userName')}
+                          </p>
+                          <span className="user-card-points">
+                            {translate('draftDetails.points')}
+                          </span>
+                        </div>
                       </Col>
-                 
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src="/static/img/Group 991.svg" />
+                          <p className="user-card-name">
+                            {translate('draftDetails.userName')}
+                          </p>
+                          <span className="user-card-points">
+                            {translate('draftDetails.points')}
+                          </span>
+                        </div>
+                      </Col>
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src="/static/img/Group 991.svg" />
+                          <p className="user-card-name">
+                            {translate('draftDetails.userName')}
+                          </p>
+                          <span className="user-card-points">
+                            {translate('draftDetails.points')}
+                          </span>
+                        </div>
+                      </Col>
                     </Row>
                   </Col>
-                  <Col md="4" className="border-right-line" dir={translate('dir')}>
-                    <p style={{color: '#81BD41', fontWeight: 'bold', lineHeight: '16px'}}>{translate('draftDetails.mostVoted')}</p>
+                  <Col
+                    md="4"
+                    className="border-right-line"
+                    dir={translate('dir')}
+                  >
+                    <p
+                      style={{
+                        color: '#81BD41',
+                        fontWeight: 'bold',
+                        lineHeight: '16px'
+                      }}
+                    >
+                      {translate('draftDetails.mostVoted')}
+                    </p>
                     <Row>
                       <Col md="4" className="p-2">
                         <div className="user-card">
-                          <img src='/static/img/Group 991.svg'/>
-                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
-                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
-                        </div>
-                      </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card" >
-                          <img src='/static/img/Group 991.svg'/>
-                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
-                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                          <img src="/static/img/Group 991.svg" />
+                          <p className="user-card-name">
+                            {translate('draftDetails.userName')}
+                          </p>
+                          <span className="user-card-points">
+                            {translate('draftDetails.points')}
+                          </span>
                         </div>
                       </Col>
                       <Col md="4" className="p-2">
                         <div className="user-card">
-                          <img src='/static/img/Group 991.svg'/>
-                          <p className='user-card-name'>{translate('draftDetails.userName')}</p>
-                          <span className='user-card-points'>{translate('draftDetails.points')}</span>
+                          <img src="/static/img/Group 991.svg" />
+                          <p className="user-card-name">
+                            {translate('draftDetails.userName')}
+                          </p>
+                          <span className="user-card-points">
+                            {translate('draftDetails.points')}
+                          </span>
+                        </div>
+                      </Col>
+                      <Col md="4" className="p-2">
+                        <div className="user-card">
+                          <img src="/static/img/Group 991.svg" />
+                          <p className="user-card-name">
+                            {translate('draftDetails.userName')}
+                          </p>
+                          <span className="user-card-points">
+                            {translate('draftDetails.points')}
+                          </span>
                         </div>
                       </Col>
                     </Row>
@@ -1060,25 +1201,16 @@ class DraftDetailsInfo extends Component {
             </div>
           </Container>
         </div>
-  
         <CommentSteps
-        open={modalOpen}
-        id={selectedSubject}
-        canVote={!!openArticle}
-        uid={uid}
-        getDraft={() => this.getDraft()}
-        getComments={() => this.getComments()}
-        accessToken={this.props.accessToken}
-        // like={() => this.vote('like', selectedSubject)}
-        // disLike={() => this.vote('dislike', selectedSubject)}
-        // saveComment={() => this.saveDraftDetailsComment()}
-        close={() =>
-          this.setState({
-            modalOpen: false
-          })
-        }
-      />
-
+          title="المسودة"
+          open={modalOpen}
+          id={selectedSubject}
+          canVote={!!openArticle}
+          uid={uid}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+        />
         {/*  <Container>
           <div className="description">
             <CardDraft
@@ -1210,12 +1342,15 @@ class DraftDetailsInfo extends Component {
 
         <ShareIdeasModal
           open={shareIdeasModalOpen}
-          id={this.props.id}
+          id={selectedSubject}
           canVote={!!openArticle}
           uid={uid}
           getDraft={() => this.getDraft()}
           getComments={() => this.getComments()}
           accessToken={this.props.accessToken}
+          getLegalCapacity={() => this.getLegalCapacity()}
+          getCity={() => this.getCity()}
+          getInvestmentField={() => this.getInvestmentField()}
           // like={() => this.vote('like', selectedSubject)}
           // disLike={() => this.vote('dislike', selectedSubject)}
           // saveComment={() => this.saveDraftDetailsComment()}
@@ -1260,24 +1395,38 @@ class DraftDetailsInfo extends Component {
               </>
             )}
             <div className="action-item likes d-flex align-items-center">
-              <img src="/static/img/Icon - dropdown - like white.svg" alt="" />
-              <span>
-                {item.likes || 0}
-                {translate('draftDetails.positive')}
-              </span>
-            </div>
-            <div className="action-item dislikes d-flex align-items-center">
               <img
-                src="/static/img/Icon - dropdown - dislike white.svg"
+                src="/static/img/Assets/star (1).svg"
                 alt=""
+                style={{ margin: '3px' }}
               />
-              <span>
-                {item.dislikes || 0}
-                {translate('draftDetails.negative')}
-              </span>
+              <img
+                src="/static/img/Assets/star (1).svg"
+                alt=""
+                style={{ margin: '3px' }}
+              />
+              <img
+                src="/static/img/Assets/star (1).svg"
+                alt=""
+                style={{ margin: '3px' }}
+              />
+              <img
+                src="/static/img/Assets/star (1).svg"
+                alt=""
+                style={{ margin: '3px' }}
+              />
+              <img
+                src="/static/img/Assets/star (1).svg"
+                alt=""
+                style={{ margin: '3px' }}
+              />
             </div>
             <div className="manyComments d-flex align-items-center">
-              <img src="/static/img/interactive/chat.svg" alt="" />
+              <img
+                src="/static/img/interactive/chat.svg"
+                alt=""
+                style={{ margin: '5px' }}
+              />
               <span>
                 {item.comments}
                 {translate('draftDetails.comment')}
@@ -1327,7 +1476,7 @@ class DraftDetailsInfo extends Component {
                 size="lg"
                 onClick={() =>
                   this.setState({
-                    modalOpen: true,
+                    shareIdeasModalOpen: true,
                     selectedSubject: item.nid,
                     forced_adj_city_investemtn: item?.forced_adj_city_investemtn
                   })
@@ -1351,7 +1500,7 @@ class DraftDetailsInfo extends Component {
                 size="lg"
                 onClick={() =>
                   this.setState({
-                    modalOpen: true,
+                    shareIdeasModalOpen: true,
                     selectedSubject: item.nid,
                     forced_adj_city_investemtn: item?.forced_adj_city_investemtn
                   })

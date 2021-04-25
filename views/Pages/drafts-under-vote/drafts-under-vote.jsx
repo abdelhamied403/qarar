@@ -193,17 +193,25 @@ class DraftsUnderVote extends Component {
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>{translate('draftsUnderVotePage.decisionType')}</label>
+                    <label>
+                      {translate('draftsUnderVotePage.decisionType')}
+                    </label>
                     <select className="not-select2 form-control">
-                      <option value="1">{translate('draftsUnderVotePage.decisionOptionOne')}</option>
-                      <option value="2">{translate('draftsUnderVotePage.decisionOptionTwo')}</option>
+                      <option value="1">
+                        {translate('draftsUnderVotePage.decisionOptionOne')}
+                      </option>
+                      <option value="2">
+                        {translate('draftsUnderVotePage.decisionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('draftsUnderVotePage.subtraction')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('draftsUnderVotePage.subtraction')}
+                    </label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -215,14 +223,20 @@ class DraftsUnderVote extends Component {
                         )
                       }
                     >
-                      <option value={0}>{translate('draftsUnderVotePage.subtractionOptionOne')}</option>
-                      <option value={1}>{translate('draftsUnderVotePage.subtractionOptionTwo')}</option>
+                      <option value={0}>
+                        {translate('draftsUnderVotePage.subtractionOptionOne')}
+                      </option>
+                      <option value={1}>
+                        {translate('draftsUnderVotePage.subtractionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('draftsUnderVotePage.keywords')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('draftsUnderVotePage.keywords')}
+                    </label>
                     <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
@@ -238,9 +252,13 @@ class DraftsUnderVote extends Component {
                           : []
                       }
                       isClearable
-                      placeholder={translate('draftsUnderVotePage.keywordsPlaceholder')}
+                      placeholder={translate(
+                        'draftsUnderVotePage.keywordsPlaceholder'
+                      )}
                       noOptionsMessage={() =>
-                        translate('draftsUnderVotePage.keywordsNoOptionsMessage')
+                        translate(
+                          'draftsUnderVotePage.keywordsNoOptionsMessage'
+                        )
                       }
                       loadingMessage={() =>
                         translate('draftsUnderVotePage.keywordsLoadingMessage')

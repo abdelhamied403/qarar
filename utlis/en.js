@@ -402,7 +402,8 @@ export const en = {
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'Charts',
-    chartTitle: 'The percentage of satisfaction of the beneficiaries of the Balady platform',
+    chartTitle:
+      'The percentage of satisfaction of the beneficiaries of the Balady platform',
     chartTypeOne: 'Very supporter',
     chartTypeTwo: 'Supporter',
     chartTypeThree: 'Neutral',
@@ -410,7 +411,7 @@ export const en = {
     chartTypeFive: 'Never supported',
     mostCommented: 'Most commented',
     mostVoted: 'Most voted',
-    userName:'User Name',
+    userName: 'User Name',
     points: '120 Points',
     openAll: 'Open All',
     closeAll: 'Close All',
@@ -444,6 +445,7 @@ export const en = {
     archived: 'Archived',
     applied: 'Applied',
     voting: 'Under vote',
+    opinion: 'What do you think of the draft?',
     shareIdeasModal: {
       title: 'Share now',
       stepOne: 'What do you think about the article?',
@@ -455,6 +457,11 @@ export const en = {
       stepTwo: 'Do you want to add a comment?',
       stepTwoOption1: 'Yes',
       stepTwoOption2: 'No',
+      choose: 'Choose',
+      legalCapacity: 'Legal capacity',
+      city: 'City',
+      investmentField: 'Investment field',
+      nextStep: 'Next',
       stepThree: 'Choose a rating for your comment',
       stepThreeOption1: 'Suggestion',
       stepThreeOption2: 'Modification',
@@ -482,8 +489,8 @@ export const en = {
   },
   comments: {
     value_1: 'very pro',
-    value_2: "supporter",
-    value_3: "neutral",
+    value_2: 'supporter',
+    value_3: 'neutral',
     value_4: 'Not supported',
     value_5: 'Not supported at all'
   }

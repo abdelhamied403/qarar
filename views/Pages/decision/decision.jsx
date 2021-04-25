@@ -186,15 +186,21 @@ class Decision extends Component {
                   <div className="form-group">
                     <label>{translate('decisionPage.classification')}</label>
                     <select className="not-select2 form-control">
-                      <option value="1">{translate('decisionPage.decisionOptionOne')}</option>
-                      <option value="2">{translate('decisionPage.decisionOptionTwo')}</option>
+                      <option value="1">
+                        {translate('decisionPage.decisionOptionOne')}
+                      </option>
+                      <option value="2">
+                        {translate('decisionPage.decisionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('decisionPage.subClassification')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('decisionPage.subClassification')}
+                    </label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -206,14 +212,20 @@ class Decision extends Component {
                         )
                       }
                     >
-                      <option value={0}>{translate('decisionPage.subtractionOptionOne')}</option>
-                      <option value={1}>{translate('decisionPage.subtractionOptionTwo')}</option>
+                      <option value={0}>
+                        {translate('decisionPage.subtractionOptionOne')}
+                      </option>
+                      <option value={1}>
+                        {translate('decisionPage.subtractionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('decisionPage.keywords')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('decisionPage.keywords')}
+                    </label>
                     <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
@@ -251,58 +263,61 @@ class Decision extends Component {
             </Container>
           </section>
           <section className="tabs-content text-start">
-  
-      
-              <TabPane tabId="2">
-                <>
-                  <section className="p-0">
-               
-                    <Row>
-                      {archivedItems.length ? (
-                        archivedItems.map(item => (
-                          <Col key={item.id} xs="12" md="6">
-                            <CardDraft
-                              header={item.title}
-                              subHeader={`${translate('decisionPage.archivedItemDate')}${item.end_date}`}
-                              content={`${item.body.substr(0, 200)} ...`}
-                              tags={
-                                item.tags
-                                  ? item.tags.map(tag => ({
-                                      tag: tag.name.substr(0, 20),
-                                      id: tag.id
-                                    }))
-                                  : []
-                              }
-                              subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                              date=" "
-                              borderColor="#9D9D9D"
-                              link={`/draft-details/${item.id}`}
-                            />
-                          </Col>
-                        ))
-                      ) : (
-                        <Col>
-                          <Alert type="sucess">{translate('decisionPage.noArchivedDecisionsImplemented')}</Alert>
+            <TabPane tabId="2">
+              <>
+                <section className="p-0">
+                  <Row>
+                    {archivedItems.length ? (
+                      archivedItems.map(item => (
+                        <Col key={item.id} xs="12" md="6">
+                          <CardDraft
+                            header={item.title}
+                            subHeader={`${translate(
+                              'decisionPage.archivedItemDate'
+                            )}${item.end_date}`}
+                            content={`${item.body.substr(0, 200)} ...`}
+                            tags={
+                              item.tags
+                                ? item.tags.map(tag => ({
+                                    tag: tag.name.substr(0, 20),
+                                    id: tag.id
+                                  }))
+                                : []
+                            }
+                            subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                            date=" "
+                            borderColor="#9D9D9D"
+                            link={`/draft-details/${item.id}`}
+                          />
                         </Col>
-                      )}
-                    </Row>
-                  </section>
-                  <div className="pagination-container">
-                    <Pagination
-                      total={archivedCount}
-                      pageSize={archivedPageSize}
-                      current={archivedPage}
-                      onChange={pageCurrent =>
-                        this.setState({ archivedPage: pageCurrent }, () =>
-                          this.getArchivedItems()
-                        )
-                      }
-                      className="pagination"
-                      itemRender={this.paginagtionItemRender}
-                    />
-                  </div>
-                </>
-              </TabPane>
+                      ))
+                    ) : (
+                      <Col>
+                        <Alert type="sucess">
+                          {translate(
+                            'decisionPage.noArchivedDecisionsImplemented'
+                          )}
+                        </Alert>
+                      </Col>
+                    )}
+                  </Row>
+                </section>
+                <div className="pagination-container">
+                  <Pagination
+                    total={archivedCount}
+                    pageSize={archivedPageSize}
+                    current={archivedPage}
+                    onChange={pageCurrent =>
+                      this.setState({ archivedPage: pageCurrent }, () =>
+                        this.getArchivedItems()
+                      )
+                    }
+                    className="pagination"
+                    itemRender={this.paginagtionItemRender}
+                  />
+                </div>
+              </>
+            </TabPane>
           </section>
         </Container>
       </>

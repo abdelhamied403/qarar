@@ -105,7 +105,7 @@ const Landing = () => {
       setDraftCount(draftCountResponse.data);
     }
   };
-  const updateModal = async (selectedItem) => {
+  const updateModal = async selectedItem => {
     setSelectedDecision(selectedItem);
     setToggle(true);
   };
@@ -321,36 +321,47 @@ const Landing = () => {
                   activeBtn === 1 ? { display: 'flex' } : { display: 'none' }
                 }
               >
-                {decisions && decisions
-                  .filter((item, index) => index < 4)
-                  .map(item => (
-                    <Col className="mb-6" key={item.key} xs="12" md="6" lg="6">
-                      <Link href={`/decision-details/${item.id}`}>
-                        <a>
-                          <div className="oneActivity">
-                            <h4>{item.title}</h4>
-                          </div>
-                        </a>
-                      </Link>
-                      <p className="oneActivityRow">
-                        <img
-                          dir={translate('dir')}
-                          src="/static/img/interactive/calendar-2.svg"
-                          alt=""
-                        />
-                        {translate('landingPage.votingStart')}{' '}
-                        {item.publishDate}
-                        <span className="modalUpdate" onClick={() => updateModal(item)}>
+                {decisions &&
+                  decisions
+                    .filter((item, index) => index < 4)
+                    .map(item => (
+                      <Col
+                        className="mb-6"
+                        key={item.key}
+                        xs="12"
+                        md="6"
+                        lg="6"
+                      >
+                        <Link href={`/decision-details/${item.id}`}>
+                          <a>
+                            <div className="oneActivity">
+                              <h4>{item.title}</h4>
+                            </div>
+                          </a>
+                        </Link>
+                        <p className="oneActivityRow">
                           <img
                             dir={translate('dir')}
-                            src="/static/img/decision/Path 2925.svg"
+                            src="/static/img/interactive/calendar-2.svg"
                             alt=""
                           />
-                          {item.modificationsCount} {translate('landingPage.update')}
-                        </span>
-                      </p>
-                    </Col>
-                  ))}
+                          {translate('landingPage.votingStart')}{' '}
+                          {item.publishDate}
+                          <span
+                            className="modalUpdate"
+                            onClick={() => updateModal(item)}
+                          >
+                            <img
+                              dir={translate('dir')}
+                              src="/static/img/decision/Path 2925.svg"
+                              alt=""
+                            />
+                            {item.modificationsCount}{' '}
+                            {translate('landingPage.update')}
+                          </span>
+                        </p>
+                      </Col>
+                    ))}
               </Row>
 
               <div className="text-right d-flex">

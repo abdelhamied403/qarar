@@ -18627,11 +18627,10 @@ textarea.form-control {
   bottom: 0;
 } */
 .newUILanding .activities.about {
-  background-image: 
-    url(/static/img/aboutqarar-bg-2.svg);
-    background-position: bottom;
-    background-repeat: no-repeat;
-    padding: 10vh 0;
+  background-image: url(/static/img/aboutqarar-bg-2.svg);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding: 10vh 0;
 }
 .newUILanding .activities.about .container {
   display: flex;
@@ -20404,6 +20403,6 @@ a#loginWithBaladyLink img {
   background-color: white;
 }
 
-.newUILanding .activities.recently-qarars{
-  border-bottom: 5px solid #ECEFF4;
+.newUILanding .activities.recently-qarars {
+  border-bottom: 5px solid #eceff4;
 }

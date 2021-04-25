@@ -19,7 +19,6 @@ import Api from '../../../../api';
 import './style.css';
 import { translate } from '../../../../utlis/translation';
 
-
 const ModalState = {
   LIKES: 0,
   SUGGEST: 1,
@@ -38,12 +37,13 @@ const PartcipantSteps = props => {
     canVote,
     accessToken,
     getDraft,
-    getComments,
+    getComments
   } = props;
-  const title = props.title || "المادة";
+  const title = props.title || 'المادة';
   const [state, setState] = useState(ModalState.LIKES);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [loading, setLoading] = useState(false);
+  const [starHoverIndex, setStarHoverIndex] = useState(0);
   const [msg, setMsg] = useState({
     error: false,
     txt: '',
@@ -168,7 +168,94 @@ const PartcipantSteps = props => {
     }
     setLoading(false);
   };
-
+  const Rate = props => {
+    return (
+      <div style={{ display: 'flex', flexFlow: 'column' }}>
+        <h4>{translate('draftDetails.opinion')}</h4>
+        <div className="action-items-modal-draft">
+          <div
+            style={{ width: '10px', height: '70px', position: 'absolute' }}
+            onMouseOver={e => setStarHoverIndex(0)}
+          ></div>
+          <div className="star-draft">
+            <img
+              src={
+                starHoverIndex > 0
+                  ? '/static/img/Assets/star (-3.svg'
+                  : '/static/img/Assets/star.svg'
+              }
+              alt=""
+              onMouseOver={e => setStarHoverIndex(1)}
+              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
+            />
+            <span dir={translate('dir')}>
+              {translate('draftDetails.shareIdeasModal.stepOneOption1')}
+            </span>
+          </div>
+          <div className="star-draft">
+            <img
+              src={
+                starHoverIndex > 1
+                  ? '/static/img/Assets/star (-3.svg'
+                  : '/static/img/Assets/star.svg'
+              }
+              alt=""
+              onMouseOver={e => setStarHoverIndex(2)}
+              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
+            />
+            <span dir={translate('dir')}>
+              {translate('draftDetails.shareIdeasModal.stepOneOption2')}
+            </span>
+          </div>
+          <div className="star-draft">
+            <img
+              src={
+                starHoverIndex > 2
+                  ? '/static/img/Assets/star (-3.svg'
+                  : '/static/img/Assets/star.svg'
+              }
+              alt=""
+              onMouseOver={e => setStarHoverIndex(3)}
+              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
+            />
+            <span dir={translate('dir')}>
+              {translate('draftDetails.shareIdeasModal.stepOneOption3')}
+            </span>
+          </div>
+          <div className="star-draft">
+            <img
+              src={
+                starHoverIndex > 3
+                  ? '/static/img/Assets/star (-3.svg'
+                  : '/static/img/Assets/star.svg'
+              }
+              alt=""
+              onMouseOver={e => setStarHoverIndex(4)}
+              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
+            />
+            <span dir={translate('dir')}>
+              {translate('draftDetails.shareIdeasModal.stepOneOption4')}
+            </span>
+          </div>
+          <div className="star-draft">
+            <img
+              src={
+                starHoverIndex > 4
+                  ? '/static/img/Assets/star (-3.svg'
+                  : '/static/img/Assets/star.svg'
+              }
+              alt=""
+              onMouseOver={e => setStarHoverIndex(5)}
+              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
+            />
+            <span dir={translate('dir')}>
+              {translate('draftDetails.shareIdeasModal.stepOneOption5')}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  };
   const Likes = props => {
     const like = async () => {
       await vote('like', id);
@@ -217,8 +304,7 @@ const PartcipantSteps = props => {
   const Comment = props => {
     return (
       <div style={{ padding: '30px 0' }}>
-        <h4>
-        {translate('draftDetails.addComment')}</h4>
+        <h4>{translate('draftDetails.addComment')}</h4>
         <Editor
           placeholder="اضف تعليقك هنا"
           toolbar={{
@@ -242,7 +328,11 @@ const PartcipantSteps = props => {
         />
         <Button className="button-comment" onClick={() => saveComment()}>
           {translate('draftDetails.addComment')}
-          <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
+          <img
+            dir={translate('dir')}
+            src="/static/img/interactive/whiteArrow.svg"
+            alt=""
+          />
         </Button>
       </div>
     );
@@ -251,17 +341,19 @@ const PartcipantSteps = props => {
     if (!uid) {
       return (
         <>
-          <Alert color="danger">
-            {translate('draftDetails.loginFirst')}
-          </Alert>
+          <Alert color="danger">{translate('draftDetails.loginFirst')}</Alert>
 
           <div className="draftShouldLogin d-flex flex-column">
             <img src="/static/img/interactive/disabled.svg" alt="" />
             <h4>{translate('draftDetails.loginComment')}</h4>
             <Link href="/login">
               <Button>
-              {translate('draftDetails.login')}
-                <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
+                {translate('draftDetails.login')}
+                <img
+                  dir={translate('dir')}
+                  src="/static/img/interactive/btnArrow3.svg"
+                  alt=""
+                />
               </Button>
             </Link>
             <Link href="/register">
@@ -273,7 +365,7 @@ const PartcipantSteps = props => {
     }
     return (
       <div className="container">
-        {<Likes />}
+        {<Rate />}
         {<Comment />}
       </div>
     );
@@ -283,7 +375,11 @@ const PartcipantSteps = props => {
       {msg.show && (
         <Alert color={msg.error ? 'danger' : 'success'}>{msg.txt}</Alert>
       )}
-      {canVote ? <Alert color="danger">{translate('draftDetails.votingStopped')}</Alert> : <Steps />}
+      {!canVote ? (
+        <Alert color="danger">{translate('draftDetails.votingStopped')}</Alert>
+      ) : (
+        <Steps />
+      )}
     </>
   );
 };
