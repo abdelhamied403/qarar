@@ -105,13 +105,13 @@ class DecisionsLibrary extends Component {
     const { accessToken } = this.props;
     const systemOptionsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/load/vocabulary/systems_types?_format=json`,
+        `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`,
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` }
         }
       )
-      : await Api.get(`/qarar_api/load/vocabulary/systems_types?_format=json`);
+      : await Api.get(   `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`);
     if (systemOptionsResponse.ok) {
       console.log(systemOptionsResponse.data);
       this.setState({ systemOptions: systemOptionsResponse.data});
@@ -119,13 +119,13 @@ class DecisionsLibrary extends Component {
 
     const vocabularyOptionsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/load/vocabulary/altshry_at?_format=json`,
+        `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`,
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` }
         }
       )
-      : await Api.get(`/qarar_api/load/vocabulary/altshry_at?_format=json`);
+      : await Api.get(   `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`);
     if (vocabularyOptionsResponse.ok) {
       console.log(vocabularyOptionsResponse.data);
       this.setState({ vocabularyOptions: vocabularyOptionsResponse.data});
@@ -297,7 +297,7 @@ class DecisionsLibrary extends Component {
                       cl
                       onChange={selected =>
                         this.setState({ selectedTag: selected?.value }, () =>
-                          this.getDrafts()
+                          this.getOptions()
                         )
                       }
                     />

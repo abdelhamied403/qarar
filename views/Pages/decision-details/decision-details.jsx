@@ -790,7 +790,6 @@ class DecisionDetailsInfo extends Component {
               </>
             )}
             <div className="manyComments d-flex align-items-center">
-              <img src="/static/img/interactive/Path 2930.svg" alt="" />
               <span>
                 {item.comments}
                 {' '}

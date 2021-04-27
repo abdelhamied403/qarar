@@ -1085,7 +1085,7 @@ class DraftDetailsInfo extends Component {
                   .filter(item => !item.openArticle)
                   .map(item => this.subjectsList(item, openArticle, uid))}
             </div>
-            <Element name="test1" className="element">
+            {/* <Element name="test1" className="element">
               {!uid ? (
                 <div className="draftShouldLogin d-flex flex-column">
                   <img src="/static/img/interactive/disabled.svg" alt="" />
@@ -1161,7 +1161,7 @@ class DraftDetailsInfo extends Component {
                   )}
                 </>
               )}
-            </Element>
+            </Element> */}
 
             <div className="collapseDraftCard draftNewComments">
               <ArticleComment

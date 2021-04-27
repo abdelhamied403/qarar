@@ -82,7 +82,7 @@ const ClientFooter = ({ isAuthentcated }) => {
                 <a href="https://www.momra.gov.sa/ar/node/50" target="_blank">
                   {translate('footer.privacy')}
                 </a>
-                <a href="https://momra.gov.sa/files/Policy.pdf" target="_blank">
+                <a href="https://www.momra.gov.sa/ar/node/51" target="_blank">
                   {translate('footer.content')}
                 </a>
                 <a href="https://balady.gov.sa/Terms" target="_blank">

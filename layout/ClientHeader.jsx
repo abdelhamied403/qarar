@@ -260,9 +260,9 @@ class ClientHeader extends React.Component {
                       <DropdownItem href="/decisions-library">
                         {translate('header.navBar.libQara')}
                       </DropdownItem>
-                      <DropdownItem href="/decisions">
+                      {/* <DropdownItem href="/decisions">
                         {translate('header.navBar.updatedQarar')}
-                      </DropdownItem>
+                      </DropdownItem> */}
                     </DropdownMenu>
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
