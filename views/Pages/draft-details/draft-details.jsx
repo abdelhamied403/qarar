@@ -624,7 +624,7 @@ class DraftDetailsInfo extends Component {
                       <ScrollLink
                         activeClass="active"
                         className="test1"
-                        to="test1"
+                        to="share-opinion"
                         spy
                         smooth
                         duration={500}
@@ -789,8 +789,6 @@ class DraftDetailsInfo extends Component {
                 </Row>
                 <Row style={{ padding: '20px' }}>
                   <div className="uploads">
-                
-          
                     <Button
                       className="btn-inline-block btn-ligh"
                       color="secondary"
@@ -800,7 +798,6 @@ class DraftDetailsInfo extends Component {
                     >
                       {draft.pdf_name}
                     </Button>
-              
                   </div>
                 </Row>
               </CardBody>
@@ -915,39 +912,17 @@ class DraftDetailsInfo extends Component {
                       {translate('draftDetails.mostDrafts')}
                     </p>
                     <Row>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src="/static/img/Group 991.svg" />
-                          <p className="user-card-name">
-                            {translate('draftDetails.userName')}
-                          </p>
-                          <span className="user-card-points">
-                            {translate('draftDetails.points')}
-                          </span>
-                        </div>
-                      </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src="/static/img/Group 991.svg" />
-                          <p className="user-card-name">
-                            {translate('draftDetails.userName')}
-                          </p>
-                          <span className="user-card-points">
-                            {translate('draftDetails.points')}
-                          </span>
-                        </div>
-                      </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src="/static/img/Group 991.svg" />
-                          <p className="user-card-name">
-                            {translate('draftDetails.userName')}
-                          </p>
-                          <span className="user-card-points">
-                            {translate('draftDetails.points')}
-                          </span>
-                        </div>
-                      </Col>
+                      {draft.most_featured_items?.map(el => (
+                        <Col md="4" className="p-2">
+                          <div className="user-card">
+                            <img src="/static/img/Group 991.svg" />
+                            <p className="user-card-name">{el.title}</p>
+                            <span className="user-card-points">
+                              {el.comment_count}
+                            </span>
+                          </div>
+                        </Col>
+                      ))}
                     </Row>
                   </Col>
                   <Col
@@ -965,39 +940,19 @@ class DraftDetailsInfo extends Component {
                       {translate('draftDetails.mostVoted')}
                     </p>
                     <Row>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src="/static/img/Group 991.svg" />
-                          <p className="user-card-name">
-                            {translate('draftDetails.userName')}
-                          </p>
-                          <span className="user-card-points">
-                            {translate('draftDetails.points')}
-                          </span>
-                        </div>
-                      </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src="/static/img/Group 991.svg" />
-                          <p className="user-card-name">
-                            {translate('draftDetails.userName')}
-                          </p>
-                          <span className="user-card-points">
-                            {translate('draftDetails.points')}
-                          </span>
-                        </div>
-                      </Col>
-                      <Col md="4" className="p-2">
-                        <div className="user-card">
-                          <img src="/static/img/Group 991.svg" />
-                          <p className="user-card-name">
-                            {translate('draftDetails.userName')}
-                          </p>
-                          <span className="user-card-points">
-                            {translate('draftDetails.points')}
-                          </span>
-                        </div>
-                      </Col>
+                      {draft.most_featured_users?.map(el => (
+                        <Col md="4" className="p-2">
+                          <div className="user-card">
+                            <img src="/static/img/Group 991.svg" />
+                            <p className="user-card-name">
+                              {el.name || 'Place holder'}
+                            </p>
+                            <span className="user-card-points">
+                              {el.comment_count}
+                            </span>
+                          </div>
+                        </Col>
+                      ))}
                     </Row>
                   </Col>
                 </Row>
@@ -1380,6 +1335,7 @@ class DraftDetailsInfo extends Component {
                 </Button>
               </>
             )}
+            <Element name="share-opinion" className="element" />
             <div className="action-item likes d-flex align-items-center">
               <img
                 src="/static/img/Assets/star (1).svg"
@@ -1494,13 +1450,16 @@ class DraftDetailsInfo extends Component {
               >
                 {translate('draftDetails.participate')}
               </Button>
-              <ArticleComment
-                enableCommentForm={openArticle}
-                enableVote={openArticle}
-                likeComment={this.likeComment}
-                dislikeComment={this.dislikeComment}
-                itemId={item.nid}
-              />
+
+              {parseInt(item.comments) > 0 && (
+                <ArticleComment
+                  enableCommentForm={openArticle}
+                  enableVote={openArticle}
+                  likeComment={this.likeComment}
+                  dislikeComment={this.dislikeComment}
+                  itemId={item.nid}
+                />
+              )}
             </Col>
           </Row>
         </CardBody>

@@ -194,7 +194,7 @@ class DecisionDetailsInfo extends Component {
     const { decisionId, accessToken } = this.props;
     const itemResponse = await Api.post(
       `/qarar_api/update-visits-number?_format=json`,
-      {id: decisionId}
+      { id: decisionId }
     );
     if (itemResponse.ok) {
       console.log(itemResponse);
@@ -218,14 +218,13 @@ class DecisionDetailsInfo extends Component {
       const openArticle =
         new Date(data.end_date).getTime() > new Date().getTime();
       // if (items) {
-        // items.map(item => item.modified_id && this.getEdits(item.nid));
-        // items.map((item, index) => {
-        //   item.openArticle =
-        //     new Date(item.end_date).getTime() > new Date().getTime();
-        //   return item;
-        // });
+      // items.map(item => item.modified_id && this.getEdits(item.nid));
+      // items.map((item, index) => {
+      //   item.openArticle =
+      //     new Date(item.end_date).getTime() > new Date().getTime();
+      //   return item;
+      // });
       // }
-      console.log('items ', items);
       this.setState(
         { decision: data, items, loadingDecision: false, openArticle },
         () => {
@@ -530,7 +529,6 @@ class DecisionDetailsInfo extends Component {
       modalOpen,
       shareIdeasModalOpen
     } = this.state;
-    console.log(decision);
     const { uid, accessToken } = this.props;
     if (loadingDecision) {
       return <Skeleton details />;
@@ -569,10 +567,9 @@ class DecisionDetailsInfo extends Component {
                         dir={translate('dir')}
                       />
                       <span>
-                        {translate('decisionDetails.published')}
-                        {' '}
+                        {translate('decisionDetails.published')}{' '}
                         {decision && decision.publisheDate}
-                        </span>
+                      </span>
                     </div>
                   </div>
                 </Col>
@@ -638,9 +635,7 @@ class DecisionDetailsInfo extends Component {
                           </strong>
                           :{' '}
                         </p>
-                        <span>
-                          {decision && decision.publisheDate}
-                        </span>
+                        <span>{decision && decision.publisheDate}</span>
                       </div>
                     </div>
                   </Col>
@@ -674,9 +669,8 @@ class DecisionDetailsInfo extends Component {
                   <div className="uploads">
                     <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
                       {translate('decisionDetails.attachments')}
-                      
                     </span>
-                 
+
                     <Button
                       className="btn-inline-block btn-ligh"
                       color="secondary"
@@ -686,8 +680,6 @@ class DecisionDetailsInfo extends Component {
                     >
                       {decision.pdf_name}
                     </Button>
-                
-                 
                   </div>
                 </Row>
               </CardBody>
@@ -734,7 +726,16 @@ class DecisionDetailsInfo extends Component {
               {items &&
                 items
                   .filter(item => !item.openArticle)
-                  .map(item => this.subjectsList(item, openArticle, uid))}
+                  .map(item =>
+                    this.subjectsList(
+                      {
+                        ...item,
+                        modificationsCount: decision.modificationsCount
+                      },
+                      openArticle,
+                      uid
+                    )
+                  )}
             </div>
           </Container>
         </div>
@@ -743,6 +744,7 @@ class DecisionDetailsInfo extends Component {
   }
 
   subjectsList = (item, openArticle, uid) => {
+    console.log('ITEM', item);
     return (
       <Card key={item.id} className="cardDraft text-justify collapseDraftCard">
         <CardHeader
@@ -774,9 +776,8 @@ class DecisionDetailsInfo extends Component {
             )}
             <div className="manyComments d-flex align-items-center">
               <span>
-                {item.comments}
-                {' '}
-                {translate('decisionDetails.modification')}
+                {translate('decisionDetails.modification')}{' '}
+                {item.modificationsCount}
               </span>
             </div>
             <img
@@ -787,9 +788,7 @@ class DecisionDetailsInfo extends Component {
           </div>
         </CardHeader>
         {this.state[`modified-${item.id}`] && (
-          <DecisionEdits
-            edits={this.state[`edit-${item.id}`]?.modifications}
-          />
+          <DecisionEdits edits={this.state[`edit-${item.id}`]?.modifications} />
         )}
         <CardBody
           style={

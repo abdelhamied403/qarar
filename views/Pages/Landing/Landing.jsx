@@ -347,18 +347,20 @@ const Landing = () => {
                           />
                           {translate('landingPage.votingStart')}{' '}
                           {item.publishDate}
-                          <span
-                            className="modalUpdate"
-                            onClick={() => updateModal(item)}
-                          >
-                            <img
-                              dir={translate('dir')}
-                              src="/static/img/decision/Path 2925.svg"
-                              alt=""
-                            />
-                            {item.modificationsCount}{' '}
-                            {translate('landingPage.update')}
-                          </span>
+                          {item.modificationsCount > 0 && (
+                            <span
+                              className="modalUpdate"
+                              onClick={() => updateModal(item)}
+                            >
+                              <img
+                                dir={translate('dir')}
+                                src="/static/img/decision/Path 2925.svg"
+                                alt=""
+                              />
+                              {item.modificationsCount}{' '}
+                              {translate('landingPage.update')}
+                            </span>
+                          )}
                         </p>
                       </Col>
                     ))}
