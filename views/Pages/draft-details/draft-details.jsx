@@ -789,16 +789,8 @@ class DraftDetailsInfo extends Component {
                 </Row>
                 <Row style={{ padding: '20px' }}>
                   <div className="uploads">
-                    <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
-                      {translate('draftDetails.attachments')}
-                    </span>
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                    >
-                      {translate('draftDetails.pdf')}
-                    </Button>
+                
+          
                     <Button
                       className="btn-inline-block btn-ligh"
                       color="secondary"
@@ -806,15 +798,9 @@ class DraftDetailsInfo extends Component {
                       // disabled={!draft?.pdf_url}
                       onClick={() => window.open(draft?.pdf_url)}
                     >
-                      {translate('draftDetails.download')}
+                      {draft.pdf_name}
                     </Button>
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                    >
-                      {translate('draftDetails.jpg')}
-                    </Button>
+              
                   </div>
                 </Row>
               </CardBody>

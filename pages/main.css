@@ -2466,9 +2466,9 @@ button.btn.btn-primary {
   border-color: #c8ced3;
 }
 .btn-secondary:hover {
-  color: #07706d;
-  background-color: #b3bbc2;
-  border-color: #acb5bc;
+  color:white !important;
+  background-color: #81bd41 ;
+  border-color: #81bd41 ;
 }
 .btn-secondary:focus,
 .btn-secondary.focus {

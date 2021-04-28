@@ -674,14 +674,9 @@ class DecisionDetailsInfo extends Component {
                   <div className="uploads">
                     <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
                       {translate('decisionDetails.attachments')}
+                      
                     </span>
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                    >
-                      {translate('decisionDetails.pdf')}
-                    </Button>
+                 
                     <Button
                       className="btn-inline-block btn-ligh"
                       color="secondary"
@@ -689,22 +684,10 @@ class DecisionDetailsInfo extends Component {
                       // disabled={!draft?.pdf_url}
                       onClick={() => window.open(decision?.pdf_url)}
                     >
-                      {translate('decisionDetails.download')}
+                      {decision.pdf_name}
                     </Button>
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                    >
-                      {translate('decisionDetails.jpg')}
-                    </Button>
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                    >
-                      {translate('decisionDetails.attachment')}
-                    </Button>
+                
+                 
                   </div>
                 </Row>
               </CardBody>
