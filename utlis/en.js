@@ -403,7 +403,7 @@ export const en = {
     jpg: 'البيئة العمرانية JPG',
     charts: 'Charts',
     chartTitle:
-      'The percentage of satisfaction of the beneficiaries of the Balady platform',
+      'The percentage of satisfaction of draft',
     chartTypeOne: 'Very supporter',
     chartTypeTwo: 'Supporter',
     chartTypeThree: 'Neutral',

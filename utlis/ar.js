@@ -381,7 +381,7 @@ export const ar = {
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'مؤشرات',
-    chartTitle: 'نسبة رضى مستفيدي منصة بلدي',
+    chartTitle: 'نسبة الرضي عن المسودة',
     chartTypeOne: 'مؤيد جدا',
     chartTypeTwo: 'مؤيد',
     chartTypeThree: 'محايد',
