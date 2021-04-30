@@ -412,7 +412,7 @@ export const en = {
     mostCommented: 'Most commented',
     mostVoted: 'Most voted',
     userName: 'User Name',
-    points: '120 Points',
+    points: ' Points',
     openAll: 'Open All',
     closeAll: 'Close All',
     shareDraft: 'Share this article',

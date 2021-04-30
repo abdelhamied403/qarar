@@ -870,27 +870,37 @@ class DraftDetailsInfo extends Component {
                           data={[
                             {
                               title: translate('draftDetails.chartTypeOne'),
-                              value: 50,
+                              value: parseInt(
+                                draft.voting_percentage[1].replace('%', '')
+                              ),
                               color: '#81BD41'
                             },
                             {
                               title: translate('draftDetails.chartTypeTwo'),
-                              value: 25,
+                              value: parseInt(
+                                draft.voting_percentage[2].replace('%', '')
+                              ),
                               color: '#40C2CC'
                             },
                             {
                               title: translate('draftDetails.chartTypeThree'),
-                              value: 20,
+                              value: parseInt(
+                                draft.voting_percentage[3].replace('%', '')
+                              ),
                               color: '#006C68'
                             },
                             {
                               title: translate('draftDetails.chartTypeFour'),
-                              value: 15,
+                              value: parseInt(
+                                draft.voting_percentage[4].replace('%', '')
+                              ),
                               color: '#F3F3F3'
                             },
                             {
                               title: translate('draftDetails.chartTypeFive'),
-                              value: 5,
+                              value: parseInt(
+                                draft.voting_percentage[5].replace('%', '')
+                              ),
                               color: '#FF4A4A'
                             }
                           ]}
@@ -914,11 +924,13 @@ class DraftDetailsInfo extends Component {
                     </p>
                     <Row>
                       {draft.most_featured_items?.map(el => (
-                        <Col md="12" className="p-2 featured-article">
-                          <div className="featured-article-card">
-                            <p className="featured-article-card-name">{el.title}</p>
-                            <span className="featured-article-card-points">
-                              {el.comment_count} مشاركة
+                        <Col md="4" className="p-2">
+                          <div className="user-card">
+                            <img src="/static/img/Group 991.svg" />
+                            <p className="user-card-name">{el.title}</p>
+                            <span className="user-card-points">
+                              {el.comment_count}{' '}
+                              {translate('draftDetails.points')}
                             </span>
                           </div>
                         </Col>
@@ -948,7 +960,8 @@ class DraftDetailsInfo extends Component {
                               {el.name || 'Place holder'}
                             </p>
                             <span className="user-card-points">
-                              {el.comment_count}
+                              {el.comment_count}{' '}
+                              {translate('draftDetails.points')}
                             </span>
                           </div>
                         </Col>

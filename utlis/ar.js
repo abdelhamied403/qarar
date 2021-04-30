@@ -391,7 +391,7 @@ export const ar = {
     mostDrafts: 'المواد الاكثر مشاركة',
     mostVoted: 'ابرز المشاركين',
     userName: 'اسم المستخدم',
-    points: '120 نقطة',
+    points: ' نقطة',
     openAll: 'فتح الكل',
     closeAll: 'اغلاق الكل',
     shareDraft: 'شارك هذه المادة',

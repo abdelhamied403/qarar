@@ -212,7 +212,7 @@ class CardDraft extends Component {
                 </div>
               </div>
             </div>
-            {votes ? (
+            {/* {votes ? (
               <div className="side">
                 <h5>{translate('cardDraft.yourOpinion')}</h5>
 
@@ -252,7 +252,7 @@ class CardDraft extends Component {
               </div>
             ) : (
               ''
-            )}
+            )} */}
           </div>
         </CardBody>
         <CardFooter>
