@@ -924,11 +924,10 @@ class DraftDetailsInfo extends Component {
                     </p>
                     <Row>
                       {draft.most_featured_items?.map(el => (
-                        <Col md="4" className="p-2">
-                          <div className="user-card">
-                            <img src="/static/img/Group 991.svg" />
-                            <p className="user-card-name">{el.title}</p>
-                            <span className="user-card-points">
+                        <Col md="12" className="p-2 featured-article">
+                          <div className="featured-article-card">
+                            <p className="featured-article-card-name">{el.title}</p>
+                            <span className="featured-article-card-points">
                               {el.comment_count}{' '}
                               {translate('draftDetails.points')}
                             </span>
