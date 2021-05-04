@@ -707,8 +707,13 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>
-                        {parseInt(draft.likes, 10) +
-                          parseInt(draft.dislikes, 10)}
+                        {(
+                          (parseInt(draft.likes, 10) /
+                            (parseInt(draft.likes, 10) +
+                              parseInt(draft.dislikes, 10))) *
+                          100
+                        ).toFixed(0)}{' '}
+                        %
                       </p>
                       <h5> {translate('draftDetails.vote')}</h5>
                     </div>
@@ -821,7 +826,6 @@ class DraftDetailsInfo extends Component {
                       <Col md="6">
                         <div>
                           {[
-                               
                             {
                               name: translate('draftDetails.chartTypeOne'),
                               color: '#81BD41'
@@ -926,7 +930,9 @@ class DraftDetailsInfo extends Component {
                       {draft.most_featured_items?.map(el => (
                         <Col md="12" className="p-2 featured-article">
                           <div className="featured-article-card">
-                            <p className="featured-article-card-name">{el.title}</p>
+                            <p className="featured-article-card-name">
+                              {el.title}
+                            </p>
                             <span className="featured-article-card-points">
                               {el.comment_count}{' '}
                               {translate('draftDetails.points')}
@@ -954,7 +960,11 @@ class DraftDetailsInfo extends Component {
                       {draft.most_featured_users?.map(el => (
                         <Col md="4" className="p-2">
                           <div className="user-card">
-                            <img src="/static/img/Group 991.svg" />
+                            <img
+                              src={
+                                el.user_picture ? `https://qarar-backend.sharedt.com/${el.user_picture}`: '/static/img/Group 991.svg'
+                              }
+                            />
                             <p className="user-card-name">
                               {el.name || 'Place holder'}
                             </p>
@@ -1000,16 +1010,6 @@ class DraftDetailsInfo extends Component {
                       {translate('draftDetails.closeAll')}
                     </Button>
                   </>
-                )}
-                {uid && (
-                  <Button
-                    color="primary"
-                    className="infoFollow"
-                    onClick={() => this.follow()}
-                    outline={!flagged}
-                  >
-                    {flagged ? 'إلغاء المتابعة' : 'متابعة'}
-                  </Button>
                 )}
               </div>
               <div className="shareInfoLeft d-flex align-items-center">
@@ -1293,11 +1293,14 @@ class DraftDetailsInfo extends Component {
           }
         />
 
+        {console.log(draft)}
+
         <ShareIdeasModal
           open={shareIdeasModalOpen}
           id={selectedSubject}
           canVote={!!openArticle}
           uid={uid}
+          forced_adj_city_investemtn={draft.forced_adj_city_investemtn !== '0'}
           getDraft={() => this.getDraft()}
           getComments={() => this.getComments()}
           accessToken={this.props.accessToken}

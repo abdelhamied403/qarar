@@ -348,7 +348,7 @@ export const ar = {
   decisionDetails: {
     decisions: 'القرارات',
     views: 'مشاهدة',
-    modification: 'تعديل',
+    modification: 'عدد التعديلات',
     article: 'مادة',
     projectType: 'نوع المشروع:',
     attachments: 'المرفقات',
@@ -373,7 +373,7 @@ export const ar = {
     unfollow: 'الغاء المتابعة',
     user: 'مشترك',
     comment: 'تعليق',
-    vote: 'صوت',
+    vote: 'نسبة الرضا',
     createDate: 'تاريخ بداية الطرح',
     closeDate: 'تاريخ اغلاق المسودة و النقاش',
     attachments: 'المرفقات',
