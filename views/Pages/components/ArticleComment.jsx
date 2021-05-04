@@ -114,7 +114,7 @@ class ArticleComment extends Component {
                 {renderHTML(comment.comment_body || '')}
               </p>
             </div>
-            <div className="d-flex flex-row draftLikeDislike likeDiv">
+            {/* <div className="d-flex flex-row draftLikeDislike likeDiv">
               <span>{comment.likes}</span>
               {this.state.like && this.state.id === comment.cid && (
                 <ReactLoading
@@ -205,7 +205,7 @@ class ArticleComment extends Component {
                   يجب عليك تسجيل الدخول
                 </UncontrolledTooltip>
               )}
-            </div>
+            </div> */}
           </div>
         ))}
         {successComment && (

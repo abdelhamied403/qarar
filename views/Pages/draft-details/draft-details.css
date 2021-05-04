@@ -30,6 +30,10 @@
   color: #06706d;
 }
 
+.user-card img {
+  width: 93px;
+  height: 93px;
+}
 
 .featured-article-card{
   display: flex;
