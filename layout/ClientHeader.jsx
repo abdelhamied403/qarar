@@ -159,7 +159,7 @@ class ClientHeader extends React.Component {
 
     const gotoLang = lang => {
       localStorage.setItem('LANG', lang);
-      location.reload();
+      location.replace(`?lang=${lang}`);
     };
 
     return (

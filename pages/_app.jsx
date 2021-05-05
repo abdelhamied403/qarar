@@ -1,4 +1,4 @@
-import React, { Children, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
@@ -9,14 +9,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { parseCookies } from 'nookies';
 import withReduxStore from '../redux/with-redux-store';
 import ClientLayout from '../layout';
-import Loading from '../components/loading';
 import Api from '../api';
 import 'simple-line-icons/css/simple-line-icons.css';
 import 'flag-icon-css/css/flag-icon.min.css';
 import './main.css';
 import './qarar.css';
-import setLanguage from 'next-translate/setLanguage';
 import { translationInit } from '../utlis/translation';
+import { withRouter } from 'next/router';
 
 class MyApp extends App {
   static async getInitialProps({ ctx }) {
@@ -46,7 +45,8 @@ class MyApp extends App {
   }
 
   async componentDidMount() {
-    const lang = localStorage.getItem('LANG') || 'ar';
+    const lang =
+      this.props.router.query.lang || localStorage.getItem('LANG') || 'en';
     translationInit(lang);
     document.body.dir = lang === 'en' ? 'ltr' : 'rtl';
     document.body.lang = lang;
@@ -89,8 +89,10 @@ class MyApp extends App {
   }
 }
 
-export default withReduxStore(
-  withAnalytics(Router, {
-    ga: 'UA-150975722-5'
-  })(MyApp)
+export default withRouter(
+  withReduxStore(
+    withAnalytics(Router, {
+      ga: 'UA-150975722-5'
+    })(MyApp)
+  )
 );

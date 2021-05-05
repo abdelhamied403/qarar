@@ -41,7 +41,7 @@ class DecisionsLibrary extends Component {
       systemOptions: [],
       vocabularyOptions: [],
       selectedMainCategoryId: -1,
-      selectedSubCategoryId: -1,
+      selectedSubCategoryId: -1
     };
   }
 
@@ -62,14 +62,21 @@ class DecisionsLibrary extends Component {
 
   getDrafts = async () => {
     const { accessToken } = this.props;
-    const { page, draftsPageSize, selectedTag, selectedDate, selectedSubCategoryId, selectedMainCategoryId } = this.state;
+    const {
+      page,
+      draftsPageSize,
+      selectedTag,
+      selectedDate,
+      selectedSubCategoryId,
+      selectedMainCategoryId
+    } = this.state;
     // const draftCountResponse = await Api.get(
     //   `/qarar_api/count/voting_qarar?_format=json${
     //     selectedTag ? `&tag=${selectedTag}` : ''
     //   }${selectedDate ? `&ends=-1 month` : ''}`
     // );
     // if (draftCountResponse.ok) {
-      this.setState({ draftCount: 1 });
+    this.setState({ draftCount: 1 });
     // }
     // const draftsResponse = accessToken
     //   ? await Api.get(
@@ -88,13 +95,31 @@ class DecisionsLibrary extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/system/0/DESC/1?_format=json${selectedSubCategoryId !== -1 ? '&main_category='+selectedSubCategoryId : ''}${selectedMainCategoryId !== -1 ? '&sub_category='+selectedMainCategoryId : ''}`,
+          `/qarar_api/data/system/0/DESC/1?_format=json${
+            selectedSubCategoryId !== -1
+              ? '&main_category=' + selectedSubCategoryId
+              : ''
+          }${
+            selectedMainCategoryId !== -1
+              ? '&sub_category=' + selectedMainCategoryId
+              : ''
+          }`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
           }
         )
-      : await Api.get(`/qarar_api/data/system/0/DESC/1?_format=json${selectedSubCategoryId !== -1 ? '&main_category='+selectedSubCategoryId : ''}${selectedMainCategoryId !== -1 ? '&sub_category='+selectedMainCategoryId : ''}`);
+      : await Api.get(
+          `/qarar_api/data/system/0/DESC/1?_format=json${
+            selectedSubCategoryId !== -1
+              ? '&main_category=' + selectedSubCategoryId
+              : ''
+          }${
+            selectedMainCategoryId !== -1
+              ? '&sub_category=' + selectedMainCategoryId
+              : ''
+          }`
+        );
     if (draftsResponse.ok) {
       console.log(draftsResponse.data);
       this.setState({ drafts: draftsResponse.data, loading: false });
@@ -105,32 +130,32 @@ class DecisionsLibrary extends Component {
     const { accessToken } = this.props;
     const systemOptionsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
-      : await Api.get(   `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`);
+          `/qarar_api/load/vocabulary/systems_types?_format=json`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
+      : await Api.get(`/qarar_api/load/vocabulary/systems_types?_format=json`);
     if (systemOptionsResponse.ok) {
       console.log(systemOptionsResponse.data);
-      this.setState({ systemOptions: systemOptionsResponse.data});
+      this.setState({ systemOptions: systemOptionsResponse.data });
     }
 
     const vocabularyOptionsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
-      : await Api.get(   `/qarar_api/data/draft/0/DESC/1?_format=json&search_key=اشتراطات`);
+          `/qarar_api/load/vocabulary/altshry_at?_format=json`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
+      : await Api.get(`/qarar_api/load/vocabulary/altshry_at?_format=json`);
     if (vocabularyOptionsResponse.ok) {
       console.log(vocabularyOptionsResponse.data);
-      this.setState({ vocabularyOptions: vocabularyOptionsResponse.data});
+      this.setState({ vocabularyOptions: vocabularyOptionsResponse.data });
     }
-
+    console.log({ vocabularyOptionsResponse, systemOptionsResponse });
   };
 
   toggle(tabPane, tab) {
@@ -208,28 +233,29 @@ class DecisionsLibrary extends Component {
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>{translate('decisionsLibPage.classification')}</label>
-                    <select className="not-select2 form-control"
-                            value={selectedMainCategoryId}
-                            onChange={e =>
-                              this.setState(
-                                { selectedMainCategoryId: parseInt(e.target.value, 10) },
-                                () => this.getDrafts()
-                              )
-                            }
+                    <label>
+                      {translate('decisionsLibPage.classification')}
+                    </label>
+                    <select
+                      className="not-select2 form-control"
+                      value={selectedMainCategoryId}
+                      onChange={e =>
+                        this.setState(
+                          {
+                            selectedMainCategoryId: parseInt(e.target.value, 10)
+                          },
+                          () => this.getDrafts()
+                        )
+                      }
                     >
                       <option value="-1">
-                        {translate('decisionsLibPage.choose')} {' '}
+                        {translate('decisionsLibPage.choose')}{' '}
                         {translate('decisionsLibPage.classification')}
                       </option>
-                      {
-                        systemOptions &&
+                      {systemOptions &&
                         systemOptions.map(option => (
-                          <option value={option.id}>
-                            {option.name}
-                          </option>
-                        ))
-                      }
+                          <option value={option.id}>{option.name}</option>
+                        ))}
                     </select>
                   </div>
                 </Col>
@@ -245,23 +271,21 @@ class DecisionsLibrary extends Component {
                       value={selectedSubCategoryId}
                       onChange={e =>
                         this.setState(
-                          { selectedSubCategoryId: parseInt(e.target.value, 10) },
+                          {
+                            selectedSubCategoryId: parseInt(e.target.value, 10)
+                          },
                           () => this.getDrafts()
                         )
                       }
                     >
                       <option value="-1">
-                        {translate('decisionsLibPage.choose')} {' '}
+                        {translate('decisionsLibPage.choose')}{' '}
                         {translate('decisionsLibPage.subClassification')}
                       </option>
-                      {
-                        vocabularyOptions &&
+                      {vocabularyOptions &&
                         vocabularyOptions.map(option => (
-                          <option value={option.id}>
-                            {option.name}
-                          </option>
-                        ))
-                      }
+                          <option value={option.id}>{option.name}</option>
+                        ))}
                     </select>
                   </div>
                 </Col>
@@ -307,33 +331,33 @@ class DecisionsLibrary extends Component {
             </Container>
           </section>
           <section className="draft-cards">
-            {(drafts && drafts.length) ? (
+            {drafts && drafts.length ? (
               drafts.map(draft => (
                 <Col lg="6">
-                <CardDraft
-                  type='decision'
-                  key={draft.id}
-                  id={draft.id}
-                  header={draft.title}
-                  refetch={() => this.getDrafts()}
-                  subHeader={`${translate(
-                    'decisionsLibPage.draftCard.publication'
-                  )}${draft.publisheDate || ''}`}
-                  content={draft.body}
-                  date={draft.publisheDate}
-                  link={`/decision-details/${draft.id}`}
-                  tags={
-                    draft.tags
-                      ? draft.tags.map(tagItem => ({
-                          tag: tagItem.name,
-                          id: tagItem.id
-                        }))
-                      : []
-                  }
-                  liked={draft.liked}
-                  disliked={draft.disliked}
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                />
+                  <CardDraft
+                    type="decision"
+                    key={draft.id}
+                    id={draft.id}
+                    header={draft.title}
+                    refetch={() => this.getDrafts()}
+                    subHeader={`${translate(
+                      'decisionsLibPage.draftCard.publication'
+                    )}${draft.publisheDate || ''}`}
+                    content={draft.body}
+                    date={draft.publisheDate}
+                    link={`/decision-details/${draft.id}`}
+                    tags={
+                      draft.tags
+                        ? draft.tags.map(tagItem => ({
+                            tag: tagItem.name,
+                            id: tagItem.id
+                          }))
+                        : []
+                    }
+                    liked={draft.liked}
+                    disliked={draft.disliked}
+                    subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
+                  />
                 </Col>
               ))
             ) : (

@@ -962,7 +962,9 @@ class DraftDetailsInfo extends Component {
                           <div className="user-card">
                             <img
                               src={
-                                el.user_picture ? `https://qarar-backend.sharedt.com/${el.user_picture}`: '/static/img/Group 991.svg'
+                                el.user_picture
+                                  ? `https://qarar-backend.sharedt.com/${el.user_picture}`
+                                  : '/static/img/Group 991.svg'
                               }
                             />
                             <p className="user-card-name">
