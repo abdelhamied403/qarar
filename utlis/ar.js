@@ -197,7 +197,7 @@ export const ar = {
       votingCloses: 'يغلق التصويت بتاريخ ',
       publication: 'تاريخ النشر '
     },
-    noDecisions: 'لا توجد قرارات تحت التصويت الآن . ',
+    noDecisions: 'لا يوجد قرارات متاحة الان. ',
     archivedDecisions: 'القرارات المؤرشفة'
   },
   draftsPage: {
@@ -215,7 +215,7 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى ',
+    noDecisions: 'لا يوجد قرارات متاحة الآن ',
     archivedDecisions: 'القرارات المؤرشفة'
   },
   draftsUnderVotePage: {
