@@ -48,7 +48,7 @@ class DraftsUnderVote extends Component {
 
   getTags = async () => {
     const tagsResponse = await Api.get(
-      `/qarar_api/load/vocabulary/tags?_format=json&status=voting`
+      `/qarar_api/load/vocabulary/tags?_format=json`
     );
     if (tagsResponse.ok) {
       this.setState({ tags: tagsResponse.data });
@@ -244,12 +244,10 @@ class DraftsUnderVote extends Component {
                       cacheOptions
                       classNamePrefix="react-select"
                       options={
-                        tags
-                          ? Object.keys(tags).map(key => ({
-                              label: tags[key],
-                              value: key
-                            }))
-                          : []
+                        tags?.map(tag => ({
+                          label: tag.name,
+                          value: tag.id
+                        })) || []
                       }
                       isClearable
                       placeholder={translate(

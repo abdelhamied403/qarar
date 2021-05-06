@@ -114,6 +114,18 @@ class ArticleComment extends Component {
                 {renderHTML(comment.comment_body || '')}
               </p>
             </div>
+            {uid && enableCommentForm ? (
+              <InputGroup>
+                <Input
+                  value={this.state.comment}
+                  onChange={e => this.setState({ comment: e.target.value })}
+                  placeholder="اضف تعليقك"
+                />
+                <InputGroupAddon onClick={this.saveComment} addonType="prepend">
+                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                </InputGroupAddon>
+              </InputGroup>
+            ) : null}
             {/* <div className="d-flex flex-row draftLikeDislike likeDiv">
               <span>{comment.likes}</span>
               {this.state.like && this.state.id === comment.cid && (
@@ -213,18 +225,6 @@ class ArticleComment extends Component {
             تم إضافة التعليق في إنتظار موافقة إدارة الموقع
           </Alert>
         )}
-        {uid && enableCommentForm ? (
-          <InputGroup>
-            <Input
-              value={this.state.comment}
-              onChange={e => this.setState({ comment: e.target.value })}
-              placeholder="اضف تعليقك"
-            />
-            <InputGroupAddon onClick={this.saveComment} addonType="prepend">
-              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-            </InputGroupAddon>
-          </InputGroup>
-        ) : null}
       </>
     );
   }

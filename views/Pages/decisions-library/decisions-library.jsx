@@ -53,9 +53,10 @@ class DecisionsLibrary extends Component {
 
   getTags = async () => {
     const tagsResponse = await Api.get(
-      `/qarar_api/load/vocabulary/tags?_format=json&status=voting`
+      `/qarar_api/load/vocabulary/tags?_format=json`
     );
     if (tagsResponse.ok) {
+      console.log({ tagsResponse });
       this.setState({ tags: tagsResponse.data });
     }
   };
@@ -152,7 +153,7 @@ class DecisionsLibrary extends Component {
         )
       : await Api.get(`/qarar_api/load/vocabulary/altshry_at?_format=json`);
     if (vocabularyOptionsResponse.ok) {
-      console.log(vocabularyOptionsResponse.data);
+      console.log('vocabulary', vocabularyOptionsResponse.data);
       this.setState({ vocabularyOptions: vocabularyOptionsResponse.data });
     }
     console.log({ vocabularyOptionsResponse, systemOptionsResponse });
@@ -301,12 +302,10 @@ class DecisionsLibrary extends Component {
                       cacheOptions
                       classNamePrefix="react-select"
                       options={
-                        tags
-                          ? Object.keys(tags).map(key => ({
-                              label: tags[key],
-                              value: key
-                            }))
-                          : []
+                        tags?.map(tag => ({
+                          label: tag.name,
+                          value: tag.id
+                        })) || []
                       }
                       isClearable
                       placeholder={translate(
@@ -320,9 +319,9 @@ class DecisionsLibrary extends Component {
                       }
                       cl
                       onChange={selected =>
-                        this.setState({ selectedTag: selected?.value }, () =>
-                          this.getOptions()
-                        )
+                        this.setState({ selectedTag: selected?.value }, () => {
+                          this.getOptions();
+                        })
                       }
                     />
                   </div>

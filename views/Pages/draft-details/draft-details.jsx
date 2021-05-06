@@ -793,17 +793,22 @@ class DraftDetailsInfo extends Component {
                   </Col>
                 </Row>
                 <Row style={{ padding: '20px' }}>
-                  <div className="uploads">
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                      // disabled={!draft?.pdf_url}
-                      onClick={() => window.open(draft?.pdf_url)}
-                    >
-                      {draft.pdf_name}
-                    </Button>
-                  </div>
+                  {draft?.pdf_url && (
+                    <div className="uploads">
+                      <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
+                        {translate('decisionDetails.attachments')}
+                      </span>
+                      <Button
+                        className="btn-inline-block btn-ligh"
+                        color="secondary"
+                        size="sm"
+                        // disabled={!draft?.pdf_url}
+                        onClick={() => window.open(draft?.pdf_url)}
+                      >
+                        {draft.pdf_name}
+                      </Button>
+                    </div>
+                  )}
                 </Row>
               </CardBody>
             </Card>
@@ -1355,27 +1360,37 @@ class DraftDetailsInfo extends Component {
             <Element name="share-opinion" className="element" />
             <div className="action-item likes d-flex align-items-center">
               <img
-                src="/static/img/Assets/star (1).svg"
+                src={`/static/img/Assets/${
+                  item.starts >= 1 ? 'star (-3.svg' : 'star (1).svg'
+                }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
-                src="/static/img/Assets/star (1).svg"
+                src={`/static/img/Assets/${
+                  item.starts >= 2 ? 'star (-3.svg' : 'star (1).svg'
+                }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
-                src="/static/img/Assets/star (1).svg"
+                src={`/static/img/Assets/${
+                  item.starts >= 3 ? 'star (-3.svg' : 'star (1).svg'
+                }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
-                src="/static/img/Assets/star (1).svg"
+                src={`/static/img/Assets/${
+                  item.starts >= 4 ? 'star (-3.svg' : 'star (1).svg'
+                }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
-                src="/static/img/Assets/star (1).svg"
+                src={`/static/img/Assets/${
+                  item.starts >= 5 ? 'star (-3.svg' : 'star (1).svg'
+                }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
