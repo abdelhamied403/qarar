@@ -816,14 +816,16 @@ class DecisionDetailsInfo extends Component {
                   <img src={this.state.img2} alt="" />
                 </Button>
               </Link>
-              <Button
-                className="btn-inline-block"
-                color="secondary"
-                size="lg"
-                onClick={() => {}}
-              >
-                {translate('decisionDetails.attachment')}
-              </Button>
+              {item.pdf_url && (
+                <Button
+                  className="btn-inline-block"
+                  color="secondary"
+                  size="lg"
+                  onClick={() => window.open(item?.pdf_url)}
+                >
+                  {translate('decisionDetails.attachment')}
+                </Button>
+              )}
             </Col>
           </Row>
         </CardBody>

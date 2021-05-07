@@ -707,12 +707,13 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>
-                        {(
+                        {/* {(
                           (parseInt(draft.likes, 10) /
                             (parseInt(draft.likes, 10) +
                               parseInt(draft.dislikes, 10))) *
                           100
-                        ).toFixed(0)}{' '}
+                        ).toFixed(0)}{' '} */}
+                        {draft.satisfaction_percentage}
                         %
                       </p>
                       <h5> {translate('draftDetails.vote')}</h5>
@@ -813,11 +814,11 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
-            <Card className="cardDraft">
+            <Card className="cardDraft max-content">
               <CardHeader>{translate('draftDetails.charts')}</CardHeader>
               <CardBody>
-                <Row>
-                  <Col md="4">
+                <Row className="flex-auto"> 
+                  <Col md="4" className="flex flex-1 f-column max-100">
                     <p
                       style={{
                         color: '#81BD41',
@@ -827,7 +828,7 @@ class DraftDetailsInfo extends Component {
                     >
                       {translate('draftDetails.chartTitle')}
                     </p>
-                    <Row>
+                    <Row className="f-row flex-3">
                       <Col md="6">
                         <div>
                           {[
@@ -917,39 +918,42 @@ class DraftDetailsInfo extends Component {
                       </Col>
                     </Row>
                   </Col>
-                  <Col
-                    md="4"
-                    className="border-right-line"
-                    dir={translate('dir')}
-                  >
-                    <p
-                      style={{
-                        color: '#81BD41',
-                        fontWeight: 'bold',
-                        lineHeight: '16px'
-                      }}
+                  {draft.most_featured_items?.length > 0 && (
+                    <Col
+                      md="4"
+                      className="border-right-line flex flex-1 f-column max-100"
+                      dir={translate('dir')}
                     >
-                      {translate('draftDetails.mostDrafts')}
-                    </p>
-                    <Row>
-                      {draft.most_featured_items?.map(el => (
-                        <Col md="12" className="p-2 featured-article">
-                          <div className="featured-article-card">
-                            <p className="featured-article-card-name">
-                              {el.title}
-                            </p>
-                            <span className="featured-article-card-points">
-                              {el.comment_count}{' '}
-                              {translate('draftDetails.points')}
-                            </span>
-                          </div>
-                        </Col>
-                      ))}
-                    </Row>
-                  </Col>
-                  <Col
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
+                      >
+                        {translate('draftDetails.mostDrafts')}
+                      </p>
+
+                      <Row>
+                        {draft.most_featured_items?.map(el => (
+                          <Col md="12" className="p-2 featured-article">
+                            <div className="featured-article-card">
+                              <p className="featured-article-card-name">
+                                {el.title}
+                              </p>
+                              <span className="featured-article-card-points">
+                                {el.comment_count}{' '}
+                                {translate('draftDetails.points')}
+                              </span>
+                            </div>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Col>
+                  )}
+                  {draft.most_featured_users?.length > 0 &&<Col
                     md="4"
-                    className="border-right-line"
+                    className="border-right-line flex flex-1 f-column max-100"
                     dir={translate('dir')}
                   >
                     <p
@@ -983,7 +987,7 @@ class DraftDetailsInfo extends Component {
                         </Col>
                       ))}
                     </Row>
-                  </Col>
+                  </Col>}
                 </Row>
               </CardBody>
             </Card>
@@ -1458,15 +1462,17 @@ class DraftDetailsInfo extends Component {
               >
                 {translate('draftDetails.participate')}
               </Button>
-              <Button
-                className="btn-inline-block"
-                color="secondary"
-                size="lg"
-                disabled={!item?.pdf_url}
-                onClick={() => window.open(item?.pdf_url)}
-              >
-                {translate('draftDetails.downloadPdf')}
-              </Button>
+              {item?.pdf_url && (
+                <Button
+                  className="btn-inline-block"
+                  color="secondary"
+                  size="lg"
+                  // disabled={!item?.pdf_url}
+                  onClick={() => window.open(item?.pdf_url)}
+                >
+                  {item.pdf_name}
+                </Button>
+              )}
             </Col>
             <Col md="5">
               <Button

@@ -1,18 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
-import {
-  InputGroup,
-  InputGroupAddon,
-  Input,
-  Alert,
-  UncontrolledTooltip
-} from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Alert } from 'reactstrap';
 import renderHTML from 'react-render-html';
-import ReactLoading from 'react-loading';
 import moment from 'moment';
 import Link from 'next/link';
 
 import Api from '../../../api';
+
+const AddComment = ({ onSaveComment }) => {
+  const [comment, setComment] = useState('');
+  return (
+    <InputGroup>
+      <Input
+        value={comment}
+        onChange={e => setComment(e.target.value)}
+        placeholder="اضف تعليقك"
+      />
+      <InputGroupAddon
+        onClick={() => {
+          onSaveComment(comment);
+          setComment('');
+        }}
+        addonType="prepend"
+      >
+        <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+      </InputGroupAddon>
+    </InputGroup>
+  );
+};
 
 class ArticleComment extends Component {
   constructor() {
@@ -55,9 +70,9 @@ class ArticleComment extends Component {
     };
   };
 
-  saveComment = async () => {
+  saveComment = async comment => {
+    console.log(comment);
     const { itemId, accessToken } = this.props;
-    const { comment } = this.state;
     if (!comment) {
       this.setState({ error: true });
       return;
@@ -115,16 +130,9 @@ class ArticleComment extends Component {
               </p>
             </div>
             {uid && enableCommentForm ? (
-              <InputGroup>
-                <Input
-                  value={this.state.comment}
-                  onChange={e => this.setState({ comment: e.target.value })}
-                  placeholder="اضف تعليقك"
-                />
-                <InputGroupAddon onClick={this.saveComment} addonType="prepend">
-                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-                </InputGroupAddon>
-              </InputGroup>
+              <AddComment
+                onSaveComment={comment => this.saveComment(comment)}
+              />
             ) : null}
             {/* <div className="d-flex flex-row draftLikeDislike likeDiv">
               <span>{comment.likes}</span>

@@ -18,6 +18,39 @@
   border: 1px solid #40c2cc;
   border-radius: 5px;
   padding: 5px;
+  width: 100%;
+}
+
+.flex-3{
+  flex: 3 !important;
+}
+
+.flex-1{
+  flex: 1 !important;
+}
+.flex-auto{
+  flex: auto !important;
+}
+
+.flex{
+  display: flex !important;
+}
+
+.f-column{
+  flex-direction: column !important;
+}
+
+.f-row{
+  flex-direction: row !important;
+}
+
+.max-100{
+
+  max-width: 100% !important;
+}
+
+.max-content{
+  max-width: max-content !important;
 }
 
 .user-card-name {
