@@ -48,7 +48,7 @@ class ArchivedDrafts extends Component {
 
   getTags = async () => {
     const tagsResponse = await Api.get(
-      `/qarar_api/load/vocabulary/tags?_format=json&status=voting`
+      `/qarar_api/load/vocabulary/tags?_format=json&status=archived`
     );
     if (tagsResponse.ok) {
       this.setState({ tags: tagsResponse.data });

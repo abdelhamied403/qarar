@@ -48,7 +48,7 @@ class DraftsUnderVote extends Component {
 
   getTags = async () => {
     const tagsResponse = await Api.get(
-      `/qarar_api/load/vocabulary/tags?_format=json`
+      `/qarar_api/load/vocabulary/tags?_format=json&status=voting`
     );
     if (tagsResponse.ok) {
       this.setState({ tags: tagsResponse.data });

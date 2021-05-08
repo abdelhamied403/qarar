@@ -706,16 +706,7 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (3).svg"
                         />
                       </div>
-                      <p>
-                        {/* {(
-                          (parseInt(draft.likes, 10) /
-                            (parseInt(draft.likes, 10) +
-                              parseInt(draft.dislikes, 10))) *
-                          100
-                        ).toFixed(0)}{' '} */}
-                        {draft.satisfaction_percentage}
-                        %
-                      </p>
+                      <p>{draft.satisfaction_percentage}%</p>
                       <h5> {translate('draftDetails.vote')}</h5>
                     </div>
                   </div>
@@ -814,116 +805,16 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
-            <Card className="cardDraft max-content">
-              <CardHeader>{translate('draftDetails.charts')}</CardHeader>
-              <CardBody>
-                <Row className="flex-auto"> 
-                  <Col md="4" className="flex flex-1 f-column max-100">
-                    <p
-                      style={{
-                        color: '#81BD41',
-                        fontWeight: 'bold',
-                        lineHeight: '16px'
-                      }}
-                    >
-                      {translate('draftDetails.chartTitle')}
-                    </p>
-                    <Row className="f-row flex-3">
-                      <Col md="6">
-                        <div>
-                          {[
-                            {
-                              name: translate('draftDetails.chartTypeOne'),
-                              color: '#81BD41'
-                            },
-                            {
-                              name: translate('draftDetails.chartTypeTwo'),
-                              color: '#40C2CC'
-                            },
-                            {
-                              name: translate('draftDetails.chartTypeThree'),
-                              color: '#006C68'
-                            },
-                            {
-                              name: translate('draftDetails.chartTypeFour'),
-                              color: '#F3F3F3'
-                            },
-                            {
-                              name: translate('draftDetails.chartTypeFive'),
-                              color: '#FF4A4A'
-                            }
-                          ].map(val => (
-                            <div className="d-flex flex-row align-items-center">
-                              <span
-                                style={{
-                                  backgroundColor: val.color,
-                                  height: '20px',
-                                  width: '20px',
-                                  borderRadius: '50%',
-                                  display: 'inline-block'
-                                }}
-                              />
-                              <p
-                                style={{
-                                  margin: '0 10px 0 10px',
-                                  color: '#006C68'
-                                }}
-                              >
-                                {val.name}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </Col>
-                      <Col md="6">
-                        <PieChart
-                          data={[
-                            {
-                              title: translate('draftDetails.chartTypeOne'),
-                              value: parseInt(
-                                draft.voting_percentage[1].replace('%', '')
-                              ),
-                              color: '#81BD41'
-                            },
-                            {
-                              title: translate('draftDetails.chartTypeTwo'),
-                              value: parseInt(
-                                draft.voting_percentage[2].replace('%', '')
-                              ),
-                              color: '#40C2CC'
-                            },
-                            {
-                              title: translate('draftDetails.chartTypeThree'),
-                              value: parseInt(
-                                draft.voting_percentage[3].replace('%', '')
-                              ),
-                              color: '#006C68'
-                            },
-                            {
-                              title: translate('draftDetails.chartTypeFour'),
-                              value: parseInt(
-                                draft.voting_percentage[4].replace('%', '')
-                              ),
-                              color: '#F3F3F3'
-                            },
-                            {
-                              title: translate('draftDetails.chartTypeFive'),
-                              value: parseInt(
-                                draft.voting_percentage[5].replace('%', '')
-                              ),
-                              color: '#FF4A4A'
-                            }
-                          ]}
-                        />
-                      </Col>
-                    </Row>
-                  </Col>
-                  {draft.most_featured_items?.length > 0 && (
-                    <Col
-                      md="4"
-                      className="border-right-line flex flex-1 f-column max-100"
-                      dir={translate('dir')}
-                    >
+            {(draft.most_featured_items?.length ||
+              draft.most_featured_users?.length ||
+              Object.values(draft.voting_percentage).some(
+                el => el !== '0%'
+              )) && (
+              <Card className="cardDraft">
+                <CardHeader>{translate('draftDetails.charts')}</CardHeader>
+                <CardBody>
+                  <Row>
+                    <Col md="4">
                       <p
                         style={{
                           color: '#81BD41',
@@ -931,67 +822,174 @@ class DraftDetailsInfo extends Component {
                           lineHeight: '16px'
                         }}
                       >
-                        {translate('draftDetails.mostDrafts')}
+                        {translate('draftDetails.chartTitle')}
                       </p>
-
                       <Row>
-                        {draft.most_featured_items?.map(el => (
-                          <Col md="12" className="p-2 featured-article">
-                            <div className="featured-article-card">
-                              <p className="featured-article-card-name">
-                                {el.title}
-                              </p>
-                              <span className="featured-article-card-points">
-                                {el.comment_count}{' '}
-                                {translate('draftDetails.points')}
-                              </span>
-                            </div>
-                          </Col>
-                        ))}
-                      </Row>
-                    </Col>
-                  )}
-                  {draft.most_featured_users?.length > 0 &&<Col
-                    md="4"
-                    className="border-right-line flex flex-1 f-column max-100"
-                    dir={translate('dir')}
-                  >
-                    <p
-                      style={{
-                        color: '#81BD41',
-                        fontWeight: 'bold',
-                        lineHeight: '16px'
-                      }}
-                    >
-                      {translate('draftDetails.mostVoted')}
-                    </p>
-                    <Row>
-                      {draft.most_featured_users?.map(el => (
-                        <Col md="4" className="p-2">
-                          <div className="user-card">
-                            <img
-                              src={
-                                el.user_picture
-                                  ? `https://qarar-backend.sharedt.com/${el.user_picture}`
-                                  : '/static/img/Group 991.svg'
+                        <Col md="6">
+                          <div>
+                            {[
+                              {
+                                name: translate('draftDetails.chartTypeOne'),
+                                color: '#81BD41'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeTwo'),
+                                color: '#40C2CC'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeThree'),
+                                color: '#006C68'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFour'),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFive'),
+                                color: '#FF4A4A'
                               }
-                            />
-                            <p className="user-card-name">
-                              {el.name || 'Place holder'}
-                            </p>
-                            <span className="user-card-points">
-                              {el.comment_count}{' '}
-                              {translate('draftDetails.points')}
-                            </span>
+                            ].map(val => (
+                              <div className="d-flex flex-row align-items-center">
+                                <span
+                                  style={{
+                                    backgroundColor: val.color,
+                                    height: '20px',
+                                    width: '20px',
+                                    borderRadius: '50%',
+                                    display: 'inline-block'
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    margin: '0 10px 0 10px',
+                                    color: '#006C68'
+                                  }}
+                                >
+                                  {val.name}
+                                </p>
+                              </div>
+                            ))}
                           </div>
                         </Col>
-                      ))}
-                    </Row>
-                  </Col>}
-                </Row>
-              </CardBody>
-            </Card>
+                        <Col md="6">
+                          <PieChart
+                            data={[
+                              {
+                                title: translate('draftDetails.chartTypeOne'),
+                                value: parseInt(
+                                  draft.voting_percentage[1].replace('%', '')
+                                ),
+                                color: '#81BD41'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeTwo'),
+                                value: parseInt(
+                                  draft.voting_percentage[2].replace('%', '')
+                                ),
+                                color: '#40C2CC'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeThree'),
+                                value: parseInt(
+                                  draft.voting_percentage[3].replace('%', '')
+                                ),
+                                color: '#006C68'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFour'),
+                                value: parseInt(
+                                  draft.voting_percentage[4].replace('%', '')
+                                ),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFive'),
+                                value: parseInt(
+                                  draft.voting_percentage[5].replace('%', '')
+                                ),
+                                color: '#FF4A4A'
+                              }
+                            ]}
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                    {draft.most_featured_items?.length > 0 && (
+                      <Col
+                        md="4"
+                        className="border-right-line"
+                        dir={translate('dir')}
+                      >
+                        <p
+                          style={{
+                            color: '#81BD41',
+                            fontWeight: 'bold',
+                            lineHeight: '16px'
+                          }}
+                        >
+                          {translate('draftDetails.mostDrafts')}
+                        </p>
 
+                        <Row>
+                          {draft.most_featured_items?.map(el => (
+                            <Col md="12" className="p-2 featured-article">
+                              <div className="featured-article-card">
+                                <p className="featured-article-card-name">
+                                  {el.title}
+                                </p>
+                                <span className="featured-article-card-points">
+                                  {el.comment_count}{' '}
+                                  {translate('draftDetails.points')}
+                                </span>
+                              </div>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Col>
+                    )}
+                    {draft.most_featured_users?.length > 0 && (
+                      <Col
+                        md="4"
+                        className="border-right-line"
+                        dir={translate('dir')}
+                      >
+                        <p
+                          style={{
+                            color: '#81BD41',
+                            fontWeight: 'bold',
+                            lineHeight: '16px'
+                          }}
+                        >
+                          {translate('draftDetails.mostVoted')}
+                        </p>
+                        <Row>
+                          {draft.most_featured_users?.map(el => (
+                            <Col md="4" className="p-2">
+                              <div className="user-card">
+                                <img
+                                  src={
+                                    el.user_picture
+                                      ? `https://qarar-backend.sharedt.com/${el.user_picture}`
+                                      : '/static/img/Group 991.svg'
+                                  }
+                                />
+                                <p className="user-card-name">
+                                  {el.name || 'Place holder'}
+                                </p>
+                                <span className="user-card-points">
+                                  {el.comment_count}{' '}
+                                  {translate('draftDetails.points')}
+                                </span>
+                              </div>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Col>
+                    )}
+                  </Row>
+                </CardBody>
+              </Card>
+            )}
             {draft?.related_project ? (
               <Card className="cardDraft">
                 <CardBody>

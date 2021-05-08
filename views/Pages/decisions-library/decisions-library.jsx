@@ -97,12 +97,12 @@ class DecisionsLibrary extends Component {
     const draftsResponse = accessToken
       ? await Api.get(
           `/qarar_api/data/system/0/DESC/1?_format=json${
-            selectedSubCategoryId !== -1
-              ? '&main_category=' + selectedSubCategoryId
+            selectedMainCategoryId !== -1
+              ? '&main_category=' + selectedMainCategoryId
               : ''
           }${
-            selectedMainCategoryId !== -1
-              ? '&sub_category=' + selectedMainCategoryId
+            selectedSubCategoryId !== -1
+              ? '&sub_category=' + selectedSubCategoryId
               : ''
           }`,
           {},
@@ -112,12 +112,12 @@ class DecisionsLibrary extends Component {
         )
       : await Api.get(
           `/qarar_api/data/system/0/DESC/1?_format=json${
-            selectedSubCategoryId !== -1
-              ? '&main_category=' + selectedSubCategoryId
+            selectedMainCategoryId !== -1
+              ? '&main_category=' + selectedMainCategoryId
               : ''
           }${
-            selectedMainCategoryId !== -1
-              ? '&sub_category=' + selectedMainCategoryId
+            selectedSubCategoryId !== -1
+              ? '&sub_category=' + selectedSubCategoryId
               : ''
           }`
         );
