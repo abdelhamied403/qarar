@@ -810,11 +810,11 @@ class DraftDetailsInfo extends Component {
               Object.values(draft.voting_percentage).some(
                 el => el !== '0%'
               )) && (
-              <Card className="cardDraft">
+              <Card className="cardDraft max-content">
                 <CardHeader>{translate('draftDetails.charts')}</CardHeader>
                 <CardBody>
                   <Row>
-                    <Col md="4">
+                    <Col md="4" className="flex flex-1 f-column max-100">
                       <p
                         style={{
                           color: '#81BD41',
@@ -917,7 +917,7 @@ class DraftDetailsInfo extends Component {
                     {draft.most_featured_items?.length > 0 && (
                       <Col
                         md="4"
-                        className="border-right-line"
+                        className="border-right-line flex flex-1 f-column max-100"
                         dir={translate('dir')}
                       >
                         <p
@@ -950,7 +950,7 @@ class DraftDetailsInfo extends Component {
                     {draft.most_featured_users?.length > 0 && (
                       <Col
                         md="4"
-                        className="border-right-line"
+                        className="border-right-line flex flex-1 f-column max-100"
                         dir={translate('dir')}
                       >
                         <p
