@@ -823,7 +823,8 @@ class DecisionDetailsInfo extends Component {
                   size="lg"
                   onClick={() => window.open(item?.pdf_url)}
                 >
-                  {translate('decisionDetails.attachment')}
+                  {/* {translate('decisionDetails.attachment')} */}
+                  {item.pdf_name}
                 </Button>
               )}
             </Col>
