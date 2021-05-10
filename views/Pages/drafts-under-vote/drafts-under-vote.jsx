@@ -20,6 +20,7 @@ import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
 
 const animatedComponents = makeAnimated();
+import { debounce } from '../../../utlis/helpers';
 
 class DraftsUnderVote extends Component {
   constructor(props) {
@@ -57,7 +58,13 @@ class DraftsUnderVote extends Component {
 
   getDrafts = async () => {
     const { accessToken } = this.props;
-    const { page, draftsPageSize, selectedTag, selectedDate } = this.state;
+    const {
+      page,
+      draftsPageSize,
+      selectedTag,
+      selectedDate,
+      searchKey
+    } = this.state;
     const draftCountResponse = await Api.get(
       `/qarar_api/count/voting_qarar?_format=json${
         selectedTag ? `&tag=${selectedTag}` : ''
@@ -83,14 +90,18 @@ class DraftsUnderVote extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=voting`,
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=voting${
+            searchKey ? '&search_key=' + searchKey : ''
+          }`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
           }
         )
       : await Api.get(
-          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=voting`
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=voting${
+            searchKey ? '&search_key=' + searchKey : ''
+          }`
         );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
@@ -237,7 +248,25 @@ class DraftsUnderVote extends Component {
                     <label htmlFor="orderDropDownList">
                       {translate('draftsUnderVotePage.keywords')}
                     </label>
-                    <ReactSelect
+                    <input
+                      className={`text-start direction-${translate(
+                        'dir'
+                      )} form-control`}
+                      placeholder={translate(
+                        'decisionsLibPage.keywordsPlaceholder'
+                      )}
+                      onChange={({ target: { value } }) =>
+                        debounce(() => {
+                          this.setState(
+                            {
+                              searchKey: value
+                            },
+                            () => this.getDrafts()
+                          );
+                        })
+                      }
+                    />
+                    {/* <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
                       components={animatedComponents}
@@ -267,7 +296,7 @@ class DraftsUnderVote extends Component {
                           this.getDrafts()
                         )
                       }
-                    />
+                    /> */}
                   </div>
                 </Col>
               </Row>

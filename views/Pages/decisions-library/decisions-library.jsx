@@ -18,6 +18,7 @@ import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
+import { debounce } from '../../../utlis/helpers';
 
 const animatedComponents = makeAnimated();
 
@@ -69,7 +70,8 @@ class DecisionsLibrary extends Component {
       selectedTag,
       selectedDate,
       selectedSubCategoryId,
-      selectedMainCategoryId
+      selectedMainCategoryId,
+      searchKey
     } = this.state;
     // const draftCountResponse = await Api.get(
     //   `/qarar_api/count/voting_qarar?_format=json${
@@ -104,7 +106,7 @@ class DecisionsLibrary extends Component {
             selectedSubCategoryId !== -1
               ? '&sub_category=' + selectedSubCategoryId
               : ''
-          }`,
+          }${searchKey ? '&search_key=' + searchKey : ''}`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
@@ -119,7 +121,7 @@ class DecisionsLibrary extends Component {
             selectedSubCategoryId !== -1
               ? '&sub_category=' + selectedSubCategoryId
               : ''
-          }`
+          }${searchKey ? '&search_key=' + searchKey : ''}`
         );
     if (draftsResponse.ok) {
       console.log(draftsResponse.data);
@@ -295,7 +297,25 @@ class DecisionsLibrary extends Component {
                     <label htmlFor="orderDropDownList">
                       {translate('decisionsLibPage.keywords')}
                     </label>
-                    <ReactSelect
+                    <input
+                      className={`text-start direction-${translate(
+                        'dir'
+                      )} form-control`}
+                      placeholder={translate(
+                        'decisionsLibPage.keywordsPlaceholder'
+                      )}
+                      onChange={({ target: { value } }) =>
+                        debounce(() => {
+                          this.setState(
+                            {
+                              searchKey: value
+                            },
+                            () => this.getDrafts()
+                          );
+                        })
+                      }
+                    />
+                    {/* <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
                       components={animatedComponents}
@@ -323,7 +343,7 @@ class DecisionsLibrary extends Component {
                           this.getOptions();
                         })
                       }
-                    />
+                    /> */}
                   </div>
                 </Col>
               </Row>

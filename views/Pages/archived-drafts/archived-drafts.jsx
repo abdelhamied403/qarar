@@ -18,6 +18,7 @@ import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
+import { debounce } from '../../../utlis/helpers';
 
 const animatedComponents = makeAnimated();
 
@@ -57,7 +58,13 @@ class ArchivedDrafts extends Component {
 
   getDrafts = async () => {
     const { accessToken } = this.props;
-    const { page, draftsPageSize, selectedTag, selectedDate } = this.state;
+    const {
+      page,
+      draftsPageSize,
+      selectedTag,
+      selectedDate,
+      searchKey
+    } = this.state;
     const draftCountResponse = await Api.get(
       `/qarar_api/count/voting_qarar?_format=json${
         selectedTag ? `&tag=${selectedTag}` : ''
@@ -83,15 +90,19 @@ class ArchivedDrafts extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=archived`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        }
-      )
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=archived${
+            searchKey ? '&search_key=' + searchKey : ''
+          }`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          }
+        )
       : await Api.get(
-        `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=archived`
-      );
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=archived${
+            searchKey ? '&search_key=' + searchKey : ''
+          }`
+        );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
@@ -193,17 +204,25 @@ class ArchivedDrafts extends Component {
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>{translate('archivedDraftsPage.decisionType')}</label>
+                    <label>
+                      {translate('archivedDraftsPage.decisionType')}
+                    </label>
                     <select className="not-select2 form-control">
-                      <option value="1">{translate('archivedDraftsPage.decisionOptionOne')}</option>
-                      <option value="2">{translate('archivedDraftsPage.decisionOptionTwo')}</option>
+                      <option value="1">
+                        {translate('archivedDraftsPage.decisionOptionOne')}
+                      </option>
+                      <option value="2">
+                        {translate('archivedDraftsPage.decisionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('archivedDraftsPage.subtraction')}</label>
+                    <label htmlFor="orderDropDownList">
+                      {translate('archivedDraftsPage.subtraction')}
+                    </label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -215,15 +234,39 @@ class ArchivedDrafts extends Component {
                         )
                       }
                     >
-                      <option value={0}>{translate('archivedDraftsPage.subtractionOptionOne')}</option>
-                      <option value={1}>{translate('archivedDraftsPage.subtractionOptionTwo')}</option>
+                      <option value={0}>
+                        {translate('archivedDraftsPage.subtractionOptionOne')}
+                      </option>
+                      <option value={1}>
+                        {translate('archivedDraftsPage.subtractionOptionTwo')}
+                      </option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">{translate('archivedDraftsPage.keywords')}</label>
-                    <ReactSelect
+                    <label htmlFor="orderDropDownList">
+                      {translate('archivedDraftsPage.keywords')}
+                    </label>
+                    <input
+                      className={`text-start direction-${translate(
+                        'dir'
+                      )} form-control`}
+                      placeholder={translate(
+                        'decisionsLibPage.keywordsPlaceholder'
+                      )}
+                      onChange={({ target: { value } }) =>
+                        debounce(() => {
+                          this.setState(
+                            {
+                              searchKey: value
+                            },
+                            () => this.getDrafts()
+                          );
+                        })
+                      }
+                    />
+                    {/* <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
                       components={animatedComponents}
@@ -238,7 +281,9 @@ class ArchivedDrafts extends Component {
                           : []
                       }
                       isClearable
-                      placeholder={translate('archivedDraftsPage.keywordsPlaceholder')}
+                      placeholder={translate(
+                        'archivedDraftsPage.keywordsPlaceholder'
+                      )}
                       noOptionsMessage={() =>
                         translate('archivedDraftsPage.keywordsNoOptionsMessage')
                       }
@@ -251,7 +296,7 @@ class ArchivedDrafts extends Component {
                           this.getDrafts()
                         )
                       }
-                    />
+                    /> */}
                   </div>
                 </Col>
               </Row>

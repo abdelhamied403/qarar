@@ -18,6 +18,7 @@ import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
+import { debounce } from '../../../utlis/helpers';
 
 const animatedComponents = makeAnimated();
 
@@ -57,7 +58,13 @@ class DraftsApplied extends Component {
 
   getDrafts = async () => {
     const { accessToken } = this.props;
-    const { page, draftsPageSize, selectedTag, selectedDate } = this.state;
+    const {
+      page,
+      draftsPageSize,
+      selectedTag,
+      selectedDate,
+      searchKey
+    } = this.state;
     const draftCountResponse = await Api.get(
       `/qarar_api/count/voting_qarar?_format=json${
         selectedTag ? `&tag=${selectedTag}` : ''
@@ -83,14 +90,18 @@ class DraftsApplied extends Component {
     //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`,
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied${
+            searchKey ? '&search_key=' + searchKey : ''
+          }`,
           {},
           {
             headers: { Authorization: `Bearer ${accessToken}` }
           }
         )
       : await Api.get(
-          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied`
+          `/qarar_api/data/draft/0/DESC/1?_format=json&draft_status=applied${
+            searchKey ? '&search_key=' + searchKey : ''
+          }`
         );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
@@ -235,7 +246,25 @@ class DraftsApplied extends Component {
                     <label htmlFor="orderDropDownList">
                       {translate('draftsAppliedPage.keywords')}
                     </label>
-                    <ReactSelect
+                    <input
+                      className={`text-start direction-${translate(
+                        'dir'
+                      )} form-control`}
+                      placeholder={translate(
+                        'decisionsLibPage.keywordsPlaceholder'
+                      )}
+                      onChange={({ target: { value } }) =>
+                        debounce(() => {
+                          this.setState(
+                            {
+                              searchKey: value
+                            },
+                            () => this.getDrafts()
+                          );
+                        })
+                      }
+                    />
+                    {/* <ReactSelect
                       isRtl
                       className={`text-start direction-${translate('dir')}`}
                       components={animatedComponents}
@@ -265,7 +294,7 @@ class DraftsApplied extends Component {
                           this.getDrafts()
                         )
                       }
-                    />
+                    /> */}
                   </div>
                 </Col>
               </Row>
