@@ -81,7 +81,7 @@ class ArticleComment extends Component {
       entity_id: [{ target_id: itemId }],
       subject: [{ value: 'comment' }],
       comment_body: [{ value: comment }],
-      pid: [{ target_id: '0' }]
+      pid: [{ target_id: comment.id }]
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,

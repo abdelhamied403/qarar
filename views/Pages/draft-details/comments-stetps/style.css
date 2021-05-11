@@ -28,6 +28,7 @@
 .action-items-modal-draft {
   display: flex;
   align-items: baseline;
+  margin-top: 10px;
 }
 
 .action-items-modal-draft > * {
@@ -49,7 +50,7 @@
 
 .star-draft span {
   margin: 10px 5px 10px 5px;
-  width: 50px;
+  width: 80px;
   text-align: center;
 }
 

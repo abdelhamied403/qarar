@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'reactstrap';
 import { create } from 'apisauce';
+import Api from '../api';
 
 // define the api
 
 import './client.css';
 import { translate } from '../utlis/translation';
-
-const api = create({
-  baseURL: 'https://momragov.sharedt.com/ar/'
-});
 
 const propTypes = {
   isAuthentcated: PropTypes.bool
@@ -18,7 +15,21 @@ const propTypes = {
 
 const defaultProps = {};
 
+const getFooter = async () => {
+  const footerResponse = await Api.get(`qarar_api/copy-rights?`);
+  console.log(footerResponse);
+  if (footerResponse.ok) {
+    return footerResponse.data;
+  }
+};
 const ClientFooter = ({ isAuthentcated }) => {
+  const [footer, setFooter] = useState('');
+  useEffect(() => {
+    (async () => {
+      const footer = await getFooter();
+      setFooter(footer);
+    })();
+  }, []);
   return (
     <div className={isAuthentcated ? ' user-loggedin' : 'newFooter'}>
       {/* <div className="upperFooter">
@@ -111,12 +122,7 @@ const ClientFooter = ({ isAuthentcated }) => {
           <div className="bot-footer">
             <div className="container">
               <div className="d-flex">
-                <div className="copyright">
-                  {' '}
-                  {translate('footer.copyrights')}
-                  <script>document.write((new Date()).getFullYear())</script>
-                  2020{' '}
-                </div>
+                <div className="copyright"> {footer}</div>
                 <ul className="list-unstyled">
                   <li>
                     <a

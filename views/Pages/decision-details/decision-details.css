@@ -341,7 +341,7 @@
   justify-content: center;
   margin-right: -42px;
   position: relative;
-  z-index: 99999999999;
+  z-index: 10;
 }
 .drafInfo .input-group-prepend img {
   width: 14px;
