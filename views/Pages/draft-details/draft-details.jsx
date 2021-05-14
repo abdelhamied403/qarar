@@ -1363,35 +1363,35 @@ class DraftDetailsInfo extends Component {
             <div className="action-item likes d-flex align-items-center">
               <img
                 src={`/static/img/Assets/${
-                  item.starts >= 1 ? 'star (-3.svg' : 'star (1).svg'
+                  item.stars >= 1 ? 'star (-3.svg' : 'star (1).svg'
                 }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
                 src={`/static/img/Assets/${
-                  item.starts >= 2 ? 'star (-3.svg' : 'star (1).svg'
+                  item.stars >= 2 ? 'star (-3.svg' : 'star (1).svg'
                 }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
                 src={`/static/img/Assets/${
-                  item.starts >= 3 ? 'star (-3.svg' : 'star (1).svg'
+                  item.stars >= 3 ? 'star (-3.svg' : 'star (1).svg'
                 }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
                 src={`/static/img/Assets/${
-                  item.starts >= 4 ? 'star (-3.svg' : 'star (1).svg'
+                  item.stars >= 4 ? 'star (-3.svg' : 'star (1).svg'
                 }`}
                 alt=""
                 style={{ margin: '3px' }}
               />
               <img
                 src={`/static/img/Assets/${
-                  item.starts >= 5 ? 'star (-3.svg' : 'star (1).svg'
+                  item.stars >= 5 ? 'star (-3.svg' : 'star (1).svg'
                 }`}
                 alt=""
                 style={{ margin: '3px' }}
