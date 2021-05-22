@@ -49,8 +49,10 @@ const ShareIdeasModal = props => {
     forced_adj_city_investemtn
   } = props;
   const [state, setState] = useState(ModalState.RATE);
+  const [stars, setStarts] = useState(0);
   const [starHoverIndex, setStarHoverIndex] = useState(0);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [commentSubject, setCommentSubject] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedLegalCapacity, setSelectedLegalCapacity] = useState(-1);
   const [selectedCity, setSelectedCity] = useState(-1);
@@ -129,7 +131,10 @@ const ShareIdeasModal = props => {
     setLoading(true);
     const draftId = id;
 
-    if (!editorState.getCurrentContent().hasText()) {
+    if (
+      !editorState.getCurrentContent().hasText() &&
+      state === ModalState.COMMENT
+    ) {
       setMsg({
         error: true,
         txt: 'لم تقم بكتابة أي تعليق',
@@ -147,11 +152,14 @@ const ShareIdeasModal = props => {
     }
     const data = {
       entity_id: [{ target_id: draftId }],
-      subject: [{ value: 'comment' }],
+      subject: [{ value: commentSubject }],
       comment_body: [
         { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
       ],
-      pid: [{ target_id: '0' }]
+      field_legal_capacity: selectedLegalCapacity,
+      field_city: selectedCity,
+      field_investment_field: selectedInvestmentField,
+      field_draft_opinion: stars
       // comment_type: commentType
     };
     const response = await Api.post(
@@ -161,6 +169,8 @@ const ShareIdeasModal = props => {
         headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
+
+    setStarts(0);
     if (response.ok) {
       setEditorState(EditorState.createEmpty());
       setMsg({
@@ -212,81 +222,26 @@ const ShareIdeasModal = props => {
             style={{ width: '10px' }}
             onMouseOver={e => setStarHoverIndex(0)}
           ></div>
-          <div className="star">
-            <img
-              src={
-                starHoverIndex > 0
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(1)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span>
-              {translate('draftDetails.shareIdeasModal.stepOneOption1')}
-            </span>
-          </div>
-          <div className="star">
-            <img
-              src={
-                starHoverIndex > 1
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(2)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span>
-              {translate('draftDetails.shareIdeasModal.stepOneOption2')}
-            </span>
-          </div>
-          <div className="star">
-            <img
-              src={
-                starHoverIndex > 2
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(3)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span>
-              {translate('draftDetails.shareIdeasModal.stepOneOption3')}
-            </span>
-          </div>
-          <div className="star">
-            <img
-              src={
-                starHoverIndex > 3
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(4)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span>
-              {translate('draftDetails.shareIdeasModal.stepOneOption4')}
-            </span>
-          </div>
-          <div className="star">
-            <img
-              src={
-                starHoverIndex > 4
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(5)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span>
-              {translate('draftDetails.shareIdeasModal.stepOneOption5')}
-            </span>
-          </div>
+          {new Array(5).fill(0).map((_, i) => (
+            <div className="star">
+              <img
+                src={
+                  starHoverIndex > i
+                    ? '/static/img/Assets/star (-3.svg'
+                    : '/static/img/Assets/star.svg'
+                }
+                alt=""
+                onMouseOver={e => setStarHoverIndex(i + 1)}
+                onClick={() => {
+                  setStarts(i + 1);
+                  setState(ModalState.ASK_TO_ADD_COMMENT);
+                }}
+              />
+              <span>
+                {translate('draftDetails.shareIdeasModal.stepOneOption1')}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -319,7 +274,13 @@ const ShareIdeasModal = props => {
             </Button>
           </div>
           <div>
-            <Button className="button-ask-to-add-comment-no" onClick={close}>
+            <Button
+              className="button-ask-to-add-comment-no"
+              onClick={() => {
+                saveComment();
+                close();
+              }}
+            >
               {translate('draftDetails.shareIdeasModal.stepTwoOption2')}
             </Button>
           </div>
@@ -343,7 +304,12 @@ const ShareIdeasModal = props => {
           <div>
             <Button
               className="button-chose-comment"
-              onClick={() => setState(ModalState.COMMENT)}
+              onClick={() => {
+                setCommentSubject(
+                  translate('draftDetails.shareIdeasModal.stepThreeOption1')
+                );
+                setState(ModalState.COMMENT);
+              }}
             >
               {translate('draftDetails.shareIdeasModal.stepThreeOption1')}
             </Button>
@@ -351,7 +317,12 @@ const ShareIdeasModal = props => {
           <div>
             <Button
               className="button-chose-comment"
-              onClick={() => setState(ModalState.COMMENT)}
+              onClick={() => {
+                setCommentSubject(
+                  translate('draftDetails.shareIdeasModal.stepThreeOption2')
+                );
+                setState(ModalState.COMMENT);
+              }}
             >
               {translate('draftDetails.shareIdeasModal.stepThreeOption2')}
             </Button>
@@ -359,7 +330,12 @@ const ShareIdeasModal = props => {
           <div>
             <Button
               className="button-chose-comment"
-              onClick={() => setState(ModalState.COMMENT)}
+              onClick={() => {
+                setCommentSubject(
+                  translate('draftDetails.shareIdeasModal.stepThreeOption3')
+                );
+                setState(ModalState.COMMENT);
+              }}
             >
               {translate('draftDetails.shareIdeasModal.stepThreeOption3')}
             </Button>

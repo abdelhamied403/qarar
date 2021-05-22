@@ -354,10 +354,10 @@ class DraftDetailsInfo extends Component {
     }
   };
 
-  saveComment = async () => {
+  saveComment = async stars => {
     const { draftId, accessToken } = this.props;
     const { editorState } = this.state;
-    if (!editorState.getCurrentContent().hasText()) {
+    if (!editorState.getCurrentContent().hasText() && !stars) {
       this.setState({ errorComment: 'لم تقم بكتابة أي تعليق' });
       setTimeout(() => this.setState({ errorComment: false }), 3000);
       return;
@@ -368,7 +368,8 @@ class DraftDetailsInfo extends Component {
       comment_body: [
         { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
       ],
-      pid: [{ target_id: '0' }]
+      pid: [{ target_id: '0' }],
+      field_draft_opinion: stars
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
@@ -1132,6 +1133,7 @@ class DraftDetailsInfo extends Component {
                 likeComment={this.likeComment}
                 dislikeComment={this.dislikeComment}
                 itemId={draft.id}
+                draft={draft}
               />
               {/* comments.map(comment => (
                 <div
@@ -1164,9 +1166,10 @@ class DraftDetailsInfo extends Component {
           </Container>
         </div>
         <CommentSteps
+          draft={draft}
           title="المسودة"
           open={modalOpen}
-          id={selectedSubject}
+          id={draft.id}
           canVote={!!openArticle}
           uid={uid}
           getDraft={() => this.getDraft()}
@@ -1286,7 +1289,7 @@ class DraftDetailsInfo extends Component {
         </Container> */}
         <PartcipantModal
           open={modalOpen}
-          id={selectedSubject}
+          id={draft.id}
           canVote={!!openArticle}
           uid={uid}
           getDraft={() => this.getDraft()}
@@ -1306,7 +1309,7 @@ class DraftDetailsInfo extends Component {
 
         <ShareIdeasModal
           open={shareIdeasModalOpen}
-          id={selectedSubject}
+          id={draft.id}
           canVote={!!openArticle}
           uid={uid}
           forced_adj_city_investemtn={draft.forced_adj_city_investemtn !== '0'}
@@ -1361,41 +1364,15 @@ class DraftDetailsInfo extends Component {
             )}
             <Element name="share-opinion" className="element" />
             <div className="action-item likes d-flex align-items-center">
-              <img
-                src={`/static/img/Assets/${
-                  item.stars >= 1 ? 'star (-3.svg' : 'star (1).svg'
-                }`}
-                alt=""
-                style={{ margin: '3px' }}
-              />
-              <img
-                src={`/static/img/Assets/${
-                  item.stars >= 2 ? 'star (-3.svg' : 'star (1).svg'
-                }`}
-                alt=""
-                style={{ margin: '3px' }}
-              />
-              <img
-                src={`/static/img/Assets/${
-                  item.stars >= 3 ? 'star (-3.svg' : 'star (1).svg'
-                }`}
-                alt=""
-                style={{ margin: '3px' }}
-              />
-              <img
-                src={`/static/img/Assets/${
-                  item.stars >= 4 ? 'star (-3.svg' : 'star (1).svg'
-                }`}
-                alt=""
-                style={{ margin: '3px' }}
-              />
-              <img
-                src={`/static/img/Assets/${
-                  item.stars >= 5 ? 'star (-3.svg' : 'star (1).svg'
-                }`}
-                alt=""
-                style={{ margin: '3px' }}
-              />
+              {new Array(5).fill(0).map((_, i) => (
+                <img
+                  src={`/static/img/Assets/${
+                    item.starts >= i + 1 ? 'star (-3.svg' : 'star (1).svg'
+                  }`}
+                  alt=""
+                  style={{ margin: '3px' }}
+                />
+              ))}
             </div>
             <div className="manyComments d-flex align-items-center">
               <img

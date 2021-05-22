@@ -98,11 +98,13 @@ const PartcipantSteps = props => {
     setLoading(false);
   };
 
-  const saveComment = async () => {
+  const saveComment = async stars => {
     setLoading(true);
     const draftId = id;
 
-    if (!editorState.getCurrentContent().hasText()) {
+    console.log({ draftId });
+
+    if (!editorState.getCurrentContent().hasText() && !stars) {
       setMsg({
         error: true,
         txt: 'لم تقم بكتابة أي تعليق',
@@ -124,9 +126,10 @@ const PartcipantSteps = props => {
       comment_body: [
         { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
       ],
-      pid: [{ target_id: '0' }]
+      field_draft_opinion: stars
       // comment_type: commentType
     };
+
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
       data,
@@ -134,6 +137,7 @@ const PartcipantSteps = props => {
         headers: { Authorization: `Bearer ${accessToken}` }
       }
     );
+
     if (response.ok) {
       setEditorState(EditorState.createEmpty());
       setMsg({
@@ -151,7 +155,6 @@ const PartcipantSteps = props => {
         });
       }, 3000);
       setState(ModalState.LIKES);
-      close();
     } else {
       setMsg({
         error: true,
@@ -177,81 +180,26 @@ const PartcipantSteps = props => {
             style={{ width: '10px', height: '70px', position: 'absolute' }}
             onMouseOver={e => setStarHoverIndex(0)}
           ></div>
-          <div className="star-draft">
-            <img
-              src={
-                starHoverIndex > 0
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(1)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span dir={translate('dir')}>
-              {translate('draftDetails.shareIdeasModal.stepOneOption1')}
-            </span>
-          </div>
-          <div className="star-draft">
-            <img
-              src={
-                starHoverIndex > 1
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(2)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span dir={translate('dir')}>
-              {translate('draftDetails.shareIdeasModal.stepOneOption2')}
-            </span>
-          </div>
-          <div className="star-draft">
-            <img
-              src={
-                starHoverIndex > 2
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(3)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span dir={translate('dir')}>
-              {translate('draftDetails.shareIdeasModal.stepOneOption3')}
-            </span>
-          </div>
-          <div className="star-draft">
-            <img
-              src={
-                starHoverIndex > 3
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(4)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span dir={translate('dir')}>
-              {translate('draftDetails.shareIdeasModal.stepOneOption4')}
-            </span>
-          </div>
-          <div className="star-draft">
-            <img
-              src={
-                starHoverIndex > 4
-                  ? '/static/img/Assets/star (-3.svg'
-                  : '/static/img/Assets/star.svg'
-              }
-              alt=""
-              onMouseOver={e => setStarHoverIndex(5)}
-              onClick={() => setState(ModalState.ASK_TO_ADD_COMMENT)}
-            />
-            <span dir={translate('dir')}>
-              {translate('draftDetails.shareIdeasModal.stepOneOption5')}
-            </span>
-          </div>
+
+          {new Array(5).fill(0).map((_, i) => (
+            <div className="star-draft">
+              <img
+                src={
+                  starHoverIndex >= i
+                    ? '/static/img/Assets/star (-3.svg'
+                    : '/static/img/Assets/star.svg'
+                }
+                alt=""
+                onMouseOver={e => setStarHoverIndex(i)}
+                onClick={() => saveComment(i + 1)}
+              />
+              <span dir={translate('dir')}>
+                {translate(
+                  `draftDetails.shareIdeasModal.stepOneOption${i + 1}`
+                )}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     );

@@ -70,8 +70,8 @@ class ArticleComment extends Component {
     };
   };
 
-  saveComment = async comment => {
-    console.log(comment);
+  saveComment = async (comment, parentId) => {
+    console.log({ parentId });
     const { itemId, accessToken } = this.props;
     if (!comment) {
       this.setState({ error: true });
@@ -81,7 +81,7 @@ class ArticleComment extends Component {
       entity_id: [{ target_id: itemId }],
       subject: [{ value: 'comment' }],
       comment_body: [{ value: comment }],
-      pid: [{ target_id: comment.id }]
+      pid: [{ target_id: parentId }]
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
@@ -131,7 +131,7 @@ class ArticleComment extends Component {
             </div>
             {uid && enableCommentForm ? (
               <AddComment
-                onSaveComment={comment => this.saveComment(comment)}
+                onSaveComment={text => this.saveComment(text, comment.cid)}
               />
             ) : null}
             {/* <div className="d-flex flex-row draftLikeDislike likeDiv">
