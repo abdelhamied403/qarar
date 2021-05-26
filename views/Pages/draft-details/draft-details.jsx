@@ -878,14 +878,14 @@ class DraftDetailsInfo extends Component {
                               {
                                 title: translate('draftDetails.chartTypeOne'),
                                 value: parseInt(
-                                  draft.voting_percentage[1].replace('%', '')
+                                  draft.voting_percentage[5].replace('%', '')
                                 ),
                                 color: '#81BD41'
                               },
                               {
                                 title: translate('draftDetails.chartTypeTwo'),
                                 value: parseInt(
-                                  draft.voting_percentage[2].replace('%', '')
+                                  draft.voting_percentage[4].replace('%', '')
                                 ),
                                 color: '#40C2CC'
                               },
@@ -899,14 +899,14 @@ class DraftDetailsInfo extends Component {
                               {
                                 title: translate('draftDetails.chartTypeFour'),
                                 value: parseInt(
-                                  draft.voting_percentage[4].replace('%', '')
+                                  draft.voting_percentage[2].replace('%', '')
                                 ),
                                 color: '#F3F3F3'
                               },
                               {
                                 title: translate('draftDetails.chartTypeFive'),
                                 value: parseInt(
-                                  draft.voting_percentage[5].replace('%', '')
+                                  draft.voting_percentage[1].replace('%', '')
                                 ),
                                 color: '#FF4A4A'
                               }
