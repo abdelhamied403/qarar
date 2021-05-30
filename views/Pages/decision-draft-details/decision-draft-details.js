@@ -176,7 +176,12 @@ class DecisionDraftDetails extends Component {
               </div>
               <span className="icon-abs-card">
                 {/* <i className={like}></i> */}
-                <Media dir={translate('dir')} object src={likeIconReflect} className="icon-small" />
+                <Media
+                  dir={translate('dir')}
+                  object
+                  src={likeIconReflect}
+                  className="icon-small"
+                />
               </span>
             </div>
           </CardBody>
@@ -264,7 +269,7 @@ class DecisionDraftDetails extends Component {
     return (
       <React.Fragment>
         <Breadcrumb
-          title="كل القرارات المؤرشفة"
+          title="كل التشريعات المؤرشفة"
           link="/client/decision-draft"
         />
         <Container>
@@ -274,14 +279,24 @@ class DecisionDraftDetails extends Component {
                 <div className="header-content">
                   <h2>سياسة استرجاع السيارات الكهربائية</h2>
                   <div className="sub-header">
-                    <Media dir={translate('dir')} object src={calender} className="icon-small" />
+                    <Media
+                      dir={translate('dir')}
+                      object
+                      src={calender}
+                      className="icon-small"
+                    />
 
                     {/* <i className="fa fa-calendar "></i> */}
                     <span>تم إقراره بتاريخ 25/9/2019</span>
                   </div>
                   <div className="sub-header">
                     {/* <i className="fa fa-file "></i> */}
-                    <Media dir={translate('dir')} object src={file} className="icon-small" />
+                    <Media
+                      dir={translate('dir')}
+                      object
+                      src={file}
+                      className="icon-small"
+                    />
                     <span>تم أرشفته بتاريخ 25/9/2019</span>
                   </div>
                 </div>

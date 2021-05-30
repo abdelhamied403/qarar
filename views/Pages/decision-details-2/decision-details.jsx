@@ -53,7 +53,7 @@ class DecisionDetails extends Component {
     return (
       <>
         <Breadcrumb
-          title="كل القرارات التي يتم العمل بها حاليا"
+          title="كل التشريعات التي يتم العمل بها حاليا"
           link="/decisions"
         />
         <Container>

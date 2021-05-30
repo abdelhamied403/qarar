@@ -49,7 +49,7 @@ const ShareIdeasModal = props => {
     forced_adj_city_investemtn
   } = props;
   const [state, setState] = useState(ModalState.RATE);
-  const [stars, setStarts] = useState(0);
+  const [stars, setStars] = useState(0);
   const [starHoverIndex, setStarHoverIndex] = useState(0);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [commentSubject, setCommentSubject] = useState('');
@@ -233,12 +233,12 @@ const ShareIdeasModal = props => {
                 alt=""
                 onMouseOver={e => setStarHoverIndex(i + 1)}
                 onClick={() => {
-                  setStarts(i + 1);
+                  setStars(i + 1);
                   setState(ModalState.ASK_TO_ADD_COMMENT);
                 }}
               />
               <span>
-                {translate('draftDetails.shareIdeasModal.stepOneOption1')}
+                {translate('draftDetails.shareIdeasModal.stepOneOptionnew' + i)}
               </span>
             </div>
           ))}

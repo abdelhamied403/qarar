@@ -66,6 +66,7 @@ class DraftDetailsInfo extends Component {
         tags: []
       },
       items: [],
+      // under_voting_items: [],
       comments: [],
       breadcrumbs: [],
       commentPage: 1,
@@ -205,13 +206,19 @@ class DraftDetailsInfo extends Component {
       const { items, data } = itemResponse.data;
       const openArticle =
         new Date(data.end_date).getTime() > new Date().getTime();
+
       items.map(item => item.modified_id && this.getEdits(item.nid));
+
+      // under_voting_items.map(item => item.modified_id && this.getEdits(item.nid));
+
       items.map((item, index) => {
         item.openArticle =
           new Date(item.end_date).getTime() > new Date().getTime();
         return item;
       });
+
       console.log('items ', items);
+      // console.log('under_voting_items ', under_voting_items);
       console.log('draft', data);
       this.setState(
         { draft: data, items, loadingDraft: false, openArticle },
@@ -283,9 +290,11 @@ class DraftDetailsInfo extends Component {
     const response = await Api.get(
       `/qarar_api/comments/${draftId}/DESC?_format=json`
     );
+
     if (response.ok) {
       this.setState({ comments: response.data });
     }
+    s;
   };
 
   renderList = (list, className = '') => (
@@ -536,6 +545,7 @@ class DraftDetailsInfo extends Component {
     const {
       draft,
       items,
+      // under_voting_items,
       editorState,
       flagged,
       successComment,
@@ -999,7 +1009,7 @@ class DraftDetailsInfo extends Component {
               </Card>
             ) : null}
             <div className="draftInfoShare d-flex justify-content-between mb-4">
-              <div className="shareInfoRight">
+              {/* <div className="shareInfoRight">
                 {items && (
                   <>
                     {' '}
@@ -1021,7 +1031,7 @@ class DraftDetailsInfo extends Component {
                     </Button>
                   </>
                 )}
-              </div>
+              </div> */}
               <div className="shareInfoLeft d-flex align-items-center">
                 <p>{translate('draftDetails.shareDraft')}</p>
                 <LinkedinShareButton url={window && window.location}>
@@ -1037,16 +1047,14 @@ class DraftDetailsInfo extends Component {
             </div>
             <div>
               <h4> {translate('draftDetails.votable')}</h4>
-              {items &&
-                items
-                  .filter(item => item.openArticle)
-                  .map(item => this.subjectsList(item, openArticle, uid))}
+              {/* {under_voting_items &&
+                under_voting_items
+                  .map(item => this.subjectsList(item, openArticle, uid))} */}
               <hr style={{ borderColor: '#1e6f6d' }} />
+
               <h4>{translate('draftDetails.otherArticles')}</h4>
               {items &&
-                items
-                  .filter(item => !item.openArticle)
-                  .map(item => this.subjectsList(item, openArticle, uid))}
+                items.map(item => this.subjectsList(item, openArticle, uid))}
             </div>
             {/* <Element name="test1" className="element">
               {!uid ? (
@@ -1367,7 +1375,7 @@ class DraftDetailsInfo extends Component {
               {new Array(5).fill(0).map((_, i) => (
                 <img
                   src={`/static/img/Assets/${
-                    item.starts >= i + 1 ? 'star (-3.svg' : 'star (1).svg'
+                    item.stars >= i + 1 ? 'star (-3.svg' : 'star (1).svg'
                   }`}
                   alt=""
                   style={{ margin: '3px' }}

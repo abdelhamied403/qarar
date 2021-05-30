@@ -2,7 +2,7 @@ import ShareIdeasModal from '../views/Pages/draft-details/shareIdeasModal';
 
 export const ar = {
   dir: 'rtl',
-  decisions: 'القرارات',
+  decisions: 'التشريعات',
   home: 'الرئيسية',
   header: {
     navBar: {
@@ -12,7 +12,7 @@ export const ar = {
       home: 'الرئيسية',
       about: 'عن قرار',
       // drafts: 'قرارات تحت التصويت',
-      decisions: 'القرارات السابقة',
+      decisions: 'التشريعات السابقة',
       platform: 'اخبار المنصة',
       socialParticipation: 'المشاركة المجتمعية',
       personalInfo: 'معلومات الشخصية',
@@ -23,8 +23,8 @@ export const ar = {
       groups: 'مجموعاتي',
       login: 'دخول',
       logout: 'خروج',
-      libQara: 'مكتبة القرارات',
-      updatedQarar: 'القرارات المعدلة',
+      libQara: 'مكتبة التشريعات',
+      updatedQarar: 'التشريعات المعدلة',
       drafts: 'المسودات',
       votingDrafts: 'المسودات تحت التصويت',
       appliedVoting: 'المسودات مطبقه',
@@ -102,9 +102,9 @@ export const ar = {
     update: 'تعديل',
     showDraft: 'استعراض المسودة',
     recentlyDrafts: 'مسودات نشرت حديثاً',
-    recentlyQarars: 'قرارات نشرت حديثا',
+    recentlyQarars: 'تشريعات نشرت حديثا',
     allDrafts: 'كل المسودات',
-    allQarars: 'كل القرارات',
+    allQarars: 'كل التشريعات',
     votingCloses: 'يغلق التصويت بتاريخ',
 
     votingStart: 'تاريخ النشر',
@@ -179,7 +179,7 @@ export const ar = {
       'أو أبدى آراءً وجيهة قابلة للاستفادة منها.'
   },
   decisionsLibPage: {
-    title: 'مكتبة القرارات',
+    title: 'مكتبة التشريعات',
     decisionType: 'نوع القرار',
     classification: 'التصنيف الرئيسي',
     choose: 'اختر',
@@ -198,10 +198,10 @@ export const ar = {
       publication: 'تاريخ النشر '
     },
     noDecisions: 'لا يوجد قرارات متاحة الان. ',
-    archivedDecisions: 'القرارات المؤرشفة'
+    archivedDecisions: 'التشريعات المؤرشفة'
   },
   draftsPage: {
-    title: 'مكتبة القرارات',
+    title: 'مكتبة التشريعات',
     decisionType: 'نوع القرار',
     decisionOptionOne: 'مسودة نظام كامل',
     decisionOptionTwo: 'مادة',
@@ -216,7 +216,7 @@ export const ar = {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
     noDecisions: 'لا يوجد قرارات متاحة الآن ',
-    archivedDecisions: 'القرارات المؤرشفة'
+    archivedDecisions: 'التشريعات المؤرشفة'
   },
   draftsUnderVotePage: {
     title: 'مسودات تحت التصويت',
@@ -273,7 +273,7 @@ export const ar = {
     archivedDecisions: ''
   },
   decisionPage: {
-    title: 'القرارات المعدلة',
+    title: 'التشريعات المعدلة',
     decisionType: 'نوع القرار',
     classification: 'التصنيف الرئيسي',
     subClassification: 'التصنيف الفرعي',
@@ -346,7 +346,7 @@ export const ar = {
     electronicServices: 'خدمات إلكترونية'
   },
   decisionDetails: {
-    decisions: 'القرارات',
+    decisions: 'التشريعات',
     views: 'مشاهدة',
     modification: 'عدد التعديلات',
     article: 'مادة',
@@ -363,7 +363,7 @@ export const ar = {
     more: 'المزيد'
   },
   draftDetails: {
-    decisions: 'القرارات',
+    decisions: 'التشريعات',
     drafts: 'المسودات',
     voteClosed: 'أغلق التصويت بتاريخ',
     application: 'تم التطبيق بتاريخ',
@@ -427,6 +427,12 @@ export const ar = {
     shareIdeasModal: {
       title: 'شارك الان',
       stepOne: 'ما رأيك في المادة؟',
+      stepOneOptionnew0: 'غير مؤيد أبدا',
+      stepOneOptionnew1: 'غير مؤيد',
+      stepOneOptionnew2: 'محايد',
+      stepOneOptionnew3: 'مؤيد',
+      stepOneOptionnew4: 'مؤيد جدا',
+
       stepOneOption1: 'غير مؤيد أبدا',
       stepOneOption2: 'غير مؤيد',
       stepOneOption3: 'محايد',

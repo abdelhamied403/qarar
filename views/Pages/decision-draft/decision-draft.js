@@ -10,7 +10,7 @@ class DecisionDraft extends Component {
       <React.Fragment>
         <div className="decisionHeader">
           <Container>
-            <h3>القرارات المؤرشفة</h3>
+            <h3>التشريعات المؤرشفة</h3>
           </Container>
         </div>
         <section>
