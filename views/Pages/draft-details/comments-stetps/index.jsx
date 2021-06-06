@@ -286,31 +286,31 @@ const PartcipantSteps = props => {
     );
   };
   const Steps = () => {
-    if (!uid) {
-      return (
-        <>
-          <Alert color="danger">{translate('draftDetails.loginFirst')}</Alert>
+    // if (!uid) {
+    //   return (
+    //     <>
+    //       <Alert color="danger">{translate('draftDetails.loginFirst')}</Alert>
 
-          <div className="draftShouldLogin d-flex flex-column">
-            <img src="/static/img/interactive/disabled.svg" alt="" />
-            <h4>{translate('draftDetails.loginComment')}</h4>
-            <Link href="/login">
-              <Button>
-                {translate('draftDetails.login')}
-                <img
-                  dir={translate('dir')}
-                  src="/static/img/interactive/btnArrow3.svg"
-                  alt=""
-                />
-              </Button>
-            </Link>
-            <Link href="/register">
-              <a>{translate('draftDetails.createAccount')}</a>
-            </Link>
-          </div>
-        </>
-      );
-    }
+    //       <div className="draftShouldLogin d-flex flex-column">
+    //         <img src="/static/img/interactive/disabled.svg" alt="" />
+    //         <h4>{translate('draftDetails.loginComment')}</h4>
+    //         <Link href="/login">
+    //           <Button>
+    //             {translate('draftDetails.login')}
+    //             <img
+    //               dir={translate('dir')}
+    //               src="/static/img/interactive/btnArrow3.svg"
+    //               alt=""
+    //             />
+    //           </Button>
+    //         </Link>
+    //         <Link href="/register">
+    //           <a>{translate('draftDetails.createAccount')}</a>
+    //         </Link>
+    //       </div>
+    //     </>
+    //   );
+    // }
     return (
       <div className="container">
         {<Rate />}

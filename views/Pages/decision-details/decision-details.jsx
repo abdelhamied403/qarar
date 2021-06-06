@@ -730,7 +730,7 @@ class DecisionDetailsInfo extends Component {
                     this.subjectsList(
                       {
                         ...item,
-                        modificationsCount: decision.modificationsCount
+                        modificationsCount: item.modificationsCount
                       },
                       openArticle,
                       uid
