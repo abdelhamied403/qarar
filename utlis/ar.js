@@ -404,6 +404,7 @@ export const ar = {
     commentStoped: 'تم إيقاف التعليقات',
     conditionsParticipation: '  شروط المشاركة',
     addComment: 'اضف تعليقك',
+    addCommentButton: 'ارسال',
     positive: 'ايجابي',
     negative: 'سلبي',
     more: 'المزيد',

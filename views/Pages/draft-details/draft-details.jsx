@@ -992,7 +992,7 @@ class DraftDetailsInfo extends Component {
                                   }
                                 />
                                 <p className="user-card-name">
-                                  {el.name || 'Place holder'}
+                                  {el.name || 'مجهول'}
                                 </p>
                                 <span className="user-card-points">
                                   {el.comment_count}{' '}

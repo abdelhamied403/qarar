@@ -129,7 +129,7 @@ class ArticleComment extends Component {
                 {renderHTML(comment.comment_body || '')}
               </p>
             </div>
-            {uid && enableCommentForm ? (
+            { enableCommentForm ? (
               <AddComment
                 onSaveComment={text => this.saveComment(text, comment.cid)}
               />

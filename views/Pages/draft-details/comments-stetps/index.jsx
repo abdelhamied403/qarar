@@ -275,7 +275,7 @@ const PartcipantSteps = props => {
           onEditorStateChange={setEditorState}
         />
         <Button className="button-comment" onClick={() => saveComment()}>
-          {translate('draftDetails.addComment')}
+          {translate('draftDetails.addCommentButton')}
           <img
             dir={translate('dir')}
             src="/static/img/interactive/whiteArrow.svg"
