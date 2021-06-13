@@ -43,6 +43,7 @@ const PartcipantSteps = props => {
   const [state, setState] = useState(ModalState.LIKES);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [loading, setLoading] = useState(false);
+  const [stars, setStars] = useState(0);
   const [starHoverIndex, setStarHoverIndex] = useState(0);
   const [msg, setMsg] = useState({
     error: false,
@@ -102,9 +103,7 @@ const PartcipantSteps = props => {
     setLoading(true);
     const draftId = id;
 
-    console.log({ draftId });
-
-    if (!editorState.getCurrentContent().hasText() && !stars) {
+    if (!editorState.getCurrentContent().hasText() || stars === 0) {
       setMsg({
         error: true,
         txt: 'لم تقم بكتابة أي تعليق',
@@ -175,7 +174,10 @@ const PartcipantSteps = props => {
     return (
       <div style={{ display: 'flex', flexFlow: 'column' }}>
         <h4>{translate('draftDetails.opinion')}</h4>
-        <div className="action-items-modal-draft">
+        <div
+          className="action-items-modal-draft"
+          onMouseLeave={e => setStarHoverIndex(stars)}
+        >
           <div
             style={{ width: '10px', height: '70px', position: 'absolute' }}
             onMouseOver={e => setStarHoverIndex(0)}
@@ -185,13 +187,15 @@ const PartcipantSteps = props => {
             <div className="star-draft">
               <img
                 src={
-                  starHoverIndex >= i
+                  starHoverIndex > i
                     ? '/static/img/Assets/star (-3.svg'
                     : '/static/img/Assets/star.svg'
                 }
                 alt=""
-                onMouseOver={e => setStarHoverIndex(i)}
-                onClick={() => saveComment(i + 1)}
+                onMouseOver={e => setStarHoverIndex(i + 1)}
+                onClick={() => {
+                  setStars(i + 1);
+                }}
               />
               <span dir={translate('dir')}>
                 {translate(
@@ -274,7 +278,7 @@ const PartcipantSteps = props => {
           editorClassName="demo-editor"
           onEditorStateChange={setEditorState}
         />
-        <Button className="button-comment" onClick={() => saveComment()}>
+        <Button className="button-comment" onClick={() => saveComment(stars)}>
           {translate('draftDetails.addCommentButton')}
           <img
             dir={translate('dir')}

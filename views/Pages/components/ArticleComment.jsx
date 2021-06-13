@@ -6,34 +6,15 @@ import moment from 'moment';
 import Link from 'next/link';
 
 import Api from '../../../api';
-
-const AddComment = ({ onSaveComment }) => {
-  const [comment, setComment] = useState('');
-  return (
-    <InputGroup>
-      <Input
-        value={comment}
-        onChange={e => setComment(e.target.value)}
-        placeholder="اضف تعليقك"
-      />
-      <InputGroupAddon
-        onClick={() => {
-          onSaveComment(comment);
-          setComment('');
-        }}
-        addonType="prepend"
-      >
-        <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-      </InputGroupAddon>
-    </InputGroup>
-  );
-};
+import { Button } from 'reactstrap';
+import CommentModal from '../draft-details/commentModal';
 
 class ArticleComment extends Component {
   constructor() {
     super();
     this.state = {
-      comments: []
+      comments: [],
+      commentModalOpen: false
     };
   }
 
@@ -78,16 +59,19 @@ class ArticleComment extends Component {
       return;
     }
     const data = {
-      entity_id: [{ target_id: itemId }],
+      entity_id: [{ target_id: parentId }],
       subject: [{ value: 'comment' }],
       comment_body: [{ value: comment }],
-      pid: [{ target_id: parentId }]
+      pid: [{ target_id: itemId }]
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
       data,
       {
-        headers: { Authorization: `Bearer ${accessToken}` }
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Access-Control-Allow-Origin': '*'
+        }
       }
     );
     if (response.ok) {
@@ -97,8 +81,8 @@ class ArticleComment extends Component {
   };
 
   render() {
-    const { comments, successComment } = this.state;
-    const { uid, enableCommentForm, enableVote } = this.props;
+    const { comments, successComment, commentModalOpen } = this.state;
+    const { uid, enableCommentForm, enableVote, voteable } = this.props;
 
     return (
       <>
@@ -129,11 +113,26 @@ class ArticleComment extends Component {
                 {renderHTML(comment.comment_body || '')}
               </p>
             </div>
-            { enableCommentForm ? (
-              <AddComment
-                onSaveComment={text => this.saveComment(text, comment.cid)}
-              />
+            {voteable ? (
+              <Button
+                onClick={() => {
+                  this.setState({ commentModalOpen: true });
+                  // this.saveComment(text, comment.cid);
+                }}
+              >
+                Add Comment
+              </Button>
             ) : null}
+
+            <CommentModal
+              modal={commentModalOpen}
+              cid={comment.cid}
+              saveComment={this.saveComment}
+              toggle={() => {
+                this.setState({ commentModalOpen: false });
+              }}
+            />
+
             {/* <div className="d-flex flex-row draftLikeDislike likeDiv">
               <span>{comment.likes}</span>
               {this.state.like && this.state.id === comment.cid && (

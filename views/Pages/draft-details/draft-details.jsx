@@ -209,7 +209,9 @@ class DraftDetailsInfo extends Component {
 
       items.map(item => item.modified_id && this.getEdits(item.nid));
 
-       under_voting_items.map(item => item.modified_id && this.getEdits(item.nid));
+      under_voting_items.map(
+        item => item.modified_id && this.getEdits(item.nid)
+      );
 
       items.map((item, index) => {
         item.openArticle =
@@ -217,24 +219,26 @@ class DraftDetailsInfo extends Component {
         return item;
       });
 
-
       under_voting_items.map((item, index) => {
         item.openArticle =
           new Date(item.end_date).getTime() > new Date().getTime();
         return item;
       });
-      
-      console.log('items ', items);
-       console.log('under_voting_items ', under_voting_items);
-      console.log('draft', data);
       this.setState(
-        { draft: data, items, under_voting_items, loadingDraft: false, openArticle },
+        {
+          draft: data,
+          items,
+          under_voting_items,
+          loadingDraft: false,
+          openArticle
+        },
         () => {
           if (!breadcrumbs.length) {
             this.getParent(data.parent_id);
           }
         }
       );
+      console.log(this.state);
     }
   };
 
@@ -552,7 +556,7 @@ class DraftDetailsInfo extends Component {
     const {
       draft,
       items,
-       under_voting_items,
+      under_voting_items,
       editorState,
       flagged,
       successComment,
@@ -1054,14 +1058,17 @@ class DraftDetailsInfo extends Component {
             </div>
             <div>
               <h4> {translate('draftDetails.votable')}</h4>
-             {under_voting_items &&
-                under_voting_items
-                  .map(item => this.subjectsList(item, openArticle, uid))}
+              {under_voting_items &&
+                under_voting_items.map(item =>
+                  this.subjectsList(item, openArticle, uid, true)
+                )}
               <hr style={{ borderColor: '#1e6f6d' }} />
 
               <h4>{translate('draftDetails.otherArticles')}</h4>
               {items &&
-                items.map(item => this.subjectsList(item, openArticle, uid))}
+                items.map(item =>
+                  this.subjectsList(item, openArticle, uid, false)
+                )}
             </div>
             {/* <Element name="test1" className="element">
               {!uid ? (
@@ -1150,6 +1157,7 @@ class DraftDetailsInfo extends Component {
                 itemId={draft.id}
                 draft={draft}
               />
+
               {/* comments.map(comment => (
                 <div
                   key={comment.cid}
@@ -1324,7 +1332,7 @@ class DraftDetailsInfo extends Component {
 
         <ShareIdeasModal
           open={shareIdeasModalOpen}
-          id={draft.id}
+          id={this.state.selectedSubject}
           canVote={!!openArticle}
           uid={uid}
           forced_adj_city_investemtn={draft.forced_adj_city_investemtn !== '0'}
@@ -1347,7 +1355,7 @@ class DraftDetailsInfo extends Component {
     );
   }
 
-  subjectsList = (item, openArticle, uid) => {
+  subjectsList = (item, openArticle, uid, voteable) => {
     return (
       <Card key={item.nid} className="cardDraft text-justify collapseDraftCard">
         <CardHeader
@@ -1438,20 +1446,23 @@ class DraftDetailsInfo extends Component {
                   <img src={this.state.img2} alt="" />
                 </Button>
               </Link>
-              <Button
-                className="btn-inline-block"
-                color="secondary"
-                size="lg"
-                onClick={() =>
-                  this.setState({
-                    shareIdeasModalOpen: true,
-                    selectedSubject: item.nid,
-                    forced_adj_city_investemtn: item?.forced_adj_city_investemtn
-                  })
-                }
-              >
-                {translate('draftDetails.participate')}
-              </Button>
+              {voteable && (
+                <Button
+                  className="btn-inline-block"
+                  color="secondary"
+                  size="lg"
+                  onClick={() =>
+                    this.setState({
+                      shareIdeasModalOpen: true,
+                      selectedSubject: item.nid,
+                      forced_adj_city_investemtn:
+                        item?.forced_adj_city_investemtn
+                    })
+                  }
+                >
+                  {translate('draftDetails.participate')}
+                </Button>
+              )}
               {item?.pdf_url && (
                 <Button
                   className="btn-inline-block"
@@ -1465,19 +1476,22 @@ class DraftDetailsInfo extends Component {
               )}
             </Col>
             <Col md="5">
-              <Button
-                color="secondary"
-                size="lg"
-                onClick={() =>
-                  this.setState({
-                    shareIdeasModalOpen: true,
-                    selectedSubject: item.nid,
-                    forced_adj_city_investemtn: item?.forced_adj_city_investemtn
-                  })
-                }
-              >
-                {translate('draftDetails.participate')}
-              </Button>
+              {voteable && (
+                <Button
+                  color="secondary"
+                  size="lg"
+                  onClick={() =>
+                    this.setState({
+                      shareIdeasModalOpen: true,
+                      selectedSubject: item.nid,
+                      forced_adj_city_investemtn:
+                        item?.forced_adj_city_investemtn
+                    })
+                  }
+                >
+                  {translate('draftDetails.participate')}
+                </Button>
+              )}
 
               {parseInt(item.comments) > 0 && (
                 <ArticleComment
@@ -1486,8 +1500,10 @@ class DraftDetailsInfo extends Component {
                   likeComment={this.likeComment}
                   dislikeComment={this.dislikeComment}
                   itemId={item.nid}
+                  voteable={voteable}
                 />
               )}
+              <p>hello</p>
             </Col>
           </Row>
         </CardBody>
