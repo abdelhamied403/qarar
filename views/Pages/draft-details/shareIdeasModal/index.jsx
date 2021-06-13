@@ -66,6 +66,9 @@ const ShareIdeasModal = props => {
     show: false
   });
 
+  const [commentType, setCommentType] = useState(1);
+  const [modState, setModState] = useState(0);
+
   const updateLists = async () => {
     const list = await getLegalCapacity();
     const list2 = await getCity();
@@ -133,11 +136,12 @@ const ShareIdeasModal = props => {
 
     if (
       !editorState.getCurrentContent().hasText() &&
-      state === ModalState.COMMENT
+      state === ModalState.COMMENT &&
+      stars !== 0
     ) {
       setMsg({
         error: true,
-        txt: 'لم تقم بكتابة أي تعليق',
+        txt: 'لم تقم بكتابة أي تعليق او تقييم',
         show: true
       });
       setTimeout(() => {
@@ -217,7 +221,10 @@ const ShareIdeasModal = props => {
         }}
       >
         <h4>{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
-        <div className="action-items-modal">
+        <div
+          className="action-items-modal"
+          onMouseLeave={e => setStarHoverIndex(stars)}
+        >
           <div
             style={{ width: '10px' }}
             onMouseOver={e => setStarHoverIndex(0)}
@@ -235,6 +242,7 @@ const ShareIdeasModal = props => {
                 onClick={() => {
                   setStars(i + 1);
                   setState(ModalState.ASK_TO_ADD_COMMENT);
+                  modState <= 1 && setModState(1);
                 }}
               />
               <span>
@@ -290,6 +298,7 @@ const ShareIdeasModal = props => {
   };
 
   const ChoseComment = props => {
+    console.log(ModalState.COMMENT);
     return (
       <div
         style={{
@@ -303,12 +312,10 @@ const ShareIdeasModal = props => {
         <div className="action-items-modal">
           <div>
             <Button
-              className="button-chose-comment"
+              color={commentType === 1 && 'primary'}
               onClick={() => {
-                setCommentSubject(
-                  translate('draftDetails.shareIdeasModal.stepThreeOption1')
-                );
-                setState(ModalState.COMMENT);
+                setCommentType(1);
+                modState <= 3 && setModState(3);
               }}
             >
               {translate('draftDetails.shareIdeasModal.stepThreeOption1')}
@@ -316,12 +323,10 @@ const ShareIdeasModal = props => {
           </div>
           <div>
             <Button
-              className="button-chose-comment"
+              color={commentType === 2 && 'primary'}
               onClick={() => {
-                setCommentSubject(
-                  translate('draftDetails.shareIdeasModal.stepThreeOption2')
-                );
-                setState(ModalState.COMMENT);
+                setCommentType(2);
+                modState <= 3 && setModState(3);
               }}
             >
               {translate('draftDetails.shareIdeasModal.stepThreeOption2')}
@@ -329,12 +334,10 @@ const ShareIdeasModal = props => {
           </div>
           <div>
             <Button
-              className="button-chose-comment"
+              color={commentType === 3 && 'primary'}
               onClick={() => {
-                setCommentSubject(
-                  translate('draftDetails.shareIdeasModal.stepThreeOption3')
-                );
-                setState(ModalState.COMMENT);
+                setCommentType(3);
+                modState <= 3 && setModState(3);
               }}
             >
               {translate('draftDetails.shareIdeasModal.stepThreeOption3')}
@@ -377,7 +380,10 @@ const ShareIdeasModal = props => {
             <select
               className="not-select2 form-control"
               value={selectedCity}
-              onChange={e => setSelectedCity(parseInt(e.target.value, 10))}
+              onChange={e => {
+                setSelectedCity(parseInt(e.target.value, 10));
+                modState <= 2 && setModState(2);
+              }}
             >
               <option value="-1">
                 {translate('draftDetails.shareIdeasModal.choose')}{' '}
@@ -393,9 +399,10 @@ const ShareIdeasModal = props => {
               <select
                 className="not-select2 form-control"
                 value={selectedInvestmentField}
-                onChange={e =>
-                  setSelectedInvestmentField(parseInt(e.target.value, 10))
-                }
+                onChange={e => {
+                  setSelectedInvestmentField(parseInt(e.target.value, 10));
+                  setModState(2);
+                }}
               >
                 <option value="-1">
                   {translate('draftDetails.shareIdeasModal.choose')}{' '}
@@ -407,7 +414,7 @@ const ShareIdeasModal = props => {
                   ))}
               </select>
             )}
-            <Button
+            {/* <Button
               className="button-comment"
               disabled={
                 selectedLegalCapacity === -1 ||
@@ -422,7 +429,7 @@ const ShareIdeasModal = props => {
                 src="/static/img/interactive/whiteArrow.svg"
                 alt=""
               />
-            </Button>
+            </Button> */}
           </Col>
         </div>
       </div>
@@ -431,9 +438,7 @@ const ShareIdeasModal = props => {
 
   const AddComment = props => {
     return (
-      <div
-        style={{ display: 'flex', alignItems: 'flex-end', flexFlow: 'column' }}
-      >
+      <div style={{ display: 'flex', flexFlow: 'column' }}>
         <Editor
           placeholder={translate(
             'draftDetails.shareIdeasModal.stepFourPlaceholder'
@@ -457,7 +462,10 @@ const ShareIdeasModal = props => {
           editorClassName="editor-class"
           onEditorStateChange={setEditorState}
         />
-        <Button className="button-comment" onClick={() => saveComment()}>
+        <Button
+          className="button-comment w-min mr-0 ml-auto flex flex-end"
+          onClick={() => saveComment()}
+        >
           {translate('draftDetails.shareIdeasModal.stepFourComment')}
           <img
             dir={translate('dir')}
@@ -588,6 +596,7 @@ const ShareIdeasModal = props => {
       </>
     );
   };
+
   return (
     <Modal
       isOpen={open}
@@ -610,11 +619,16 @@ const ShareIdeasModal = props => {
         </div>
       </ModalHeader>
       <ModalBody>
-        {state === ModalState.RATE && <Rate />}
+        {modState >= 0 && <Rate />}
+        {modState >= 1 && <FillForm />}
+        {modState >= 2 && <ChoseComment />}
+        {modState >= 3 && <AddComment />}
+
+        {/* {state === ModalState.RATE && <Rate />}
         {state === ModalState.ASK_TO_ADD_COMMENT && <AskToAddComment />}
         {state === ModalState.FILL_FORM && <FillForm />}
         {state === ModalState.CHOSE_COMMENT && <ChoseComment />}
-        {state === ModalState.COMMENT && <AddComment />}
+        {state === ModalState.COMMENT && <AddComment />} */}
         {/*{state === ModalState.SUGGEST && <Suggest />}*/}
         {/*{state === ModalState.COMMENT && <Comment />}*/}
         {/*{msg.show && (*/}

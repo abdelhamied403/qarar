@@ -80,7 +80,7 @@
 }
 
 .editor-class {
-width: 40vw;
+  width: 100%;
 }
 
 .button-comment {
@@ -113,4 +113,7 @@ width: 40vw;
   border-color: #84bc47;
   background-color: #84bc47;
   float: left;
+}
+.modal-backdrop {
+  opacity: 0.1 !important;
 }
