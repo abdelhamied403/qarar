@@ -665,3 +665,15 @@ a.astbyanLink,
     color: #07706d !important;
   }
 }
+
+.loading {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+.loading .spinner {
+  margin: auto;
+}
+.loading .spinner .spin {
+  margin: 0 20px;
+}

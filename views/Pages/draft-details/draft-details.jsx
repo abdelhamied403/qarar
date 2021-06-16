@@ -1503,7 +1503,6 @@ class DraftDetailsInfo extends Component {
                   voteable={voteable}
                 />
               )}
-              <p>hello</p>
             </Col>
           </Row>
         </CardBody>
