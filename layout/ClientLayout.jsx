@@ -4,10 +4,38 @@ import CLientFooter from './ClientFooter';
 import ClientHeader from './ClientHeader';
 import './client.css';
 import Api from '../api';
+import axios from 'axios';
+import Page404 from '../views/pages/Page404/Page404.js';
+import { Spinner } from 'reactstrap';
 
 class ClientLayout extends Component {
+  state = {
+    lang: 'ar',
+    redirect: null
+  };
+
+  async getLang() {
+    let token = JSON.parse(JSON.parse(localStorage['persist:primary']).auth)
+      .accessToken;
+    return await axios.get(
+      'http://qarar-backend.sharedt.com/qarar_api/hide-lang',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
+
   componentDidMount() {
     this.login();
+    localStorage.setItem('LANG', 'ar');
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    this.getLang().then(res => {
+      const isUser = res.data;
+      if (params.lang === 'en' && isUser) {
+        this.setState({ redirect: false });
+      } else {
+        this.setState({ redirect: true });
+      }
+    });
   }
 
   signOut = async () => {
@@ -31,21 +59,36 @@ class ClientLayout extends Component {
 
   render() {
     const { children, accessToken } = this.props;
-    return (
-      <div className="app client-layout">
-        <ClientHeader
-          signOut={this.signOut}
-          login={this.login}
-          isAuthentcated={Boolean(accessToken)}
-        />
-        <div className="flex-page-content">
-          <main className={accessToken ? ' user-loggedin' : ''}>
-            {children}
-          </main>
+    if (this.state.redirect === true) {
+      return (
+        <div className="app client-layout">
+          <ClientHeader
+            signOut={this.signOut}
+            login={this.login}
+            isAuthentcated={Boolean(accessToken)}
+          />
+          <div className="flex-page-content">
+            <main className={accessToken ? ' user-loggedin' : ''}>
+              {children}
+            </main>
+          </div>
+          <CLientFooter isAuthentcated={Boolean(accessToken)} />
         </div>
-        <CLientFooter isAuthentcated={Boolean(accessToken)} />
-      </div>
-    );
+      );
+    } else if (this.state.redirect === false) {
+      return <Page404 />;
+    } else {
+      return (
+        <div className="loading">
+          <div className="spinner">
+            <div className="spin">
+              <Spinner color="primary" />
+            </div>
+            <div>loading</div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

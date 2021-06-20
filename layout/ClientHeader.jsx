@@ -24,6 +24,8 @@ import './client.css';
 import dynamic from 'next/dynamic';
 
 import { translate } from '../utlis/translation';
+import Api from '../api';
+import axios from 'axios';
 
 const ScrollToggle = dynamic(() => import('react-scroll-toggle'), {
   ssr: false
@@ -41,7 +43,8 @@ class ClientHeader extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      viewWidth: 800
+      viewWidth: 800,
+      englang: true
     };
   }
 
@@ -154,6 +157,21 @@ class ClientHeader extends React.Component {
     );
   }
 
+  async getLang() {
+    let token = JSON.parse(JSON.parse(localStorage['persist:primary']).auth)
+      .accessToken;
+    return await axios.get(
+      'http://qarar-backend.sharedt.com/qarar_api/hide-lang',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
+
+  componentDidMount() {
+    this.getLang().then(res => {
+      this.setState({ englang: res.data });
+    });
+  }
+
   render() {
     const { isAuthentcated, signOut, router } = this.props;
 
@@ -194,21 +212,23 @@ class ClientHeader extends React.Component {
                 {translate('header.navBar.questionnaires')}
               </a>
             </div>
-            <div className="flex">
-              <span
-                className="afkarLink englishlink"
-                onClick={() => gotoLang('en')}
-              >
-                English
-              </span>
-              <span
-                className="afkarLink arabiclink"
-                onClick={() => gotoLang('ar')}
-                s
-              >
-                عربي
-              </span>
-            </div>
+            {!this.state.englang && (
+              <div className="flex">
+                <span
+                  className="afkarLink englishlink"
+                  onClick={() => gotoLang('en')}
+                >
+                  English
+                </span>
+                <span
+                  className="afkarLink arabiclink"
+                  onClick={() => gotoLang('ar')}
+                  s
+                >
+                  عربي
+                </span>
+              </div>
+            )}
           </Container>
         </div>
         {/* <ScrollToggle
