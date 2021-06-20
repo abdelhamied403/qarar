@@ -31,13 +31,32 @@ const CommentModal = ({ modal, toggle, cid, saveComment }) => {
         </div>
       </ModalHeader>
       <ModalBody>
-        <Input onChange={e => setInputValue(e.target.value)}></Input>
+        <div
+          className=""
+          style={{
+            display: 'flex',
+            height: '50px',
+            width: '50vw'
+          }}
+        >
+          <div
+            className="input"
+            style={{
+              margin: 'auto',
+              width: '100%'
+            }}
+          >
+            <Input onChange={e => setInputValue(e.target.value)}></Input>
+          </div>
+        </div>
       </ModalBody>
       <ModalFooter>
         <Button
           color="primary"
           onClick={() => {
+            console.log(cid);
             saveComment(cid, inputValue);
+            toggle();
           }}
         >
           اضف تعليق

@@ -13,6 +13,7 @@ const DraftDetails = () => {
           <title>مسودة عمل - قرار- وزارة الشؤون البلدية والقروية</title>
         </Head>
         <DraftDetailsPage draftId={draftId} />
+        ssss
       </div>
     </div>
   );
