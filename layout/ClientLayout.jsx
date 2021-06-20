@@ -5,7 +5,7 @@ import ClientHeader from './ClientHeader';
 import './client.css';
 import Api from '../api';
 import axios from 'axios';
-import Page404 from '../views/pages/Page404/Page404.js';
+import Page404 from '../views/Pages/Page404/Page404';
 import { Spinner } from 'reactstrap';
 
 class ClientLayout extends Component {
