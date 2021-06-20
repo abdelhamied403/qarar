@@ -1012,6 +1012,7 @@ class DraftDetailsInfo extends Component {
                 </CardBody>
               </Card>
             )}
+            {console.log('draft is ', draft)}
             {draft?.related_project ? (
               <Card className="cardDraft">
                 <CardBody>
@@ -1199,117 +1200,6 @@ class DraftDetailsInfo extends Component {
           getComments={() => this.getComments()}
           accessToken={this.props.accessToken}
         />
-        {/*  <Container>
-          <div className="description">
-            <CardDraft
-              header=""
-              content={draft.body}
-              tags={
-                draft.tags
-                  ? draft.tags.map(tag => ({
-                      tag: tag.name.substr(0, 20),
-                      id: tag.id
-                    }))
-                  : []
-              }
-              date={moment(new Date(draft.creatednode * 1000)).format(
-                'dddd, MMMM Do YYYY'
-              )}
-            />
-          </div>
-          <div className="moaad-open">
-            {items.map(item => (
-              <ScrollLink
-                activeClass="active"
-                key={item.nid}
-                to="item"
-                smooth
-                duration={500}
-                offset={-90}
-              >
-                <Button
-                  onClick={() => this.setState({ selected: item })}
-                  className="text-right justify-content-start mb-2"
-                  color="primary"
-                  block
-                >
-                  {item.title}
-                </Button>
-              </ScrollLink>
-            ))}
-            <h6 className="flex flex-align-center no-p-m">
-              {
-                items.filter(
-                  item =>
-                    new Date(item.end_date).getTime() > new Date().getTime()
-                ).length
-              }{' '}
-              مواد مفتوحة للنقاش
-              <Link href="/client/landing">
-                <Button color="link">من اصل {items.length} مادة</Button>
-              </Link>
-            </h6>
-            <Element name="item">
-              {items && items.length && (
-                <CardDraftItems
-                  date={
-                    draft.applied_date
-                      ? ''
-                      : moment(draft.end_date).format('dddd, MMMM Do YYYY')
-                  }
-                  selected={selected || items[0]}
-                  dropdownList={
-                    (selected ? selected.children : items[0].children) || []
-                  }
-                  tags={[]}
-                />
-              )}
-            </Element>
-          </div>
-          <Element name="test1" className="element">
-            {successComment && (
-              <Alert color="success">
-                تم إضافة التعليق في إنتظار موافقة إدارة الموقع
-              </Alert>
-            )}
-            {!uid ? (
-              <NoAccess />
-            ) : (
-              <TextBox
-                header="التعليقات على هذه المادة"
-                alertMsg="يستطيع النظام ايجاد الكلمات المسيئة. اجعل تعليقك بناءً"
-                placeholder="أضف تعليقك هنا"
-                outline="شروط المشاركة"
-                primary="إرسال التعليق"
-                inputValue={commentText}
-                onInputChange={e => this.setState({ comment: e.target.value })}
-                onPrimaryButtonClick={() => this.saveComment()}
-              />
-            )}
-          </Element>
-          {comments && comments.length ? (
-            <CardComments
-              commentsArray={comments.map(comment => ({
-                id: comment.cid,
-                avatar: comment.owner_image,
-                name: comment.full_name,
-                like: comment.likes,
-                share: '2',
-                content: comment.comment_body,
-                comments: comment.children
-                  ? comment.children.map(childComment => ({
-                      id: childComment.cid,
-                      avatar: childComment.owner_image,
-                      name: childComment.full_name,
-                      like: childComment.likes,
-                      share: '2',
-                      content: childComment.comment_body
-                    }))
-                  : []
-              }))}
-            />
-          ) : null}
-        </Container> */}
         <PartcipantModal
           open={modalOpen}
           id={draft.id}
@@ -1318,17 +1208,12 @@ class DraftDetailsInfo extends Component {
           getDraft={() => this.getDraft()}
           getComments={() => this.getComments()}
           accessToken={this.props.accessToken}
-          // like={() => this.vote('like', selectedSubject)}
-          // disLike={() => this.vote('dislike', selectedSubject)}
-          // saveComment={() => this.saveDraftDetailsComment()}
           close={() =>
             this.setState({
               modalOpen: false
             })
           }
         />
-
-        {console.log(draft)}
 
         <ShareIdeasModal
           open={shareIdeasModalOpen}
@@ -1342,9 +1227,6 @@ class DraftDetailsInfo extends Component {
           getLegalCapacity={() => this.getLegalCapacity()}
           getCity={() => this.getCity()}
           getInvestmentField={() => this.getInvestmentField()}
-          // like={() => this.vote('like', selectedSubject)}
-          // disLike={() => this.vote('dislike', selectedSubject)}
-          // saveComment={() => this.saveDraftDetailsComment()}
           close={() =>
             this.setState({
               shareIdeasModalOpen: false

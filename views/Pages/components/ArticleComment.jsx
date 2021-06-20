@@ -8,13 +8,15 @@ import Link from 'next/link';
 import Api from '../../../api';
 import { Button } from 'reactstrap';
 import CommentModal from '../draft-details/commentModal';
+import { translate } from '../../../utlis/translation';
 
 class ArticleComment extends Component {
   constructor() {
     super();
     this.state = {
       comments: [],
-      commentModalOpen: false
+      commentModalOpen: false,
+      cid: null
     };
   }
 
@@ -52,17 +54,16 @@ class ArticleComment extends Component {
   };
 
   saveComment = async (comment, parentId) => {
-    console.log({ parentId });
     const { itemId, accessToken } = this.props;
     if (!comment) {
       this.setState({ error: true });
       return;
     }
     const data = {
-      entity_id: [{ target_id: parentId }],
+      entity_id: [{ target_id: itemId }],
       subject: [{ value: 'comment' }],
       comment_body: [{ value: comment }],
-      pid: [{ target_id: itemId }]
+      pid: [{ target_id: parentId }]
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
@@ -85,7 +86,12 @@ class ArticleComment extends Component {
     const { uid, enableCommentForm, enableVote, voteable } = this.props;
 
     return (
-      <>
+      <div
+        style={{
+          height: '500px',
+          overflow: 'auto'
+        }}
+      >
         {comments.map(comment => (
           <div
             key={comment.cid}
@@ -116,123 +122,30 @@ class ArticleComment extends Component {
             {voteable ? (
               <Button
                 onClick={() => {
+                  this.setState({ cid: comment.cid });
                   this.setState({ commentModalOpen: true });
                   // this.saveComment(text, comment.cid);
                 }}
               >
-                Add Comment
+                اضف تعليق
               </Button>
             ) : null}
-
-            <CommentModal
-              modal={commentModalOpen}
-              cid={comment.cid}
-              saveComment={this.saveComment}
-              toggle={() => {
-                this.setState({ commentModalOpen: false });
-              }}
-            />
-
-            {/* <div className="d-flex flex-row draftLikeDislike likeDiv">
-              <span>{comment.likes}</span>
-              {this.state.like && this.state.id === comment.cid && (
-                <ReactLoading
-                  className="mx-1"
-                  type="spin"
-                  color="#046F6D"
-                  height={20}
-                  width={20}
-                />
-              )}
-              <img
-                onClick={() => {
-                  if (enableVote) {
-                    this.setState({ id: comment.cid, like: true });
-                    this.props.likeComment(comment.cid, () => {
-                      this.getComments();
-                      this.setState({ id: null, like: false });
-                    });
-                  }
-                }}
-                src={
-                  comment.flag === 'like'
-                    ? '/static/img/interactive/blueLikeActive.svg'
-                    : '/static/img/interactive/dislikeGreen.svg'
-                }
-                alt=""
-                className="likeImg"
-                id={`tooltip-d-${comment.cid}`}
-              />
-              {!enableVote && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-d-${comment.cid}`}
-                >
-                  تم إيقاف التصويت
-                </UncontrolledTooltip>
-              )}
-              {enableVote && !uid && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-d-${comment.cid}`}
-                >
-                  يجب عليك تسجيل الدخول
-                </UncontrolledTooltip>
-              )}
-              <span>{comment.dislikes}</span>
-              {this.state.dislike && this.state.id === comment.cid && (
-                <ReactLoading
-                  className="mx-1"
-                  type="spin"
-                  color="#046F6D"
-                  height={20}
-                  width={20}
-                />
-              )}
-              <img
-                onClick={() => {
-                  if (enableVote) {
-                    this.setState({ id: comment.cid, dislike: true });
-                    this.props.dislikeComment(comment.cid, () => {
-                      this.getComments();
-                      this.setState({ id: null, dislike: false });
-                    });
-                  }
-                }}
-                src={
-                  comment.flag === 'dislike'
-                    ? '/static/img/interactive/blueDislikeActive.svg'
-                    : '/static/img/interactive/likeGreen.svg'
-                }
-                alt=""
-                className="likeImg"
-                id={`tooltip-l-${comment.cid}`}
-              />
-              {!enableVote && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-l-${comment.cid}`}
-                >
-                  تم إيقاف التصويت
-                </UncontrolledTooltip>
-              )}
-              {enableVote && !uid && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-l-${comment.cid}`}
-                >
-                  يجب عليك تسجيل الدخول
-                </UncontrolledTooltip>
-              )}
-            </div> */}
           </div>
         ))}
+        <CommentModal
+          modal={commentModalOpen}
+          cid={this.state.cid}
+          saveComment={this.saveComment}
+          toggle={() => {
+            this.setState({ commentModalOpen: false });
+          }}
+        />
         {successComment && (
           <Alert color="success">
             تم إضافة التعليق في إنتظار موافقة إدارة الموقع
           </Alert>
         )}
-      </>
+      </div>
     );
   }
 }
