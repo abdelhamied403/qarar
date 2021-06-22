@@ -263,26 +263,26 @@ class ClientHeader extends React.Component {
                     </Link>
                   </NavItem>
                   {!isAuthentcated && (
-                    // <NavItem
-                    //   active={
-                    //     router.pathname ===
-                    //     'https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa'
-                    //   }
-                    // >
-                    //   <Link href="https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa">
-                    //     <a>
-                    //       <NavLink onClick={this.closeMobile}> دخول</NavLink>
-                    //     </a>
-                    //   </Link>
-                    // </NavItem>
-
-                    <NavItem active={router.pathname === '/login'}>
-                      <Link href="/login">
+                    <NavItem
+                      active={
+                        router.pathname ===
+                        'https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa'
+                      }
+                    >
+                      <Link href="https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa">
                         <a>
-                          <NavLink onClick={this.closeMobile}>دخول</NavLink>
+                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
                         </a>
                       </Link>
                     </NavItem>
+
+                    // <NavItem active={router.pathname === '/login'}>
+                    //   <Link href="/login">
+                    //     <a>
+                    //       <NavLink onClick={this.closeMobile}>دخول</NavLink>
+                    //     </a>
+                    //   </Link>
+                    // </NavItem>
                   )}
 
                   {isAuthentcated ? this.userDropdown() : ''}
