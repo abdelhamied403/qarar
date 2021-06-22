@@ -74,6 +74,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-next": "^11.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^3.0.4",
     "eslint-plugin-import": "^2.21.2",
