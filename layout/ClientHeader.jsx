@@ -154,7 +154,6 @@ class ClientHeader extends React.Component {
 
   render() {
     const { isAuthentcated, signOut, router } = this.props;
-
     return (
       <div className="ministry">
         <div className="header-nav">

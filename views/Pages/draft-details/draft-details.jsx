@@ -673,7 +673,7 @@ class DraftDetailsInfo extends Component {
                 </FacebookShareButton>
               </div>
             </div>
-            <div className="draftInfoShare d-flex justify-content-between mb-4">
+            {/* <div className="draftInfoShare d-flex justify-content-between mb-4">
               <div>
                 <Button
                   color={activeTab === '1' ? 'primary' : 'default'}
@@ -688,7 +688,7 @@ class DraftDetailsInfo extends Component {
                   كل المواد
                 </Button>
               </div>
-            </div>
+            </div> */}
             <TabContent activeTab={activeTab}>
               <TabPane tabId="1">
                 {items &&

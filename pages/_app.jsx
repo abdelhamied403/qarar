@@ -6,7 +6,7 @@ import withAnalytics from 'next-analytics';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { parseCookies } from 'nookies';
+import nookies from 'nookies';
 import withReduxStore from '../redux/with-redux-store';
 import ClientLayout from '../layout';
 import Loading from '../components/loading';
@@ -18,13 +18,15 @@ import './qarar.css';
 
 class MyApp extends App {
   static async getInitialProps({ ctx }) {
-    const cookies = parseCookies(ctx);
+    const cookies = nookies.get(ctx);
     if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
         cookie: cookies['.ASPXFORMSAUTH']
       });
       if (response.ok) {
         return {
+          cookies,
+          response,
           loggedIn: {
             type: 'LOGIN',
             profileImage: response.data.picture,
@@ -34,7 +36,14 @@ class MyApp extends App {
           }
         };
       }
+      return {
+        cookies,
+        response
+      };
     }
+    return {
+      cookies
+    };
   }
 
   constructor(props) {
@@ -44,7 +53,14 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, reduxStore, loggedIn } = this.props;
+    const {
+      Component,
+      pageProps,
+      reduxStore,
+      loggedIn,
+      response,
+      cookies
+    } = this.props;
     const G = typeof window === 'undefined' ? PersistGate : Fragment;
     return (
       <Provider store={reduxStore}>

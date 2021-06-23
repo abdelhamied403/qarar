@@ -24,8 +24,10 @@ class ClientLayout extends Component {
       postMessage = window.ReactNativeWebView.postMessage;
     }
     if (loggedIn && loggedIn.type) {
-      dispatch(loggedIn);
-      postMessage(JSON.stringify(loggedIn));
+      setTimeout(() => {
+        dispatch(loggedIn);
+        postMessage(JSON.stringify(loggedIn));
+      }, 500);
     }
   };
 

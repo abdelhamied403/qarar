@@ -280,7 +280,7 @@ class Decision extends Component {
                             <CardDraft
                               header={item.title}
                               subHeader={`تم التطبيق بتاريخ ${item.end_date}`}
-                              content={`${item.body.substr(0, 200)} ...`}
+                              content={item.body}
                               tags={item.tags.map(tag => ({
                                 tag: tag.name.substr(0, 20),
                                 id: tag.id
