@@ -5,7 +5,6 @@ import ClientHeader from './ClientHeader';
 import './client.css';
 import Api from '../api';
 import axios from 'axios';
-import Page404 from '../views/pages/Page404/Page404.js';
 import { Spinner } from 'reactstrap';
 
 class ClientLayout extends Component {
@@ -76,7 +75,7 @@ class ClientLayout extends Component {
         </div>
       );
     } else if (this.state.redirect === false) {
-      return <Page404 />;
+      return 'page not found';
     } else {
       return (
         <div className="loading">
