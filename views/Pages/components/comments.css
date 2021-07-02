@@ -1,0 +1,53 @@
+.reply {
+  margin-right: 40px;
+  border: 1px solid green;
+  margin: 20px 30px 0 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+.reply .reply-info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.reply .about {
+  width: 100%;
+}
+
+.reply .reply-user-info {
+  display: flex;
+  align-items: center;
+}
+.reply p {
+  margin: 0;
+  word-wrap: anywhere;
+}
+
+.subject-comments {
+  height: 500px;
+  overflow: auto;
+  padding-left: 20px;
+
+  scrollbar-color: #888 #f1f1f1;
+  scrollbar-width: thin;
+}
+/* width */
+.subject-comments::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.subject-comments::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.subject-comments::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.subject-comments::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

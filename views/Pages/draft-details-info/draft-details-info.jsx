@@ -433,7 +433,7 @@ class DraftDetailsInfo extends Component {
                     <ul>
                       <li>
                         <Link href="/drafts/">
-                          <a>          {translate('draftDetails.decisions')}</a>
+                          <a> {translate('draftDetails.decisions')}</a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -475,7 +475,8 @@ class DraftDetailsInfo extends Component {
                       >
                         <Button color="primary">
                           شارك برأيك
-                          <img dir={translate('dir')}
+                          <img
+                            dir={translate('dir')}
                             src="/static/img/interactive/whiteArrow.svg"
                             alt=""
                           />
@@ -504,7 +505,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.followers}</p>
-                      <h5>      {translate('draftDetails.user')}</h5>
+                      <h5> {translate('draftDetails.user')}</h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -515,7 +516,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.comments}</p>
-                      <h5>   {translate('draftDetails.comment')}</h5>
+                      <h5> {translate('draftDetails.comment')}</h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -559,7 +560,10 @@ class DraftDetailsInfo extends Component {
                     <div className="d-flex flex-column justify-items-start draftCardLt">
                       <div className="d-flex justify-content-end">
                         <img src="/static/img/interactive/lock.svg" alt="" />
-                        <span>   {translate('draftDetails.commentAvailable')}</span>
+                        <span>
+                          {' '}
+                          {translate('draftDetails.commentAvailable')}
+                        </span>
                       </div>
                       <div className="d-flex justify-content-end">
                         <img
@@ -633,7 +637,10 @@ class DraftDetailsInfo extends Component {
                     <div className="dratCartTitlelt d-flex">
                       <div className="manyComments d-flex align-items-center">
                         <img src="/static/img/interactive/chat.svg" alt="" />
-                        <span>{item.comments}{translate('draftDetails.comment')}</span>
+                        <span>
+                          {item.comments}
+                          {translate('draftDetails.comment')}
+                        </span>
                       </div>
                       <img
                         src="/static/img/interactive/whiteTabs.svg"
@@ -664,7 +671,7 @@ class DraftDetailsInfo extends Component {
                             })
                           }
                         >
-                               {translate('draftDetails.more')}
+                          {translate('draftDetails.more')}
                           <img src={this.state.img2} alt="" />
                         </Button>
                       </Col>
@@ -696,15 +703,19 @@ class DraftDetailsInfo extends Component {
               {!uid ? (
                 <div className="draftShouldLogin d-flex flex-column">
                   <img src="/static/img/interactive/disabled.svg" alt="" />
-                  <h4>     {translate('draftDetails.loginComment')}</h4>
+                  <h4> {translate('draftDetails.loginComment')}</h4>
                   <Link href="/login">
                     <Button>
-                    {translate('draftDetails.login')}
-                      <img dir={translate('dir')} src="/static/img/interactive/btnArrow3.svg" alt="" />
+                      {translate('draftDetails.login')}
+                      <img
+                        dir={translate('dir')}
+                        src="/static/img/interactive/btnArrow3.svg"
+                        alt=""
+                      />
                     </Button>
                   </Link>
                   <Link href="/register">
-                    <a>    {translate('draftDetails.createAccount')}</a>
+                    <a> {translate('draftDetails.createAccount')}</a>
                   </Link>
                 </div>
               ) : (
@@ -712,7 +723,7 @@ class DraftDetailsInfo extends Component {
                   <div>
                     {successComment && (
                       <Alert color="success">
-                    {translate('draftDetails.commentAdded')}
+                        {translate('draftDetails.commentAdded')}
                       </Alert>
                     )}
                     {errorComment && (
@@ -743,7 +754,7 @@ class DraftDetailsInfo extends Component {
                   <div className="commentsBtn d-flex justify-content-end align-items-center">
                     <a href="">شروط المشاركة</a>
                     <Button onClick={this.saveComment}>
-                    {translate('draftDetails.addComment')}
+                      {translate('draftDetails.addComment')}
                       <img
                         src="/static/img/interactive/whiteArrow.svg"
                         alt=""

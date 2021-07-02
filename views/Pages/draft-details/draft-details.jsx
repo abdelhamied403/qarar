@@ -745,9 +745,9 @@ class DraftDetailsInfo extends Component {
                 <Row>
                   <Col md="9" className="draftBodyRt text-justify line-bottom">
                     <p>{renderHTML(draft.body || '')}</p>
-                    <div className="d-flex">
+                    <div className="dates d-flex">
                       {' '}
-                      <div className="dateDraft d-flex align-items-center lf-10">
+                      <div className="date dateDraft d-flex align-items-center lf-10">
                         <img
                           src="/static/img/interactive/calendar (2).svg"
                           alt=""
@@ -764,7 +764,7 @@ class DraftDetailsInfo extends Component {
                           )}
                         </span>
                       </div>
-                      <div className="dateDraft d-flex align-items-center">
+                      <div className="date dateDraft d-flex align-items-center">
                         <img
                           src="/static/img/interactive/calendar (2).svg"
                           alt=""
@@ -779,7 +779,7 @@ class DraftDetailsInfo extends Component {
                       </div>
                     </div>
                   </Col>
-                  <Col md="3" className="line-right just-center">
+                  <Col md="3" className="qlogo line-right just-center">
                     <img
                       style={{ marginBottom: '5px' }}
                       src={
@@ -835,8 +835,8 @@ class DraftDetailsInfo extends Component {
               <Card className="cardDraft max-content">
                 <CardHeader>{translate('draftDetails.charts')}</CardHeader>
                 <CardBody>
-                  <Row>
-                    <Col md="4" className="flex flex-1 f-column max-100">
+                  <Row className="qcharts">
+                    <Col md="4" className="qchart flex flex-1 f-column max-100">
                       <p
                         style={{
                           color: '#81BD41',
@@ -893,7 +893,7 @@ class DraftDetailsInfo extends Component {
                             ))}
                           </div>
                         </Col>
-                        <Col md="6">
+                        <Col md="6" className="qpiechart">
                           <PieChart
                             data={[
                               {
@@ -939,7 +939,7 @@ class DraftDetailsInfo extends Component {
                     {draft.most_featured_items?.length > 0 && (
                       <Col
                         md="4"
-                        className="border-right-line flex flex-1 f-column max-100"
+                        className="qchart border-right-line flex flex-1 f-column max-100"
                         dir={translate('dir')}
                       >
                         <p
@@ -972,7 +972,7 @@ class DraftDetailsInfo extends Component {
                     {draft.most_featured_users?.length > 0 && (
                       <Col
                         md="4"
-                        className="border-right-line flex flex-1 f-column max-100"
+                        className="qchart border-right-line flex flex-1 f-column max-100"
                         dir={translate('dir')}
                       >
                         <p
@@ -1310,7 +1310,7 @@ class DraftDetailsInfo extends Component {
           <Row className="mt-3">
             <Col md="7" className="draftBodyRt">
               <p>{renderHTML(item.body_value || '')}</p>
-              <Link href={`/draft-details/${item.nid}`}>
+              <Link href={`/draft-details-info/${item.nid}`}>
                 <Button
                   className="btn-inline-block"
                   onMouseOut={() => {

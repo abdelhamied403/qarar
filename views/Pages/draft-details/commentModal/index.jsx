@@ -10,7 +10,6 @@ import {
 
 const CommentModal = ({ modal, toggle, cid, saveComment }) => {
   const [inputValue, setInputValue] = useState(null);
-
   return (
     <Modal
       isOpen={modal}
@@ -54,7 +53,6 @@ const CommentModal = ({ modal, toggle, cid, saveComment }) => {
         <Button
           color="primary"
           onClick={() => {
-            console.log(cid);
             saveComment(cid, inputValue);
             toggle();
           }}
