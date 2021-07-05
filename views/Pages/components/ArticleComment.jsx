@@ -10,6 +10,8 @@ import { Button } from 'reactstrap';
 import CommentModal from '../draft-details/commentModal';
 import { translate } from '../../../utlis/translation';
 
+import './comments.css';
+
 class ArticleComment extends Component {
   constructor() {
     super();
@@ -53,7 +55,7 @@ class ArticleComment extends Component {
     };
   };
 
-  saveComment = async (comment, parentId) => {
+  saveComment = async (comment, cid) => {
     const { itemId, accessToken } = this.props;
     if (!comment) {
       this.setState({ error: true });
@@ -62,8 +64,8 @@ class ArticleComment extends Component {
     const data = {
       entity_id: [{ target_id: itemId }],
       subject: [{ value: 'comment' }],
-      comment_body: [{ value: comment }],
-      pid: [{ target_id: parentId }]
+      comment_body: [{ value: cid }],
+      pid: [{ target_id: comment }]
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
@@ -86,12 +88,8 @@ class ArticleComment extends Component {
     const { uid, enableCommentForm, enableVote, voteable } = this.props;
 
     return (
-      <div
-        style={{
-          height: '500px',
-          overflow: 'auto'
-        }}
-      >
+      <div class="subject-comments">
+        {/* showing comments in here */}
         {comments.map(comment => (
           <div
             key={comment.cid}
@@ -124,14 +122,44 @@ class ArticleComment extends Component {
                 onClick={() => {
                   this.setState({ cid: comment.cid });
                   this.setState({ commentModalOpen: true });
-                  // this.saveComment(text, comment.cid);
                 }}
               >
                 اضف تعليق
               </Button>
             ) : null}
+            {comment.children?.map(reply => (
+              <div className="reply">
+                <div className="reply-user-info">
+                  <img
+                    src={
+                      reply.owner_image || '/static/img/interactive/user.svg'
+                    }
+                    alt=""
+                    className="avatarUser"
+                  />
+                  <div className="about">
+                    <div className="reply-info">
+                      <Link href={`/user-profile/${reply.ownerid}`}>
+                        <a>
+                          <h5>{reply.full_name || reply.ownername}</h5>
+                        </a>
+                      </Link>
+                      <p>
+                        {moment(reply.createdcomment * 1000).format(
+                          'YYYY/MM/DD'
+                        )}
+                      </p>
+                    </div>
+                    <div className="reply-body">
+                      <p>{reply.comment_body}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ))}
+
         <CommentModal
           modal={commentModalOpen}
           cid={this.state.cid}

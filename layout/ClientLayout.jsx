@@ -76,7 +76,7 @@ class ClientLayout extends Component {
         </div>
       );
     } else if (this.state.redirect === false) {
-      return <Page404 />;
+      return 'page not found';
     } else {
       return (
         <div className="loading">
