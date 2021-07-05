@@ -991,7 +991,7 @@ class DraftDetailsInfo extends Component {
                                 <img
                                   src={
                                     el.user_picture
-                                      ? `https://qarar-backend.sharedt.com/${el.user_picture}`
+                                      ? `${el.user_picture}`
                                       : '/static/img/Group 991.svg'
                                   }
                                 />
