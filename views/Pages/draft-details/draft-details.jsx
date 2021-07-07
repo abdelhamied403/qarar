@@ -781,7 +781,6 @@ class DraftDetailsInfo extends Component {
                   </Col>
                   <Col md="3" className="qlogo line-right just-center">
                     <img
-                      style={{ marginBottom: '5px' }}
                       src={
                         draft?.related_project?.entity_logo ||
                         '/static/img/logo.svg'
@@ -1286,8 +1285,7 @@ class DraftDetailsInfo extends Component {
                 style={{ margin: '5px' }}
               />
               <span>
-                {item.comments}
-                {translate('draftDetails.comment')}
+                {item.comments} {translate('draftDetails.comment')}
               </span>
             </div>
             <img
@@ -1325,6 +1323,7 @@ class DraftDetailsInfo extends Component {
                   }
                 >
                   {translate('draftDetails.more')}
+                  {'  '}
                   <img src={this.state.img2} alt="" />
                 </Button>
               </Link>

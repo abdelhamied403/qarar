@@ -667,7 +667,7 @@ const Landing = () => {
                 onClick={() => setActiveBtnNews(0)}
                 className={activeBtnNews === 0 ? 'active' : ''}
               >
-                {translate('landingPage.laعنوان هناااااااNews')}
+                {translate('اخر الاخبار')}
               </Button>
               <Button
                 onClick={() => setActiveBtnNews(1)}

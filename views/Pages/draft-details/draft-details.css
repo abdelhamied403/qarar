@@ -609,9 +609,8 @@
   flex-wrap: wrap;
   display: flex;
 }
-
 .draftContainer .dates .date {
-  margin: 10px auto;
+  margin: 10px 20px;
 }
 
 .qlogo {
@@ -623,6 +622,9 @@
 }
 
 @media screen and (max-width: 900px) {
+  .draftContainer .dates .date {
+    margin: 10px auto;
+  }
   .qcharts {
     display: flex;
     flex-direction: column;
