@@ -5,6 +5,7 @@ import ClientHeader from './ClientHeader';
 import './client.css';
 import Api from '../api';
 import axios from 'axios';
+import Page404 from '../views/Pages/Page404/Page404';
 import { Spinner } from 'reactstrap';
 
 class ClientLayout extends Component {
@@ -17,7 +18,7 @@ class ClientLayout extends Component {
     let token = JSON.parse(JSON.parse(localStorage['persist:primary']).auth)
       .accessToken;
     return await axios.get(
-      'http://qarar-backend.sharedt.com/qarar_api/hide-lang',
+      'https://qarar-backend.sharedt.com/qarar_api/hide-lang',
       { headers: { Authorization: `Bearer ${token}` } }
     );
   }

@@ -161,7 +161,7 @@ class ClientHeader extends React.Component {
     let token = JSON.parse(JSON.parse(localStorage['persist:primary']).auth)
       .accessToken;
     return await axios.get(
-      'http://qarar-backend.sharedt.com/qarar_api/hide-lang',
+      'https://qarar-backend.sharedt.com/qarar_api/hide-lang',
       { headers: { Authorization: `Bearer ${token}` } }
     );
   }
