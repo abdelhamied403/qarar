@@ -84,7 +84,7 @@ class ClientLayout extends Component {
             <div className="spin">
               <Spinner color="primary" />
             </div>
-            <div>loading</div>
+            <div>تحميل</div>
           </div>
         </div>
       );

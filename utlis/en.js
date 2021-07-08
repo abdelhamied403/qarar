@@ -446,6 +446,7 @@ export const en = {
     applied: 'Applied',
     voting: 'Under vote',
     opinion: 'What do you think of the draft?',
+    reply:'Reply to comment',
     shareIdeasModal: {
       title: 'Share now',
       stepOne: 'What do you think about the article?',

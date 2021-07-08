@@ -35,20 +35,21 @@ const CommentModal = ({ modal, toggle, cid, saveComment }) => {
           style={{
             display: 'flex',
             height: '150px',
-            width: '50vw'
+            width: '100%'
           }}
         >
           <div
             className="input"
             style={{
-        
               width: '100%'
             }}
           >
-            <Input onChange={e => setInputValue(e.target.value)}    style={{
-         
-              height: '100%'
-            }}></Input>
+            <textarea
+              onChange={e => setInputValue(e.target.value)}
+              style={{
+                height: '100%'
+              }}
+            ></textarea>
           </div>
         </div>
       </ModalBody>

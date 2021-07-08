@@ -557,21 +557,15 @@ class DraftDetailsInfo extends Component {
                     </div>
                   </Col>
                   <Col md="3">
-                    <div className="d-flex flex-column justify-items-start draftCardLt">
-                      <div className="d-flex justify-content-end">
-                        <img src="/static/img/interactive/lock.svg" alt="" />
-                        <span>
-                          {' '}
-                          {translate('draftDetails.commentAvailable')}
-                        </span>
-                      </div>
-                      <div className="d-flex justify-content-end">
-                        <img
-                          src="/static/img/interactive/stopwatch.svg"
-                          alt=""
-                        />
-                        <span>{moment(draft.end_date).fromNow()}</span>
-                      </div>
+                    <div
+                      className="d-flex line-right  flex-column justify-items-start draftCardLt"
+                      style={{ height: '100%' }}
+                    >
+                      <img
+                        src="/static/img/logo.svg"
+                        alt=""
+                        style={{ height: '100%', width: '60%' }}
+                      />
                     </div>
                   </Col>
                 </Row>
@@ -700,69 +694,42 @@ class DraftDetailsInfo extends Component {
                 </Card>
               ))}
             <Element name="test1" className="element">
-              {!uid ? (
-                <div className="draftShouldLogin d-flex flex-column">
-                  <img src="/static/img/interactive/disabled.svg" alt="" />
-                  <h4> {translate('draftDetails.loginComment')}</h4>
-                  <Link href="/login">
-                    <Button>
-                      {translate('draftDetails.login')}
-                      <img
-                        dir={translate('dir')}
-                        src="/static/img/interactive/btnArrow3.svg"
-                        alt=""
-                      />
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <a> {translate('draftDetails.createAccount')}</a>
-                  </Link>
-                </div>
-              ) : (
-                <>
-                  <div>
-                    {successComment && (
-                      <Alert color="success">
-                        {translate('draftDetails.commentAdded')}
-                      </Alert>
-                    )}
-                    {errorComment && (
-                      <Alert color="danger">{errorComment}</Alert>
-                    )}
-                    <Editor
-                      placeholder="اضف تعليقك هنا"
-                      toolbar={{
-                        options: ['inline', 'image'], // This is where you can specify what options you need in
-                        // the toolbar and appears in the same order as specified
-                        inline: {
-                          options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                          // strikethrough, 'monospace', 'superscript', 'subscript'
-                        },
-                        image: {
-                          alignmentEnabled: false,
-                          uploadCallback: this.UploadImageCallBack,
-                          alt: { present: true, mandatory: false },
-                          previewImage: true
-                        }
-                      }}
-                      editorState={editorState}
-                      wrapperClassName="demo-wrapper"
-                      editorClassName="demo-editor"
-                      onEditorStateChange={this.onEditorStateChange}
-                    />
-                  </div>
-                  <div className="commentsBtn d-flex justify-content-end align-items-center">
-                    <a href="">شروط المشاركة</a>
-                    <Button onClick={this.saveComment}>
-                      {translate('draftDetails.addComment')}
-                      <img
-                        src="/static/img/interactive/whiteArrow.svg"
-                        alt=""
-                      />
-                    </Button>
-                  </div>
-                </>
-              )}
+              <div>
+                {successComment && (
+                  <Alert color="success">
+                    {translate('draftDetails.commentAdded')}
+                  </Alert>
+                )}
+                {errorComment && <Alert color="danger">{errorComment}</Alert>}
+                <Editor
+                  placeholder="اضف تعليقك هنا"
+                  toolbar={{
+                    options: ['inline', 'image'], // This is where you can specify what options you need in
+                    // the toolbar and appears in the same order as specified
+                    inline: {
+                      options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                      // strikethrough, 'monospace', 'superscript', 'subscript'
+                    },
+                    image: {
+                      alignmentEnabled: false,
+                      uploadCallback: this.UploadImageCallBack,
+                      alt: { present: true, mandatory: false },
+                      previewImage: true
+                    }
+                  }}
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={this.onEditorStateChange}
+                />
+              </div>
+              <div className="commentsBtn d-flex justify-content-end align-items-center">
+                <a href="">شروط المشاركة</a>
+                <Button onClick={this.saveComment}>
+                  {translate('draftDetails.addComment')}
+                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                </Button>
+              </div>
             </Element>
 
             <div className="draftNewComments">
