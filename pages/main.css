@@ -336,6 +336,10 @@ button::-moz-focus-inner,
   border-style: none;
 }
 
+button img{
+margin-right: 8px;
+}
+
 input[type='radio'],
 input[type='checkbox'] {
   box-sizing: border-box;
@@ -17606,6 +17610,13 @@ input {
   font-weight: 500 !important;
   color: #232323 !important;
 }
+textarea {
+  min-height: 42px;
+  border: 1px solid #ccc !important;
+  font-weight: 500 !important;
+  color: #232323 !important;
+  width: 100%;
+}
 .form-control {
   background-color: white;
   -webkit-transition: all 0.8s !important;
@@ -20405,4 +20416,29 @@ a#loginWithBaladyLink img {
 
 .newUILanding .activities.recently-qarars {
   border-bottom: 5px solid #eceff4;
+}
+
+
+.draftBodyRt .dateDraft{
+  width: max-content;
+  padding-left: 18px;
+  padding-right: 16px;
+
+}
+
+@media (max-width: 768px) {
+
+.draftCardLt img{
+  margin-left: 0;
+  margin-top: 30px;
+  margin-bottom: 18px;
+
+}
+
+.draftContainer.drafInfo .cardDraft .d-flex.line-right.flex-column  {
+
+  align-items: center;
+
+}
+
 }

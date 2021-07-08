@@ -354,7 +354,7 @@ const ShareIdeasModal = props => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          width: '50vw',
+  
           flexFlow: 'column'
         }}
       >

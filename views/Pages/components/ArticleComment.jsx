@@ -124,7 +124,7 @@ class ArticleComment extends Component {
                   this.setState({ commentModalOpen: true });
                 }}
               >
-                اضف تعليق
+         {translate('draftDetails.reply')}
               </Button>
             ) : null}
             {comment.children?.map(reply => (

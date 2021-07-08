@@ -425,6 +425,7 @@ export const ar = {
     applied: 'مطبق',
     voting: 'تحت التصويت',
     opinion: 'ما رأيك فى المسودة؟',
+    reply:'الرد علي التعليق',
     shareIdeasModal: {
       title: 'شارك الان',
       stepOne: 'ما رأيك في المادة؟',
