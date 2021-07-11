@@ -17,6 +17,7 @@ import CardBlog from '../components/card-blog/card-blog';
 import './platform-news.css';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
 
 class DecisionDraft extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class DecisionDraft extends Component {
       page: 1,
       newsPageSize: 4,
       sortMode: 'DESC',
-      sortLabel: 'أحدث الأخبار',
+      sortLabel: translate('platformNewsPage.latestNews'),
       loading: true
     };
   }
@@ -49,6 +50,9 @@ class DecisionDraft extends Component {
     const newsResponse = await Api.get(
       `/qarar_api/data/news/${newsPageSize}/${sortMode}/${page}?_format=json`
     );
+    if (this.state.loading) {
+      this.setState({ sortLabel: translate('platformNewsPage.latestNews') });
+    }
     if (newsResponse.ok) {
       this.setState({ news: newsResponse.data, loading: false });
     }
@@ -106,7 +110,7 @@ class DecisionDraft extends Component {
       <>
         <div className="draftHeader">
           <Container>
-            <h3>اخبار المنصة</h3>
+            <h3>{translate('platformNewsPage.title')}</h3>
           </Container>
         </div>
         <div className="platform-news">
@@ -128,26 +132,26 @@ class DecisionDraft extends Component {
                       this.setState(
                         {
                           sortMode: 'DESC',
-                          sortLabel: 'احدث الاخبار'
+                          sortLabel: translate('platformNewsPage.latestNews')
                         },
                         () => this.getNews()
                       )
                     }
                   >
-                    احدث الاخبار
+                    {translate('platformNewsPage.latestNews')}
                   </DropdownItem>
                   <DropdownItem
                     onClick={() =>
                       this.setState(
                         {
                           sortMode: 'ASC',
-                          sortLabel: 'أقدم الاخبار'
+                          sortLabel: translate('platformNewsPage.oldestNews')
                         },
                         () => this.getNews()
                       )
                     }
                   >
-                    أقدم الاخبار
+                    {translate('platformNewsPage.oldestNews')}
                   </DropdownItem>
                 </DropdownMenu>
               </ButtonDropdown>

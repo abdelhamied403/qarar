@@ -4,6 +4,7 @@ import { Container, Media } from 'reactstrap';
 import Link from 'next/link';
 
 import './breadcrumb.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -23,6 +24,7 @@ class Breadcrumb extends Component {
             <Link href={link || '/'}>
               <a className="sub-header">
                 <Media
+                  dir={translate('dir')}
                   className="image-icon"
                   object
                   src="/static/img/breadcrumbs-icon.svg"

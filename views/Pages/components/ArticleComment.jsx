@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
-import {
-  InputGroup,
-  InputGroupAddon,
-  Input,
-  Alert,
-  UncontrolledTooltip
-} from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Alert } from 'reactstrap';
 import renderHTML from 'react-render-html';
-import ReactLoading from 'react-loading';
 import moment from 'moment';
 import Link from 'next/link';
 
 import Api from '../../../api';
+import { Button } from 'reactstrap';
+import CommentModal from '../draft-details/commentModal';
+import { translate } from '../../../utlis/translation';
+
+import './comments.css';
 
 class ArticleComment extends Component {
   constructor() {
     super();
     this.state = {
-      comments: []
+      comments: [],
+      commentModalOpen: false,
+      cid: null
     };
   }
 
@@ -27,18 +27,36 @@ class ArticleComment extends Component {
   }
 
   getComments = async () => {
-    const { itemId } = this.props;
+    const { itemId, commentsMapper } = this.props;
     const response = await Api.get(
       `/qarar_api/comments/${itemId}/DESC?_format=json`
     );
     if (response.ok) {
       this.setState({ comments: response.data });
+      // eslint-disable-next-line react/destructuring-assignment
+      if (commentsMapper) {
+        commentsMapper(this.setCommentsLikesAndDisLikesCounter(response.data));
+      }
     }
   };
 
-  saveComment = async () => {
+  setCommentsLikesAndDisLikesCounter = comments => {
+    let likes = 0;
+    let dislikes = 0;
+    if (comments && comments.length) {
+      comments.forEach(comment => {
+        likes += +comment.likes;
+        dislikes += +comment.dislikes;
+      });
+    }
+    return {
+      likes,
+      dislikes
+    };
+  };
+
+  saveComment = async (comment, cid) => {
     const { itemId, accessToken } = this.props;
-    const { comment } = this.state;
     if (!comment) {
       this.setState({ error: true });
       return;
@@ -46,14 +64,17 @@ class ArticleComment extends Component {
     const data = {
       entity_id: [{ target_id: itemId }],
       subject: [{ value: 'comment' }],
-      comment_body: [{ value: comment }],
-      pid: [{ target_id: '0' }]
+      comment_body: [{ value: cid }],
+      pid: [{ target_id: comment }]
     };
     const response = await Api.post(
       `/qarar_api/post-comment?_format=json`,
       data,
       {
-        headers: { Authorization: `Bearer ${accessToken}` }
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Access-Control-Allow-Origin': '*'
+        }
       }
     );
     if (response.ok) {
@@ -63,11 +84,12 @@ class ArticleComment extends Component {
   };
 
   render() {
-    const { comments, successComment } = this.state;
-    const { uid, enableCommentForm, enableVote } = this.props;
+    const { comments, successComment, commentModalOpen } = this.state;
+    const { uid, enableCommentForm, enableVote, voteable } = this.props;
 
     return (
-      <>
+      <div class="subject-comments">
+        {/* showing comments in here */}
         {comments.map(comment => (
           <div
             key={comment.cid}
@@ -95,118 +117,63 @@ class ArticleComment extends Component {
                 {renderHTML(comment.comment_body || '')}
               </p>
             </div>
-            <div className="d-flex flex-row draftLikeDislike likeDiv">
-              <span>{comment.likes}</span>
-              {this.state.like && this.state.id === comment.cid && (
-                <ReactLoading
-                  className="mx-1"
-                  type="spin"
-                  color="#046F6D"
-                  height={20}
-                  width={20}
-                />
-              )}
-              <img
+            {voteable ? (
+              <Button
                 onClick={() => {
-                  if (enableVote) {
-                    this.setState({ id: comment.cid, like: true });
-                    this.props.likeComment(comment.cid, () => {
-                      this.getComments();
-                      this.setState({ id: null, like: false });
-                    });
-                  }
+                  this.setState({ cid: comment.cid });
+                  this.setState({ commentModalOpen: true });
                 }}
-                src={
-                  comment.flag === 'like'
-                    ? '/static/img/interactive/blueLikeActive.svg'
-                    : '/static/img/interactive/dislikeGreen.svg'
-                }
-                alt=""
-                className="likeImg"
-                id={`tooltip-d-${comment.cid}`}
-              />
-              {!enableVote && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-d-${comment.cid}`}
-                >
-                  تم إيقاف التصويت
-                </UncontrolledTooltip>
-              )}
-              {enableVote && !uid && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-d-${comment.cid}`}
-                >
-                  يجب عليك تسجيل الدخول
-                </UncontrolledTooltip>
-              )}
-              <span>{comment.dislikes}</span>
-              {this.state.dislike && this.state.id === comment.cid && (
-                <ReactLoading
-                  className="mx-1"
-                  type="spin"
-                  color="#046F6D"
-                  height={20}
-                  width={20}
-                />
-              )}
-              <img
-                onClick={() => {
-                  if (enableVote) {
-                    this.setState({ id: comment.cid, dislike: true });
-                    this.props.dislikeComment(comment.cid, () => {
-                      this.getComments();
-                      this.setState({ id: null, dislike: false });
-                    });
-                  }
-                }}
-                src={
-                  comment.flag === 'dislike'
-                    ? '/static/img/interactive/blueDislikeActive.svg'
-                    : '/static/img/interactive/likeGreen.svg'
-                }
-                alt=""
-                className="likeImg"
-                id={`tooltip-l-${comment.cid}`}
-              />
-              {!enableVote && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-l-${comment.cid}`}
-                >
-                  تم إيقاف التصويت
-                </UncontrolledTooltip>
-              )}
-              {enableVote && !uid && (
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`tooltip-l-${comment.cid}`}
-                >
-                  يجب عليك تسجيل الدخول
-                </UncontrolledTooltip>
-              )}
-            </div>
+              >
+         {translate('draftDetails.reply')}
+              </Button>
+            ) : null}
+            {comment.children?.map(reply => (
+              <div className="reply">
+                <div className="reply-user-info">
+                  <img
+                    src={
+                      reply.owner_image || '/static/img/interactive/user.svg'
+                    }
+                    alt=""
+                    className="avatarUser"
+                  />
+                  <div className="about">
+                    <div className="reply-info">
+                      <Link href={`/user-profile/${reply.ownerid}`}>
+                        <a>
+                          <h5>{reply.full_name || reply.ownername}</h5>
+                        </a>
+                      </Link>
+                      <p>
+                        {moment(reply.createdcomment * 1000).format(
+                          'YYYY/MM/DD'
+                        )}
+                      </p>
+                    </div>
+                    <div className="reply-body">
+                      <p>{reply.comment_body}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ))}
+
+        <CommentModal
+          modal={commentModalOpen}
+          cid={this.state.cid}
+          saveComment={this.saveComment}
+          toggle={() => {
+            this.setState({ commentModalOpen: false });
+          }}
+        />
         {successComment && (
           <Alert color="success">
             تم إضافة التعليق في إنتظار موافقة إدارة الموقع
           </Alert>
         )}
-        {uid && enableCommentForm ? (
-          <InputGroup>
-            <Input
-              value={this.state.comment}
-              onChange={e => this.setState({ comment: e.target.value })}
-              placeholder="اضف تعليقك"
-            />
-            <InputGroupAddon onClick={this.saveComment} addonType="prepend">
-              <img src="/static/img/interactive/whiteArrow.svg" alt="" />
-            </InputGroupAddon>
-          </InputGroup>
-        ) : null}
-      </>
+      </div>
     );
   }
 }

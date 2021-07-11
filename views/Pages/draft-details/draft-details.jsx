@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './draft-details.css';
+import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Container,
   Col,
@@ -37,10 +38,16 @@ import {
   TwitterShareButton
 } from 'react-share';
 import ReactLoading from 'react-loading';
+import DraftTabs from './tabs';
 import Skeleton from '../components/skeleton/skeleton';
 import ArticleComment from '../components/ArticleComment';
 import DecisionEdits from '../components/decision-edit/decision-edit';
 import Api from '../../../api';
+import PartcipantModal from './partcipantModal';
+import CommentSteps from './comments-stetps';
+import { translate } from '../../../utlis/translation';
+import ShareIdeasModal from './shareIdeasModal';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -48,15 +55,18 @@ const Editor = dynamic(
 );
 
 moment.locale('ar');
+
 class DraftDetailsInfo extends Component {
   constructor() {
     super();
+    moment.locale(localStorage.getItem('LANG') || 'ar');
     this.state = {
       activeTab: '1',
       draft: {
         tags: []
       },
       items: [],
+      under_voting_items: [],
       comments: [],
       breadcrumbs: [],
       commentPage: 1,
@@ -74,7 +84,12 @@ class DraftDetailsInfo extends Component {
       editorState: EditorState.createEmpty(),
       img1: '/static/img/interactive/greenArrow.svg',
       img2: '/static/img/interactive/greenArrow.svg',
-      img3: '/static/img/interactive/greenArrow.svg'
+      img3: '/static/img/interactive/greenArrow.svg',
+      commentsActions: {},
+      selectedSubject: null,
+      modalOpen: false,
+      shareIdeasModalOpen: false,
+      forced_adj_city_investemtn: '0'
     };
   }
 
@@ -188,18 +203,72 @@ class DraftDetailsInfo extends Component {
       }
     );
     if (itemResponse.ok) {
-      const { items, data } = itemResponse.data;
+      const { items, data, under_voting_items } = itemResponse.data;
       const openArticle =
         new Date(data.end_date).getTime() > new Date().getTime();
+
       items.map(item => item.modified_id && this.getEdits(item.nid));
+
+      under_voting_items.map(
+        item => item.modified_id && this.getEdits(item.nid)
+      );
+
+      items.map((item, index) => {
+        item.openArticle =
+          new Date(item.end_date).getTime() > new Date().getTime();
+        return item;
+      });
+
+      under_voting_items.map((item, index) => {
+        item.openArticle =
+          new Date(item.end_date).getTime() > new Date().getTime();
+        return item;
+      });
       this.setState(
-        { draft: data, items, loadingDraft: false, openArticle },
+        {
+          draft: data,
+          items,
+          under_voting_items,
+          loadingDraft: false,
+          openArticle
+        },
         () => {
           if (!breadcrumbs.length) {
             this.getParent(data.parent_id);
           }
         }
       );
+      console.log(this.state);
+    }
+  };
+
+  getLegalCapacity = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/legal_capacity?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  getCity = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/city?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  getInvestmentField = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/investment_field?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
     }
   };
 
@@ -228,12 +297,15 @@ class DraftDetailsInfo extends Component {
   getComments = async () => {
     const { draftId } = this.props;
     const { commentPage } = this.state;
+    // alert("called")
     const response = await Api.get(
       `/qarar_api/comments/${draftId}/DESC?_format=json`
     );
+
     if (response.ok) {
       this.setState({ comments: response.data });
     }
+    s;
   };
 
   renderList = (list, className = '') => (
@@ -302,16 +374,55 @@ class DraftDetailsInfo extends Component {
     }
   };
 
-  saveComment = async () => {
+  saveComment = async stars => {
     const { draftId, accessToken } = this.props;
     const { editorState } = this.state;
-    if (!editorState.getCurrentContent().hasText()) {
+    if (!editorState.getCurrentContent().hasText() && !stars) {
       this.setState({ errorComment: 'لم تقم بكتابة أي تعليق' });
       setTimeout(() => this.setState({ errorComment: false }), 3000);
       return;
     }
     const data = {
       entity_id: [{ target_id: draftId }],
+      subject: [{ value: 'comment' }],
+      comment_body: [
+        { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
+      ],
+      pid: [{ target_id: '0' }],
+      field_draft_opinion: stars
+    };
+    const response = await Api.post(
+      `/qarar_api/post-comment?_format=json`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      }
+    );
+    if (response.ok) {
+      this.setState({
+        comment: '',
+        successComment: true,
+        editorState: EditorState.createEmpty()
+      });
+      this.getDraft();
+      this.getComments();
+      setTimeout(() => this.setState({ successComment: false }), 3000);
+    } else {
+      this.setState({ errorComment: 'من فضلك حاول مرة أخري' });
+      setTimeout(() => this.setState({ errorComment: false }), 3000);
+    }
+  };
+
+  saveDraftDetailsComment = async () => {
+    const { accessToken } = this.props;
+    const { editorState, selectedSubject } = this.state;
+    if (!editorState.getCurrentContent().hasText()) {
+      this.setState({ errorComment: 'لم تقم بكتابة أي تعليق' });
+      setTimeout(() => this.setState({ errorComment: false }), 3000);
+      return;
+    }
+    const data = {
+      entity_id: [{ target_id: selectedSubject }],
       subject: [{ value: 'comment' }],
       comment_body: [
         { value: draftToHtml(convertToRaw(editorState.getCurrentContent())) }
@@ -445,6 +556,7 @@ class DraftDetailsInfo extends Component {
     const {
       draft,
       items,
+      under_voting_items,
       editorState,
       flagged,
       successComment,
@@ -452,9 +564,13 @@ class DraftDetailsInfo extends Component {
       loadingDraft,
       breadcrumbs,
       openArticle,
-      activeTab
+      activeTab,
+      selectedSubject,
+      modalOpen,
+      shareIdeasModalOpen,
+      forced_adj_city_investemtn
     } = this.state;
-    const { uid } = this.props;
+    const { uid, accessToken } = this.props;
     if (loadingDraft) {
       return <Skeleton details />;
     }
@@ -464,9 +580,9 @@ class DraftDetailsInfo extends Component {
       voting: 'success'
     };
     const statusName = {
-      archived: 'مؤرشف',
-      applied: 'مطبق',
-      voting: 'تحت التصويت'
+      archived: 'archived',
+      applied: 'applied',
+      voting: 'voting'
     };
     return (
       <>
@@ -479,7 +595,7 @@ class DraftDetailsInfo extends Component {
                     <ul>
                       <li>
                         <Link href="/drafts/">
-                          <a>القرارات</a>
+                          <a>{translate('draftDetails.drafts')}</a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -492,50 +608,89 @@ class DraftDetailsInfo extends Component {
                     </ul>
                     <h2>{draft.title}</h2>
                     <Badge color={statusColor[draft.qarar_status]}>
-                      {statusName[draft.qarar_status]}
+                      {translate(
+                        `draftDetails.${statusName[draft.qarar_status]}`
+                      )}
                     </Badge>
                     <div className="sub-header">
                       <Media
                         object
                         src="/static/img/calendarWhite.svg"
                         className="icon-small"
+                        dir={translate('dir')}
                       />
 
                       {draft.archived_date && (
-                        <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
+                        <span>
+                          {translate('draftDetails.voteClosed')}
+
+                          {draft.archived_date}
+                        </span>
                       )}
                       {draft.applied_date && (
-                        <span>تم التطبيق بتاريخ {draft.applied_date}</span>
+                        <span>
+                          {translate('draftDetails.application')}
+
+                          {draft.applied_date}
+                        </span>
                       )}
                       {draft.end_date &&
                         !(draft.applied_date || draft.archived_date) && (
-                          <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                          <span>
+                            {translate('draftDetails.votingCloses')}
+                            {draft.end_date}
+                          </span>
                         )}
                     </div>
                     <div className="button-group">
                       <ScrollLink
                         activeClass="active"
                         className="test1"
-                        to="test1"
+                        to="share-opinion"
                         spy
                         smooth
                         duration={500}
                       >
-                        <Button color="primary">
-                          شارك برأيك
+                        <Button
+                          color="primary"
+                          // onClick={() =>
+                          //   this.setState({
+                          //     shareIdeasModalOpen: true
+                          //   })
+                          // }
+                        >
+                          {translate('draftDetails.shareIdeas')}
                           <img
+                            dir={translate('dir')}
                             src="/static/img/interactive/whiteArrow.svg"
                             alt=""
                           />
                         </Button>
+
+                        {/*<Button*/}
+                        {/*  className="btn-inline-block"*/}
+                        {/*  color="secondary"*/}
+                        {/*  size="lg"*/}
+                        {/*  onClick={() =>*/}
+                        {/*    this.setState({*/}
+                        {/*      modalOpen: true,*/}
+                        {/*      selectedSubject: item.nid*/}
+                        {/*    })*/}
+                        {/*  }*/}
+                        {/*>*/}
+                        {/*  {translate('draftDetails.participate')}*/}
+                        {/*</Button>*/}
                       </ScrollLink>
                       {uid && (
                         <Button
                           color="primary"
                           onClick={() => this.follow()}
                           outline={!flagged}
+                          style={{ margin: '10px' }}
                         >
-                          {flagged ? 'إلغاء المتابعة' : 'متابعة'}
+                          {flagged
+                            ? translate('draftDetails.follow')
+                            : translate('draftDetails.unfollow')}
                         </Button>
                       )}
                     </div>
@@ -552,7 +707,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.followers}</p>
-                      <h5>مشترك</h5>
+                      <h5>{translate('draftDetails.user')}</h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -563,7 +718,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.comments}</p>
-                      <h5>تعليق</h5>
+                      <h5>{translate('draftDetails.comment')}</h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -573,11 +728,8 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (3).svg"
                         />
                       </div>
-                      <p>
-                        {parseInt(draft.likes, 10) +
-                          parseInt(draft.dislikes, 10)}
-                      </p>
-                      <h5>صوت</h5>
+                      <p>{draft.satisfaction_percentage}%</p>
+                      <h5> {translate('draftDetails.vote')}</h5>
                     </div>
                   </div>
                 </Col>
@@ -591,43 +743,284 @@ class DraftDetailsInfo extends Component {
               <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt text-justify">
+                  <Col md="9" className="draftBodyRt text-justify line-bottom">
                     <p>{renderHTML(draft.body || '')}</p>
-                    <div className="dateDraft d-flex align-items-center">
-                      <img
-                        src="/static/img/interactive/calendar (2).svg"
-                        alt=""
-                      />
-                      <p>
-                        {moment(draft.end_date).format('dddd, D MMMM YYYY')}
-                      </p>
-                    </div>
-                  </Col>
-                  <Col md="3">
-                    <div className="d-flex flex-column justify-items-start draftCardLt">
-                      <div className="d-flex justify-content-end">
-                        <img src="/static/img/interactive/lock.svg" alt="" />
-                        {openArticle ? (
-                          <span> التعليق مفتوح</span>
-                        ) : (
-                          <span> التعليق مغلق</span>
-                        )}
-                      </div>
-                      <div className="d-flex justify-content-end">
+                    <div className="dates d-flex">
+                      {' '}
+                      <div className="date dateDraft d-flex align-items-center lf-10">
                         <img
-                          src="/static/img/interactive/stopwatch.svg"
+                          src="/static/img/interactive/calendar (2).svg"
                           alt=""
                         />
-                        <span>{moment(draft.end_date).fromNow()}</span>
+                        <p className="bold">
+                          <strong>
+                            {translate('draftDetails.createDate')}
+                          </strong>
+                          :
+                        </p>
+                        <span>
+                          {moment(draft.applied_date || new Date()).format(
+                            'dddd, D MMMM YYYY'
+                          )}
+                        </span>
+                      </div>
+                      <div className="date dateDraft d-flex align-items-center">
+                        <img
+                          src="/static/img/interactive/calendar (2).svg"
+                          alt=""
+                        />
+                        <p className="bold">
+                          <strong>{translate('draftDetails.closeDate')}</strong>
+                          :
+                        </p>
+                        <span>
+                          {moment(draft.end_date).format('dddd, D MMMM YYYY')}
+                        </span>
                       </div>
                     </div>
                   </Col>
+                  <Col md="3" className="qlogo line-right just-center">
+                    <img
+                      src={
+                        draft?.related_project?.entity_logo ||
+                        '/static/img/logo.svg'
+                      }
+                      alt="qarar"
+                    />
+                    {draft?.related_project ? (
+                      <>
+                        <p className="bold m-0">
+                          {' '}
+                          {draft?.related_project?.entity_name}
+                        </p>
+                        <p className="m-0">
+                          {' '}
+                          <span className="bold">
+                            {translate('draftDetails.projectType')}
+                          </span>
+                          {draft?.related_project?.project_type}
+                        </p>
+                        {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
+                      </>
+                    ) : null}
+                  </Col>
+                </Row>
+                <Row style={{ padding: '20px' }}>
+                  {draft?.pdf_url && (
+                    <div className="uploads">
+                      <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
+                        {translate('decisionDetails.attachments')}
+                      </span>
+                      <Button
+                        className="btn-inline-block btn-ligh"
+                        color="secondary"
+                        size="sm"
+                        // disabled={!draft?.pdf_url}
+                        onClick={() => window.open(draft?.pdf_url)}
+                      >
+                        {draft.pdf_name}
+                      </Button>
+                    </div>
+                  )}
                 </Row>
               </CardBody>
             </Card>
 
+            {(draft.most_featured_items?.length ||
+              draft.most_featured_users?.length ||
+              Object.values(draft.voting_percentage).some(
+                el => el !== '0%'
+              )) && (
+              <Card className="cardDraft max-content">
+                <CardHeader>{translate('draftDetails.charts')}</CardHeader>
+                <CardBody>
+                  <Row className="qcharts">
+                    <Col md="4" className="qchart flex flex-1 f-column max-100">
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
+                      >
+                        {translate('draftDetails.chartTitle')}
+                      </p>
+                      <Row>
+                        <Col md="6">
+                          <div>
+                            {[
+                              {
+                                name: translate('draftDetails.chartTypeOne'),
+                                color: '#81BD41'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeTwo'),
+                                color: '#40C2CC'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeThree'),
+                                color: '#006C68'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFour'),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFive'),
+                                color: '#FF4A4A'
+                              }
+                            ].map(val => (
+                              <div className="d-flex flex-row align-items-center">
+                                <span
+                                  style={{
+                                    backgroundColor: val.color,
+                                    height: '20px',
+                                    width: '20px',
+                                    borderRadius: '50%',
+                                    display: 'inline-block'
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    margin: '0 10px 0 10px',
+                                    color: '#006C68'
+                                  }}
+                                >
+                                  {val.name}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </Col>
+                        <Col md="6" className="qpiechart">
+                          <PieChart
+                            data={[
+                              {
+                                title: translate('draftDetails.chartTypeOne'),
+                                value: parseInt(
+                                  draft.voting_percentage[5].replace('%', '')
+                                ),
+                                color: '#81BD41'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeTwo'),
+                                value: parseInt(
+                                  draft.voting_percentage[4].replace('%', '')
+                                ),
+                                color: '#40C2CC'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeThree'),
+                                value: parseInt(
+                                  draft.voting_percentage[3].replace('%', '')
+                                ),
+                                color: '#006C68'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFour'),
+                                value: parseInt(
+                                  draft.voting_percentage[2].replace('%', '')
+                                ),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFive'),
+                                value: parseInt(
+                                  draft.voting_percentage[1].replace('%', '')
+                                ),
+                                color: '#FF4A4A'
+                              }
+                            ]}
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                    {draft.most_featured_items?.length > 0 && (
+                      <Col
+                        md="4"
+                        className="qchart border-right-line flex flex-1 f-column max-100"
+                        dir={translate('dir')}
+                      >
+                        <p
+                          style={{
+                            color: '#81BD41',
+                            fontWeight: 'bold',
+                            lineHeight: '16px'
+                          }}
+                        >
+                          {translate('draftDetails.mostDrafts')}
+                        </p>
+
+                        <Row>
+                          {draft.most_featured_items?.map(el => (
+                            <Col md="12" className="p-2 featured-article">
+                              <div className="featured-article-card">
+                                <p className="featured-article-card-name">
+                                  {el.title}
+                                </p>
+                                <span className="featured-article-card-points">
+                                  {el.comment_count}{' '}
+                                  {translate('draftDetails.points')}
+                                </span>
+                              </div>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Col>
+                    )}
+                    {draft.most_featured_users?.length > 0 && (
+                      <Col
+                        md="4"
+                        className="qchart border-right-line flex flex-1 f-column max-100"
+                        dir={translate('dir')}
+                      >
+                        <p
+                          style={{
+                            color: '#81BD41',
+                            fontWeight: 'bold',
+                            lineHeight: '16px'
+                          }}
+                        >
+                          {translate('draftDetails.mostVoted')}
+                        </p>
+                        <Row>
+                          {draft.most_featured_users?.map(el => (
+                            <Col md="4" className="p-2">
+                              <div className="user-card">
+                                <img
+                                  src={
+                                    el.user_picture
+                                      ? `${el.user_picture}`
+                                      : '/static/img/Group 991.svg'
+                                  }
+                                />
+                                <p className="user-card-name">
+                                  {el.name || 'مجهول'}
+                                </p>
+                                <span className="user-card-points">
+                                  {el.comment_count}{' '}
+                                  {translate('draftDetails.points')}
+                                </span>
+                              </div>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Col>
+                    )}
+                  </Row>
+                </CardBody>
+              </Card>
+            )}
+            {console.log('draft is ', draft)}
+            {draft?.related_project ? (
+              <Card className="cardDraft">
+                <CardBody>
+                  <DraftTabs project={draft?.related_project} />
+                </CardBody>
+              </Card>
+            ) : null}
             <div className="draftInfoShare d-flex justify-content-between mb-4">
-              <div className="shareInfoRight">
+              {/* <div className="shareInfoRight">
                 {items && (
                   <>
                     {' '}
@@ -637,7 +1030,7 @@ class DraftDetailsInfo extends Component {
                       }}
                     >
                       <span>+</span>
-                      فتح الكل
+                      {translate('draftDetails.openAll')}
                     </Button>
                     <Button
                       onClick={() => {
@@ -645,23 +1038,13 @@ class DraftDetailsInfo extends Component {
                       }}
                     >
                       <span>-</span>
-                      اغلاق الكل
+                      {translate('draftDetails.closeAll')}
                     </Button>
                   </>
                 )}
-                {uid && (
-                  <Button
-                    color="primary"
-                    className="infoFollow"
-                    onClick={() => this.follow()}
-                    outline={!flagged}
-                  >
-                    {flagged ? 'إلغاء المتابعة' : 'متابعة'}
-                  </Button>
-                )}
-              </div>
+              </div> */}
               <div className="shareInfoLeft d-flex align-items-center">
-                <p>شارك هذه المادة</p>
+                <p>{translate('draftDetails.shareDraft')}</p>
                 <LinkedinShareButton url={window && window.location}>
                   <img src="/static/img/interactive/linkedinDraft.svg" alt="" />
                 </LinkedinShareButton>
@@ -673,391 +1056,38 @@ class DraftDetailsInfo extends Component {
                 </FacebookShareButton>
               </div>
             </div>
-            {/* <div className="draftInfoShare d-flex justify-content-between mb-4">
-              <div>
-                <Button
-                  color={activeTab === '1' ? 'primary' : 'default'}
-                  onClick={() => this.setState({ activeTab: '1' })}
-                >
-                  المواد تحت التصويت
-                </Button>
-                <Button
-                  color={activeTab === '2' ? 'primary' : 'default'}
-                  onClick={() => this.setState({ activeTab: '2' })}
-                >
-                  كل المواد
-                </Button>
-              </div>
-            </div> */}
-            <TabContent activeTab={activeTab}>
-              <TabPane tabId="1">
-                {items &&
-                  items.map(item => (
-                    <Card
-                      key={item.nid}
-                      className="cardDraft text-justify collapseDraftCard"
-                    >
-                      <CardHeader
-                        className="d-flex justify-content-between"
-                        style={{
-                          backgroundColor: item.modified_id && '#ee5253'
-                        }}
-                        onClick={() =>
-                          this.setState({ [item.nid]: !this.state[item.nid] })
-                        }
-                      >
-                        <p>{item.title}</p>
-                        <div className="dratCartTitlelt d-flex">
-                          {item.modified_id && (
-                            <>
-                              <Button
-                                color="transparent"
-                                onClick={e => {
-                                  e.stopPropagation();
-                                  this.setState({
-                                    [`modified-${item.nid}`]: !this.state[
-                                      `modified-${item.nid}`
-                                    ]
-                                  });
-                                }}
-                                className="p-0 m-0 text-white border-0"
-                              >
-                                سجل التعديلات
-                              </Button>
-                            </>
-                          )}
-                          <div className="manyComments d-flex align-items-center">
-                            <img
-                              src="/static/img/interactive/chat.svg"
-                              alt=""
-                            />
-                            <span>{item.comments} تعليق</span>
-                          </div>
-                          <img
-                            src="/static/img/interactive/whiteTabs.svg"
-                            alt=""
-                            className={this.state[item.nid] ? 'rotated' : ''}
-                          />
-                        </div>
-                      </CardHeader>
-                      {this.state[`modified-${item.nid}`] && (
-                        <DecisionEdits
-                          edits={this.state[`edit-${item.nid}`]?.modifications}
-                        />
-                      )}
-                      <CardBody
-                        style={
-                          this.state[item.nid]
-                            ? { display: 'block' }
-                            : { display: 'none' }
-                        }
-                      >
-                        <Row className="mt-3">
-                          <Col md="7" className="draftBodyRt">
-                            <p>{renderHTML(item.body_value || '')}</p>
-                            <Link href={`/draft-details/${item.nid}`}>
-                              <Button
-                                onMouseOut={() => {
-                                  this.setState({
-                                    img2:
-                                      '/static/img/interactive/greenArrow.svg'
-                                  });
-                                }}
-                                onMouseEnter={() =>
-                                  this.setState({
-                                    img2:
-                                      '/static/img/interactive/whiteArrow.svg'
-                                  })
-                                }
-                              >
-                                المزيد
-                                <img src={this.state.img2} alt="" />
-                              </Button>
-                            </Link>
-                          </Col>
-                          <Col md="5">
-                            <div className="d-flex justify-content-end draftLikeDislike">
-                              <span>{item.likes}</span>
-                              {this.state.like &&
-                                this.state.id === item.nid && (
-                                  <ReactLoading
-                                    className="mx-1"
-                                    type="spin"
-                                    color="#046F6D"
-                                    height={20}
-                                    width={20}
-                                  />
-                                )}
-                              <img
-                                onClick={() => this.vote('like', item.nid)}
-                                src={
-                                  item.flag === 'like'
-                                    ? '/static/img/interactive/blueLikeActive.svg'
-                                    : '/static/img/interactive/dislikeGreen.svg'
-                                }
-                                alt=""
-                                id={`tooltip-l-${item.nid}`}
-                              />
+            <div>
+              <h4> {translate('draftDetails.votable')}</h4>
+              {under_voting_items &&
+                under_voting_items.map(item =>
+                  this.subjectsList(item, openArticle, uid, true)
+                )}
+              <hr style={{ borderColor: '#1e6f6d' }} />
 
-                              {!openArticle && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-l-${item.nid}`}
-                                >
-                                  تم إيقاف التصويت
-                                </UncontrolledTooltip>
-                              )}
-                              {openArticle && !uid && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-l-${item.nid}`}
-                                >
-                                  يجب عليك تسجيل الدخول
-                                </UncontrolledTooltip>
-                              )}
-                              <span className="ml-3">{item.dislikes}</span>
-                              {this.state.dislike &&
-                                this.state.id === item.nid && (
-                                  <ReactLoading
-                                    className="mx-1"
-                                    type="spin"
-                                    color="#046F6D"
-                                    height={20}
-                                    width={20}
-                                  />
-                                )}
-                              <img
-                                onClick={() => this.vote('dislike', item.nid)}
-                                src={
-                                  item.flag === 'dislike'
-                                    ? '/static/img/interactive/blueDislikeActive.svg'
-                                    : '/static/img/interactive/likeGreen.svg'
-                                }
-                                alt=""
-                                id={`tooltip-d-${item.nid}`}
-                              />
-                              {!openArticle && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-d-${item.nid}`}
-                                >
-                                  تم إيقاف التصويت
-                                </UncontrolledTooltip>
-                              )}
-                              {openArticle && !uid && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-d-${item.nid}`}
-                                >
-                                  يجب عليك تسجيل الدخول
-                                </UncontrolledTooltip>
-                              )}
-                            </div>
-
-                            <ArticleComment
-                              enableCommentForm={openArticle}
-                              enableVote={openArticle}
-                              likeComment={this.likeComment}
-                              dislikeComment={this.dislikeComment}
-                              itemId={item.nid}
-                            />
-                          </Col>
-                        </Row>
-                      </CardBody>
-                    </Card>
-                  ))}
-              </TabPane>
-              <TabPane tabId="2">
-                {items &&
-                  items.map(item => (
-                    <Card
-                      key={item.nid}
-                      className="cardDraft text-justify collapseDraftCard"
-                    >
-                      <CardHeader
-                        className="d-flex justify-content-between"
-                        style={{
-                          backgroundColor: item.modified_id && '#ee5253'
-                        }}
-                        onClick={() =>
-                          this.setState({ [item.nid]: !this.state[item.nid] })
-                        }
-                      >
-                        <p>{item.title}</p>
-                        <div className="dratCartTitlelt d-flex">
-                          {item.modified_id && (
-                            <>
-                              <Button
-                                color="transparent"
-                                onClick={e => {
-                                  e.stopPropagation();
-                                  this.setState({
-                                    [`modified-${item.nid}`]: !this.state[
-                                      `modified-${item.nid}`
-                                    ]
-                                  });
-                                }}
-                                className="p-0 m-0 text-white border-0"
-                              >
-                                سجل التعديلات
-                              </Button>
-                            </>
-                          )}
-                          <div className="manyComments d-flex align-items-center">
-                            <img
-                              src="/static/img/interactive/chat.svg"
-                              alt=""
-                            />
-                            <span>{item.comments} تعليق</span>
-                          </div>
-                          <img
-                            src="/static/img/interactive/whiteTabs.svg"
-                            alt=""
-                            className={this.state[item.nid] ? 'rotated' : ''}
-                          />
-                        </div>
-                      </CardHeader>
-                      {this.state[`modified-${item.nid}`] && (
-                        <DecisionEdits
-                          edits={this.state[`edit-${item.nid}`]?.modifications}
-                        />
-                      )}
-                      <CardBody
-                        style={
-                          this.state[item.nid]
-                            ? { display: 'block' }
-                            : { display: 'none' }
-                        }
-                      >
-                        <Row className="mt-3">
-                          <Col md="7" className="draftBodyRt">
-                            <p>{renderHTML(item.body_value || '')}</p>
-                            <Link href={`/draft-details/${item.nid}`}>
-                              <Button
-                                onMouseOut={() => {
-                                  this.setState({
-                                    img2:
-                                      '/static/img/interactive/greenArrow.svg'
-                                  });
-                                }}
-                                onMouseEnter={() =>
-                                  this.setState({
-                                    img2:
-                                      '/static/img/interactive/whiteArrow.svg'
-                                  })
-                                }
-                              >
-                                المزيد
-                                <img src={this.state.img2} alt="" />
-                              </Button>
-                            </Link>
-                          </Col>
-                          <Col md="5">
-                            <div className="d-flex justify-content-end draftLikeDislike">
-                              <span>{item.likes}</span>
-                              {this.state.like &&
-                                this.state.id === item.nid && (
-                                  <ReactLoading
-                                    className="mx-1"
-                                    type="spin"
-                                    color="#046F6D"
-                                    height={20}
-                                    width={20}
-                                  />
-                                )}
-                              <img
-                                onClick={() => this.vote('like', item.nid)}
-                                src={
-                                  item.flag === 'like'
-                                    ? '/static/img/interactive/blueLikeActive.svg'
-                                    : '/static/img/interactive/dislikeGreen.svg'
-                                }
-                                alt=""
-                                id={`tooltip-l-${item.nid}`}
-                              />
-
-                              {!openArticle && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-l-${item.nid}`}
-                                >
-                                  تم إيقاف التصويت
-                                </UncontrolledTooltip>
-                              )}
-                              {openArticle && !uid && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-l-${item.nid}`}
-                                >
-                                  يجب عليك تسجيل الدخول
-                                </UncontrolledTooltip>
-                              )}
-                              <span className="ml-3">{item.dislikes}</span>
-                              {this.state.dislike &&
-                                this.state.id === item.nid && (
-                                  <ReactLoading
-                                    className="mx-1"
-                                    type="spin"
-                                    color="#046F6D"
-                                    height={20}
-                                    width={20}
-                                  />
-                                )}
-                              <img
-                                onClick={() => this.vote('dislike', item.nid)}
-                                src={
-                                  item.flag === 'dislike'
-                                    ? '/static/img/interactive/blueDislikeActive.svg'
-                                    : '/static/img/interactive/likeGreen.svg'
-                                }
-                                alt=""
-                                id={`tooltip-d-${item.nid}`}
-                              />
-                              {!openArticle && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-d-${item.nid}`}
-                                >
-                                  تم إيقاف التصويت
-                                </UncontrolledTooltip>
-                              )}
-                              {openArticle && !uid && (
-                                <UncontrolledTooltip
-                                  placement="top"
-                                  target={`tooltip-d-${item.nid}`}
-                                >
-                                  يجب عليك تسجيل الدخول
-                                </UncontrolledTooltip>
-                              )}
-                            </div>
-
-                            <ArticleComment
-                              enableCommentForm={openArticle}
-                              enableVote={openArticle}
-                              likeComment={this.likeComment}
-                              dislikeComment={this.dislikeComment}
-                              itemId={item.nid}
-                            />
-                          </Col>
-                        </Row>
-                      </CardBody>
-                    </Card>
-                  ))}
-              </TabPane>
-            </TabContent>
-            <Element name="test1" className="element">
+              <h4>{translate('draftDetails.otherArticles')}</h4>
+              {items &&
+                items.map(item =>
+                  this.subjectsList(item, openArticle, uid, false)
+                )}
+            </div>
+            {/* <Element name="test1" className="element">
               {!uid ? (
                 <div className="draftShouldLogin d-flex flex-column">
                   <img src="/static/img/interactive/disabled.svg" alt="" />
-                  <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
+                  <h4>{translate('draftDetails.loginComment')}</h4>
                   <Link href="/login">
                     <Button>
-                      تسجيل الدخول
-                      <img src="/static/img/interactive/btnArrow3.svg" alt="" />
+                      {translate('draftDetails.login')}
+
+                      <img
+                        dir={translate('dir')}
+                        src="/static/img/interactive/btnArrow3.svg"
+                        alt=""
+                      />
                     </Button>
                   </Link>
                   <Link href="/register">
-                    <a>تسجيل حساب</a>
+                    <a>{translate('draftDetails.createAccount')}</a>
                   </Link>
                 </div>
               ) : (
@@ -1065,7 +1095,7 @@ class DraftDetailsInfo extends Component {
                   <div>
                     {successComment && (
                       <Alert color="success">
-                        تم إضافة التعليق في إنتظار موافقة إدارة الموقع
+                        {translate('draftDetails.commentAdded')}
                       </Alert>
                     )}
                     {errorComment && (
@@ -1094,15 +1124,20 @@ class DraftDetailsInfo extends Component {
                         onEditorStateChange={this.onEditorStateChange}
                       />
                     ) : (
-                      <Alert color="success">تم إيقاف التعليقات</Alert>
+                      <Alert color="success">
+                        {translate('draftDetails.commentStoped')}
+                      </Alert>
                     )}
                   </div>
                   {openArticle && (
                     <div className="commentsBtn d-flex justify-content-end align-items-center">
-                      <a href="">شروط المشاركة</a>
+                      <a href="">
+                        {translate('draftDetails.conditionsParticipation')}
+                      </a>
                       <Button onClick={this.saveComment}>
-                        اضف تعليقك
+                        {translate('draftDetails.addComment')}
                         <img
+                          dir={translate('dir')}
                           src="/static/img/interactive/whiteArrow.svg"
                           alt=""
                         />
@@ -1111,7 +1146,7 @@ class DraftDetailsInfo extends Component {
                   )}
                 </>
               )}
-            </Element>
+            </Element> */}
 
             <div className="collapseDraftCard draftNewComments">
               <ArticleComment
@@ -1120,7 +1155,9 @@ class DraftDetailsInfo extends Component {
                 likeComment={this.likeComment}
                 dislikeComment={this.dislikeComment}
                 itemId={draft.id}
+                draft={draft}
               />
+
               {/* comments.map(comment => (
                 <div
                   key={comment.cid}
@@ -1151,121 +1188,210 @@ class DraftDetailsInfo extends Component {
             </div>
           </Container>
         </div>
-        {/*  <Container>
-          <div className="description">
-            <CardDraft
-              header=""
-              content={draft.body}
-              tags={
-                draft.tags
-                  ? draft.tags.map(tag => ({
-                      tag: tag.name.substr(0, 20),
-                      id: tag.id
-                    }))
-                  : []
-              }
-              date={moment(new Date(draft.creatednode * 1000)).format(
-                'dddd, MMMM Do YYYY'
-              )}
-            />
-          </div>
-          <div className="moaad-open">
-            {items.map(item => (
-              <ScrollLink
-                activeClass="active"
-                key={item.nid}
-                to="item"
-                smooth
-                duration={500}
-                offset={-90}
-              >
-                <Button
-                  onClick={() => this.setState({ selected: item })}
-                  className="text-right justify-content-start mb-2"
-                  color="primary"
-                  block
-                >
-                  {item.title}
-                </Button>
-              </ScrollLink>
-            ))}
-            <h6 className="flex flex-align-center no-p-m">
-              {
-                items.filter(
-                  item =>
-                    new Date(item.end_date).getTime() > new Date().getTime()
-                ).length
-              }{' '}
-              مواد مفتوحة للنقاش
-              <Link href="/client/landing">
-                <Button color="link">من اصل {items.length} مادة</Button>
-              </Link>
-            </h6>
-            <Element name="item">
-              {items && items.length && (
-                <CardDraftItems
-                  date={
-                    draft.applied_date
-                      ? ''
-                      : moment(draft.end_date).format('dddd, MMMM Do YYYY')
-                  }
-                  selected={selected || items[0]}
-                  dropdownList={
-                    (selected ? selected.children : items[0].children) || []
-                  }
-                  tags={[]}
-                />
-              )}
-            </Element>
-          </div>
-          <Element name="test1" className="element">
-            {successComment && (
-              <Alert color="success">
-                تم إضافة التعليق في إنتظار موافقة إدارة الموقع
-              </Alert>
-            )}
-            {!uid ? (
-              <NoAccess />
-            ) : (
-              <TextBox
-                header="التعليقات على هذه المادة"
-                alertMsg="يستطيع النظام ايجاد الكلمات المسيئة. اجعل تعليقك بناءً"
-                placeholder="أضف تعليقك هنا"
-                outline="شروط المشاركة"
-                primary="إرسال التعليق"
-                inputValue={commentText}
-                onInputChange={e => this.setState({ comment: e.target.value })}
-                onPrimaryButtonClick={() => this.saveComment()}
-              />
-            )}
-          </Element>
-          {comments && comments.length ? (
-            <CardComments
-              commentsArray={comments.map(comment => ({
-                id: comment.cid,
-                avatar: comment.owner_image,
-                name: comment.full_name,
-                like: comment.likes,
-                share: '2',
-                content: comment.comment_body,
-                comments: comment.children
-                  ? comment.children.map(childComment => ({
-                      id: childComment.cid,
-                      avatar: childComment.owner_image,
-                      name: childComment.full_name,
-                      like: childComment.likes,
-                      share: '2',
-                      content: childComment.comment_body
-                    }))
-                  : []
-              }))}
-            />
-          ) : null}
-        </Container> */}
+        <CommentSteps
+          draft={draft}
+          title="المسودة"
+          open={modalOpen}
+          id={draft.id}
+          canVote={!!openArticle}
+          uid={uid}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+        />
+        <PartcipantModal
+          open={modalOpen}
+          id={draft.id}
+          canVote={!!openArticle}
+          uid={uid}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+          close={() =>
+            this.setState({
+              modalOpen: false
+            })
+          }
+        />
+
+        <ShareIdeasModal
+          open={shareIdeasModalOpen}
+          id={this.state.selectedSubject}
+          canVote={!!openArticle}
+          uid={uid}
+          forced_adj_city_investemtn={draft.forced_adj_city_investemtn !== '0'}
+          getDraft={() => this.getDraft()}
+          getComments={() => this.getComments()}
+          accessToken={this.props.accessToken}
+          getLegalCapacity={() => this.getLegalCapacity()}
+          getCity={() => this.getCity()}
+          getInvestmentField={() => this.getInvestmentField()}
+          close={() =>
+            this.setState({
+              shareIdeasModalOpen: false
+            })
+          }
+        />
       </>
     );
   }
+
+  subjectsList = (item, openArticle, uid, voteable) => {
+    return (
+      <Card key={item.nid} className="cardDraft text-justify collapseDraftCard">
+        <CardHeader
+          className="d-flex justify-content-between"
+          style={{
+            backgroundColor: item.modified_id && '#ee5253'
+          }}
+          onClick={() => this.setState({ [item.nid]: !this.state[item.nid] })}
+        >
+          <p>{item.title}</p>
+          <div className="dratCartTitlelt d-flex">
+            {item.modified_id && (
+              <>
+                <Button
+                  color="transparent"
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.setState({
+                      [`modified-${item.nid}`]: !this.state[
+                        `modified-${item.nid}`
+                      ]
+                    });
+                  }}
+                  className="p-0 m-0 text-white border-0"
+                >
+                  سجل التعديلات
+                </Button>
+              </>
+            )}
+            <Element name="share-opinion" className="element" />
+            <div className="action-item likes d-flex align-items-center">
+              {new Array(5).fill(0).map((_, i) => (
+                <img
+                  src={`/static/img/Assets/${
+                    item.stars >= i + 1 ? 'star (-3.svg' : 'star (1).svg'
+                  }`}
+                  alt=""
+                  style={{ margin: '3px' }}
+                />
+              ))}
+            </div>
+            <div className="manyComments d-flex align-items-center">
+              <img
+                src="/static/img/interactive/chat.svg"
+                alt=""
+                style={{ margin: '5px' }}
+              />
+              <span>
+                {item.comments} {translate('draftDetails.comment')}
+              </span>
+            </div>
+            <img
+              src="/static/img/interactive/whiteTabs.svg"
+              alt=""
+              className={this.state[item.nid] ? 'rotated' : ''}
+            />
+          </div>
+        </CardHeader>
+        {this.state[`modified-${item.nid}`] && (
+          <DecisionEdits
+            edits={this.state[`edit-${item.nid}`]?.modifications}
+          />
+        )}
+        <CardBody
+          style={
+            this.state[item.nid] ? { display: 'block' } : { display: 'none' }
+          }
+        >
+          <Row className="mt-3">
+            <Col md="7" className="draftBodyRt">
+              <p>{renderHTML(item.body_value || '')}</p>
+              <Link href={`/draft-details-info/${item.nid}`}>
+                <Button
+                  className="btn-inline-block"
+                  onMouseOut={() => {
+                    this.setState({
+                      img2: '/static/img/interactive/greenArrow.svg'
+                    });
+                  }}
+                  onMouseEnter={() =>
+                    this.setState({
+                      img2: '/static/img/interactive/whiteArrow.svg'
+                    })
+                  }
+                >
+                  {translate('draftDetails.more')}
+                  {'  '}
+                  <img src={this.state.img2} alt="" />
+                </Button>
+              </Link>
+              {voteable && (
+                <Button
+                  className="btn-inline-block"
+                  color="secondary"
+                  size="lg"
+                  onClick={() =>
+                    this.setState({
+                      shareIdeasModalOpen: true,
+                      selectedSubject: item.nid,
+                      forced_adj_city_investemtn:
+                        item?.forced_adj_city_investemtn
+                    })
+                  }
+                >
+                  {translate('draftDetails.participate')}
+                </Button>
+              )}
+              {item?.pdf_url && (
+                <Button
+                  className="btn-inline-block"
+                  color="secondary"
+                  size="lg"
+                  // disabled={!item?.pdf_url}
+                  onClick={() => window.open(item?.pdf_url)}
+                >
+                  {item.pdf_name}
+                </Button>
+              )}
+            </Col>
+            <Col md="5">
+              {voteable && (
+                <Button
+                  color="secondary"
+                  size="lg"
+                  onClick={() =>
+                    this.setState({
+                      shareIdeasModalOpen: true,
+                      selectedSubject: item.nid,
+                      forced_adj_city_investemtn:
+                        item?.forced_adj_city_investemtn
+                    })
+                  }
+                >
+                  {translate('draftDetails.participate')}
+                </Button>
+              )}
+
+              {parseInt(item.comments) > 0 && (
+                <ArticleComment
+                  enableCommentForm={openArticle}
+                  enableVote={openArticle}
+                  likeComment={this.likeComment}
+                  dislikeComment={this.dislikeComment}
+                  itemId={item.nid}
+                  voteable={voteable}
+                />
+              )}
+            </Col>
+          </Row>
+        </CardBody>
+      </Card>
+    );
+  };
 }
+
 const mapStateToProps = ({ auth: { uid, accessToken } }) => ({
   uid,
   accessToken

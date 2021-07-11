@@ -6,27 +6,26 @@ import withAnalytics from 'next-analytics';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import nookies from 'nookies';
+import { parseCookies } from 'nookies';
 import withReduxStore from '../redux/with-redux-store';
 import ClientLayout from '../layout';
-import Loading from '../components/loading';
 import Api from '../api';
 import 'simple-line-icons/css/simple-line-icons.css';
 import 'flag-icon-css/css/flag-icon.min.css';
 import './main.css';
 import './qarar.css';
+import { translationInit } from '../utlis/translation';
+import { withRouter } from 'next/router';
 
 class MyApp extends App {
   static async getInitialProps({ ctx }) {
-    const cookies = nookies.get(ctx);
+    const cookies = parseCookies(ctx);
     if (cookies && cookies.hasOwnProperty('.ASPXFORMSAUTH')) {
       const response = await Api.post('/qarar_api/balady-login?_format=json', {
         cookie: cookies['.ASPXFORMSAUTH']
       });
       if (response.ok) {
         return {
-          cookies,
-          response,
           loggedIn: {
             type: 'LOGIN',
             profileImage: response.data.picture,
@@ -36,14 +35,7 @@ class MyApp extends App {
           }
         };
       }
-      return {
-        cookies,
-        response
-      };
     }
-    return {
-      cookies
-    };
   }
 
   constructor(props) {
@@ -52,19 +44,20 @@ class MyApp extends App {
     this.persistor = persistStore(props.reduxStore);
   }
 
+  async componentDidMount() {
+    const lang =
+      this.props.router.query.lang || localStorage.getItem('LANG') || 'en';
+    translationInit(lang);
+    document.body.dir = lang === 'en' ? 'ltr' : 'rtl';
+    document.body.lang = lang;
+  }
+
   render() {
-    const {
-      Component,
-      pageProps,
-      reduxStore,
-      loggedIn,
-      response,
-      cookies
-    } = this.props;
+    const { Component, pageProps, reduxStore, loggedIn } = this.props;
     const G = typeof window === 'undefined' ? PersistGate : Fragment;
     return (
       <Provider store={reduxStore}>
-        <G loading={Loading} persistor={this.persistor}>
+        <G>
           <Head>
             <link
               rel="icon"
@@ -88,7 +81,6 @@ class MyApp extends App {
             />
           </Head>
           <ClientLayout loggedIn={loggedIn}>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...pageProps} />
           </ClientLayout>
         </G>
@@ -97,8 +89,10 @@ class MyApp extends App {
   }
 }
 
-export default withReduxStore(
-  withAnalytics(Router, {
-    ga: 'UA-150975722-5'
-  })(MyApp)
+export default withRouter(
+  withReduxStore(
+    withAnalytics(Router, {
+      ga: 'UA-150975722-5'
+    })(MyApp)
+  )
 );

@@ -23,6 +23,10 @@ import './client.css';
 
 import dynamic from 'next/dynamic';
 
+import { translate } from '../utlis/translation';
+import Api from '../api';
+import axios from 'axios';
+
 const ScrollToggle = dynamic(() => import('react-scroll-toggle'), {
   ssr: false
 });
@@ -39,7 +43,8 @@ class ClientHeader extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      viewWidth: 800
+      viewWidth: 800,
+      englang: true
     };
   }
 
@@ -72,7 +77,7 @@ class ClientHeader extends React.Component {
   userDropdown() {
     const { signOut, router, name, profileImage } = this.props;
     return (
-      <div className="m-right-auto flex drop-header">
+      <div className="flex drop-header">
         <UncontrolledDropdown>
           <DropdownToggle tag="a" className="nav-link" caret>
             {name}
@@ -84,7 +89,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/about'}
                   onClick={this.closeMobile}
                 >
-                  معلومات الشخصية
+                  {translate('header.navBar.personalInfo')}
                 </DropdownItem>
               </a>
             </Link>
@@ -94,7 +99,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/notifications'}
                   onClick={this.closeMobile}
                 >
-                  اشعارات
+                  {translate('header.navBar.notifications')}
                 </DropdownItem>
               </a>
             </Link>
@@ -104,7 +109,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/shared'}
                   onClick={this.closeMobile}
                 >
-                  مشاركاتي
+                  {translate('header.navBar.notifications')}
                 </DropdownItem>
               </a>
             </Link>
@@ -114,7 +119,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/awards'}
                   onClick={this.closeMobile}
                 >
-                  اوسمتي
+                  {translate('header.navBar.honors')}
                 </DropdownItem>
               </a>
             </Link>
@@ -124,7 +129,7 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/follow'}
                   onClick={this.closeMobile}
                 >
-                  متابعاتي
+                  {translate('header.navBar.following')}
                 </DropdownItem>
               </a>
             </Link>
@@ -134,12 +139,12 @@ class ClientHeader extends React.Component {
                   active={router.pathname === '/me/groups'}
                   onClick={this.closeMobile}
                 >
-                  مجموعاتي
+                  {translate('header.navBar.groups')}
                 </DropdownItem>
               </a>
             </Link>
             <DropdownItem className="danger" onClick={signOut}>
-              خروج
+              {translate('header.navBar.logout')}
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
@@ -152,15 +157,46 @@ class ClientHeader extends React.Component {
     );
   }
 
+  async getLang() {
+    let token = JSON.parse(JSON.parse(localStorage['persist:primary']).auth)
+      .accessToken;
+    return await axios.get(
+      'https://qarar-backend.sharedt.com/qarar_api/hide-lang',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
+
+  componentDidMount() {
+    this.getLang().then(res => {
+      this.setState({ englang: res.data });
+    });
+  }
+
   render() {
     const { isAuthentcated, signOut, router } = this.props;
+
+    const gotoLang = lang => {
+      localStorage.setItem('LANG', lang);
+      location.replace(`?lang=${lang}`);
+    };
+
     return (
       <div className="ministry">
         <div className="header-nav">
-          <Container>
+          <Container
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
             <div className="flex">
-              <a href="https://engage.balady.gov.sa" className="interactive">
-                منصة بلدي التفاعلية
+              <a
+                href="https://engage.balady.gov.sa"
+                dir={translate('dir')}
+                className="interactive"
+              >
+                {translate('header.navBar.balady')}
               </a>
 
               <a
@@ -168,14 +204,31 @@ class ClientHeader extends React.Component {
                 className="afkarLink speech-bubble"
               >
                 {/* <img src="/static/img/qararNew.svg" alt="" /> */}
-                قرارك
+                {translate('header.navBar.yourDecision')}
               </a>
 
               <a href="https://eforms.balady.gov.sa" className="afkarLink">
                 {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
-                الاستبيانات
+                {translate('header.navBar.questionnaires')}
               </a>
             </div>
+            {!this.state.englang && (
+              <div className="flex">
+                <span
+                  className="afkarLink englishlink"
+                  onClick={() => gotoLang('en')}
+                >
+                  English
+                </span>
+                <span
+                  className="afkarLink arabiclink"
+                  onClick={() => gotoLang('ar')}
+                  s
+                >
+                  عربي
+                </span>
+              </div>
+            )}
           </Container>
         </div>
         {/* <ScrollToggle
@@ -200,22 +253,59 @@ class ClientHeader extends React.Component {
                   <NavItem active={router.pathname === '/'}>
                     <Link href="/">
                       <a>
-                        <NavLink onClick={this.closeMobile}>الرئيسية</NavLink>
+                        <NavLink onClick={this.closeMobile}>
+                          {translate('header.navBar.home')}
+                        </NavLink>
                       </a>
                     </Link>
                   </NavItem>
                   <NavItem active={router.pathname === '/about'}>
                     <Link href="/about">
                       <a>
-                        <NavLink onClick={this.closeMobile}>عن قرار</NavLink>
+                        <NavLink onClick={this.closeMobile}>
+                          {translate('header.navBar.about')}
+                        </NavLink>
                       </a>
                     </Link>
                   </NavItem>
-                  <NavItem active={router.pathname === '/drafts'}>
+                  <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
+                    <DropdownToggle
+                      nav
+                      caret
+                      active={router.pathname === '/drafts'}
+                    >
+                      {translate('decisions')}
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem href="/decisions-library">
+                        {translate('header.navBar.libQara')}
+                      </DropdownItem>
+                      {/* <DropdownItem href="/decisions">
+                        {translate('header.navBar.updatedQarar')}
+                      </DropdownItem> */}
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                  <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
+                    <DropdownToggle nav caret>
+                      {translate('header.navBar.drafts')}
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem href="/drafts-under-vote">
+                        {translate('header.navBar.votingDrafts')}
+                      </DropdownItem>
+                      <DropdownItem href="/drafts-applied">
+                        {translate('header.navBar.appliedVoting')}
+                      </DropdownItem>
+                      <DropdownItem href="/archived-drafts">
+                        {translate('header.navBar.archievedDraft')}
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                  {/* <NavItem active={router.pathname === '/drafts'}>
                     <Link href="/drafts">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          قرارات تحت التصويت
+                          {translate("header.navBar.drafts")}
                         </NavLink>
                       </a>
                     </Link>
@@ -224,11 +314,11 @@ class ClientHeader extends React.Component {
                     <Link href="/decisions">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          القرارات السابقة
+                          {translate("header.navBar.decisions")}
                         </NavLink>
                       </a>
                     </Link>
-                  </NavItem>
+                  </NavItem> */}
                   {/* <NavItem className="dp-items">
                   <NavLink>مكتبة القرارات</NavLink>
                   <div className="abs-content">
@@ -240,7 +330,7 @@ class ClientHeader extends React.Component {
                     <Link href="/news">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          اخبار المنصة
+                          {translate('header.navBar.platform')}
                         </NavLink>
                       </a>
                     </Link>
@@ -256,32 +346,21 @@ class ClientHeader extends React.Component {
                     <Link href="/social-reports">
                       <a>
                         <NavLink onClick={this.closeMobile}>
-                          المشاركة المجتمعية
+                          {translate('header.navBar.socialParticipation')}
                         </NavLink>
                       </a>
                     </Link>
                   </NavItem>
                   {!isAuthentcated && (
-                    <NavItem
-                      active={
-                        router.pathname ===
-                        'https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa'
-                      }
-                    >
-                      <Link href="https://apps.balady.gov.sa/UsersMgmt/Login.aspx?ReturnUrl=//qarar.balady.gov.sa">
+                    <NavItem active={router.pathname === '/login'}>
+                      <Link href="/login">
                         <a>
-                          <NavLink onClick={this.closeMobile}> دخول</NavLink>
+                          <NavLink onClick={this.closeMobile}>
+                            {translate('header.navBar.login')}
+                          </NavLink>
                         </a>
                       </Link>
                     </NavItem>
-
-                    // <NavItem active={router.pathname === '/login'}>
-                    //   <Link href="/login">
-                    //     <a>
-                    //       <NavLink onClick={this.closeMobile}>دخول</NavLink>
-                    //     </a>
-                    //   </Link>
-                    // </NavItem>
                   )}
 
                   {isAuthentcated ? this.userDropdown() : ''}

@@ -17,6 +17,7 @@ import './drafts.css';
 import CardDraft from '../components/card-draft/card-draft';
 import Skeleton from '../components/skeleton/skeleton';
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
 
 const animatedComponents = makeAnimated();
 
@@ -65,21 +66,32 @@ class Drafts extends Component {
     if (draftCountResponse.ok) {
       this.setState({ draftCount: draftCountResponse.data });
     }
+    // const draftsResponse = accessToken
+    //   ? await Api.get(
+    //       `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
+    //         selectedTag ? `&tag=${selectedTag}` : ''
+    //       }${selectedDate ? `&ends=-1 month` : ''}`,
+    //       {},
+    //       {
+    //         headers: { Authorization: `Bearer ${accessToken}` }
+    //       }
+    //     )
+    //   : await Api.get(
+    //       `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
+    //         selectedTag ? `&tag=${selectedTag}` : ''
+    //       }${selectedDate ? `&ends=-1 month` : ''}`
+    //     );
     const draftsResponse = accessToken
       ? await Api.get(
-          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
-            selectedTag ? `&tag=${selectedTag}` : ''
-          }${selectedDate ? `&ends=-1 month` : ''}`,
-          {},
-          {
-            headers: { Authorization: `Bearer ${accessToken}` }
-          }
-        )
+        `/qarar_api/data/system/0/DESC/1?_format=json`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        }
+      )
       : await Api.get(
-          `/qarar_api/qarar/voting/created/DESC/${draftsPageSize}/${page}?_format=json${
-            selectedTag ? `&tag=${selectedTag}` : ''
-          }${selectedDate ? `&ends=-1 month` : ''}`
-        );
+        `/qarar_api/data/system/0/DESC/1?_format=json`
+      );
     if (draftsResponse.ok) {
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
@@ -172,26 +184,26 @@ class Drafts extends Component {
       <div className="drafts">
         <div className="draftHeader">
           <Container>
-            <h3>قرارات تحت التصويت</h3>
+            <h3>{translate('draftsPage.title')}</h3>
           </Container>
         </div>
         <Container>
-          <section className="filter-section">
+          <section className="filter-section text-start">
             <Container>
               <Row>
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label>نوع القرار </label>
+                    <label>{translate('draftsPage.decisionType')}</label>
                     <select className="not-select2 form-control">
-                      <option value="1">مسودة نظام كامل</option>
-                      <option value="2">مادة</option>
+                      <option value="1">{translate('draftsPage.decisionOptionOne')}</option>
+                      <option value="2">{translate('draftsPage.decisionOptionTwo')}</option>
                     </select>
                   </div>
                 </Col>
 
                 <Col xs="12" md="4">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList"> وقت الطرح </label>
+                    <label htmlFor="orderDropDownList">{translate('draftsPage.subtraction')}</label>
                     <select
                       id="orderDropDownList"
                       className="not-select2 form-control"
@@ -203,17 +215,17 @@ class Drafts extends Component {
                         )
                       }
                     >
-                      <option value={0}>مطروحة حديثا</option>
-                      <option value={1}>تنتهي قريبا </option>
+                      <option value={0}>{translate('draftsPage.subtractionOptionOne')}</option>
+                      <option value={1}>{translate('draftsPage.subtractionOptionTwo')}</option>
                     </select>
                   </div>
                 </Col>
                 <Col xs="12" md="4" className="filter-buttons">
                   <div className="form-group">
-                    <label htmlFor="orderDropDownList">الكلمات الدلالية</label>
+                    <label htmlFor="orderDropDownList">{translate('draftsPage.keywords')}</label>
                     <ReactSelect
                       isRtl
-                      className="text-right"
+                      className={`text-start direction-${translate('dir')}`}
                       components={animatedComponents}
                       cacheOptions
                       classNamePrefix="react-select"
@@ -226,9 +238,13 @@ class Drafts extends Component {
                           : []
                       }
                       isClearable
-                      placeholder="ابحث عن كلمة دلالية..."
-                      noOptionsMessage={() => 'لا يوجد خيارات...'}
-                      loadingMessage={() => 'تحميل...'}
+                      placeholder={translate('draftsPage.keywordsPlaceholder')}
+                      noOptionsMessage={() =>
+                        translate('draftsPage.keywordsNoOptionsMessage')
+                      }
+                      loadingMessage={() =>
+                        translate('draftsPage.keywordsLoadingMessage')
+                      }
                       cl
                       onChange={selected =>
                         this.setState({ selectedTag: selected?.value }, () =>
@@ -249,7 +265,9 @@ class Drafts extends Component {
                   id={draft.id}
                   header={draft.title}
                   refetch={() => this.getDrafts()}
-                  subHeader={`يغلق التصويت بتاريخ ${draft.end_date}`}
+                  subHeader={`${translate(
+                    'draftsPage.draftCard.votingCloses'
+                  )}${draft.end_date}`}
                   content={draft.body}
                   votes={
                     parseInt(draft.likes, 10) + parseInt(draft.dislikes, 10) ||
@@ -271,11 +289,11 @@ class Drafts extends Component {
                 />
               ))
             ) : (
-              <Col>
+              <Col className="text-start">
                 <Alert type="sucess">
-                  لا توجد قرارات تحت التصويت الآن .. يمكنك الانتقال إلى{' '}
+                  {translate('draftsPage.noDecisions')}
                   <Link href="/decisions">
-                    <a>القرارات المؤرشفة</a>
+                    <a>{translate('draftsPage.archivedDecisions')}</a>
                   </Link>
                 </Alert>
               </Col>

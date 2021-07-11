@@ -19,6 +19,7 @@ import './platform-news-image.css';
 
 import Api from '../../../api';
 import Skeleton from '../components/skeleton/skeleton';
+import { translate } from '../../../utlis/translation';
 
 const items = [
   {
@@ -117,7 +118,7 @@ class DecisionDraft extends Component {
       <>
         <div className="draftHeader">
           <Container>
-            <Breadcrumb title="اخبار المنصة" link="/news" />
+            <Breadcrumb title={translate('platformNewsImagePage.title')} link="/news" />
           </Container>
         </div>
 

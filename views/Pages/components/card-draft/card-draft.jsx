@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import renderHTML from 'react-render-html';
 import Api from '../../../../api';
 import './card-draft.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -26,6 +27,8 @@ const defaultProps = {};
 class CardDraft extends Component {
   constructor(props) {
     super(props);
+
+    console.log(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
@@ -133,8 +136,11 @@ class CardDraft extends Component {
       link,
       borderColor,
       dropdownList,
-      subHeaderIcon
+      subHeaderIcon,
+      type
     } = this.props;
+
+    console.log(link);
 
     return (
       <Card className="card-draft" style={{ borderRightColor: borderColor }}>
@@ -178,6 +184,7 @@ class CardDraft extends Component {
                         object
                         src={subHeaderIcon}
                         className="icon-small"
+                        dir={translate('dir')}
                       />
                     ) : (
                       // <i className={subHeaderIcon}></i>
@@ -190,12 +197,14 @@ class CardDraft extends Component {
                   ''
                 )}
               </div>
-              <div className="moaad text-justify">
+              <div className="text-justify">
                 <div>
-                  {renderHTML(content || '')}
+                  <div className="wrap">{renderHTML(content || '')}</div>
                   {link ? (
                     <Link href={link}>
-                      <Button color="link">المزيد</Button>
+                      <Button color="link">
+                        {translate('cardDraft.more')}
+                      </Button>
                     </Link>
                   ) : (
                     ''
@@ -203,9 +212,9 @@ class CardDraft extends Component {
                 </div>
               </div>
             </div>
-            {votes ? (
+            {/* {votes ? (
               <div className="side">
-                <h5>أبدِ رأيك</h5>
+                <h5>{translate('cardDraft.yourOpinion')}</h5>
 
                 <div className="like-dis">
                   <div
@@ -236,11 +245,14 @@ class CardDraft extends Component {
                   </div>
                 </div>
 
-                <span className="vote">{this.state.count} صوت</span>
+                <span className="vote">
+                  {this.state.count}
+                  {translate('cardDraft.vote')}
+                </span>
               </div>
             ) : (
               ''
-            )}
+            )} */}
           </div>
         </CardBody>
         <CardFooter>
@@ -260,7 +272,7 @@ class CardDraft extends Component {
             ) : (
               <Link href="/">
                 <a color="link" className="btn btn-link">
-                  طلب تعديل
+                  {translate('cardDraft.modificationRequest')}
                 </a>
               </Link>
             )}

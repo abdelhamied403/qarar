@@ -6,13 +6,13 @@ import Router from 'next/router';
 import * as yup from 'yup';
 
 import '../Register/Register.css';
+import './Login.css';
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
 
 const messages = {
-  'Sorry, unrecognized username or password.':
-    'خطأ في اسم المستخدم او كلمة المرور',
-  'The user has not been activated or is blocked.':
-    'لم يتم تفعيل حساب هذا المستخدم أو تم حظره'
+  'Sorry, unrecognized username or password.': 'loginError',
+  'The user has not been activated or is blocked.': 'loginBlocked'
 };
 const Login = () => {
   const [user, setUser] = useState({});
@@ -29,13 +29,13 @@ const Login = () => {
     const schema = yup.object().shape({
       name: yup
         .string()
-        .min(5, 'إسم المستخدم ينبغي أن لا يقل عن ٥ أحرف')
-        .required('حقل إسم المستخدم مطلوب'),
+        .min(5, translate('loginPage.userNameYupError'))
+        .required(translate('loginPage.userNameRequired')),
 
       pass: yup
         .string()
-        .min(6, 'كلمة المرور  ينبغي أن لا يقل عن ٦ أحرف')
-        .required('حقل كلمة المرور مطلوب')
+        .min(6, translate('loginPage.passwordYupError'))
+        .required(translate('loginPage.passwordRequired'))
     });
 
     schema.validate(user).catch(err => {
@@ -66,9 +66,9 @@ const Login = () => {
       const resMessage =
         response.data && response.data.message ? response.data.message : '';
       if (resMessage && messages.hasOwnProperty(resMessage)) {
-        setError(messages[resMessage]);
+        setError(translate(`loginPage.${messages[resMessage]}`));
       } else {
-        setError('حدث خطأ ما أثناء تسجيل الدخول');
+        setError('loginPage.error');
       }
     }
   };
@@ -82,14 +82,13 @@ const Login = () => {
       <div className="navHeader" />
 
       <div className="register-container flex flex-justifiy-center flex-align-stretch">
-        <div className="register-content">
+        <div dir={translate('dir')} className="register-content">
           <div className="custom-container">
             <div className="register-header m-tb-20">
-              <h3>تسجيل الدخول</h3>
+              <h3>{translate('loginPage.title')}</h3>
             </div>
             <p className="sub-header">
-              سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات
-              والمشاريع التي تتابعها.{' '}
+              {translate('loginPage.description')}
             </p>
 
             <Alert isOpen={error} color="danger">
@@ -99,7 +98,7 @@ const Login = () => {
               <div className="form-horizontal">
                 <FormGroup row>
                   <Col md="4">
-                    <Label htmlFor="hf-username"> اسم المستخدم</Label>
+                    <Label htmlFor="hf-username">{translate('loginPage.userName')}</Label>
                   </Col>
                   <Col xs="12" md="8">
                     <Input
@@ -109,20 +108,20 @@ const Login = () => {
                       value={user.name}
                       onChange={e => setUser({ ...user, name: e.target.value })}
                       onKeyPress={handleKeyPress}
-                      placeholder="إسم المستخدم"
+                      placeholder={translate('loginPage.userName')}
                     />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col md="4">
-                    <Label htmlFor="hf-password">كلمة المرور</Label>
+                    <Label htmlFor="hf-password">{translate('loginPage.password')}</Label>
                   </Col>
                   <Col xs="12" md="8">
                     <Input
                       type="password"
                       id="hf-password"
                       name="hf-password"
-                      placeholder="ادخل كلمة المرور هنا"
+                      placeholder={translate('loginPage.passwordPlaceholder')}
                       autoComplete="current-password"
                       value={user.pass}
                       onChange={e => setUser({ ...user, pass: e.target.value })}
@@ -132,8 +131,8 @@ const Login = () => {
                 </FormGroup>
                 <div className="button-group flex flex-justifiy-sp">
                   <Button color="primary" onClick={() => login()}>
-                    دخول
-                    <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                    {translate('loginPage.login')}
+                    <img dir={translate('dir')} src="/static/img/interactive/whiteArrow.svg" alt="" />
                   </Button>
                 </div>
 
@@ -146,10 +145,10 @@ const Login = () => {
                     <img src="/static/fav.png" alt="Avatar" />
                   </div>
                   <div className="item-content mx-1">
-                    <span className="title"> بواسطة منصة بلدي</span>
+                    <span className="title">{translate('loginPage.byBalady')}</span>
                     <br />
                     <span className="sub-title">
-                      عن طريق حسابك في منصة بلدي
+                      {translate('loginPage.via')}
                     </span>
                   </div>
                 </a>

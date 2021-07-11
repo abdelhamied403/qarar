@@ -115,9 +115,14 @@
 .newUILanding .header-image-bg .section {
   padding-top: 100px;
 }
-.newUILanding .btn img {
+.newUILanding .btn img[dir='rtl'] {
   width: 15px;
   margin-right: 10px;
+}
+.newUILanding .btn img[dir='ltr'] {
+  width: 15px;
+  margin-left: 10px;
+  transform: rotate(180deg);
 }
 .newUILanding .header h2 {
   margin-top: 24px;
@@ -144,6 +149,7 @@
 .newUILanding .activities {
   background-color: #fff;
 }
+
 .newUILanding .activities h2 {
   color: #84bc47;
   font-weight: 600;
@@ -176,11 +182,17 @@
   color: #006c68;
   margin-bottom: 15px;
 }
-.newUILanding .activities .oneActivity img {
+.newUILanding .activities .oneActivity img[dir='rtl'] {
   width: 15px;
   height: 15px;
   object-fit: contain;
   margin-left: 10px;
+}
+.newUILanding .activities .oneActivity img[dir='ltr'] {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  margin-right: 10px;
 }
 .newUILanding .activities .oneActivity p {
   color: #006c68;
@@ -485,4 +497,15 @@
     width: 50%;
     margin-bottom: 10px;
   }
+}
+
+.about {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.item-body-modal {
+  max-height: 50vh;
+  overflow-y: scroll;
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, CardImg, Button, Media } from 'reactstrap';
 import Link from 'next/link';
 import './card-blog.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -33,7 +34,7 @@ const CardBlog = ({
         </Link>
         <div className="sub-header">
           {subHeaderIcon ? (
-            <Media object src={subHeaderIcon} className="icon-small" />
+            <Media dir={translate('dir')} object src={subHeaderIcon} className="icon-small" />
           ) : (
             // <i className={subHeaderIcon}></i>
             ''
@@ -46,7 +47,7 @@ const CardBlog = ({
         {content}...
         <Link href={`/news-details/${blogId}`}>
           <Button className="text-decoration-none" color="link">
-            المزيد
+            {translate('cardBlog.more')}
           </Button>
         </Link>
       </div>

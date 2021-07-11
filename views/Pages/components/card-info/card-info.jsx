@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Media } from 'reactstrap';
 import './card-info.css';
+import { translate } from '../../../../utlis/translation';
 
 const propTypes = {
   children: PropTypes.node
@@ -19,7 +20,7 @@ const CardInfo = ({ description, info, icon, number, type, isDarkCard }) => (
             <span className="type">{type}</span>
           </div>
           {icon ? (
-            <span className="icon">
+            <span dir={translate('dir')} className="icon">
               <Media object src={icon} className="icon-media" />
 
               {/* <i className={icon + " icons d-block"}></i> */}
@@ -39,7 +40,7 @@ const CardInfo = ({ description, info, icon, number, type, isDarkCard }) => (
           </div>
         </CardHeader>
         <CardBody>
-          <span className="icon">
+          <span dir={translate('dir')} className="icon">
             {/* <i className={icon + " icons d-block"}></i> */}
             <Media object src={icon} className="icon-media" />
           </span>

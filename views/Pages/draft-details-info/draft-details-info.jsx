@@ -44,6 +44,7 @@ import TextBox from '../components/text-box/text-box';
 import CardComments from '../components/card-comments/card-comments';
 import InsideComment from '../components/InsideComment';
 import Api from '../../../api';
+import { translate } from '../../../utlis/translation';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -432,7 +433,7 @@ class DraftDetailsInfo extends Component {
                     <ul>
                       <li>
                         <Link href="/drafts/">
-                          <a>القرارات</a>
+                          <a> {translate('draftDetails.decisions')}</a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -449,6 +450,7 @@ class DraftDetailsInfo extends Component {
                         object
                         src="/static/img/calendarWhite.svg"
                         className="icon-small"
+                        dir={translate('dir')}
                       />
 
                       {draft.archived_date && (
@@ -474,6 +476,7 @@ class DraftDetailsInfo extends Component {
                         <Button color="primary">
                           شارك برأيك
                           <img
+                            dir={translate('dir')}
                             src="/static/img/interactive/whiteArrow.svg"
                             alt=""
                           />
@@ -502,7 +505,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.followers}</p>
-                      <h5>مشترك</h5>
+                      <h5> {translate('draftDetails.user')}</h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -513,7 +516,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.comments}</p>
-                      <h5>تعليق</h5>
+                      <h5> {translate('draftDetails.comment')}</h5>
                     </div>
                     <div>
                       <div className="icon-border">
@@ -527,7 +530,7 @@ class DraftDetailsInfo extends Component {
                         {parseInt(draft.likes, 10) +
                           parseInt(draft.dislikes, 10)}
                       </p>
-                      <h5>صوت</h5>
+                      <h5> {translate('draftDetails.vote')}</h5>
                     </div>
                   </div>
                 </Col>
@@ -554,18 +557,15 @@ class DraftDetailsInfo extends Component {
                     </div>
                   </Col>
                   <Col md="3">
-                    <div className="d-flex flex-column justify-items-start draftCardLt">
-                      <div className="d-flex justify-content-end">
-                        <img src="/static/img/interactive/lock.svg" alt="" />
-                        <span> التعليق مفتوح</span>
-                      </div>
-                      <div className="d-flex justify-content-end">
-                        <img
-                          src="/static/img/interactive/stopwatch.svg"
-                          alt=""
-                        />
-                        <span>{moment(draft.end_date).fromNow()}</span>
-                      </div>
+                    <div
+                      className="d-flex line-right  flex-column justify-items-start draftCardLt"
+                      style={{ height: '100%' }}
+                    >
+                      <img
+                        src="/static/img/logo.svg"
+                        alt=""
+                        style={{ height: '100%', width: '60%' }}
+                      />
                     </div>
                   </Col>
                 </Row>
@@ -582,7 +582,7 @@ class DraftDetailsInfo extends Component {
                       }}
                     >
                       <span>+</span>
-                      فتح الكل
+                      {translate('draftDetails.openAll')}
                     </Button>
                     <Button
                       onClick={() => {
@@ -590,7 +590,7 @@ class DraftDetailsInfo extends Component {
                       }}
                     >
                       <span>-</span>
-                      اغلاق الكل
+                      {translate('draftDetails.closeAll')}
                     </Button>
                   </>
                 )}
@@ -631,7 +631,10 @@ class DraftDetailsInfo extends Component {
                     <div className="dratCartTitlelt d-flex">
                       <div className="manyComments d-flex align-items-center">
                         <img src="/static/img/interactive/chat.svg" alt="" />
-                        <span>{item.comments} تعليق</span>
+                        <span>
+                          {item.comments}
+                          {translate('draftDetails.comment')}
+                        </span>
                       </div>
                       <img
                         src="/static/img/interactive/whiteTabs.svg"
@@ -662,7 +665,7 @@ class DraftDetailsInfo extends Component {
                             })
                           }
                         >
-                          المزيد
+                          {translate('draftDetails.more')}
                           <img src={this.state.img2} alt="" />
                         </Button>
                       </Col>
@@ -691,65 +694,42 @@ class DraftDetailsInfo extends Component {
                 </Card>
               ))}
             <Element name="test1" className="element">
-              {!uid ? (
-                <div className="draftShouldLogin d-flex flex-column">
-                  <img src="/static/img/interactive/disabled.svg" alt="" />
-                  <h4>يجب تسجيل الدخول لأضافة تعليق</h4>
-                  <Link href="/login">
-                    <Button>
-                      تسجيل الدخول
-                      <img src="/static/img/interactive/btnArrow3.svg" alt="" />
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <a>تسجيل حساب</a>
-                  </Link>
-                </div>
-              ) : (
-                <>
-                  <div>
-                    {successComment && (
-                      <Alert color="success">
-                        تم إضافة التعليق في إنتظار موافقة إدارة الموقع
-                      </Alert>
-                    )}
-                    {errorComment && (
-                      <Alert color="danger">{errorComment}</Alert>
-                    )}
-                    <Editor
-                      placeholder="اضف تعليقك هنا"
-                      toolbar={{
-                        options: ['inline', 'image'], // This is where you can specify what options you need in
-                        // the toolbar and appears in the same order as specified
-                        inline: {
-                          options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                          // strikethrough, 'monospace', 'superscript', 'subscript'
-                        },
-                        image: {
-                          alignmentEnabled: false,
-                          uploadCallback: this.UploadImageCallBack,
-                          alt: { present: true, mandatory: false },
-                          previewImage: true
-                        }
-                      }}
-                      editorState={editorState}
-                      wrapperClassName="demo-wrapper"
-                      editorClassName="demo-editor"
-                      onEditorStateChange={this.onEditorStateChange}
-                    />
-                  </div>
-                  <div className="commentsBtn d-flex justify-content-end align-items-center">
-                    <a href="">شروط المشاركة</a>
-                    <Button onClick={this.saveComment}>
-                      اضف تعليقك
-                      <img
-                        src="/static/img/interactive/whiteArrow.svg"
-                        alt=""
-                      />
-                    </Button>
-                  </div>
-                </>
-              )}
+              <div>
+                {successComment && (
+                  <Alert color="success">
+                    {translate('draftDetails.commentAdded')}
+                  </Alert>
+                )}
+                {errorComment && <Alert color="danger">{errorComment}</Alert>}
+                <Editor
+                  placeholder="اضف تعليقك هنا"
+                  toolbar={{
+                    options: ['inline', 'image'], // This is where you can specify what options you need in
+                    // the toolbar and appears in the same order as specified
+                    inline: {
+                      options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
+                      // strikethrough, 'monospace', 'superscript', 'subscript'
+                    },
+                    image: {
+                      alignmentEnabled: false,
+                      uploadCallback: this.UploadImageCallBack,
+                      alt: { present: true, mandatory: false },
+                      previewImage: true
+                    }
+                  }}
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={this.onEditorStateChange}
+                />
+              </div>
+              <div className="commentsBtn d-flex justify-content-end align-items-center">
+                <a href="">شروط المشاركة</a>
+                <Button onClick={this.saveComment}>
+                  {translate('draftDetails.addComment')}
+                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                </Button>
+              </div>
             </Element>
 
             <div className="draftNewComments">

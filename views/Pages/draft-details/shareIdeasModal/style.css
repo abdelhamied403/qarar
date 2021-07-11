@@ -1,0 +1,128 @@
+.action-items-modal {
+  display: flex;
+  justify-content: center;
+}
+.action-items-modal > * {
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-form .form-control {
+  height: auto !important;
+}
+
+.comment-form select {
+  width: 100%;
+  margin: 5px 5px;
+}
+
+.action-items-modal .done {
+  border-color: #9bc869;
+  color: #9bc869;
+}
+.action-items-modal .error {
+  border-color: crimson;
+  color: crimson;
+}
+.modal-content h4 {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.star {
+  color: #046f6d;
+}
+
+.star span {
+  margin: 10px 5px 10px 5px;
+}
+
+.button-ask-to-add-comment-yes {
+  background-color: #fff !important;
+  border: 2px solid #81bd41 !important;
+  color: #81bd41 !important;
+}
+
+.button-ask-to-add-comment-yes:hover {
+  background-color: #81bd41 !important;
+  color: #fff !important;
+}
+
+.button-ask-to-add-comment-no {
+  background-color: #fff !important;
+  border: 2px solid #ff0000 !important;
+  color: #ff0000 !important;
+}
+
+.button-ask-to-add-comment-no:hover {
+  background-color: #ff0000 !important;
+  color: #fff !important;
+}
+
+.button-chose-comment {
+  background-color: #fff !important;
+  border: 2px solid #f3f3f3 !important;
+  color: #000000 !important;
+}
+
+.button-chose-comment:hover {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+
+.editor-class {
+  width: 100%;
+}
+
+.button-comment {
+  margin: 20px 0;
+}
+
+.modal-title {
+  width: 100%;
+}
+
+.modal-dialog .modal-content {
+  border: 0;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.header-modal {
+  width: 100%;
+  background-color: #1e6f6d;
+  border: none;
+  border-radius: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  color: white;
+}
+
+.button-comment {
+  float: right;
+  color: white;
+  border-color: #84bc47;
+  background-color: #84bc47;
+  float: left;
+}
+.modal-backdrop {
+  opacity: 0.1 !important;
+}
+
+@media (max-width: 992px) {
+
+.modal-dialog .modal-content{
+
+  width: 90%;
+}
+
+}

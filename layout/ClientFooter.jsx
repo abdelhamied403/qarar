@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'reactstrap';
 import { create } from 'apisauce';
+import Api from '../api';
 
 // define the api
 
 import './client.css';
-
-const api = create({
-  baseURL: 'https://momragov.sharedt.com/ar/'
-});
+import { translate } from '../utlis/translation';
 
 const propTypes = {
   isAuthentcated: PropTypes.bool
@@ -17,7 +15,21 @@ const propTypes = {
 
 const defaultProps = {};
 
+const getFooter = async () => {
+  const footerResponse = await Api.get(`qarar_api/copy-rights?`);
+  console.log(footerResponse);
+  if (footerResponse.ok) {
+    return footerResponse.data;
+  }
+};
 const ClientFooter = ({ isAuthentcated }) => {
+  const [footer, setFooter] = useState('');
+  useEffect(() => {
+    (async () => {
+      const footer = await getFooter();
+      setFooter(footer);
+    })();
+  }, []);
   return (
     <div className={isAuthentcated ? ' user-loggedin' : 'newFooter'}>
       {/* <div className="upperFooter">
@@ -45,7 +57,7 @@ const ClientFooter = ({ isAuthentcated }) => {
               </Col>
               <Col md={6}>
                 <div className="direct-num">
-                  <h3>الرقم المباشر</h3>
+                  <h3>{translate('footer.number')}</h3>
                   <a href="tel:+199099">199099 </a>
                 </div>
               </Col>
@@ -54,52 +66,55 @@ const ClientFooter = ({ isAuthentcated }) => {
           <div className="mid-footer">
             <Row>
               <Col md={3}>
-                <h4> بلدي</h4>
-                <a href="https://balady.gov.sa/About">عن بلدي</a>
-                <a href="https://balady.gov.sa/UserGuide">أدلة المستخدمين</a>
+                <h4> {translate('footer.balady')}</h4>
+                <a href="https://balady.gov.sa/About">
+                  {translate('footer.aboutBalady')}
+                </a>
+                <a href="https://balady.gov.sa/UserGuide">
+                  {translate('footer.userGuides')}
+                </a>
               </Col>
               <Col md={3}>
-                <h4> خدمات بلدي</h4>
-                <a href="https://balady.gov.sa/Services"> خدمات إلكترونية</a>
+                <h4> {translate('footer.baladyServices')}</h4>
+                <a href="https://balady.gov.sa/Services">
+                  {translate('footer.electronicServices')}
+                </a>
                 <a href="https://balady.gov.sa/Informative">
                   {' '}
-                  الاستعلام الإلكتروني
+                  {translate('footer.query')}
                 </a>
                 <a href="https://balady.gov.sa/Services?id=6">
                   {' '}
-                  بوابة الفرص الاستثمارية
+                  {translate('footer.portal')}
                 </a>
               </Col>
               <Col md={3}>
-                <h4> سياسة بلدي</h4>
-                <a
-                  href="https://www.momra.gov.sa/ar/node/50"
-                  target="_blank"
-                >
-                  إشعار الخصوصية
+                <h4>{translate('footer.policy')}</h4>
+                <a href="https://www.momra.gov.sa/ar/node/50" target="_blank">
+                  {translate('footer.privacy')}
                 </a>
-                <a href="https://momra.gov.sa/files/Policy.pdf" target="_blank">
-                  سياسة إدارة المحتوى
+                <a href="https://www.momra.gov.sa/ar/node/51" target="_blank">
+                  {translate('footer.content')}
                 </a>
                 <a href="https://balady.gov.sa/Terms" target="_blank">
-                  الشروط والأحكام
+                  {translate('footer.conditions')}
                 </a>
               </Col>
               <Col md={3}>
-                <h4 className="loader-label">روابط هامه</h4>
+                <h4 className="loader-label">{translate('footer.links')}</h4>
                 <a
                   href="https://balady.gov.sa/CenteralServices"
                   target="_blank"
                 >
                   {' '}
-                  بوابة الموظفين{' '}
+                  {translate('footer.employees')}{' '}
                 </a>
                 <a
                   href="https://ebalady.momra.gov.sa/EnOffice/faces/Applyorlogin"
                   target="_blank"
                 >
                   {' '}
-                  بوابة المكاتب الهندسية{' '}
+                  {translate('footer.offices')}{' '}
                 </a>
               </Col>
             </Row>
@@ -107,19 +122,15 @@ const ClientFooter = ({ isAuthentcated }) => {
           <div className="bot-footer">
             <div className="container">
               <div className="d-flex">
-                <div className="copyright">
-                  {' '}
-                  جميع الحقوق محفوظة – البوابة الوطنية الداعمة للمجتمع البلدي ©
-                  <script>document.write((new Date()).getFullYear())</script>
-                  2020{' '}
-                </div>
+                <div className="copyright"> {footer}</div>
                 <ul className="list-unstyled">
                   <li>
                     <a
                       href="https://balady.gov.sa/Services/SiteMap"
                       target="_blank"
                     >
-                      خريطة الموقع
+                      {' '}
+                      {translate('footer.websiteMap')}
                     </a>
                   </li>
                 </ul>

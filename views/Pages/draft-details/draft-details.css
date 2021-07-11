@@ -9,6 +9,103 @@
   bottom: 15px;
 }
 
+.user-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #40c2cc;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.flex-3 {
+  flex: 3 !important;
+}
+
+.flex-1 {
+  flex: 1 !important;
+}
+.flex-auto {
+  flex: auto !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.f-column {
+  flex-direction: column !important;
+}
+
+.f-row {
+  flex-direction: row !important;
+}
+
+.max-100 {
+  max-width: 100% !important;
+}
+
+.max-content {
+  max-width: max-content !important;
+}
+
+.user-card-name {
+  margin: 0;
+  color: #06706d;
+  font-weight: bold;
+}
+
+.user-card-points {
+  color: #06706d;
+}
+
+.user-card img {
+  width: 93px;
+  height: 93px;
+}
+
+.featured-article-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  border: 1px solid #40c2cc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.featured-article-card-name {
+  margin: 0;
+  color: #06706d;
+  font-weight: bold;
+  font-size: 14px;
+  max-height: 24px;
+  overflow: hidden;
+  max-width: 80%;
+}
+
+.featured-article-card-points {
+  color: #06706d;
+  font-weight: bold;
+}
+
+.featured-article.p-2 {
+  padding-bottom: 0px !important;
+}
+
+.border-right-line {
+  border-right: 1px solid #046f6d;
+}
+
+.border-right-line[dir='ltr'] {
+  border-right: 0;
+  border-left: 1px solid #046f6d;
+}
+
 .filter > * {
   color: var(--dark-gray);
   border-bottom: 2px solid var(--dark-gray);
@@ -108,10 +205,21 @@
   opacity: 0.7;
   margin-right: 15px;
 }
+*[dir='ltr'] .dateDraft p {
+  margin-right: 0px;
+  margin-left: 15px;
+}
 .draftCardLt img {
   width: 17px;
   margin-left: 10px;
 }
+
+*[dir='ltr'] .draftCardLt img {
+  width: 17px;
+  margin-right: 10px;
+  margin-left: 0px;
+}
+
 .draftCardLt div {
   margin-bottom: 15px;
 }
@@ -128,7 +236,7 @@
   background-color: #fff;
   padding: 80px 0;
   margin-top: -80px;
-  border-bottom: 1px solid #046f6d;
+  /* border-bottom: 1px solid #046f6d; */
   position: relative;
 }
 .client-layout .flex-page-content main {
@@ -207,6 +315,13 @@
   color: #fff;
   margin-left: 10px;
 }
+
+*[dir='ltr'] .shareInfoRight button {
+  margin-left: 0px;
+  margin-right: 10px;
+  direction: rtl;
+}
+
 .shareInfoRight button span {
   margin-left: 10px;
 }
@@ -323,7 +438,7 @@
   justify-content: center;
   margin-right: -42px;
   position: relative;
-  z-index: 99999999999;
+  z-index: 999;
 }
 .drafInfo .input-group-prepend img {
   width: 14px;
@@ -401,5 +516,124 @@
   }
   .draftInfoShare button {
     margin-top: 5px;
+  }
+}
+
+.action-item {
+  padding-left: 10px;
+}
+.action-item.dislikes img {
+  padding-top: 5px;
+}
+.action-item img {
+  width: 22px !important;
+  object-fit: contain;
+}
+.action-item span {
+  font-size: 14px;
+}
+
+.btn-inline-block {
+  display: inline-block !important;
+  margin-left: 10px !important;
+}
+
+.dateDraft {
+  display: inline-flex !important;
+  align-items: center !important;
+  border: 1px solid #06706d4d;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.btn-ligh {
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 768px) {
+  .line-bottom {
+    padding-bottom: 30px;
+    padding-left: 20px;
+  }
+  .line-right {
+    display: flex;
+    align-items: center;
+  }
+  .line-right,
+  .line-bottom {
+    position: relative;
+  }
+  .line-right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 90%;
+    width: 2px;
+    background-color: #06706d4d;
+  }
+  .line-bottom::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 90%;
+    height: 2px;
+    bottom: 0;
+    background-color: #06706d4d;
+  }
+}
+
+.lf-10 {
+  margin-left: 10px;
+}
+.bold {
+  font-weight: bold !important;
+}
+
+.just-center {
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+.just-center img {
+  width: 50%;
+}
+
+.uploads button {
+  color: #81bd41 !important;
+  border-color: #81bd41 !important;
+  background-color: transparent;
+}
+
+.draftContainer .dates {
+  flex-wrap: wrap;
+  display: flex;
+}
+.draftContainer .dates .date {
+  margin: 10px 20px;
+}
+
+.qlogo {
+  display: flex;
+  margin-top: 20px;
+}
+.qlogo img {
+  margin: auto;
+}
+
+@media screen and (max-width: 900px) {
+  .draftContainer .dates .date {
+    margin: 10px auto;
+  }
+  .qcharts {
+    display: flex;
+    flex-direction: column;
+  }
+  .qchart {
+    margin: 30px 0;
+  }
+  .qpiechart {
+    width: 300px !important;
+    margin: auto;
   }
 }

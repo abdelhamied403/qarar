@@ -49,10 +49,16 @@
   text-align: center;
 }
 
-.card-info-container .icon {
+.card-info-container .icon[dir="rtl"] {
   position: absolute;
   bottom: 16px;
   left: 16px;
+}
+
+.card-info-container .icon[dir="ltr"] {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
 }
 
 .card-info-container .icon img {
@@ -90,9 +96,17 @@
   font-size: 12px;
 }
 
-.card-small .icon {
+.card-small .icon[dir="rtl"] {
   position: absolute;
   left: 2px;
+  bottom: 2px;
+  opacity: 0.2;
+  font-size: 50px;
+}
+
+.card-small .icon[dir="ltr"] {
+  position: absolute;
+  right: 2px;
   bottom: 2px;
   opacity: 0.2;
   font-size: 50px;
