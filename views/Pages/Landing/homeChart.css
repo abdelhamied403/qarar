@@ -1,0 +1,11 @@
+.homeChartContainer {
+  padding: 50px 15px;
+}
+.homeChartContainer .row {
+  display: flex;
+  align-items: center;
+}
+
+.satpiechart {
+  max-width: 300px;
+}

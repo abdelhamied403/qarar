@@ -14,6 +14,9 @@ import moment from 'moment';
 import UpdatedItemsModal from './updatedModalItems';
 
 import Api from '../../../api';
+import axios from 'axios';
+
+import './homeChart.css';
 
 const colors = [
   '#ee5253',
@@ -75,6 +78,7 @@ const Landing = () => {
   const [dislikePercentage, setDislikePercentage] = useState(0);
   const [cityPercentage, setCityPercentage] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [satPercentages, setSatPercentages] = useState(null);
   const getActiveUsers = async () => {
     const userAAResponse = await Api.get(
       '/qarar_api/top/10/user/awards?_format=json'
@@ -185,6 +189,19 @@ const Landing = () => {
       setCityPercentage(response.data.data);
     }
   };
+
+  const getSatPercents = () => {
+    axios
+      .get('https://qarar-backend.sharedt.com/qarar_api/all-drafts-avg')
+      .then(res => {
+        setSatPercentages(Object.values(res.data));
+        console.log('satPercentages', Object.values(res.data));
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  };
+
   useEffect(() => {
     getActiveUsers();
     getUserCount();
@@ -195,6 +212,7 @@ const Landing = () => {
     getAbout();
     getLikesPercentage();
     getCityData();
+    getSatPercents();
   }, []);
   return (
     <div className="rtl newUILanding">
@@ -658,6 +676,101 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
+      <div className="satisfaction">
+        {/* satisfaction percentage charts */}
+        <Container className="homeChartContainer">
+          <h3>{translate('draftDetails.vote')}</h3>
+          <Row>
+            <Col md="2">
+              <div>
+                {[
+                  {
+                    name: translate('draftDetails.chartTypeOne'),
+                    color: '#81BD41'
+                  },
+                  {
+                    name: translate('draftDetails.chartTypeTwo'),
+                    color: '#40C2CC'
+                  },
+                  {
+                    name: translate('draftDetails.chartTypeThree'),
+                    color: '#006C68'
+                  },
+                  {
+                    name: translate('draftDetails.chartTypeFour'),
+                    color: '#F3F3F3'
+                  },
+                  {
+                    name: translate('draftDetails.chartTypeFive'),
+                    color: '#FF4A4A'
+                  }
+                ].map(val => (
+                  <div className="d-flex flex-row align-items-center">
+                    <span
+                      style={{
+                        backgroundColor: val.color,
+                        height: '20px',
+                        width: '20px',
+                        borderRadius: '50%',
+                        display: 'inline-block'
+                      }}
+                    />
+                    <p
+                      style={{
+                        margin: '0 10px 0 10px',
+                        color: '#006C68'
+                      }}
+                    >
+                      {val.name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Col>
+            <Col md="6" className="satpiechart">
+              <PieChart
+                data={[
+                  {
+                    title: translate('draftDetails.chartTypeOne'),
+                    value: parseInt(
+                      satPercentages ? satPercentages[4].replace('%', '') : 0
+                    ),
+                    color: '#81BD41'
+                  },
+                  {
+                    title: translate('draftDetails.chartTypeTwo'),
+                    value: parseInt(
+                      satPercentages ? satPercentages[3].replace('%', '') : 0
+                    ),
+                    color: '#40C2CC'
+                  },
+                  {
+                    title: translate('draftDetails.chartTypeThree'),
+                    value: parseInt(
+                      satPercentages ? satPercentages[2].replace('%', '') : 0
+                    ),
+                    color: '#006C68'
+                  },
+                  {
+                    title: translate('draftDetails.chartTypeFour'),
+                    value: parseInt(
+                      satPercentages ? satPercentages[1].replace('%', '') : 0
+                    ),
+                    color: '#F3F3F3'
+                  },
+                  {
+                    title: translate('draftDetails.chartTypeFive'),
+                    value: parseInt(
+                      satPercentages ? satPercentages[0].replace('%', '') : 0
+                    ),
+                    color: '#FF4A4A'
+                  }
+                ]}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </div>
       <section className="blogger">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">

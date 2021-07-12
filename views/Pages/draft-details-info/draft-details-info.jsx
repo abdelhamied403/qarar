@@ -573,27 +573,6 @@ class DraftDetailsInfo extends Component {
             </Card>
             <div className="draftInfoShare d-flex justify-content-between mb-4">
               <div className="shareInfoRight">
-                {items && (
-                  <>
-                    {' '}
-                    <Button
-                      onClick={() => {
-                        items.map(item => this.setState({ [item.nid]: true }));
-                      }}
-                    >
-                      <span>+</span>
-                      {translate('draftDetails.openAll')}
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        items.map(item => this.setState({ [item.nid]: false }));
-                      }}
-                    >
-                      <span>-</span>
-                      {translate('draftDetails.closeAll')}
-                    </Button>
-                  </>
-                )}
                 {uid && (
                   <Button
                     color="primary"
@@ -724,7 +703,9 @@ class DraftDetailsInfo extends Component {
                 />
               </div>
               <div className="commentsBtn d-flex justify-content-end align-items-center">
-                <a href="">شروط المشاركة</a>
+                <a href="">
+                  {translate('draftDetails.conditionsParticipation')}
+                </a>
                 <Button onClick={this.saveComment}>
                   {translate('draftDetails.addComment')}
                   <img src="/static/img/interactive/whiteArrow.svg" alt="" />
