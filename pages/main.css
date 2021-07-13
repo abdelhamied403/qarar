@@ -118,6 +118,15 @@ body[dir='ltr'] {
   outline: 0 !important;
 }
 
+.flex-column{
+  flex-direction: column;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -18682,7 +18691,7 @@ textarea.form-control {
   margin: 0 !important;
 }
 .newUILanding .activities.green .btn {
-  margin-top: 80px;
+  margin-top: 0px;
   border-radius: 25px;
   color: #84bc47;
   border-color: #84bc47;
@@ -20406,3 +20415,4 @@ a#loginWithBaladyLink img {
 .newUILanding .activities.recently-qarars {
   border-bottom: 5px solid #eceff4;
 }
+
