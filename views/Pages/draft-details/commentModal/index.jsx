@@ -34,8 +34,7 @@ const CommentModal = ({ modal, toggle, cid, saveComment }) => {
           className=""
           style={{
             display: 'flex',
-            height: '150px',
-            width: '100%'
+            height: '150px'
           }}
         >
           <div
