@@ -8,44 +8,36 @@ import Api from '../api';
 
 import './client.css';
 import { translate } from '../utlis/translation';
+import axios from 'axios';
 
 const propTypes = {
   isAuthentcated: PropTypes.bool
 };
-
 const defaultProps = {};
 
-const getFooter = async () => {
-  const footerResponse = await Api.get(`qarar_api/copy-rights?`);
-  console.log(footerResponse);
-  if (footerResponse.ok) {
-    return footerResponse.data;
-  }
-};
 const ClientFooter = ({ isAuthentcated }) => {
-  const [footer, setFooter] = useState('');
+  // state
+  const [footer, setFooter] = useState([]);
+
+  // getters
+  const getFooter = () => {
+    let lang = localStorage.getItem('LANG');
+    axios
+      .get(
+        'https://qarar-backend.sharedt.com/qarar_api/footer-menu?lang=' + lang
+      )
+      .then(res => {
+        console.log(res.data);
+        setFooter(res.data);
+      })
+      .catch(err => console.error(err));
+  };
+
   useEffect(() => {
-    (async () => {
-      const footer = await getFooter();
-      setFooter(footer);
-    })();
+    getFooter();
   }, []);
   return (
     <div className={isAuthentcated ? ' user-loggedin' : 'newFooter'}>
-      {/* <div className="upperFooter">
-        <a href="">
-          <img src="/static/img/interactive/fb.svg" alt="" />
-        </a>
-        <a href="">
-          <img src="/static/img/interactive/twitter.svg" alt="" />
-        </a>
-        <a href="">
-          <img src="/static/img/interactive/linkedin.svg" alt="" />
-        </a>
-        <a href="">
-          <img src="/static/img/interactive/instagram.svg" alt="" />
-        </a>
-  </div> */}
       <footer className="footer">
         <Container className="mb-0">
           <div className="top-footer">
@@ -65,64 +57,22 @@ const ClientFooter = ({ isAuthentcated }) => {
           </div>
           <div className="mid-footer">
             <Row>
-              <Col md={3}>
-                <h4> {translate('footer.balady')}</h4>
-                <a href="https://balady.gov.sa/About">
-                  {translate('footer.aboutBalady')}
-                </a>
-                <a href="https://balady.gov.sa/UserGuide">
-                  {translate('footer.userGuides')}
-                </a>
-              </Col>
-              <Col md={3}>
-                <h4> {translate('footer.baladyServices')}</h4>
-                <a href="https://balady.gov.sa/Services">
-                  {translate('footer.electronicServices')}
-                </a>
-                <a href="https://balady.gov.sa/Informative">
-                  {' '}
-                  {translate('footer.query')}
-                </a>
-                <a href="https://balady.gov.sa/Services?id=6">
-                  {' '}
-                  {translate('footer.portal')}
-                </a>
-              </Col>
-              <Col md={3}>
-                <h4>{translate('footer.policy')}</h4>
-                <a href="https://www.momra.gov.sa/ar/node/50" target="_blank">
-                  {translate('footer.privacy')}
-                </a>
-                <a href="https://www.momra.gov.sa/ar/node/51" target="_blank">
-                  {translate('footer.content')}
-                </a>
-                <a href="https://balady.gov.sa/Terms" target="_blank">
-                  {translate('footer.conditions')}
-                </a>
-              </Col>
-              <Col md={3}>
-                <h4 className="loader-label">{translate('footer.links')}</h4>
-                <a
-                  href="https://balady.gov.sa/CenteralServices"
-                  target="_blank"
-                >
-                  {' '}
-                  {translate('footer.employees')}{' '}
-                </a>
-                <a
-                  href="https://ebalady.momra.gov.sa/EnOffice/faces/Applyorlogin"
-                  target="_blank"
-                >
-                  {' '}
-                  {translate('footer.offices')}{' '}
-                </a>
-              </Col>
+              {footer?.map(foot => (
+                <Col md={3}>
+                  <h4> {foot.label}</h4>
+                  {foot.children.map(child => (
+                    <a href={child.href}>{child.label}</a>
+                  ))}
+                </Col>
+              ))}
             </Row>
           </div>
           <div className="bot-footer">
             <div className="container">
               <div className="d-flex">
-                <div className="copyright"> {footer}</div>
+                <div className="copyright">
+                  {translate('footer.copyrights')}
+                </div>
                 <ul className="list-unstyled">
                   <li>
                     <a
