@@ -118,6 +118,15 @@ body[dir='ltr'] {
   outline: 0 !important;
 }
 
+.flex-column{
+  flex-direction: column;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -16328,9 +16337,6 @@ section.p100 {
   margin: 0px;
 }
 
-button.btn.btn-primary {
-}
-
 .header-content .button-group .test1 button {
   margin: 0;
   margin-left: 12px;
@@ -16796,10 +16802,6 @@ footer a:hover {
 
   .fixed-navbar {
     position: relative !important;
-  }
-
-  .client-layout section {
-    /* padding: 0; */
   }
 
   .header-image-bg {
@@ -17752,9 +17754,7 @@ textarea.form-control {
   object-fit: cover;
 }
 @media (max-width: 768px) {
-  .register-container {
-    /* flex-flow: row-reverse; */
-  }
+
   .register-container > * {
     width: 100%;
   }
@@ -18029,8 +18029,8 @@ textarea.form-control {
   cursor: pointer;
   padding-left: 5px;
   padding-right: 5px;
-  /* padding: 0 5px; */
 }
+
 .filter .active-link {
   border-color: var(--primary-blue);
   margin: 0px 30px;
@@ -18074,10 +18074,6 @@ textarea.form-control {
 
 .client-layout .navbar-brand {
   flex-wrap: nowrap;
-}
-
-.client-layout .action-buttons > * {
-  /* margin: 0px 20px; */
 }
 
 .client-layout .action-buttons {
@@ -18215,10 +18211,6 @@ textarea.form-control {
     position: relative !important;
   }
 
-  .client-layout section {
-    /* padding: 0; */
-  }
-
   .header-image-bg {
     height: auto !important;
     /* padding: 50px 0 */
@@ -18285,10 +18277,6 @@ textarea.form-control {
 .bg-light {
   background-color: white !important;
 }
-
-/* .client-layout .active {
-  background-color: var(--normal-gray) !important;
-} */
 
 .client-layout .breadcrumb-item.active {
   background-color: white !important;
@@ -18693,7 +18681,7 @@ textarea.form-control {
   margin: 0 !important;
 }
 .newUILanding .activities.green .btn {
-  margin-top: 80px;
+  margin-top: 0px;
   border-radius: 25px;
   color: #84bc47;
   border-color: #84bc47;
@@ -20387,9 +20375,7 @@ a#loginWithBaladyLink img {
 .item-update p {
   display: flex;
 }
-.item-update p span {
-  /* margin: 0 10px; */
-}
+
 .item-body-modal {
   height: 50vh;
   overflow-y: scroll;
@@ -20419,6 +20405,7 @@ a#loginWithBaladyLink img {
 }
 
 
+
 .draftBodyRt .dateDraft{
   width: max-content;
   padding-left: 18px;
@@ -20436,9 +20423,9 @@ a#loginWithBaladyLink img {
 }
 
 .draftContainer.drafInfo .cardDraft .d-flex.line-right.flex-column  {
-
   align-items: center;
-
 }
 
 }
+
+
