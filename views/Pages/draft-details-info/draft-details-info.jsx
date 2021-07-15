@@ -728,17 +728,12 @@ class DraftDetailsInfo extends Component {
                   />
                   <div className="mr-auto ml-0">
                     <h5>{comment.full_name}</h5>
+                    <p className="comment-date">
+                  {moment(comment.createdcomment * 1000).format('YYYY/MM/DD')}
+                </p>
                     <p>{renderHTML(comment.comment_body || '')}</p>
                   </div>
-                  <div className="d-flex flex-row likeDiv">
-                    <span>{comment.likes}</span>
-                    <img
-                      onClick={() => this.likeComment(comment.cid)}
-                      src="/static/img/interactive/bluelikeActive.svg"
-                      alt=""
-                      className="likeImg"
-                    />
-                  </div>
+            
                 </div>
               ))}
             </div>

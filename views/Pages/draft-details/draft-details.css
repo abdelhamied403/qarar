@@ -646,3 +646,7 @@
   word-break: break-all;
   text-overflow: ellipsis;
 }
+.draftNewComments .insideComment .comment-date {
+  margin-bottom: 0;
+  font-size: 12px;
+}
