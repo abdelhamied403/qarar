@@ -29,10 +29,10 @@ class FollowItem extends Component {
                   لوحة التحكم
                 </Link>
               </BreadcrumbItem>
-              <BreadcrumbItem active>المسودات</BreadcrumbItem>
+              <BreadcrumbItem active>التشريعات</BreadcrumbItem>
             </Breadcrumb>
             <div className="flex flex-justifiy-sp m-25-b">
-              <h2>المسودات التي أتابعها</h2>
+              <h2>التشريعات التي أتابعها</h2>
             </div>
 
             <Card>

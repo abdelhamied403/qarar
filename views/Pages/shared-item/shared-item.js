@@ -29,7 +29,7 @@ class SharedItem extends Component {
               <BreadcrumbItem active>اشعاراتي</BreadcrumbItem>
             </Breadcrumb>
             <div className="flex flex-justifiy-sp m-50-b">
-              <h2>المسودات التي قمت بالتعليق عليها</h2>
+              <h2>التشريعات التي قمت بالتعليق عليها</h2>
             </div>
             <CardDraft
               header=" سياسة السماح باستيراد السيارات الكهربائية"

@@ -25,16 +25,16 @@ export const ar = {
       logout: 'خروج',
       libQara: 'مكتبة التشريعات',
       updatedQarar: 'التشريعات المعدلة',
-      drafts: 'المسودات',
-      votingDrafts: 'المسودات تحت التصويت',
-      appliedVoting: 'المسودات مطبقه',
-      archievedDraft: 'المسودات مؤرشفة'
+      drafts: 'التشريعات',
+      votingDrafts: 'التشريعات تحت التصويت',
+      appliedVoting: 'التشريعات مطبقه',
+      archievedDraft: 'التشريعات مؤرشفة'
     }
   },
   loginPage: {
     title: 'تسجيل الدخول',
     description:
-      'سجل الدخول للحصول على ملخص التطورات المتعلقة بكل المسودات والمشاريع التي تتابعها.',
+      'سجل الدخول للحصول على ملخص التطورات المتعلقة بكل التشريعات والمشاريع التي تتابعها.',
     userName: 'اسم المستخدم',
     password: 'كلمة المرور',
     passwordPlaceholder: 'ادخل كلمة المرور هنا',
@@ -93,17 +93,17 @@ export const ar = {
     decisionMaking: 'شارك بصنع القرار',
     speakUp: 'ارفع صوتك',
     createAccount: 'أنشئ حساب',
-    voteForDraft: 'صوت للمسودة التي تهمك',
-    draftDiscuss: ' تتم مناقشة المسودة',
-    draftDecision: 'يتم اتخاذ القرار بشأن المسودة',
+    voteForDraft: 'صوت للتشريع التي تهمك',
+    draftDiscuss: ' تتم مناقشة التشريع',
+    draftDecision: 'يتم اتخاذ القرار بشأن التشريع',
 
     aboutQarar: 'عن قرار',
     more: 'المزيد',
     update: 'تعديل',
-    showDraft: 'استعراض المسودة',
-    recentlyDrafts: 'مسودات نشرت حديثاً',
+    showDraft: 'استعراض التشريع',
+    recentlyDrafts: 'تشريعات نشرت حديثاً',
     recentlyQarars: 'تشريعات نشرت حديثا',
-    allDrafts: 'كل المسودات',
+    allDrafts: 'كل التشريعات',
     allQarars: 'كل التشريعات',
     votingCloses: 'يغلق التصويت بتاريخ',
 
@@ -116,7 +116,7 @@ export const ar = {
     influential: 'من الأكثر تأثيراً؟',
     point: 'نقطة',
     users: 'مستخدم للمنصة حاليا',
-    draftDiscussed: 'مسودة تمت مناقشتها',
+    draftDiscussed: 'تشريع تمت مناقشتها',
 
     participantsGeographical: 'التوزيع الجغرافي للمشاركين',
 
@@ -126,7 +126,7 @@ export const ar = {
     allNews: 'كل الاخبار',
 
     opinion: 'رأيك يهمنا .. صوتك يهمنا',
-    exploreDrafts: ' اكتشف قائمة المسودات',
+    exploreDrafts: ' اكتشف قائمة التشريعات',
     login: 'دخول'
   },
   aboutQararPage: {
@@ -183,7 +183,7 @@ export const ar = {
     decisionType: 'نوع القرار',
     classification: 'التصنيف الرئيسي',
     choose: 'اختر',
-    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
     subClassification: 'التصنيف الفرعي',
@@ -203,7 +203,7 @@ export const ar = {
   draftsPage: {
     title: 'مكتبة التشريعات',
     decisionType: 'نوع القرار',
-    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
     subtractionOptionOne: 'مطروحة حديثا',
@@ -219,9 +219,9 @@ export const ar = {
     archivedDecisions: 'التشريعات المؤرشفة'
   },
   draftsUnderVotePage: {
-    title: 'مسودات تحت التصويت',
-    decisionType: 'نوع المسودة',
-    decisionOptionOne: 'مسودة نظام كامل',
+    title: 'التشريعات تحت التصويت',
+    decisionType: 'نوع التشريع',
+    decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
     subtractionOptionOne: 'مطروحة حديثا',
@@ -233,13 +233,13 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد مسودات تحت التصويت الآن .. يمكنك الانتقال إلى ',
-    archivedDecisions: 'المسودات المؤرشفة'
+    noDecisions: 'لا توجد تشريعات تحت التصويت الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'التشريعات المؤرشفة'
   },
   draftsAppliedPage: {
-    title: 'مسودات مطبقة',
-    decisionType: 'نوع المسودة',
-    decisionOptionOne: 'مسودة نظام كامل',
+    title: 'تشريعات مطبقة',
+    decisionType: 'نوع التشريع',
+    decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
     subtractionOptionOne: 'مطروحة حديثا',
@@ -251,13 +251,13 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد مسودات مطبقة الآن .. يمكنك الانتقال إلى ',
-    archivedDecisions: 'المسودات المؤرشفة'
+    noDecisions: 'لا توجد تشريعات مطبقة الآن .. يمكنك الانتقال إلى ',
+    archivedDecisions: 'التشريعات المؤرشفة'
   },
   archivedDraftsPage: {
-    title: 'مسودات مؤرشفة',
-    decisionType: 'نوع المسودة',
-    decisionOptionOne: 'مسودة نظام كامل',
+    title: 'تشريعات مؤرشفة',
+    decisionType: 'نوع التشريع',
+    decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
     subtractionOptionOne: 'مطروحة حديثا',
@@ -269,7 +269,7 @@ export const ar = {
     draftCard: {
       votingCloses: 'يغلق التصويت بتاريخ '
     },
-    noDecisions: 'لا توجد مسودات مؤرشفة الآن .. ',
+    noDecisions: 'لا توجد تشريعات مؤرشفة الآن .. ',
     archivedDecisions: ''
   },
   decisionPage: {
@@ -277,7 +277,7 @@ export const ar = {
     decisionType: 'نوع القرار',
     classification: 'التصنيف الرئيسي',
     subClassification: 'التصنيف الفرعي',
-    decisionOptionOne: 'مسودة نظام كامل',
+    decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
     subtractionOptionOne: 'مطروحة حديثا',
@@ -292,7 +292,7 @@ export const ar = {
     appliedItemsDate: 'تم التطبيق بتاريخ ',
     archivedDecisions: 'قرارات مؤرشفة',
     archivedDecisionsNotImplemented:
-      'قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر مسودة للاطلاع',
+      'قرارات لم يتم تطبيقها او تعديلها بعد الطرح وتعتبر تشريع للاطلاع',
     archivedItemDate: 'تم الأرشفة بتاريخ ',
     noArchivedDecisionsImplemented: 'لا توجد قرارات مؤرشفة'
   },
@@ -314,10 +314,10 @@ export const ar = {
     title: 'تقارير المشاركة المجتمعية',
     platformUsers: 'عدد مستخدمي المنصة الحالي',
     users: 'مستخدم',
-    draftsDiscussed: 'عدد المسودات التي تمت مناقشتها',
-    drafts: 'مسودة',
+    draftsDiscussed: 'عدد التشريعات التي تمت مناقشتها',
+    drafts: 'تشريع',
     activeUsers: 'المستخدمين الاكثر نشاطا',
-    activeDrafts: 'المسودات الاكثر نشاطا',
+    activeDrafts: 'التشريعات الاكثر نشاطا',
     vote: ' صوت',
     comment: 'تعليق',
     winningUsers: 'المستخدمين الحاصلين على جوائز',
@@ -364,7 +364,7 @@ export const ar = {
   },
   draftDetails: {
     decisions: 'التشريعات',
-    drafts: 'المسودات',
+    drafts: 'التشريعات',
     voteClosed: 'أغلق التصويت بتاريخ',
     application: 'تم التطبيق بتاريخ',
     votingCloses: 'يغلق التصويت بتاريخ',
@@ -373,15 +373,15 @@ export const ar = {
     unfollow: ' متابعة',
     user: 'مشترك',
     comment: 'تعليق',
-    vote: 'نسبة الرضا عن المسودات',
+    vote: 'نسبة الرضا',
     createDate: 'تاريخ بداية الطرح',
-    closeDate: 'تاريخ اغلاق المسودة و النقاش',
+    closeDate: 'تاريخ اغلاق التشريع و النقاش',
     attachments: 'المرفقات',
     pdf: 'الاشتراكات المعمرية pdf',
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'مؤشرات',
-    chartTitle: 'نسبة الرضي عن المسودة',
+    chartTitle: 'نسبة الرضي عن التشريع',
     chartTypeOne: 'مؤيد جدا',
     chartTypeTwo: 'مؤيد',
     chartTypeThree: 'محايد',
@@ -424,8 +424,8 @@ export const ar = {
     archived: 'مؤرشف',
     applied: 'مطبق',
     voting: 'تحت التصويت',
-    opinion: 'ما رأيك فى المسودة؟',
-    reply:'الرد علي التعليق',
+    opinion: 'ما رأيك فى التشريع؟',
+    reply: 'الرد علي التعليق',
     shareIdeasModal: {
       title: 'شارك الان',
       stepOne: 'ما رأيك في المادة؟',

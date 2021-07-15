@@ -637,3 +637,12 @@
     margin: auto;
   }
 }
+
+.user-card {
+  height: 100%;
+}
+
+.user-card-name {
+  word-break: break-all;
+  text-overflow: ellipsis;
+}

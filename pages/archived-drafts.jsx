@@ -5,7 +5,7 @@ import ArchivedDraftsPage from '../views/Pages/archived-drafts/archived-drafts';
 const ArchivedDrafts = () => (
   <div>
     <Head>
-      <title>المسودات مؤرشفة - قرار - وزارة الشؤون البلدية والقروية</title>
+      <title>التشريعات مؤرشفة - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <ArchivedDraftsPage />
   </div>
