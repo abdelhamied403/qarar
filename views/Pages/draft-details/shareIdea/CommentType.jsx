@@ -1,4 +1,6 @@
+import { Button } from 'reactstrap';
 import React from 'react';
+import { translate } from '../../../../utlis/translation';
 
 const CommentType = props => {
   return (
@@ -14,10 +16,9 @@ const CommentType = props => {
       <div className="action-items-modal">
         <div>
           <Button
-            color={commentType === 1 && 'primary'}
+            color={props.type === 1 && 'primary'}
             onClick={() => {
-              setCommentType(1);
-              modState <= 3 && setModState(3);
+              props.setType(1);
             }}
           >
             {translate('draftDetails.shareIdeasModal.stepThreeOption1')}
@@ -25,10 +26,9 @@ const CommentType = props => {
         </div>
         <div>
           <Button
-            color={commentType === 2 && 'primary'}
+            color={props.type === 2 && 'primary'}
             onClick={() => {
-              setCommentType(2);
-              modState <= 3 && setModState(3);
+              props.setType(2);
             }}
           >
             {translate('draftDetails.shareIdeasModal.stepThreeOption2')}
@@ -36,10 +36,9 @@ const CommentType = props => {
         </div>
         <div>
           <Button
-            color={commentType === 3 && 'primary'}
+            color={props.type === 3 && 'primary'}
             onClick={() => {
-              setCommentType(3);
-              modState <= 3 && setModState(3);
+              props.setType(3);
             }}
           >
             {translate('draftDetails.shareIdeasModal.stepThreeOption3')}

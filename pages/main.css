@@ -118,14 +118,13 @@ body[dir='ltr'] {
   outline: 0 !important;
 }
 
-.flex-column{
+.flex-column {
   flex-direction: column;
 }
 
-.justify-center{
+.justify-center {
   justify-content: center;
 }
-
 
 hr {
   box-sizing: content-box;
@@ -345,8 +344,8 @@ button::-moz-focus-inner,
   border-style: none;
 }
 
-button img{
-margin-right: 8px;
+button img {
+  margin-right: 8px;
 }
 
 input[type='radio'],
@@ -2465,6 +2464,7 @@ fieldset:disabled a.btn {
 
 button.btn.btn-primary {
   color: white !important;
+  background-color: #81bd41;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
@@ -2479,9 +2479,9 @@ button.btn.btn-primary {
   border-color: #c8ced3;
 }
 .btn-secondary:hover {
-  color:white !important;
-  background-color: #81bd41 ;
-  border-color: #81bd41 ;
+  color: white !important;
+  background-color: #81bd41;
+  border-color: #81bd41;
 }
 .btn-secondary:focus,
 .btn-secondary.focus {
@@ -17754,7 +17754,6 @@ textarea.form-control {
   object-fit: cover;
 }
 @media (max-width: 768px) {
-
   .register-container > * {
     width: 100%;
   }
@@ -20404,28 +20403,20 @@ a#loginWithBaladyLink img {
   border-bottom: 5px solid #eceff4;
 }
 
-
-
-.draftBodyRt .dateDraft{
+.draftBodyRt .dateDraft {
   width: max-content;
   padding-left: 18px;
   padding-right: 16px;
-
 }
 
 @media (max-width: 768px) {
+  .draftCardLt img {
+    margin-left: 0;
+    margin-top: 30px;
+    margin-bottom: 18px;
+  }
 
-.draftCardLt img{
-  margin-left: 0;
-  margin-top: 30px;
-  margin-bottom: 18px;
-
+  .draftContainer.drafInfo .cardDraft .d-flex.line-right.flex-column {
+    align-items: center;
+  }
 }
-
-.draftContainer.drafInfo .cardDraft .d-flex.line-right.flex-column  {
-  align-items: center;
-}
-
-}
-
-

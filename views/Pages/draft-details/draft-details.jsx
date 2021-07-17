@@ -64,6 +64,9 @@ class DraftDetailsInfo extends Component {
   constructor() {
     super();
     moment.locale(localStorage.getItem('LANG') || 'ar');
+
+    this.jobRef = React.createRef();
+
     this.state = {
       activeTab: '1',
       draft: {
@@ -99,13 +102,23 @@ class DraftDetailsInfo extends Component {
       stars: 1,
 
       // job
-      legalCapacity: '',
-      city: '',
-      investmentField: ''
+      allLegalCapacity: null,
+      allCity: null,
+      allInvestmentField: null,
+      selectedLegalCapacity: null,
+      selectedCity: null,
+      selectedInvestmentField: null,
+
+      // commentType
+      comtype: 1,
+
+      // editor
+      editorState: EditorState.createEmpty(),
+      legalCapError: false
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getDraft();
     // this.getComments();
     this.isFollowed();
@@ -113,6 +126,10 @@ class DraftDetailsInfo extends Component {
     Events.scrollEvent.register('begin', function() {});
 
     Events.scrollEvent.register('end', function() {});
+
+    this.setState({ allLegalCapacity: await this.getLegalCapacity() });
+    this.setState({ allCity: await this.getCity() });
+    this.setState({ allInvestmentField: await this.getInvestmentField() });
   }
 
   getIsFlagged = async () => {
@@ -463,6 +480,47 @@ class DraftDetailsInfo extends Component {
     }
   };
 
+  saveDraftComment = async id => {
+    if (!this.state.editorState.getCurrentContent().hasText()) {
+      alert('type a comment plz');
+    } else if (
+      !this.state.selectedLegalCapacity ||
+      !this.state.selectedCity ||
+      (this.state.selectedLegalCapacity === 65 &&
+        !this.state.selectedInvestmentField)
+    ) {
+      this.jobRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      this.setState({ legalCapError: true });
+    } else {
+      const data = {
+        entity_id: [{ target_id: id }],
+        subject: [{ value: '' }],
+        comment_body: [
+          {
+            value: draftToHtml(
+              convertToRaw(this.state.editorState.getCurrentContent())
+            )
+          }
+        ],
+        field_legal_capacity: this.state.selectedLegalCapacity,
+        field_city: this.state.selectedCity,
+        field_investment_field: this.state.selectedInvestmentField,
+        field_draft_opinion: this.state.stars
+        // comment_type: commentType
+      };
+      const response = await Api.post(
+        `/qarar_api/post-comment?_format=json`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${this.props.accessToken}` }
+        }
+      );
+    }
+  };
+
   vote = async (type, id) => {
     const { uid, accessToken, openArticle } = this.props;
     if (!uid || !openArticle) return;
@@ -663,14 +721,7 @@ class DraftDetailsInfo extends Component {
                         smooth
                         duration={500}
                       >
-                        <Button
-                          color="primary"
-                          // onClick={() =>
-                          //   this.setState({
-                          //     shareIdeasModalOpen: true
-                          //   })
-                          // }
-                        >
+                        <Button color="primary">
                           {translate('draftDetails.shareIdeas')}
                           <img
                             dir={translate('dir')}
@@ -678,20 +729,6 @@ class DraftDetailsInfo extends Component {
                             alt=""
                           />
                         </Button>
-
-                        {/*<Button*/}
-                        {/*  className="btn-inline-block"*/}
-                        {/*  color="secondary"*/}
-                        {/*  size="lg"*/}
-                        {/*  onClick={() =>*/}
-                        {/*    this.setState({*/}
-                        {/*      modalOpen: true,*/}
-                        {/*      selectedSubject: item.nid*/}
-                        {/*    })*/}
-                        {/*  }*/}
-                        {/*>*/}
-                        {/*  {translate('draftDetails.participate')}*/}
-                        {/*</Button>*/}
                       </ScrollLink>
                       {uid && (
                         <Button
@@ -838,210 +875,193 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
-            {(draft.most_featured_items?.length ||
-              draft.most_featured_users?.length ||
-              Object.values(draft.voting_percentage).some(
-                el => el !== '0%'
-              )) && (
-              <Card className="cardDraft">
-                <CardHeader>{translate('draftDetails.charts')}</CardHeader>
-                <CardBody>
-                  <Row className="qcharts">
-                    {draft.voting_percentage?.length > 0 && (
-                      <Col
-                        md="4"
-                        className="qchart flex flex-1 f-column max-100"
+            <Card className="cardDraft">
+              <CardHeader>{translate('draftDetails.charts')}</CardHeader>
+              <CardBody>
+                <Row className="qcharts">
+                  {Object.keys(draft.voting_percentage).length > 0 && (
+                    <Col md="4" className="qchart flex flex-1 f-column max-100">
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
                       >
-                        <p
-                          style={{
-                            color: '#81BD41',
-                            fontWeight: 'bold',
-                            lineHeight: '16px'
-                          }}
-                        >
-                          {translate('draftDetails.chartTitle')}
-                        </p>
-                        <Row>
-                          <Col md="6">
-                            <div>
-                              {[
-                                {
-                                  name: translate('draftDetails.chartTypeOne'),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  name: translate('draftDetails.chartTypeTwo'),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  name: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  name: translate('draftDetails.chartTypeFour'),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  name: translate('draftDetails.chartTypeFive'),
-                                  color: '#FF4A4A'
-                                }
-                              ].map(val => (
-                                <div className="d-flex flex-row align-items-center">
-                                  <span
-                                    style={{
-                                      backgroundColor: val.color,
-                                      height: '20px',
-                                      width: '20px',
-                                      borderRadius: '50%',
-                                      display: 'inline-block'
-                                    }}
-                                  />
-                                  <p
-                                    style={{
-                                      margin: '0 10px 0 10px',
-                                      color: '#006C68'
-                                    }}
-                                  >
-                                    {val.name}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </Col>
-                          <Col md="6" className="qpiechart">
-                            <PieChart
-                              data={[
-                                {
-                                  title: translate('draftDetails.chartTypeOne'),
-                                  value: parseInt(
-                                    draft.voting_percentage[5].replace('%', '')
-                                  ),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  title: translate('draftDetails.chartTypeTwo'),
-                                  value: parseInt(
-                                    draft.voting_percentage[4].replace('%', '')
-                                  ),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[3].replace('%', '')
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFour'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[2].replace('%', '')
-                                  ),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFive'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[1].replace('%', '')
-                                  ),
-                                  color: '#FF4A4A'
-                                }
-                              ]}
-                            />
-                          </Col>
-                        </Row>
-                      </Col>
-                    )}
-                    {draft.most_featured_items?.length > 0 && (
-                      <Col
-                        md="4"
-                        className={
-                          'qchart flex flex-1 f-column max-100' +
-                          (draft.voting_percentage?.length > 0
-                            ? 'border-right-line'
-                            : '')
-                        }
-                        dir={translate('dir')}
-                      >
-                        <p
-                          style={{
-                            color: '#81BD41',
-                            fontWeight: 'bold',
-                            lineHeight: '16px'
-                          }}
-                        >
-                          {translate('draftDetails.mostDrafts')}
-                        </p>
-
-                        <Row>
-                          {draft.most_featured_items?.map(el => (
-                            <Col md="12" className="p-2 featured-article">
-                              <div className="featured-article-card">
-                                <p className="featured-article-card-name">
-                                  {el.title}
-                                </p>
-                                <span className="featured-article-card-points">
-                                  {el.comment_count}{' '}
-                                  {translate('draftDetails.points')}
-                                </span>
-                              </div>
-                            </Col>
-                          ))}
-                        </Row>
-                      </Col>
-                    )}
-                    {draft.most_featured_users?.length > 0 && (
-                      <Col
-                        md="4"
-                        className="qchart border-right-line flex flex-1 f-column max-100"
-                        dir={translate('dir')}
-                      >
-                        <p
-                          style={{
-                            color: '#81BD41',
-                            fontWeight: 'bold',
-                            lineHeight: '16px'
-                          }}
-                        >
-                          {translate('draftDetails.mostVoted')}
-                        </p>
-                        <Row>
-                          {draft.most_featured_users?.map(el => (
-                            <div className="p-2 flex-1">
-                              <div className="user-card">
-                                <img
-                                  src={
-                                    el.user_picture
-                                      ? `${el.user_picture}`
-                                      : '/static/img/Group 991.svg'
-                                  }
+                        {translate('draftDetails.chartTitle')}
+                      </p>
+                      <Row>
+                        <Col md="6">
+                          <div>
+                            {[
+                              {
+                                name: translate('draftDetails.chartTypeOne'),
+                                color: '#81BD41'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeTwo'),
+                                color: '#40C2CC'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeThree'),
+                                color: '#006C68'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFour'),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFive'),
+                                color: '#FF4A4A'
+                              }
+                            ].map(val => (
+                              <div className="d-flex flex-row align-items-center">
+                                <span
+                                  style={{
+                                    backgroundColor: val.color,
+                                    height: '20px',
+                                    width: '20px',
+                                    borderRadius: '50%',
+                                    display: 'inline-block'
+                                  }}
                                 />
-                                <p className="user-card-name">
-                                  {el.name || 'مجهول'}
+                                <p
+                                  style={{
+                                    margin: '0 10px 0 10px',
+                                    color: '#006C68'
+                                  }}
+                                >
+                                  {val.name}
                                 </p>
-                                <span className="user-card-points">
-                                  {el.comment_count}{' '}
-                                  {translate('draftDetails.points')}
-                                </span>
                               </div>
+                            ))}
+                          </div>
+                        </Col>
+                        <Col md="6" className="qpiechart">
+                          <PieChart
+                            data={[
+                              {
+                                title: translate('draftDetails.chartTypeOne'),
+                                value: parseInt(
+                                  draft.voting_percentage[5].replace('%', '')
+                                ),
+                                color: '#81BD41'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeTwo'),
+                                value: parseInt(
+                                  draft.voting_percentage[4].replace('%', '')
+                                ),
+                                color: '#40C2CC'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeThree'),
+                                value: parseInt(
+                                  draft.voting_percentage[3].replace('%', '')
+                                ),
+                                color: '#006C68'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFour'),
+                                value: parseInt(
+                                  draft.voting_percentage[2].replace('%', '')
+                                ),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFive'),
+                                value: parseInt(
+                                  draft.voting_percentage[1].replace('%', '')
+                                ),
+                                color: '#FF4A4A'
+                              }
+                            ]}
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  )}
+                  {draft.most_featured_items?.length > 0 && (
+                    <Col
+                      md="4"
+                      className={
+                        'qchart flex flex-1 f-column max-100' +
+                        (draft.voting_percentage?.length > 0
+                          ? 'border-right-line'
+                          : '')
+                      }
+                      dir={translate('dir')}
+                    >
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
+                      >
+                        {translate('draftDetails.mostDrafts')}
+                      </p>
+
+                      <Row>
+                        {draft.most_featured_items?.map(el => (
+                          <Col md="12" className="p-2 featured-article">
+                            <div className="featured-article-card">
+                              <p className="featured-article-card-name">
+                                {el.title}
+                              </p>
+                              <span className="featured-article-card-points">
+                                {el.comment_count}{' '}
+                                {translate('draftDetails.points')}
+                              </span>
                             </div>
-                          ))}
-                        </Row>
-                      </Col>
-                    )}
-                  </Row>
-                </CardBody>
-              </Card>
-            )}
-            {console.log('draft is ', draft)}
+                          </Col>
+                        ))}
+                      </Row>
+                    </Col>
+                  )}
+                  {draft.most_featured_users?.length > 0 && (
+                    <Col
+                      md="4"
+                      className="qchart border-right-line flex flex-1 f-column max-100"
+                      dir={translate('dir')}
+                    >
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
+                      >
+                        {translate('draftDetails.mostVoted')}
+                      </p>
+                      <Row>
+                        {draft.most_featured_users?.map(el => (
+                          <div className="p-2 flex-1">
+                            <div className="user-card">
+                              <img
+                                src={
+                                  el.user_picture
+                                    ? `${el.user_picture}`
+                                    : '/static/img/Group 991.svg'
+                                }
+                              />
+                              <p className="user-card-name">
+                                {el.name || 'مجهول'}
+                              </p>
+                              <span className="user-card-points">
+                                {el.comment_count}{' '}
+                                {translate('draftDetails.points')}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </Row>
+                    </Col>
+                  )}
+                </Row>
+              </CardBody>
+            </Card>
+
             {draft?.related_project ? (
               <Card className="cardDraft">
                 <CardBody>
@@ -1050,29 +1070,6 @@ class DraftDetailsInfo extends Component {
               </Card>
             ) : null}
             <div className="draftInfoShare d-flex justify-content-between mb-4">
-              {/* <div className="shareInfoRight">
-                {items && (
-                  <>
-                    {' '}
-                    <Button
-                      onClick={() => {
-                        items.map(item => this.setState({ [item.nid]: true }));
-                      }}
-                    >
-                      <span>+</span>
-                      {translate('draftDetails.openAll')}
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        items.map(item => this.setState({ [item.nid]: false }));
-                      }}
-                    >
-                      <span>-</span>
-                      {translate('draftDetails.closeAll')}
-                    </Button>
-                  </>
-                )}
-              </div> */}
               <div className="shareInfoLeft d-flex align-items-center">
                 <p>{translate('draftDetails.shareDraft')}</p>
                 <LinkedinShareButton url={window && window.location}>
@@ -1087,6 +1084,30 @@ class DraftDetailsInfo extends Component {
               </div>
             </div>
             <div>
+              <div className="job" ref={this.jobRef}>
+                {this.state.legalCapError && (
+                  <p className="error">
+                    {translate('draftDetails.plzPickLegalCapacity')}
+                  </p>
+                )}
+                <h4>
+                  {translate('draftDetails.shareIdeasModal.legalCapacity')}
+                </h4>
+                <Job
+                  allLegalCapacity={this.state.allLegalCapacity}
+                  allCity={this.state.allCity}
+                  allInvestmentField={this.state.allInvestmentField}
+                  selectLegalCapacity={val => {
+                    this.setState({ selectedLegalCapacity: val });
+                  }}
+                  selectCity={val => {
+                    this.setState({ selectedCity: val });
+                  }}
+                  selectInvestmentField={val => {
+                    this.setState({ selectedInvestmentField: val });
+                  }}
+                ></Job>
+              </div>
               <h4> {translate('draftDetails.votable')}</h4>
               {under_voting_items &&
                 under_voting_items.map(item =>
@@ -1100,121 +1121,19 @@ class DraftDetailsInfo extends Component {
                   this.subjectsList(item, openArticle, uid, false)
                 )}
             </div>
-            {/* <Element name="test1" className="element">
-              {!uid ? (
-                <div className="draftShouldLogin d-flex flex-column">
-                  <img src="/static/img/interactive/disabled.svg" alt="" />
-                  <h4>{translate('draftDetails.loginComment')}</h4>
-                  <Link href="/login">
-                    <Button>
-                      {translate('draftDetails.login')}
 
-                      <img
-                        dir={translate('dir')}
-                        src="/static/img/interactive/btnArrow3.svg"
-                        alt=""
-                      />
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <a>{translate('draftDetails.createAccount')}</a>
-                  </Link>
-                </div>
-              ) : (
-                <>
-                  <div>
-                    {successComment && (
-                      <Alert color="success">
-                        {translate('draftDetails.commentAdded')}
-                      </Alert>
-                    )}
-                    {errorComment && (
-                      <Alert color="danger">{errorComment}</Alert>
-                    )}
-                    {openArticle ? (
-                      <Editor
-                        placeholder="اضف تعليقك هنا"
-                        toolbar={{
-                          options: ['inline', 'image'], // This is where you can specify what options you need in
-                          // the toolbar and appears in the same order as specified
-                          inline: {
-                            options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                            // strikethrough, 'monospace', 'superscript', 'subscript'
-                          },
-                          image: {
-                            alignmentEnabled: false,
-                            uploadCallback: this.UploadImageCallBack,
-                            alt: { present: true, mandatory: false },
-                            previewImage: true
-                          }
-                        }}
-                        editorState={editorState}
-                        wrapperClassName="demo-wrapper"
-                        editorClassName="demo-editor"
-                        onEditorStateChange={this.onEditorStateChange}
-                      />
-                    ) : (
-                      <Alert color="success">
-                        {translate('draftDetails.commentStoped')}
-                      </Alert>
-                    )}
-                  </div>
-                  {openArticle && (
-                    <div className="commentsBtn d-flex justify-content-end align-items-center">
-                      <a href="">
-                        {translate('draftDetails.conditionsParticipation')}
-                      </a>
-                      <Button onClick={this.saveComment}>
-                        {translate('draftDetails.addComment')}
-                        <img
-                          dir={translate('dir')}
-                          src="/static/img/interactive/whiteArrow.svg"
-                          alt=""
-                        />
-                      </Button>
-                    </div>
-                  )}
-                </>
-              )}
-            </Element> */}
-
-            <div className="collapseDraftCard draftNewComments">
-              <ArticleComment
-                enableCommentForm={false}
-                enableVote={openArticle}
-                likeComment={this.likeComment}
-                dislikeComment={this.dislikeComment}
-                itemId={draft.id}
-                draft={draft}
-              />
-
-              {/* comments.map(comment => (
-                <div
-                  key={comment.cid}
-                  className="insideComment d-flex align-items-start"
-                >
-                  <img
-                    src={
-                      comment.owner_image || '/static/img/interactive/user.svg'
-                    }
-                    alt=""
-                    className="avatarUser"
-                  />
-                  <div className="mr-auto ml-0">
-                    <h5>{comment.full_name}</h5>
-                    <p>{renderHTML(comment.comment_body || '')}</p>
-                  </div>
-                  <div className="d-flex flex-row likeDiv">
-                    <span>{comment.likes}</span>
-                    <img
-                      onClick={() => this.likeComment(comment.cid)}
-                      src="/static/img/interactive/bluelikeActive.svg"
-                      alt=""
-                      className="likeImg"
-                    />
-                  </div>
-                </div>
-                  )) */}
+            <div className="artcomments">
+              <h4>{translate('draftDetails.comments')}</h4>
+              <div className="collapseDraftCard draftNewComments">
+                <ArticleComment
+                  enableCommentForm={false}
+                  enableVote={openArticle}
+                  likeComment={this.likeComment}
+                  dislikeComment={this.dislikeComment}
+                  itemId={draft.id}
+                  draft={draft}
+                />
+              </div>
             </div>
           </Container>
         </div>
@@ -1299,27 +1218,34 @@ class DraftDetailsInfo extends Component {
             <Col md="12" className="draftBodyRt">
               <p>{renderHTML(item.body_value || '').substring(0, 310)} ...</p>
               {/* form */}
-              <Rate
-                setStars={val => {
-                  this.setState({ stars: val });
-                }}
-              ></Rate>
-              <Job
-                setLegalCapacity={val => {
-                  this.setState({ legalCapacity: val });
-                }}
-                setCity={val => {
-                  this.setState({ city: val });
-                }}
-                setInvestmentField={val => {
-                  this.setState({ investmentField: val });
-                }}
-              ></Job>
-              {this.state.city}/{this.state.legalCapacity}/
-              {this.state.investmentField}
-              {/*<CommentType></CommentType>
-              <AddComment></AddComment> */}
-              {/*  */}
+              <div className="addCommentForm">
+                <Rate
+                  setStars={val => {
+                    this.setState({ stars: val });
+                  }}
+                ></Rate>
+                <CommentType
+                  type={this.state.comtype}
+                  setType={val => this.setState({ comtype: val })}
+                ></CommentType>
+                <AddComment
+                  setEditorState={val => this.setState({ editorState: val })}
+                ></AddComment>
+
+                <Button
+                  className="button-comment w-min mr-0 ml-auto flex flex-end"
+                  onClick={() => this.saveDraftComment(item.nid)}
+                >
+                  {translate('draftDetails.shareIdeasModal.stepFourComment')}
+                  <img
+                    dir={translate('dir')}
+                    src="/static/img/interactive/whiteArrow.svg"
+                    alt=""
+                  />
+                </Button>
+              </div>
+
+              {/* files and more */}
               <Link href={`/draft-details-info/${item.nid}`}>
                 <Button
                   className="btn-inline-block"

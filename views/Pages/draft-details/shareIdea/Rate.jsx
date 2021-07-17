@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { translate } from '../../../../utlis/translation';
 
+import './shareIdea.css';
+
 const Rate = props => {
   const [stars, setStars] = useState(1);
   const [hoverIndex, setHoverIndex] = useState(1);
@@ -14,7 +16,7 @@ const Rate = props => {
         padding: '0 30px 0 30px'
       }}
     >
-      <h4>{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
+      <h4 className="">{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
       <div
         className="action-items-modal"
         onMouseLeave={e => setHoverIndex(stars)}

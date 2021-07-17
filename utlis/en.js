@@ -385,6 +385,7 @@ export const en = {
   },
   draftDetails: {
     decisions: 'Decisions',
+    plzPickLegalCapacity: 'please enter legal capacity',
     drafts: 'legislation',
     voteClosed: 'Voting closed on',
     application: 'Applied on',
@@ -395,6 +396,7 @@ export const en = {
     user: 'User',
     comment: 'Comment',
     vote: 'Vote',
+    generalVote: 'Vote',
     createDate: 'Create Date',
     closeDate: 'Date of closing the legislation and discussion',
     attachments: 'Attachments',
@@ -423,6 +425,7 @@ export const en = {
     commentAdded:
       ' Comment has been added pending the approval of the site administration',
     commentStoped: 'Comments have been stopped',
+    comments: 'comments',
     conditionsParticipation: 'Joining Conditions',
     addComment: 'Add your comment',
     positive: 'Positive',

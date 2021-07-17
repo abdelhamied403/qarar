@@ -650,3 +650,19 @@
   margin-bottom: 0;
   font-size: 12px;
 }
+
+.addCommentForm {
+  margin: 80px 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.error {
+  color: red;
+}
+
+.artcomments {
+  margin-top: 60px;
+}

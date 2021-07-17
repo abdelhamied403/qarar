@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { translate } from '../../../../utlis/translation';
+import dynamic from 'next/dynamic';
+
+const Editor = dynamic(
+  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
+  { ssr: false }
+);
 
 const AddComment = props => {
+  const [editorState, setEditorState] = useState();
+
   return (
     <div style={{ display: 'flex', flexFlow: 'column' }}>
       <Editor
@@ -22,19 +31,11 @@ const AddComment = props => {
         editorState={editorState}
         wrapperClassName="demo-wrapper"
         editorClassName="editor-class"
-        onEditorStateChange={setEditorState}
+        onEditorStateChange={val => {
+          props.setEditorState(val);
+          setEditorState(val);
+        }}
       />
-      <Button
-        className="button-comment w-min mr-0 ml-auto flex flex-end"
-        onClick={() => saveComment()}
-      >
-        {translate('draftDetails.shareIdeasModal.stepFourComment')}
-        <img
-          dir={translate('dir')}
-          src="/static/img/interactive/whiteArrow.svg"
-          alt=""
-        />
-      </Button>
     </div>
   );
 };
