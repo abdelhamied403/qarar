@@ -740,7 +740,6 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
-
       <section className="blogger">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
@@ -855,22 +854,6 @@ const Landing = () => {
               </Col>
             </Row>
           </>
-          {/* {news.map(newsItem => (
-              <Col key={newsItem.id} xs="12" md="6" lg="4">
-                <CardBlog
-                  image={newsItem.image}
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                  tagId={newsItem.tags.length > 0 && newsItem.tags[0].id}
-                  blogId={newsItem.id}
-                  header={newsItem.title}
-                  date={moment(newsItem.creatednode * 1000).format(
-                    'DD/MM/YYYY'
-                  )}
-                  content={newsItem.body.substr(0, 60)}
-                  tag={newsItem.tags.length > 0 && newsItem.tags[0].name}
-                />
-              </Col>
-            ))} */}
           <div className="text-center">
             <Link href="/news">
               <Button outline color="primary" size="md">

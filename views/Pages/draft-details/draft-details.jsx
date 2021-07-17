@@ -1216,7 +1216,7 @@ class DraftDetailsInfo extends Component {
         >
           <Row className="mt-3">
             <Col md="12" className="draftBodyRt">
-              <p>{renderHTML(item.body_value || '').substring(0, 310)} ...</p>
+              <p>{renderHTML(item.body_value.substring(0, 310) || '')}</p>
               {/* form */}
               <div className="addCommentForm">
                 <Rate
