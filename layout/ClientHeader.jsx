@@ -161,7 +161,7 @@ class ClientHeader extends React.Component {
     let token = JSON.parse(JSON.parse(localStorage['persist:primary']).auth)
       .accessToken;
     return await axios.get(
-      'http://qarar-backend.sharedt.com/qarar_api/hide-lang',
+      'https://qarar-backend.sharedt.com/qarar_api/hide-lang',
       { headers: { Authorization: `Bearer ${token}` } }
     );
   }
@@ -269,23 +269,6 @@ class ClientHeader extends React.Component {
                     </Link>
                   </NavItem>
                   <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
-                    <DropdownToggle
-                      nav
-                      caret
-                      active={router.pathname === '/drafts'}
-                    >
-                      {translate('decisions')}
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem href="/decisions-library">
-                        {translate('header.navBar.libQara')}
-                      </DropdownItem>
-                      {/* <DropdownItem href="/decisions">
-                        {translate('header.navBar.updatedQarar')}
-                      </DropdownItem> */}
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
                     <DropdownToggle nav caret>
                       {translate('header.navBar.drafts')}
                     </DropdownToggle>
@@ -298,6 +281,9 @@ class ClientHeader extends React.Component {
                       </DropdownItem>
                       <DropdownItem href="/archived-drafts">
                         {translate('header.navBar.archievedDraft')}
+                      </DropdownItem>
+                      <DropdownItem href="/decisions-library">
+                        {translate('header.navBar.libQara')}
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>

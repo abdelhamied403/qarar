@@ -14,6 +14,9 @@ import moment from 'moment';
 import UpdatedItemsModal from './updatedModalItems';
 
 import Api from '../../../api';
+import axios from 'axios';
+
+import './homeChart.css';
 
 const colors = [
   '#ee5253',
@@ -75,6 +78,7 @@ const Landing = () => {
   const [dislikePercentage, setDislikePercentage] = useState(0);
   const [cityPercentage, setCityPercentage] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [satPercentages, setSatPercentages] = useState(null);
   const getActiveUsers = async () => {
     const userAAResponse = await Api.get(
       '/qarar_api/top/10/user/awards?_format=json'
@@ -185,6 +189,19 @@ const Landing = () => {
       setCityPercentage(response.data.data);
     }
   };
+
+  const getSatPercents = () => {
+    axios
+      .get('https://qarar-backend.sharedt.com/qarar_api/all-drafts-avg')
+      .then(res => {
+        setSatPercentages(Object.values(res.data));
+        console.log('satPercentages', Object.values(res.data));
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  };
+
   useEffect(() => {
     getActiveUsers();
     getUserCount();
@@ -195,6 +212,7 @@ const Landing = () => {
     getAbout();
     getLikesPercentage();
     getCityData();
+    getSatPercents();
   }, []);
   return (
     <div className="rtl newUILanding">
@@ -386,7 +404,12 @@ const Landing = () => {
       <section className="activities green">
         <Container>
           <Row>
-            <Col xs="12" md="6" lg="6">
+            <Col
+              className="flex flex-column justify-center"
+              xs="12"
+              md="6"
+              lg="6"
+            >
               <h2 className="header">
                 {translate('landingPage.recentlyDrafts')}
               </h2>
@@ -491,52 +514,111 @@ const Landing = () => {
             </Col>
 
             <Col xs="12" md="6" lg="6" className="chart-section">
-              <h2 className="header">
-                {translate('landingPage.admirationPercentage')}
-              </h2>
-              <div className="chart">
-                {/* <Media
-                  className="chart-image"
-                  object
-                  src="/static/img/interactive/pie-chart.svg"
-                /> */}
-                <PieChart
-                  data={[
-                    {
-                      title: 'One',
-                      value: parseInt(likePercentage, 10),
-                      color: '#85bd48'
-                    },
-                    {
-                      title: 'Two',
-                      value: parseInt(dislikePercentage, 10),
-                      color: '#07706d'
-                    }
-                  ]}
-                />
+              <div className="satisfaction">
+                {/* satisfaction percentage charts */}
+                <Container className="homeChartContainer">
+                  <h2 className="header">{translate('draftDetails.vote')}</h2>
 
-                <div className="chart-item">
-                  <Media
-                    className="chart-icon"
-                    object
-                    src="/static/img/interactive/like.svg"
-                  />
-                  <div>
-                    <h3 style={{ color: '#85bd48' }}>{likePercentage}%</h3>
-                    <h5>{translate('landingPage.likes')}</h5>
-                  </div>
-                </div>
-                <div className="chart-item">
-                  <Media
-                    className="chart-icon"
-                    object
-                    src="/static/img/interactive/unlike.svg"
-                  />
-                  <div>
-                    <h3>{dislikePercentage}%</h3>
-                    <h4>{translate('landingPage.dislikes')}</h4>
-                  </div>
-                </div>
+                  <Row>
+                    <Col md="4">
+                      <div>
+                        {[
+                          {
+                            name: translate('draftDetails.chartTypeOne'),
+                            color: '#81BD41'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeTwo'),
+                            color: '#40C2CC'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeThree'),
+                            color: '#006C68'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeFour'),
+                            color: '#F3F3F3'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeFive'),
+                            color: '#FF4A4A'
+                          }
+                        ].map(val => (
+                          <div className="d-flex flex-row align-items-center">
+                            <span
+                              style={{
+                                backgroundColor: val.color,
+                                height: '20px',
+                                width: '20px',
+                                borderRadius: '50%',
+                                display: 'inline-block'
+                              }}
+                            />
+                            <p
+                              style={{
+                                margin: '0 10px 0 10px',
+                                color: '#006C68'
+                              }}
+                            >
+                              {val.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </Col>
+                    <Col md="8" className="satpiechart">
+                      <PieChart
+                        data={[
+                          {
+                            title: translate('draftDetails.chartTypeOne'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[4].replace('%', '')
+                                : 0
+                            ),
+                            color: '#81BD41'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeTwo'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[3].replace('%', '')
+                                : 0
+                            ),
+                            color: '#40C2CC'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeThree'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[2].replace('%', '')
+                                : 0
+                            ),
+                            color: '#006C68'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeFour'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[1].replace('%', '')
+                                : 0
+                            ),
+                            color: '#F3F3F3'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeFive'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[0].replace('%', '')
+                                : 0
+                            ),
+                            color: '#FF4A4A'
+                          }
+                        ]}
+                      />
+                    </Col>
+                  </Row>
+                </Container>
               </div>
             </Col>
           </Row>
@@ -658,6 +740,7 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
+
       <section className="blogger">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
@@ -667,7 +750,7 @@ const Landing = () => {
                 onClick={() => setActiveBtnNews(0)}
                 className={activeBtnNews === 0 ? 'active' : ''}
               >
-                {translate('landingPage.laعنوان هناااااااNews')}
+                {translate('landingPage.latestNews')}
               </Button>
               <Button
                 onClick={() => setActiveBtnNews(1)}

@@ -173,7 +173,7 @@ class UserInfo extends Component {
                 <Card>
                   <CardBody className="card-not">
                     <div className="flex flex-justifiy-sp m-25-b">
-                      <h6 className="sub-header">مسودات تم التصويت عليها</h6>
+                      <h6 className="sub-header">تشريعات تم التصويت عليها</h6>
                       <Link href="/">
                         <Button color="primary" outline>
                           عرض الكل

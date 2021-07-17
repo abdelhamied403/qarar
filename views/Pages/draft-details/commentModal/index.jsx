@@ -10,7 +10,6 @@ import {
 
 const CommentModal = ({ modal, toggle, cid, saveComment }) => {
   const [inputValue, setInputValue] = useState(null);
-
   return (
     <Modal
       isOpen={modal}
@@ -31,13 +30,34 @@ const CommentModal = ({ modal, toggle, cid, saveComment }) => {
         </div>
       </ModalHeader>
       <ModalBody>
-        <Input onChange={e => setInputValue(e.target.value)}></Input>
+        <div
+          className=""
+          style={{
+            display: 'flex',
+            height: '150px'
+          }}
+        >
+          <div
+            className="input"
+            style={{
+              width: '100%'
+            }}
+          >
+            <textarea
+              onChange={e => setInputValue(e.target.value)}
+              style={{
+                height: '100%'
+              }}
+            ></textarea>
+          </div>
+        </div>
       </ModalBody>
       <ModalFooter>
         <Button
           color="primary"
           onClick={() => {
             saveComment(cid, inputValue);
+            toggle();
           }}
         >
           اضف تعليق

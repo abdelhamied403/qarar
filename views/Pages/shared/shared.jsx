@@ -80,7 +80,7 @@ class Shared extends Component {
             <Card>
               <CardBody className="card-not">
                 <div className="flex flex-justifiy-sp m-50-b">
-                  <h6>المسودات التي قمت بالتصويت عليها</h6>
+                  <h6>التشريعات التي قمت بالتصويت عليها</h6>
                   <Link href="/me/shared">
                     <a color="primary">عرض الكل</a>
                   </Link>
@@ -99,7 +99,7 @@ class Shared extends Component {
             <Card>
               <CardBody className="card-not">
                 <div className="flex flex-justifiy-sp m-50-b">
-                  <h6>المسودات التي قمت بالتعليق عليها</h6>
+                  <h6>التشريعات التي قمت بالتعليق عليها</h6>
                   <Link href="/me/shared">
                     <a color="primary">عرض الكل</a>
                   </Link>

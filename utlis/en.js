@@ -25,16 +25,16 @@ export const en = {
       logout: 'Logout',
       libQara: 'Decisions Library',
       updatedQarar: 'Modified Decisions',
-      drafts: 'Drafts',
-      votingDrafts: 'Drafts Under Vote',
-      appliedVoting: 'Applied Drafts',
-      archievedDraft: 'Archived Drafts'
+      drafts: 'legislation',
+      votingDrafts: 'legislation Under Vote',
+      appliedVoting: 'Applied legislation',
+      archievedDraft: 'Archived legislation'
     }
   },
   loginPage: {
     title: 'Log in',
     description:
-      'Log in to get a summary of developments related to all of your drafts and projects you follow',
+      'Log in to get a summary of developments related to all of your legislation and projects you follow',
     userName: 'Username',
     password: 'Password',
     passwordPlaceholder: 'Enter your password',
@@ -94,18 +94,18 @@ export const en = {
     decisionMaking: 'Participate in Decision Making',
     speakUp: 'Speak Up',
     createAccount: 'Create an Account',
-    voteForDraft: 'Vote for the draft that concerns you',
-    draftDiscuss: 'The draft is discussed',
-    draftDecision: 'The decision is made on the draft',
+    voteForDraft: 'Vote for the legislation that concerns you',
+    draftDiscuss: 'The legislation is discussed',
+    draftDecision: 'The decision is made on the legislation',
 
     aboutQarar: 'About Qarar',
     more: 'More',
     update: 'update',
-    showDraft: 'Show Draft',
+    showDraft: 'Show legislation',
 
-    recentlyDrafts: 'Recently Published Drafts',
+    recentlyDrafts: 'Recently Published legislations',
     recentlyQarars: 'Recently Published Decisions',
-    allDrafts: 'All Drafts',
+    allDrafts: 'All legislations',
     allQarars: 'All Decisions',
     votingCloses: 'Voting closes on',
 
@@ -119,7 +119,7 @@ export const en = {
     influential: 'Who is the most influential?',
     point: 'point',
     users: 'Platform users',
-    draftDiscussed: 'Draft discussed',
+    draftDiscussed: 'legislation discussed',
 
     participantsGeographical: 'Participants Geographical Distribution',
 
@@ -129,22 +129,22 @@ export const en = {
     allNews: 'All News',
 
     opinion: 'Your opinion matters to us .. Your voice matters to us',
-    exploreDrafts: 'Explore the drafts list',
+    exploreDrafts: 'Explore the legislation list',
     login: 'Login',
 
     libQara: 'Decisions Library',
     updatedQarar: 'Updated decisions',
-    drafts: 'Drafts',
-    votingDrafts: 'Voting Drafts',
-    appliedVoting: 'Applied Drafts',
-    archievedDraft: 'Archived Drafts'
+    drafts: 'legislation',
+    votingDrafts: 'Voting legislation',
+    appliedVoting: 'Applied legislation',
+    archievedDraft: 'Archived legislation'
   },
   aboutQararPage: {
     title: 'About The "Qarar" Platform',
     description:
       'The "Qarar" platform is an innovative electronic platform that aims to' +
       ' obtain community support in discussing regulations and legislation, by' +
-      ' helping them to formulate appropriate draft regulations and legislation' +
+      ' helping them to formulate appropriate legislation regulations and legislation' +
       ' before implementing them, by knowing the opinions and attitudes of the general' +
       ' community towards them, making them more effective in achieving the desired goals,' +
       ' and more. Getting acquainted with the various points of view that can be taken into' +
@@ -160,7 +160,7 @@ export const en = {
       ' when implemented, especially since the Kingdom now ranks 44th in The' +
       ' United Nations Index of Online Community Participation in the Drafting' +
       ' of Regulations. In this context, it is worth noting the noble royal decree' +
-      ' issued on 11/30/1438 AH to discuss draft regulations with the general community,' +
+      ' issued on 11/30/1438 AH to discuss legislation regulations with the general community,' +
       " as a practical step to raise the Kingdom's ranking in the indicator of community" +
       ' participation in the formulation of decisions at the global level.',
     importanceDescriptionTwo:
@@ -199,7 +199,7 @@ export const en = {
     classification: 'Main classification',
     choose: 'Choose',
     subClassification: 'Sub-classification',
-    decisionOptionOne: 'Draft complete system',
+    decisionOptionOne: 'legislation complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
     subtractionOptionOne: 'Newly introduced',
@@ -218,7 +218,7 @@ export const en = {
   draftsPage: {
     title: 'Decisions Library',
     decisionType: 'Type of decision',
-    decisionOptionOne: 'Draft complete system',
+    decisionOptionOne: 'legislation complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
     subtractionOptionOne: 'Newly introduced',
@@ -235,9 +235,9 @@ export const en = {
     archivedDecisions: 'Archived Decisions'
   },
   draftsUnderVotePage: {
-    title: 'Drafts Under Vote',
-    decisionType: 'Type of draft',
-    decisionOptionOne: 'Draft complete system',
+    title: 'legislations Under Vote',
+    decisionType: 'Type of legislation',
+    decisionOptionOne: 'legislation complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
     subtractionOptionOne: 'Newly introduced',
@@ -254,9 +254,9 @@ export const en = {
     archivedDecisions: 'Archived Decisions'
   },
   draftsAppliedPage: {
-    title: 'Applied Drafts',
-    decisionType: 'Type of draft',
-    decisionOptionOne: 'Draft complete system',
+    title: 'Applied legislation',
+    decisionType: 'Type of legislation',
+    decisionOptionOne: 'legislation complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
     subtractionOptionOne: 'Newly introduced',
@@ -273,9 +273,9 @@ export const en = {
     archivedDecisions: 'Archived Decisions'
   },
   archivedDraftsPage: {
-    title: 'Archived Drafts',
-    decisionType: 'Type of draft',
-    decisionOptionOne: 'Draft complete system',
+    title: 'Archived legislations',
+    decisionType: 'Type of legislation',
+    decisionOptionOne: 'legislation complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
     subtractionOptionOne: 'Newly introduced',
@@ -296,7 +296,7 @@ export const en = {
     decisionType: 'Type of decision',
     classification: 'Main classification',
     subClassification: 'Sub-classification',
-    decisionOptionOne: 'Draft complete system',
+    decisionOptionOne: 'legislation complete system',
     decisionOptionTwo: 'Article',
     subtraction: 'Subtraction time',
     subtractionOptionOne: 'Newly introduced',
@@ -312,7 +312,7 @@ export const en = {
     appliedItemsDate: 'Applied on ',
     archivedDecisions: 'Archived Decisions',
     archivedDecisionsNotImplemented:
-      'Decisions that have not been implemented or modified after the offering and are considered draft for review',
+      'Decisions that have not been implemented or modified after the offering and are considered legislation for review',
     archivedItemDate: 'Archived on ',
     noArchivedDecisionsImplemented: 'There are no archived decisions'
   },
@@ -334,10 +334,10 @@ export const en = {
     title: 'Social Participation Reports',
     platformUsers: 'The number of current platform users',
     users: 'Users',
-    draftsDiscussed: 'Number of drafts discussed',
-    drafts: 'Drafts',
+    draftsDiscussed: 'Number of legislation discussed',
+    drafts: 'legislation',
     activeUsers: 'The most active users',
-    activeDrafts: 'The most active drafts',
+    activeDrafts: 'The most active legislation',
     vote: ' vote',
     comment: 'comment',
     winningUsers: 'Award-winning users',
@@ -385,7 +385,8 @@ export const en = {
   },
   draftDetails: {
     decisions: 'Decisions',
-    drafts: 'Drafts',
+    plzPickLegalCapacity: 'please enter legal capacity',
+    drafts: 'legislation',
     voteClosed: 'Voting closed on',
     application: 'Applied on',
     votingCloses: 'Voting closes on',
@@ -395,15 +396,15 @@ export const en = {
     user: 'User',
     comment: 'Comment',
     vote: 'Vote',
+    generalVote: 'Vote',
     createDate: 'Create Date',
-    closeDate: 'Date of closing the draft and discussion',
+    closeDate: 'Date of closing the legislation and discussion',
     attachments: 'Attachments',
     pdf: 'الاشتراكات المعمرية pdf',
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'Charts',
-    chartTitle:
-      'The percentage of satisfaction of draft',
+    chartTitle: 'The percentage of satisfaction of legislation',
     chartTypeOne: 'Very supporter',
     chartTypeTwo: 'Supporter',
     chartTypeThree: 'Neutral',
@@ -424,6 +425,7 @@ export const en = {
     commentAdded:
       ' Comment has been added pending the approval of the site administration',
     commentStoped: 'Comments have been stopped',
+    comments: 'comments',
     conditionsParticipation: 'Joining Conditions',
     addComment: 'Add your comment',
     positive: 'Positive',
@@ -445,7 +447,8 @@ export const en = {
     archived: 'Archived',
     applied: 'Applied',
     voting: 'Under vote',
-    opinion: 'What do you think of the draft?',
+    opinion: 'What do you think of the legislation?',
+    reply: 'Reply to comment',
     shareIdeasModal: {
       title: 'Share now',
       stepOne: 'What do you think about the article?',

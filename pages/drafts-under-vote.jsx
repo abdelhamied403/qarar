@@ -5,7 +5,9 @@ import DraftsUnderVotePage from '../views/Pages/drafts-under-vote/drafts-under-v
 const DraftsUnderVote = () => (
   <div>
     <Head>
-      <title>المسودات تحت التصويت - قرار - وزارة الشؤون البلدية والقروية</title>
+      <title>
+        التشريعات تحت التصويت - قرار - وزارة الشؤون البلدية والقروية
+      </title>
     </Head>
     <DraftsUnderVotePage />
   </div>

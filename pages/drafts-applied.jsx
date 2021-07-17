@@ -5,7 +5,7 @@ import DraftsAppliedPage from '../views/Pages/drafts-applied/drafts-applied';
 const DraftsApplied = () => (
   <div>
     <Head>
-      <title>المسودات مطبقه - قرار - وزارة الشؤون البلدية والقروية</title>
+      <title>التشريعات مطبقه - قرار - وزارة الشؤون البلدية والقروية</title>
     </Head>
     <DraftsAppliedPage />
   </div>

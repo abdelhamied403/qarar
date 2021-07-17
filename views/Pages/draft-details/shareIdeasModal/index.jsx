@@ -354,7 +354,7 @@ const ShareIdeasModal = props => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          width: '50vw',
+
           flexFlow: 'column'
         }}
       >
@@ -623,18 +623,6 @@ const ShareIdeasModal = props => {
         {modState >= 1 && <FillForm />}
         {modState >= 2 && <ChoseComment />}
         {modState >= 3 && <AddComment />}
-
-        {/* {state === ModalState.RATE && <Rate />}
-        {state === ModalState.ASK_TO_ADD_COMMENT && <AskToAddComment />}
-        {state === ModalState.FILL_FORM && <FillForm />}
-        {state === ModalState.CHOSE_COMMENT && <ChoseComment />}
-        {state === ModalState.COMMENT && <AddComment />} */}
-        {/*{state === ModalState.SUGGEST && <Suggest />}*/}
-        {/*{state === ModalState.COMMENT && <Comment />}*/}
-        {/*{msg.show && (*/}
-        {/*  <Alert color={msg.error ? 'danger' : 'success'}>{msg.txt}</Alert>*/}
-        {/*)}*/}
-        {/*{canVote ? <Alert color="danger">تم ايقاف التصويت</Alert> : <Steps />}*/}
       </ModalBody>
     </Modal>
   );
