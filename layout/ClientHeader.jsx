@@ -203,12 +203,10 @@ class ClientHeader extends React.Component {
                 href="https://qarar.balady.gov.sa"
                 className="afkarLink speech-bubble"
               >
-                {/* <img src="/static/img/qararNew.svg" alt="" /> */}
                 {translate('header.navBar.yourDecision')}
               </a>
 
               <a href="https://eforms.balady.gov.sa" className="afkarLink">
-                {/* <img src="/static/img/ethtbyanNew.svg" alt="" /> */}
                 {translate('header.navBar.questionnaires')}
               </a>
             </div>
@@ -231,10 +229,6 @@ class ClientHeader extends React.Component {
             )}
           </Container>
         </div>
-        {/* <ScrollToggle
-        className="SlideIn" //required property
-        scroll={300} //by default distance before child element
-    >  */}
         <Navbar expand="md" className="d-flex flex-row justify-content-between">
           <Container>
             <Link href="/">
@@ -269,23 +263,6 @@ class ClientHeader extends React.Component {
                     </Link>
                   </NavItem>
                   <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
-                    <DropdownToggle
-                      nav
-                      caret
-                      active={router.pathname === '/drafts'}
-                    >
-                      {translate('decisions')}
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem href="/decisions-library">
-                        {translate('header.navBar.libQara')}
-                      </DropdownItem>
-                      {/* <DropdownItem href="/decisions">
-                        {translate('header.navBar.updatedQarar')}
-                      </DropdownItem> */}
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  <UncontrolledDropdown nav inNavbar className={'drop-nav'}>
                     <DropdownToggle nav caret>
                       {translate('header.navBar.drafts')}
                     </DropdownToggle>
@@ -299,33 +276,11 @@ class ClientHeader extends React.Component {
                       <DropdownItem href="/archived-drafts">
                         {translate('header.navBar.archievedDraft')}
                       </DropdownItem>
+                      <DropdownItem href="/decisions-library">
+                        {translate('header.navBar.libQara')}
+                      </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                  {/* <NavItem active={router.pathname === '/drafts'}>
-                    <Link href="/drafts">
-                      <a>
-                        <NavLink onClick={this.closeMobile}>
-                          {translate("header.navBar.drafts")}
-                        </NavLink>
-                      </a>
-                    </Link>
-                  </NavItem>
-                  <NavItem active={router.pathname === '/decisions'}>
-                    <Link href="/decisions">
-                      <a>
-                        <NavLink onClick={this.closeMobile}>
-                          {translate("header.navBar.decisions")}
-                        </NavLink>
-                      </a>
-                    </Link>
-                  </NavItem> */}
-                  {/* <NavItem className="dp-items">
-                  <NavLink>مكتبة القرارات</NavLink>
-                  <div className="abs-content">
-                    <Link exact to="/client/decision" >قرارات مطبقة حالياً</Link>
-                    <Link exact to="/client/decision-draft" >قرارت مؤرشفة</Link>
-                  </div>
-                </NavItem> */}
                   <NavItem active={router.pathname === '/news'}>
                     <Link href="/news">
                       <a>
@@ -335,13 +290,6 @@ class ClientHeader extends React.Component {
                       </a>
                     </Link>
                   </NavItem>
-                  {/* <NavItem active={router.pathname === '/awards-system'}>
-                  <Link href="/awards-system">
-                    <a>
-                      <NavLink onClick={this.closeMobile}>الجوائز</NavLink>
-                    </a>
-              </Link>
-                </NavItem> */}
                   <NavItem active={router.pathname === '/social-reports'}>
                     <Link href="/social-reports">
                       <a>
@@ -369,7 +317,6 @@ class ClientHeader extends React.Component {
             </Collapse>
           </Container>
         </Navbar>
-        {/* </ScrollToggle> */}
       </div>
     );
   }

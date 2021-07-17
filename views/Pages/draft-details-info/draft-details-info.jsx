@@ -45,6 +45,7 @@ import CardComments from '../components/card-comments/card-comments';
 import InsideComment from '../components/InsideComment';
 import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -77,7 +78,8 @@ class DraftDetailsInfo extends Component {
       editorState: EditorState.createEmpty(),
       img1: '/static/img/interactive/greenArrow.svg',
       img2: '/static/img/interactive/greenArrow.svg',
-      img3: '/static/img/interactive/greenArrow.svg'
+      img3: '/static/img/interactive/greenArrow.svg',
+      parentDraft: null
     };
   }
 
@@ -89,6 +91,8 @@ class DraftDetailsInfo extends Component {
     Events.scrollEvent.register('begin', function() {});
 
     Events.scrollEvent.register('end', function() {});
+    console.log('test data', this.props);
+    console.log('test data', this.state);
   }
 
   getIsFlagged = async () => {
@@ -200,6 +204,7 @@ class DraftDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       const { data } = itemResponse.data;
+      this.setState({ parentDraft: itemResponse.data });
       this.setState({
         breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
       });
@@ -530,7 +535,7 @@ class DraftDetailsInfo extends Component {
                         {parseInt(draft.likes, 10) +
                           parseInt(draft.dislikes, 10)}
                       </p>
-                      <h5> {translate('draftDetails.vote')}</h5>
+                      <h5> {translate('draftDetails.generalVote')}</h5>
                     </div>
                   </div>
                 </Col>
@@ -672,6 +677,191 @@ class DraftDetailsInfo extends Component {
                   </CardBody>
                 </Card>
               ))}
+
+            {this.state.parentDraft &&
+              (this.state.parentDraft?.data.most_featured_items.length ||
+                this.state.parentDraft?.data.most_featured_users.length ||
+                Object.values(
+                  this.state.parentDraft?.data.voting_percentage
+                ).some(el => el !== '0%')) && (
+                <Card className="cardDraft">
+                  <CardHeader>{translate('draftDetails.charts')}</CardHeader>
+                  <CardBody>
+                    <Row className="qcharts">
+                      <Col
+                        md="4"
+                        className="qchart flex flex-1 f-column max-100"
+                      >
+                        <p
+                          style={{
+                            color: '#81BD41',
+                            fontWeight: 'bold',
+                            lineHeight: '16px'
+                          }}
+                        >
+                          {translate('draftDetails.chartTitle')}
+                        </p>
+                        <Row>
+                          <Col md="6">
+                            <div>
+                              {[
+                                {
+                                  name: translate('draftDetails.chartTypeOne'),
+                                  color: '#81BD41'
+                                },
+                                {
+                                  name: translate('draftDetails.chartTypeTwo'),
+                                  color: '#40C2CC'
+                                },
+                                {
+                                  name: translate(
+                                    'draftDetails.chartTypeThree'
+                                  ),
+                                  color: '#006C68'
+                                },
+                                {
+                                  name: translate('draftDetails.chartTypeFour'),
+                                  color: '#F3F3F3'
+                                },
+                                {
+                                  name: translate('draftDetails.chartTypeFive'),
+                                  color: '#FF4A4A'
+                                }
+                              ].map(val => (
+                                <div className="d-flex flex-row align-items-center">
+                                  <span
+                                    style={{
+                                      backgroundColor: val.color,
+                                      height: '20px',
+                                      width: '20px',
+                                      borderRadius: '50%',
+                                      display: 'inline-block'
+                                    }}
+                                  />
+                                  <p
+                                    style={{
+                                      margin: '0 10px 0 10px',
+                                      color: '#006C68'
+                                    }}
+                                  >
+                                    {val.name}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </Col>
+                          <Col md="6" className="qpiechart">
+                            <PieChart
+                              data={[
+                                {
+                                  title: translate('draftDetails.chartTypeOne'),
+                                  value: parseInt(
+                                    this.state.parentDraft?.data.voting_percentage[5].replace(
+                                      '%',
+                                      ''
+                                    )
+                                  ),
+                                  color: '#81BD41'
+                                },
+                                {
+                                  title: translate('draftDetails.chartTypeTwo'),
+                                  value: parseInt(
+                                    this.state.parentDraft?.data.voting_percentage[4].replace(
+                                      '%',
+                                      ''
+                                    )
+                                  ),
+                                  color: '#40C2CC'
+                                },
+                                {
+                                  title: translate(
+                                    'draftDetails.chartTypeThree'
+                                  ),
+                                  value: parseInt(
+                                    this.state.parentDraft?.data.voting_percentage[3].replace(
+                                      '%',
+                                      ''
+                                    )
+                                  ),
+                                  color: '#006C68'
+                                },
+                                {
+                                  title: translate(
+                                    'draftDetails.chartTypeFour'
+                                  ),
+                                  value: parseInt(
+                                    this.state.parentDraft?.data.voting_percentage[2].replace(
+                                      '%',
+                                      ''
+                                    )
+                                  ),
+                                  color: '#F3F3F3'
+                                },
+                                {
+                                  title: translate(
+                                    'draftDetails.chartTypeFive'
+                                  ),
+                                  value: parseInt(
+                                    this.state.parentDraft?.data.voting_percentage[1].replace(
+                                      '%',
+                                      ''
+                                    )
+                                  ),
+                                  color: '#FF4A4A'
+                                }
+                              ]}
+                            />
+                          </Col>
+                        </Row>
+                      </Col>
+
+                      {this.state.parentDraft?.data.most_featured_users
+                        ?.length > 0 && (
+                        <Col
+                          md="4"
+                          className="qchart border-right-line flex flex-1 f-column max-100"
+                          dir={translate('dir')}
+                        >
+                          <p
+                            style={{
+                              color: '#81BD41',
+                              fontWeight: 'bold',
+                              lineHeight: '16px'
+                            }}
+                          >
+                            {translate('draftDetails.mostVoted')}
+                          </p>
+                          <Row>
+                            {this.state.parentDraft?.data.most_featured_users?.map(
+                              el => (
+                                <Col md="4" className="p-2">
+                                  <div className="user-card">
+                                    <img
+                                      src={
+                                        el.user_picture
+                                          ? `${el.user_picture}`
+                                          : '/static/img/Group 991.svg'
+                                      }
+                                    />
+                                    <p className="user-card-name">
+                                      {el.name || 'مجهول'}
+                                    </p>
+                                    <span className="user-card-points">
+                                      {el.comment_count}{' '}
+                                      {translate('draftDetails.points')}
+                                    </span>
+                                  </div>
+                                </Col>
+                              )
+                            )}
+                          </Row>
+                        </Col>
+                      )}
+                    </Row>
+                  </CardBody>
+                </Card>
+              )}
+
             <Element name="test1" className="element">
               <div>
                 {successComment && (
@@ -706,7 +896,10 @@ class DraftDetailsInfo extends Component {
                 <a href="">
                   {translate('draftDetails.conditionsParticipation')}
                 </a>
-                <Button onClick={this.saveComment}>
+                <Button
+                  style={{ 'min-width': '150px' }}
+                  onClick={this.saveComment}
+                >
                   {translate('draftDetails.addComment')}
                   <img src="/static/img/interactive/whiteArrow.svg" alt="" />
                 </Button>
@@ -744,117 +937,6 @@ class DraftDetailsInfo extends Component {
             </div>
           </Container>
         </div>
-        {/*  <Container>
-          <div className="description">
-            <CardDraft
-              header=""
-              content={draft.body}
-              tags={
-                draft.tags
-                  ? draft.tags.map(tag => ({
-                      tag: tag.name.substr(0, 20),
-                      id: tag.id
-                    }))
-                  : []
-              }
-              date={moment(new Date(draft.creatednode * 1000)).format(
-                'dddd, MMMM Do YYYY'
-              )}
-            />
-          </div>
-          <div className="moaad-open">
-            {items.map(item => (
-              <ScrollLink
-                activeClass="active"
-                key={item.nid}
-                to="item"
-                smooth
-                duration={500}
-                offset={-90}
-              >
-                <Button
-                  onClick={() => this.setState({ selected: item })}
-                  className="text-right justify-content-start mb-2"
-                  color="primary"
-                  block
-                >
-                  {item.title}
-                </Button>
-              </ScrollLink>
-            ))}
-            <h6 className="flex flex-align-center no-p-m">
-              {
-                items.filter(
-                  item =>
-                    new Date(item.end_date).getTime() > new Date().getTime()
-                ).length
-              }{' '}
-              مواد مفتوحة للنقاش
-              <Link href="/client/landing">
-                <Button color="link">من اصل {items.length} مادة</Button>
-              </Link>
-            </h6>
-            <Element name="item">
-              {items && items.length && (
-                <CardDraftItems
-                  date={
-                    draft.applied_date
-                      ? ''
-                      : moment(draft.end_date).format('dddd, MMMM Do YYYY')
-                  }
-                  selected={selected || items[0]}
-                  dropdownList={
-                    (selected ? selected.children : items[0].children) || []
-                  }
-                  tags={[]}
-                />
-              )}
-            </Element>
-          </div>
-          <Element name="test1" className="element">
-            {successComment && (
-              <Alert color="success">
-                تم إضافة التعليق في إنتظار موافقة إدارة الموقع
-              </Alert>
-            )}
-            {!uid ? (
-              <NoAccess />
-            ) : (
-              <TextBox
-                header="التعليقات على هذه المادة"
-                alertMsg="يستطيع النظام ايجاد الكلمات المسيئة. اجعل تعليقك بناءً"
-                placeholder="أضف تعليقك هنا"
-                outline="شروط المشاركة"
-                primary="إرسال التعليق"
-                inputValue={commentText}
-                onInputChange={e => this.setState({ comment: e.target.value })}
-                onPrimaryButtonClick={() => this.saveComment()}
-              />
-            )}
-          </Element>
-          {comments && comments.length ? (
-            <CardComments
-              commentsArray={comments.map(comment => ({
-                id: comment.cid,
-                avatar: comment.owner_image,
-                name: comment.full_name,
-                like: comment.likes,
-                share: '2',
-                content: comment.comment_body,
-                comments: comment.children
-                  ? comment.children.map(childComment => ({
-                      id: childComment.cid,
-                      avatar: childComment.owner_image,
-                      name: childComment.full_name,
-                      like: childComment.likes,
-                      share: '2',
-                      content: childComment.comment_body
-                    }))
-                  : []
-              }))}
-            />
-          ) : null}
-        </Container> */}
       </>
     );
   }

@@ -404,7 +404,12 @@ const Landing = () => {
       <section className="activities green">
         <Container>
           <Row>
-            <Col className="flex flex-column justify-center" xs="12" md="6" lg="6">
+            <Col
+              className="flex flex-column justify-center"
+              xs="12"
+              md="6"
+              lg="6"
+            >
               <h2 className="header">
                 {translate('landingPage.recentlyDrafts')}
               </h2>
@@ -509,104 +514,112 @@ const Landing = () => {
             </Col>
 
             <Col xs="12" md="6" lg="6" className="chart-section">
-            <div className="satisfaction">
-        {/* satisfaction percentage charts */}
-        <Container className="homeChartContainer">
-          <h2 className="header">
-                {translate('draftDetails.vote')}
-              </h2>
+              <div className="satisfaction">
+                {/* satisfaction percentage charts */}
+                <Container className="homeChartContainer">
+                  <h2 className="header">{translate('draftDetails.vote')}</h2>
 
-          <Row>
-            <Col md="4">
-              <div>
-                {[
-                  {
-                    name: translate('draftDetails.chartTypeOne'),
-                    color: '#81BD41'
-                  },
-                  {
-                    name: translate('draftDetails.chartTypeTwo'),
-                    color: '#40C2CC'
-                  },
-                  {
-                    name: translate('draftDetails.chartTypeThree'),
-                    color: '#006C68'
-                  },
-                  {
-                    name: translate('draftDetails.chartTypeFour'),
-                    color: '#F3F3F3'
-                  },
-                  {
-                    name: translate('draftDetails.chartTypeFive'),
-                    color: '#FF4A4A'
-                  }
-                ].map(val => (
-                  <div className="d-flex flex-row align-items-center">
-                    <span
-                      style={{
-                        backgroundColor: val.color,
-                        height: '20px',
-                        width: '20px',
-                        borderRadius: '50%',
-                        display: 'inline-block'
-                      }}
-                    />
-                    <p
-                      style={{
-                        margin: '0 10px 0 10px',
-                        color: '#006C68'
-                      }}
-                    >
-                      {val.name}
-                    </p>
-                  </div>
-                ))}
+                  <Row>
+                    <Col md="4">
+                      <div>
+                        {[
+                          {
+                            name: translate('draftDetails.chartTypeOne'),
+                            color: '#81BD41'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeTwo'),
+                            color: '#40C2CC'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeThree'),
+                            color: '#006C68'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeFour'),
+                            color: '#F3F3F3'
+                          },
+                          {
+                            name: translate('draftDetails.chartTypeFive'),
+                            color: '#FF4A4A'
+                          }
+                        ].map(val => (
+                          <div className="d-flex flex-row align-items-center">
+                            <span
+                              style={{
+                                backgroundColor: val.color,
+                                height: '20px',
+                                width: '20px',
+                                borderRadius: '50%',
+                                display: 'inline-block'
+                              }}
+                            />
+                            <p
+                              style={{
+                                margin: '0 10px 0 10px',
+                                color: '#006C68'
+                              }}
+                            >
+                              {val.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </Col>
+                    <Col md="8" className="satpiechart">
+                      <PieChart
+                        data={[
+                          {
+                            title: translate('draftDetails.chartTypeOne'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[4].replace('%', '')
+                                : 0
+                            ),
+                            color: '#81BD41'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeTwo'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[3].replace('%', '')
+                                : 0
+                            ),
+                            color: '#40C2CC'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeThree'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[2].replace('%', '')
+                                : 0
+                            ),
+                            color: '#006C68'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeFour'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[1].replace('%', '')
+                                : 0
+                            ),
+                            color: '#F3F3F3'
+                          },
+                          {
+                            title: translate('draftDetails.chartTypeFive'),
+                            value: parseInt(
+                              satPercentages
+                                ? satPercentages[0].replace('%', '')
+                                : 0
+                            ),
+                            color: '#FF4A4A'
+                          }
+                        ]}
+                      />
+                    </Col>
+                  </Row>
+                </Container>
               </div>
-            </Col>
-            <Col md="8" className="satpiechart">
-              <PieChart
-                data={[
-                  {
-                    title: translate('draftDetails.chartTypeOne'),
-                    value: parseInt(
-                      satPercentages ? satPercentages[4].replace('%', '') : 0
-                    ),
-                    color: '#81BD41'
-                  },
-                  {
-                    title: translate('draftDetails.chartTypeTwo'),
-                    value: parseInt(
-                      satPercentages ? satPercentages[3].replace('%', '') : 0
-                    ),
-                    color: '#40C2CC'
-                  },
-                  {
-                    title: translate('draftDetails.chartTypeThree'),
-                    value: parseInt(
-                      satPercentages ? satPercentages[2].replace('%', '') : 0
-                    ),
-                    color: '#006C68'
-                  },
-                  {
-                    title: translate('draftDetails.chartTypeFour'),
-                    value: parseInt(
-                      satPercentages ? satPercentages[1].replace('%', '') : 0
-                    ),
-                    color: '#F3F3F3'
-                  },
-                  {
-                    title: translate('draftDetails.chartTypeFive'),
-                    value: parseInt(
-                      satPercentages ? satPercentages[0].replace('%', '') : 0
-                    ),
-                    color: '#FF4A4A'
-                  }
-                ]}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </div>
             </Col>
           </Row>
         </Container>
@@ -727,7 +740,6 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
-   
       <section className="blogger">
         <Container>
           <div className="d-flex justify-content-between align-items-center mb-5">
@@ -737,7 +749,7 @@ const Landing = () => {
                 onClick={() => setActiveBtnNews(0)}
                 className={activeBtnNews === 0 ? 'active' : ''}
               >
-                {translate('اخر الاخبار')}
+                {translate('landingPage.latestNews')}
               </Button>
               <Button
                 onClick={() => setActiveBtnNews(1)}
@@ -842,22 +854,6 @@ const Landing = () => {
               </Col>
             </Row>
           </>
-          {/* {news.map(newsItem => (
-              <Col key={newsItem.id} xs="12" md="6" lg="4">
-                <CardBlog
-                  image={newsItem.image}
-                  subHeaderIcon="/static/img/Icon - most active - views Copy 3.svg"
-                  tagId={newsItem.tags.length > 0 && newsItem.tags[0].id}
-                  blogId={newsItem.id}
-                  header={newsItem.title}
-                  date={moment(newsItem.creatednode * 1000).format(
-                    'DD/MM/YYYY'
-                  )}
-                  content={newsItem.body.substr(0, 60)}
-                  tag={newsItem.tags.length > 0 && newsItem.tags[0].name}
-                />
-              </Col>
-            ))} */}
           <div className="text-center">
             <Link href="/news">
               <Button outline color="primary" size="md">

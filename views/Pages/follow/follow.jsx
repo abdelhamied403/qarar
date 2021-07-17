@@ -142,7 +142,7 @@ class Follow extends Component {
             <Card>
               <CardBody className="card-not">
                 <div className="flex flex-justifiy-sp m-25-b">
-                  <h6>المسودات</h6>
+                  <h6>{translate(draftDetails.drafts)}</h6>
                   <Button to="/client/me/follow-item" color="primary" outline>
                     عرض و تعديل
                   </Button>

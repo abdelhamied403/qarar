@@ -104,7 +104,7 @@ class Group extends Component {
             <Card>
               <CardBody className="card-not card-no-padding">
                 <div className="flex flex-justifiy-sp m-25-b">
-                  <h6 className="sub-header">مسودات أسندت للمجموعة</h6>
+                  <h6 className="sub-header">تشريعات أسندت للمجموعة</h6>
                   <Button
                     exact
                     to="/client/me/award-item"
