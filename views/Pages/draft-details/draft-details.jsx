@@ -778,7 +778,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.satisfaction_percentage}%</p>
-                      <h5> {translate('draftDetails.vote')}</h5>
+                      <h5> {translate('draftDetails.generalVote')}</h5>
                     </div>
                   </div>
                 </Col>
@@ -1216,7 +1216,9 @@ class DraftDetailsInfo extends Component {
         >
           <Row className="mt-3">
             <Col md="12" className="draftBodyRt">
-              <p>{renderHTML(item.body_value || '').substring(0, 310)} ...</p>
+              <p>
+                {renderHTML(item.body_value.substring(0, 310) + '...' || '')}{' '}
+              </p>
               {/* form */}
               <div className="addCommentForm">
                 <Rate
