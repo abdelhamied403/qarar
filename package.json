@@ -41,6 +41,7 @@
     "next-translate": "^1.0.5",
     "node-sass": "^4.14.1",
     "nookies": "^2.4.0",
+    "postcss": "^8.3.5",
     "prop-types": "^15.7.2",
     "rc-pagination": "^1.21.1",
     "react": "16.13.1",
