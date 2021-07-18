@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../draft-details/draft-details.css';
+import './draft-details-info.css';
+
 import {
   Container,
   Col,
@@ -9,10 +11,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  InputGroup,
   DropdownItem,
-  InputGroupAddon,
-  Input,
   Alert
 } from 'reactstrap';
 import Link from 'next/link';
@@ -22,7 +21,6 @@ import moment from 'moment';
 import renderHTML from 'react-render-html';
 import {
   Link as ScrollLink,
-  DirectLink,
   Element,
   Events,
   animateScroll as scroll,
@@ -36,12 +34,6 @@ import {
   TwitterShareButton
 } from 'react-share';
 import Skeleton from '../components/skeleton/skeleton';
-import CardDraft from '../components/card-draft/card-draft';
-import CardDraftItems from '../components/card-draft-items/card-draft-items';
-import Breadcrumb from '../components/breadcrumb/breadcrumb';
-import CardInfo from '../components/card-info/card-info';
-import TextBox from '../components/text-box/text-box';
-import CardComments from '../components/card-comments/card-comments';
 import InsideComment from '../components/InsideComment';
 import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
@@ -550,7 +542,10 @@ class DraftDetailsInfo extends Component {
               <CardBody>
                 <Row>
                   <Col md="9" className="draftBodyRt">
-                    <p>{draft.body}</p>
+                    <div
+                      className="body"
+                      dangerouslySetInnerHTML={{ __html: draft.body }}
+                    ></div>
                     <div className="dateDraft d-flex align-items-center">
                       <img
                         src="/static/img/interactive/calendar (2).svg"
@@ -678,189 +673,154 @@ class DraftDetailsInfo extends Component {
                 </Card>
               ))}
 
-            {this.state.parentDraft &&
-              (this.state.parentDraft?.data.most_featured_items.length ||
-                this.state.parentDraft?.data.most_featured_users.length ||
-                Object.values(
-                  this.state.parentDraft?.data.voting_percentage
-                ).some(el => el !== '0%')) && (
-                <Card className="cardDraft">
-                  <CardHeader>{translate('draftDetails.charts')}</CardHeader>
-                  <CardBody>
-                    <Row className="qcharts">
-                      <Col
-                        md="4"
-                        className="qchart flex flex-1 f-column max-100"
+            <Card className="cardDraft">
+              <CardHeader>{translate('draftDetails.charts')}</CardHeader>
+              <CardBody>
+                <Row className="qcharts">
+                  {Object.keys(draft.voting_percentage).length > 0 && (
+                    <Col md="6" className="qchart flex flex-1 f-column max-100">
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
                       >
-                        <p
-                          style={{
-                            color: '#81BD41',
-                            fontWeight: 'bold',
-                            lineHeight: '16px'
-                          }}
-                        >
-                          {translate('draftDetails.chartTitle')}
-                        </p>
-                        <Row>
-                          <Col md="6">
-                            <div>
-                              {[
-                                {
-                                  name: translate('draftDetails.chartTypeOne'),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  name: translate('draftDetails.chartTypeTwo'),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  name: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  name: translate('draftDetails.chartTypeFour'),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  name: translate('draftDetails.chartTypeFive'),
-                                  color: '#FF4A4A'
-                                }
-                              ].map(val => (
-                                <div className="d-flex flex-row align-items-center">
-                                  <span
-                                    style={{
-                                      backgroundColor: val.color,
-                                      height: '20px',
-                                      width: '20px',
-                                      borderRadius: '50%',
-                                      display: 'inline-block'
-                                    }}
-                                  />
-                                  <p
-                                    style={{
-                                      margin: '0 10px 0 10px',
-                                      color: '#006C68'
-                                    }}
-                                  >
-                                    {val.name}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </Col>
-                          <Col md="6" className="qpiechart">
-                            <PieChart
-                              data={[
-                                {
-                                  title: translate('draftDetails.chartTypeOne'),
-                                  value: parseInt(
-                                    this.state.parentDraft?.data.voting_percentage[5].replace(
-                                      '%',
-                                      ''
-                                    )
-                                  ),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  title: translate('draftDetails.chartTypeTwo'),
-                                  value: parseInt(
-                                    this.state.parentDraft?.data.voting_percentage[4].replace(
-                                      '%',
-                                      ''
-                                    )
-                                  ),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  value: parseInt(
-                                    this.state.parentDraft?.data.voting_percentage[3].replace(
-                                      '%',
-                                      ''
-                                    )
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFour'
-                                  ),
-                                  value: parseInt(
-                                    this.state.parentDraft?.data.voting_percentage[2].replace(
-                                      '%',
-                                      ''
-                                    )
-                                  ),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFive'
-                                  ),
-                                  value: parseInt(
-                                    this.state.parentDraft?.data.voting_percentage[1].replace(
-                                      '%',
-                                      ''
-                                    )
-                                  ),
-                                  color: '#FF4A4A'
-                                }
-                              ]}
-                            />
-                          </Col>
-                        </Row>
-                      </Col>
-
-                      {this.state.parentDraft?.data.most_featured_users
-                        ?.length > 0 && (
-                        <Col
-                          md="4"
-                          className="qchart border-right-line flex flex-1 f-column max-100"
-                          dir={translate('dir')}
-                        >
-                          <p
-                            style={{
-                              color: '#81BD41',
-                              fontWeight: 'bold',
-                              lineHeight: '16px'
-                            }}
-                          >
-                            {translate('draftDetails.mostVoted')}
-                          </p>
-                          <Row>
-                            {this.state.parentDraft?.data.most_featured_users?.map(
-                              el => (
-                                <Col md="4" className="p-2">
-                                  <div className="user-card">
-                                    <img
-                                      src={
-                                        el.user_picture
-                                          ? `${el.user_picture}`
-                                          : '/static/img/Group 991.svg'
-                                      }
-                                    />
-                                    <p className="user-card-name">
-                                      {el.name || 'مجهول'}
-                                    </p>
-                                    <span className="user-card-points">
-                                      {el.comment_count}{' '}
-                                      {translate('draftDetails.points')}
-                                    </span>
-                                  </div>
-                                </Col>
-                              )
-                            )}
-                          </Row>
+                        {translate('draftDetails.chartTitle')}
+                      </p>
+                      <Row>
+                        <Col md="6">
+                          <div>
+                            {[
+                              {
+                                name: translate('draftDetails.chartTypeOne'),
+                                color: '#81BD41'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeTwo'),
+                                color: '#40C2CC'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeThree'),
+                                color: '#006C68'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFour'),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                name: translate('draftDetails.chartTypeFive'),
+                                color: '#FF4A4A'
+                              }
+                            ].map(val => (
+                              <div className="d-flex flex-row align-items-center">
+                                <span
+                                  style={{
+                                    backgroundColor: val.color,
+                                    height: '20px',
+                                    width: '20px',
+                                    borderRadius: '50%',
+                                    display: 'inline-block'
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    margin: '0 10px 0 10px',
+                                    color: '#006C68'
+                                  }}
+                                >
+                                  {val.name}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
                         </Col>
-                      )}
-                    </Row>
-                  </CardBody>
-                </Card>
-              )}
+                        <Col md="6" className="qpiechart">
+                          <PieChart
+                            data={[
+                              {
+                                title: translate('draftDetails.chartTypeOne'),
+                                value: parseInt(
+                                  draft.voting_percentage[5].replace('%', '')
+                                ),
+                                color: '#81BD41'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeTwo'),
+                                value: parseInt(
+                                  draft.voting_percentage[4].replace('%', '')
+                                ),
+                                color: '#40C2CC'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeThree'),
+                                value: parseInt(
+                                  draft.voting_percentage[3].replace('%', '')
+                                ),
+                                color: '#006C68'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFour'),
+                                value: parseInt(
+                                  draft.voting_percentage[2].replace('%', '')
+                                ),
+                                color: '#F3F3F3'
+                              },
+                              {
+                                title: translate('draftDetails.chartTypeFive'),
+                                value: parseInt(
+                                  draft.voting_percentage[1].replace('%', '')
+                                ),
+                                color: '#FF4A4A'
+                              }
+                            ]}
+                          />
+                        </Col>
+                      </Row>
+                    </Col>
+                  )}
+                  {draft.most_featured_users?.length > 0 && (
+                    <Col
+                      md="6"
+                      className="qchart border-right-line flex flex-1 f-column max-100"
+                      dir={translate('dir')}
+                    >
+                      <p
+                        style={{
+                          color: '#81BD41',
+                          fontWeight: 'bold',
+                          lineHeight: '16px'
+                        }}
+                      >
+                        {translate('draftDetails.mostVoted')}
+                      </p>
+                      <Row>
+                        {draft.most_featured_users?.map(el => (
+                          <div className="p-2 flex-1">
+                            <div className="user-card">
+                              <img
+                                src={
+                                  el.user_picture
+                                    ? `${el.user_picture}`
+                                    : '/static/img/Group 991.svg'
+                                }
+                              />
+                              <p className="user-card-name">
+                                {el.name || 'مجهول'}
+                              </p>
+                              <span className="user-card-points">
+                                {el.comment_count}{' '}
+                                {translate('draftDetails.points')}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </Row>
+                    </Col>
+                  )}
+                </Row>
+              </CardBody>
+            </Card>
 
             <Element name="test1" className="element">
               <div>

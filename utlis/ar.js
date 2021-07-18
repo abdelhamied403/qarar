@@ -365,6 +365,7 @@ export const ar = {
   draftDetails: {
     decisions: 'التشريعات',
     plzPickLegalCapacity: 'من فضلك ادخل الصفه الاعتباريه',
+    plzEnterComment: 'من فضلك ادخل تعليق',
     drafts: 'التشريعات',
     voteClosed: 'أغلق التصويت بتاريخ',
     application: 'تم التطبيق بتاريخ',

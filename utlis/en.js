@@ -386,6 +386,7 @@ export const en = {
   draftDetails: {
     decisions: 'Decisions',
     plzPickLegalCapacity: 'please enter legal capacity',
+    plzEnterComment: 'please enter a comment',
     drafts: 'legislation',
     voteClosed: 'Voting closed on',
     application: 'Applied on',

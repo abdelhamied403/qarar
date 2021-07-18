@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import './draft-details.css';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
@@ -114,7 +114,10 @@ class DraftDetailsInfo extends Component {
 
       // editor
       editorState: EditorState.createEmpty(),
-      legalCapError: false
+      legalCapError: false,
+
+      draftErrMessage: null,
+      draftSuccess: false
     };
   }
 
@@ -482,7 +485,14 @@ class DraftDetailsInfo extends Component {
 
   saveDraftComment = async id => {
     if (!this.state.editorState.getCurrentContent().hasText()) {
-      alert('type a comment plz');
+      this.setState({
+        draftErrMessage: translate('draftDetails.plzEnterComment')
+      });
+      setTimeout(() => {
+        this.setState({
+          draftErrMessage: null
+        });
+      }, 3000);
     } else if (
       !this.state.selectedLegalCapacity ||
       !this.state.selectedCity ||
@@ -494,6 +504,10 @@ class DraftDetailsInfo extends Component {
         block: 'center'
       });
       this.setState({ legalCapError: true });
+
+      setTimeout(() => {
+        this.setState({ legalCapError: false });
+      }, 3000);
     } else {
       const data = {
         entity_id: [{ target_id: id }],
@@ -508,8 +522,8 @@ class DraftDetailsInfo extends Component {
         field_legal_capacity: this.state.selectedLegalCapacity,
         field_city: this.state.selectedCity,
         field_investment_field: this.state.selectedInvestmentField,
-        field_draft_opinion: this.state.stars
-        // comment_type: commentType
+        field_draft_opinion: this.state.stars,
+        comment_type: this.state.comtype
       };
       const response = await Api.post(
         `/qarar_api/post-comment?_format=json`,
@@ -518,6 +532,13 @@ class DraftDetailsInfo extends Component {
           headers: { Authorization: `Bearer ${this.props.accessToken}` }
         }
       );
+
+      if (response.ok) {
+        this.setState({ draftSuccess: true });
+        setTimeout(() => {
+          this.setState({ draftSuccess: false });
+        }, 3000);
+      }
     }
   };
 
@@ -778,7 +799,7 @@ class DraftDetailsInfo extends Component {
                         />
                       </div>
                       <p>{draft.satisfaction_percentage}%</p>
-                      <h5> {translate('draftDetails.vote')}</h5>
+                      <h5> {translate('draftDetails.generalVote')}</h5>
                     </div>
                   </div>
                 </Col>
@@ -1086,9 +1107,9 @@ class DraftDetailsInfo extends Component {
             <div>
               <div className="job" ref={this.jobRef}>
                 {this.state.legalCapError && (
-                  <p className="error">
+                  <Alert color="danger">
                     {translate('draftDetails.plzPickLegalCapacity')}
-                  </p>
+                  </Alert>
                 )}
                 <h4>
                   {translate('draftDetails.shareIdeasModal.legalCapacity')}
@@ -1231,6 +1252,15 @@ class DraftDetailsInfo extends Component {
                 <AddComment
                   setEditorState={val => this.setState({ editorState: val })}
                 ></AddComment>
+
+                {this.state.draftSuccess && (
+                  <Alert color="success">
+                    {translate('draftDetails.commentAdded')}
+                  </Alert>
+                )}
+                {this.state.draftErrMessage && (
+                  <Alert color="danger">{this.state.draftErrMessage}</Alert>
+                )}
 
                 <Button
                   className="button-comment w-min mr-0 ml-auto flex flex-end"
