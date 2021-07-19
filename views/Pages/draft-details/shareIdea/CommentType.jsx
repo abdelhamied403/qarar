@@ -7,9 +7,9 @@ const CommentType = props => {
     <div
       style={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         flexFlow: 'column',
-        padding: '0 30px 0 30px'
+        padding: '0'
       }}
     >
       <h4>{translate('draftDetails.shareIdeasModal.stepThree')}</h4>

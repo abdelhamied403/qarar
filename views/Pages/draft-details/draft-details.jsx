@@ -1238,8 +1238,7 @@ class DraftDetailsInfo extends Component {
           <Row className="mt-3">
             <Col md="12" className="draftBodyRt">
               <p>{renderHTML(item.body_value.substring(0, 310) || '')}</p>
-              {/* form */}
-              <div className="addCommentForm">
+                  <div className="addCommentForm">
                 <Rate
                   setStars={val => {
                     this.setState({ stars: val });
@@ -1269,7 +1268,7 @@ class DraftDetailsInfo extends Component {
                   {translate('draftDetails.shareIdeasModal.stepFourComment')}
                   <img
                     dir={translate('dir')}
-                    src="/static/img/interactive/whiteArrow.svg"
+                    src="/static/img/interactive/greenArrow.svg"
                     alt=""
                   />
                 </Button>

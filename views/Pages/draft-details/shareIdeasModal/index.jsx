@@ -468,7 +468,7 @@ const ShareIdeasModal = props => {
           {translate('draftDetails.shareIdeasModal.stepFourComment')}
           <img
             dir={translate('dir')}
-            src="/static/img/interactive/whiteArrow.svg"
+            src="/static/img/interactive/greenArrow.svg"
             alt=""
           />
         </Button>
