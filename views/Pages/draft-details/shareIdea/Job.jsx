@@ -66,7 +66,7 @@ const Job = props => {
               ))}
             </select>
           )}
-          {allInvestmentField && parseInt(selectedLegalCapacity) === 65 && (
+          {allInvestmentField && parseInt(selectedLegalCapacity) === 48 && (
             <select
               className="not-select2 form-control"
               value={selectedInvestmentField}
