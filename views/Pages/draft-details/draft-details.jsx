@@ -733,37 +733,6 @@ class DraftDetailsInfo extends Component {
                           </span>
                         )}
                     </div>
-                    <div className="button-group">
-                      <ScrollLink
-                        activeClass="active"
-                        className="test1"
-                        to="share-opinion"
-                        spy
-                        smooth
-                        duration={500}
-                      >
-                        <Button color="primary">
-                          {translate('draftDetails.shareIdeas')}
-                          <img
-                            dir={translate('dir')}
-                            src="/static/img/interactive/whiteArrow.svg"
-                            alt=""
-                          />
-                        </Button>
-                      </ScrollLink>
-                      {uid && (
-                        <Button
-                          color="primary"
-                          onClick={() => this.follow()}
-                          outline={!flagged}
-                          style={{ margin: '10px' }}
-                        >
-                          {flagged
-                            ? translate('draftDetails.follow')
-                            : translate('draftDetails.unfollow')}
-                        </Button>
-                      )}
-                    </div>
                   </div>
                 </Col>
                 <Col sm="12" md="6" lg="6">
@@ -1244,10 +1213,6 @@ class DraftDetailsInfo extends Component {
                     this.setState({ stars: val });
                   }}
                 ></Rate>
-                <CommentType
-                  type={this.state.comtype}
-                  setType={val => this.setState({ comtype: val })}
-                ></CommentType>
                 <AddComment
                   setEditorState={val => this.setState({ editorState: val })}
                 ></AddComment>
@@ -1263,7 +1228,7 @@ class DraftDetailsInfo extends Component {
 
                 <Button
                   className="button-comment w-min mr-0 ml-auto flex flex-end"
-                  onClick={() => this.saveDraftComment(item.nid)}
+                  onClick={() => this.saveDraftComment(this.props.draftId)}
                 >
                   {translate('draftDetails.shareIdeasModal.stepFourComment')}
                   <img
@@ -1275,7 +1240,7 @@ class DraftDetailsInfo extends Component {
               </div>
 
               {/* files and more */}
-              <Link href={`/draft-details-info/${item.nid}`}>
+              <Link href={`/draft-details-info/${this.props.draftId}`}>
                 <Button
                   className="btn-inline-block"
                   onMouseOut={() => {

@@ -411,7 +411,7 @@ export const ar = {
     addCommentButton: 'ارسال',
     positive: 'ايجابي',
     negative: 'سلبي',
-    more: 'المزيد',
+    more: 'اقرأ المزيد',
     participate: 'شارك الان',
     downloadPdf: 'تحميل pdf',
     projectType: 'نوع المشروع:',

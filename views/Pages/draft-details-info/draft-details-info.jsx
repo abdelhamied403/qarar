@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import '../draft-details/draft-details.css';
 import './draft-details-info.css';
@@ -21,7 +22,6 @@ import moment from 'moment';
 import renderHTML from 'react-render-html';
 import {
   Link as ScrollLink,
-  Element,
   Events,
   animateScroll as scroll,
   scroller
@@ -38,16 +38,18 @@ import InsideComment from '../components/InsideComment';
 import Api from '../../../api';
 import { translate } from '../../../utlis/translation';
 import { PieChart } from 'react-minimal-pie-chart';
-
-const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
-  { ssr: false }
-);
+import Rate from '../draft-details/shareIdea/Rate';
+import CommentType from '../draft-details/shareIdea/CommentType';
+import AddComment from '../draft-details/shareIdea/Comment';
+import Job from '../draft-details/shareIdea/Job';
 
 moment.locale('ar');
 class DraftDetailsInfo extends Component {
   constructor() {
     super();
+
+    this.jobRef = React.createRef();
+
     this.state = {
       draft: {
         tags: []
@@ -71,11 +73,120 @@ class DraftDetailsInfo extends Component {
       img1: '/static/img/interactive/greenArrow.svg',
       img2: '/static/img/interactive/greenArrow.svg',
       img3: '/static/img/interactive/greenArrow.svg',
-      parentDraft: null
+      parentDraft: null,
+      // rate
+      stars: 1,
+
+      // job
+      allLegalCapacity: null,
+      allCity: null,
+      allInvestmentField: null,
+      selectedLegalCapacity: null,
+      selectedCity: null,
+      selectedInvestmentField: null,
+
+      // commentType
+      comtype: 1,
+
+      // editor
+      editorState: EditorState.createEmpty(),
+      legalCapError: false,
+
+      draftErrMessage: null,
+      draftSuccess: false
     };
   }
 
-  componentDidMount() {
+  getLegalCapacity = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/legal_capacity?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  getCity = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/city?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  getInvestmentField = async () => {
+    const itemResponse = await Api.get(
+      `/qarar_api/load/vocabulary/investment_field?_format=json`,
+      {}
+    );
+    if (itemResponse.ok) {
+      return itemResponse.data;
+    }
+  };
+
+  saveDraftComment = async id => {
+    if (!this.state.editorState.getCurrentContent().hasText()) {
+      this.setState({
+        draftErrMessage: translate('draftDetails.plzEnterComment')
+      });
+      setTimeout(() => {
+        this.setState({
+          draftErrMessage: null
+        });
+      }, 3000);
+    } else if (
+      !this.state.selectedLegalCapacity ||
+      !this.state.selectedCity ||
+      (this.state.selectedLegalCapacity === 65 &&
+        !this.state.selectedInvestmentField)
+    ) {
+      this.jobRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      this.setState({ legalCapError: true });
+
+      setTimeout(() => {
+        this.setState({ legalCapError: false });
+      }, 3000);
+    } else {
+      const data = {
+        entity_id: [{ target_id: id }],
+        subject: [{ value: '' }],
+        comment_body: [
+          {
+            value: draftToHtml(
+              convertToRaw(this.state.editorState.getCurrentContent())
+            )
+          }
+        ],
+        field_legal_capacity: this.state.selectedLegalCapacity,
+        field_city: this.state.selectedCity,
+        field_investment_field: this.state.selectedInvestmentField,
+        field_draft_opinion: this.state.stars,
+        comment_type: this.state.comtype
+      };
+      const response = await Api.post(
+        `/qarar_api/post-comment?_format=json`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${this.props.accessToken}` }
+        }
+      );
+
+      if (response.ok) {
+        this.setState({ draftSuccess: true });
+        setTimeout(() => {
+          this.setState({ draftSuccess: false });
+        }, 3000);
+      }
+    }
+  };
+
+  async componentDidMount() {
     this.getDraft();
     this.getComments();
     this.isFollowed();
@@ -83,8 +194,10 @@ class DraftDetailsInfo extends Component {
     Events.scrollEvent.register('begin', function() {});
 
     Events.scrollEvent.register('end', function() {});
-    console.log('test data', this.props);
-    console.log('test data', this.state);
+
+    this.setState({ allLegalCapacity: await this.getLegalCapacity() });
+    this.setState({ allCity: await this.getCity() });
+    this.setState({ allInvestmentField: await this.getInvestmentField() });
   }
 
   getIsFlagged = async () => {
@@ -461,34 +574,6 @@ class DraftDetailsInfo extends Component {
                           <span>يغلق التصويت بتاريخ {draft.end_date}</span>
                         )}
                     </div>
-                    <div className="button-group">
-                      <ScrollLink
-                        activeClass="active"
-                        className="test1"
-                        to="test1"
-                        spy
-                        smooth
-                        duration={500}
-                      >
-                        <Button color="primary">
-                          شارك برأيك
-                          <img
-                            dir={translate('dir')}
-                            src="/static/img/interactive/whiteArrow.svg"
-                            alt=""
-                          />
-                        </Button>
-                      </ScrollLink>
-                      {uid && (
-                        <Button
-                          color="primary"
-                          onClick={() => this.follow()}
-                          outline={!flagged}
-                        >
-                          {flagged ? 'إلغاء المتابعة' : 'متابعة'}
-                        </Button>
-                      )}
-                    </div>
                   </div>
                 </Col>
                 <Col sm="12" md="6" lg="6">
@@ -822,49 +907,62 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
-            <Element name="test1" className="element">
-              <div>
-                {successComment && (
-                  <Alert color="success">
-                    {translate('draftDetails.commentAdded')}
-                  </Alert>
-                )}
-                {errorComment && <Alert color="danger">{errorComment}</Alert>}
-                <Editor
-                  placeholder="اضف تعليقك هنا"
-                  toolbar={{
-                    options: ['inline', 'image'], // This is where you can specify what options you need in
-                    // the toolbar and appears in the same order as specified
-                    inline: {
-                      options: ['bold', 'underline'] // this can be specified as well, toolbar wont have
-                      // strikethrough, 'monospace', 'superscript', 'subscript'
-                    },
-                    image: {
-                      alignmentEnabled: false,
-                      uploadCallback: this.UploadImageCallBack,
-                      alt: { present: true, mandatory: false },
-                      previewImage: true
-                    }
-                  }}
-                  editorState={editorState}
-                  wrapperClassName="demo-wrapper"
-                  editorClassName="demo-editor"
-                  onEditorStateChange={this.onEditorStateChange}
-                />
-              </div>
+            <div className="job" ref={this.jobRef}>
+              {this.state.legalCapError && (
+                <Alert color="danger">
+                  {translate('draftDetails.plzPickLegalCapacity')}
+                </Alert>
+              )}
+              <h4>{translate('draftDetails.shareIdeasModal.legalCapacity')}</h4>
+              <Job
+                allLegalCapacity={this.state.allLegalCapacity}
+                allCity={this.state.allCity}
+                allInvestmentField={this.state.allInvestmentField}
+                selectLegalCapacity={val => {
+                  this.setState({ selectedLegalCapacity: val });
+                }}
+                selectCity={val => {
+                  this.setState({ selectedCity: val });
+                }}
+                selectInvestmentField={val => {
+                  this.setState({ selectedInvestmentField: val });
+                }}
+              />
+            </div>
+
+            <div className="addCommentForm">
+              <Rate
+                setStars={val => {
+                  this.setState({ stars: val });
+                }}
+              ></Rate>
+              
+              <AddComment
+                setEditorState={val => this.setState({ editorState: val })}
+              ></AddComment>
+
+              {this.state.draftSuccess && (
+                <Alert color="success">
+                  {translate('draftDetails.commentAdded')}
+                </Alert>
+              )}
+              {this.state.draftErrMessage && (
+                <Alert color="danger">{this.state.draftErrMessage}</Alert>
+              )}
               <div className="commentsBtn d-flex justify-content-end align-items-center">
-                <a href="">
-                  {translate('draftDetails.conditionsParticipation')}
-                </a>
                 <Button
-                  style={{ 'min-width': '150px' }}
-                  onClick={this.saveComment}
+                  className="button-comment w-min mr-0 ml-auto flex flex-end"
+                  onClick={() => this.saveDraftComment(this.props.draftId)}
                 >
-                  {translate('draftDetails.addComment')}
-                  <img src="/static/img/interactive/whiteArrow.svg" alt="" />
+                  {translate('draftDetails.shareIdeasModal.stepFourComment')}
+                  <img
+                    dir={translate('dir')}
+                    src="/static/img/interactive/whiteArrow.svg"
+                    alt=""
+                  />
                 </Button>
               </div>
-            </Element>
+            </div>
 
             <div className="draftNewComments">
               {comments.map(comment => (
