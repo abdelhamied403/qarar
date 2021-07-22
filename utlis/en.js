@@ -431,7 +431,7 @@ export const en = {
     addComment: 'Add your comment',
     positive: 'Positive',
     negative: 'Negative',
-    more: 'More',
+    more: 'Read More',
     participate: 'Join Now',
     downloadPdf: 'Download pdf',
     projectType: 'Project Type:',

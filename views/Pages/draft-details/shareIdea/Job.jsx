@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable radix */
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import { Col } from 'reactstrap';
-import Api from '../../../../api';
 import { translate } from '../../../../utlis/translation';
 
 const Job = props => {
-  let {
+  const {
     allLegalCapacity,
     allCity,
     allInvestmentField,
@@ -77,6 +79,11 @@ const Job = props => {
                 {translate('draftDetails.shareIdeasModal.choose')}{' '}
                 {translate('draftDetails.shareIdeasModal.investmentField')}
               </option>
+              // eslint-disable-next-line react/prop-types
+              eslint-disable-next-line react/prop-types eslint-disable-next-line
+              react/prop-types // eslint-disable-next-line react/prop-types //
+              eslint-disable-next-line react/prop-types eslint-disable-next-line
+              react/prop-types
               {allInvestmentField.map(option => (
                 <option value={option.id}>{option.name}</option>
               ))}
