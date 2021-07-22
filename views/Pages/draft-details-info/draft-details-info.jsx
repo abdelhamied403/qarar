@@ -981,15 +981,6 @@ class DraftDetailsInfo extends Component {
                     <h5>{comment.full_name}</h5>
                     <p>{renderHTML(comment.comment_body || '')}</p>
                   </div>
-                  <div className="d-flex flex-row likeDiv">
-                    <span>{comment.likes}</span>
-                    <img
-                      onClick={() => this.likeComment(comment.cid)}
-                      src="/static/img/interactive/bluelikeActive.svg"
-                      alt=""
-                      className="likeImg"
-                    />
-                  </div>
                 </div>
               ))}
             </div>

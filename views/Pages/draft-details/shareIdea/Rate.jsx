@@ -12,7 +12,8 @@ const Rate = props => {
       style={{
         display: 'flex',
         flexFlow: 'column',
-        padding: '0 30px 0 30px'
+        padding: '0',
+        marginBottom:'30px'
       }}
     >
       <h4 className="">{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
@@ -21,7 +22,7 @@ const Rate = props => {
         onMouseLeave={e => setHoverIndex(stars)}
       >
         <div
-          style={{ width: '10px' }}
+          style={{ width: '0px', display:'none' }}
           onMouseOver={e => setHoverIndex(0)}
         ></div>
         {new Array(5).fill(0).map((_, i) => (
