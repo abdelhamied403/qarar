@@ -1,6 +1,5 @@
 .action-items-modal {
   display: flex;
-  justify-content: center;
 }
 .action-items-modal > * {
   cursor: pointer;
@@ -119,10 +118,7 @@
 }
 
 @media (max-width: 992px) {
-
-.modal-dialog .modal-content{
-
-  width: 90%;
-}
-
+  .modal-dialog .modal-content {
+    width: 90%;
+  }
 }

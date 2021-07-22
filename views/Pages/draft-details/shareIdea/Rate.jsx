@@ -11,7 +11,6 @@ const Rate = props => {
     <div
       style={{
         display: 'flex',
-        alignItems: 'flex-start',
         flexFlow: 'column',
         padding: '0',
         marginBottom:'30px'

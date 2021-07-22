@@ -1,6 +1,5 @@
 .action-items-modal {
   display: flex;
-  justify-content: center;
 }
 .action-items-modal > * {
   cursor: pointer;
@@ -25,49 +24,49 @@
 }
 
 .star {
-    color: #046F6D;
+  color: #046f6d;
 }
 
 .star span {
-    margin: 10px 5px 10px 5px;
+  margin: 10px 5px 10px 5px;
 }
 
 .button-ask-to-add-comment-yes {
-    background-color: #FFF !important;
-    border: 2px solid #81BD41 !important;
-    color: #81BD41 !important;
+  background-color: #fff !important;
+  border: 2px solid #81bd41 !important;
+  color: #81bd41 !important;
 }
 
 .button-ask-to-add-comment-yes:hover {
-  background-color: #81BD41 !important;
-  color: #FFF !important;
+  background-color: #81bd41 !important;
+  color: #fff !important;
 }
 
 .button-ask-to-add-comment-no {
-    background-color: #FFF !important;
-    border: 2px solid #FF0000 !important;
-    color: #FF0000 !important;
+  background-color: #fff !important;
+  border: 2px solid #ff0000 !important;
+  color: #ff0000 !important;
 }
 
 .button-ask-to-add-comment-no:hover {
-  background-color: #FF0000 !important;
-   color: #FFF !important;
+  background-color: #ff0000 !important;
+  color: #fff !important;
 }
 
 .button-chose-comment {
-    background-color: #FFF !important;
-    border: 2px solid #F3F3F3 !important;
-    color: #000000 !important;
+  background-color: #fff !important;
+  border: 2px solid #f3f3f3 !important;
+  color: #000000 !important;
 }
 
 .button-chose-comment:hover {
-  background-color: #4CAF50 !important;
-   color: #FFF !important;
+  background-color: #4caf50 !important;
+  color: #fff !important;
 }
 
 .editor-class {
   width: 40vw;
-  }  
+}
 
 .button-comment {
   margin: 20px 0;
@@ -78,9 +77,9 @@
 }
 
 .modal-content {
-    border: 0 !important;
-    border-radius: 10px !important;
-    width: auto !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  width: auto !important;
 }
 
 .header-modal {
