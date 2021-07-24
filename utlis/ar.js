@@ -364,6 +364,7 @@ export const ar = {
   },
   draftDetails: {
     decisions: 'التشريعات',
+    votingDrafts: 'التشريعات تحت التصويت',
     plzPickLegalCapacity: 'من فضلك ادخل الصفه الاعتباريه',
     plzEnterComment: 'من فضلك ادخل تعليق',
     drafts: 'التشريعات',
