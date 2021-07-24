@@ -543,7 +543,7 @@ class DraftDetailsInfo extends Component {
                     <ul>
                       <li>
                         <Link href="/drafts/">
-                          <a> {translate('draftDetails.decisions')}</a>
+                          <a> {translate('draftDetails.votingDrafts')}</a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
