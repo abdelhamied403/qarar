@@ -42,6 +42,7 @@ import Rate from '../draft-details/shareIdea/Rate';
 import CommentType from '../draft-details/shareIdea/CommentType';
 import AddComment from '../draft-details/shareIdea/Comment';
 import Job from '../draft-details/shareIdea/Job';
+import ArticleComment from '../components/ArticleComment';
 
 moment.locale('ar');
 class DraftDetailsInfo extends Component {
@@ -290,16 +291,20 @@ class DraftDetailsInfo extends Component {
     if (itemResponse.ok) {
       const { items, data } = itemResponse.data;
       this.setState({ draft: data, items, loadingDraft: false }, () => {
-        if (!breadcrumbs.length) {
+        if (data.parent_id) {
           this.getParent(data.parent_id);
         }
+      });
+
+      this.setState({
+        breadcrumbs: [{ id: data.id, title: data.title }]
       });
     }
   };
 
   getParent = async id => {
     const { accessToken } = this.props;
-    const { breadcrumbs } = this.state;
+    // const { breadcrumbs } = this.state;
     const itemResponse = await Api.get(
       `/qarar_api/load/node/${id}?_format=json`,
       {},
@@ -310,9 +315,9 @@ class DraftDetailsInfo extends Component {
     if (itemResponse.ok) {
       const { data } = itemResponse.data;
       this.setState({ parentDraft: itemResponse.data });
-      this.setState({
-        breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
-      });
+      // this.setState({
+      //   breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
+      // });
       if (data.parent_id) {
         this.getParent(data.parent_id);
       }
@@ -608,10 +613,7 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (3).svg"
                         />
                       </div>
-                      <p>
-                        {parseInt(draft.likes, 10) +
-                          parseInt(draft.dislikes, 10)}
-                      </p>
+                      <p>{draft.satisfaction_percentage} %</p>
                       <h5> {translate('draftDetails.generalVote')}</h5>
                     </div>
                   </div>
@@ -936,7 +938,7 @@ class DraftDetailsInfo extends Component {
                   this.setState({ stars: val });
                 }}
               ></Rate>
-              
+
               <AddComment
                 setEditorState={val => this.setState({ editorState: val })}
               ></AddComment>
@@ -964,25 +966,16 @@ class DraftDetailsInfo extends Component {
               </div>
             </div>
 
-            <div className="draftNewComments">
-              {comments.map(comment => (
-                <div
-                  key={comment.cid}
-                  className="insideComment d-flex align-items-start"
-                >
-                  <img
-                    src={
-                      comment.owner_image || '/static/img/interactive/user.svg'
-                    }
-                    alt=""
-                    className="avatarUser"
-                  />
-                  <div className="mr-auto ml-0">
-                    <h5>{comment.full_name}</h5>
-                    <p>{renderHTML(comment.comment_body || '')}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="artcomments">
+              <h4>{translate('draftDetails.comments')}</h4>
+              <div className="collapseDraftCard draftNewComments">
+                <ArticleComment
+                  enableCommentForm={false}
+                  enableVote
+                  itemId={draft.id}
+                  draft={draft}
+                />
+              </div>
             </div>
           </Container>
         </div>

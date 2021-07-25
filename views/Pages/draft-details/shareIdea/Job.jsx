@@ -1,7 +1,4 @@
-/* eslint-disable radix */
-/* eslint-disable react/jsx-no-comment-textnodes */
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
 import { translate } from '../../../../utlis/translation';
 
@@ -18,6 +15,12 @@ const Job = props => {
   const [selectedLegalCapacity, setSelectedLegalCapacity] = useState();
   const [selectedCity, setSelectedCity] = useState();
   const [selectedInvestmentField, setSelectedInvestmentField] = useState();
+
+  useEffect(() => {
+    setSelectedLegalCapacity(localStorage.getItem('legalCapDisabled'));
+    setSelectedCity(localStorage.getItem('cityDisabled'));
+    setSelectedInvestmentField(localStorage.getItem('invFieldDisabled'));
+  }, []);
 
   return (
     <div
@@ -36,7 +39,9 @@ const Job = props => {
               onChange={e => {
                 selectLegalCapacity(e.target.value);
                 setSelectedLegalCapacity(e.target.value);
+                localStorage.setItem('legalCapDisabled', e.target.value);
               }}
+              disabled={JSON.parse(localStorage.getItem('legalCapDisabled'))}
             >
               <option value="-1">
                 {translate('draftDetails.shareIdeasModal.choose')}{' '}
@@ -55,7 +60,9 @@ const Job = props => {
               onChange={e => {
                 selectCity(e.target.value);
                 setSelectedCity(e.target.value);
+                localStorage.setItem('cityDisabled', e.target.value);
               }}
+              disabled={JSON.parse(localStorage.getItem('cityDisabled'))}
             >
               <option value="-1">
                 {translate('draftDetails.shareIdeasModal.choose')}{' '}
@@ -73,17 +80,14 @@ const Job = props => {
               onChange={e => {
                 selectInvestmentField(e.target.value);
                 setSelectedInvestmentField(e.target.value);
+                localStorage.setItem('invFieldDisabled', e.target.value);
               }}
+              disabled={localStorage.getItem('invFieldDisabled') !== 'false'}
             >
               <option value="-1">
                 {translate('draftDetails.shareIdeasModal.choose')}{' '}
                 {translate('draftDetails.shareIdeasModal.investmentField')}
               </option>
-              // eslint-disable-next-line react/prop-types
-              eslint-disable-next-line react/prop-types eslint-disable-next-line
-              react/prop-types // eslint-disable-next-line react/prop-types //
-              eslint-disable-next-line react/prop-types eslint-disable-next-line
-              react/prop-types
               {allInvestmentField.map(option => (
                 <option value={option.id}>{option.name}</option>
               ))}

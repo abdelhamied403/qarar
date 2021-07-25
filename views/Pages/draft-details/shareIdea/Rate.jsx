@@ -21,10 +21,6 @@ const Rate = props => {
         className="action-items-modal"
         onMouseLeave={e => setHoverIndex(stars)}
       >
-        <div
-          style={{ width: '0px', display:'none' }}
-          onMouseOver={e => setHoverIndex(0)}
-        ></div>
         {new Array(5).fill(0).map((_, i) => (
           <div className="star">
             <img

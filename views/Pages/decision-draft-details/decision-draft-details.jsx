@@ -15,26 +15,30 @@ import {
   Media
 } from 'reactstrap';
 import CardDraftDetails from '../components/card-draft-details/card-draft-details';
-import logo from '../../../assets/img/avatar.png';
+import logo from '../../../static/img/avatar.png';
 
-import likeIcon from '../../../assets/img/like-icon.svg';
-import unlikeIcon from '../../../assets/img/unlike-icon.svg';
-import likeIconReflect from '../../../assets/img/like-icon-reflect.svg';
+import likeIcon from '../../../static/img/like-icon.svg';
+import unlikeIcon from '../../../static/img/unlike-icon.svg';
+import likeIconReflect from '../../../static/img/like-icon-reflect.svg';
 
-import usersDraft from '../../../assets/img/Icon - draft activity - users.svg';
-import calender from '../../../assets/img/Icon - most active - views Copy 3.svg';
-import file from '../../../assets/img/Icon - most active - draft.svg';
-import like from '../../../assets/img/Icon - most active - views Copy.svg';
-import comment from '../../../assets/img/Icon - most active - views Copy 2.svg';
+import usersDraft from '../../../static/img/Icon - draft activity - users.svg';
+import calender from '../../../static/img/Icon - most active - views Copy 3.svg';
+import file from '../../../static/img/Icon - most active - draft.svg';
+import like from '../../../static/img/Icon - most active - views Copy.svg';
+import comment from '../../../static/img/Icon - most active - views Copy 2.svg';
 import { translate } from '../../../utlis/translation';
 
-const Breadcrumb = React.lazy(() =>
-  import('../components/breadcrumb/breadcrumb')
-);
-const CardPoints = React.lazy(() =>
-  import('../components/card-points/cards-points')
-);
-const CardInfo = React.lazy(() => import('../components/card-info/card-info'));
+import Breadcrumb from '../components/breadcrumb/breadcrumb';
+import CardPoints from '../components/card-points/cards-points';
+import CardInfo from '../components/card-info/card-info';
+
+// const Breadcrumb = React.lazy(() =>
+//   import('../components/breadcrumb/breadcrumb')
+// );
+// const CardPoints = React.lazy(() =>
+//   import('../components/card-points/cards-points')
+// );
+// const CardInfo = React.lazy(() => import('../components/card-info/card-info'));
 
 class DecisionDraftDetails extends Component {
   constructor(props) {
