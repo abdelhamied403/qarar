@@ -976,8 +976,8 @@ class DraftDetailsInfo extends Component {
                       md="4"
                       className={
                         'qchart flex flex-1 f-column max-100' +
-                        (draft.voting_percentage?.length > 0
-                          ? 'border-right-line'
+                        (Object.keys(draft.voting_percentage).length > 0
+                          ? ' border-right-line'
                           : '')
                       }
                       dir={translate('dir')}
@@ -1207,7 +1207,7 @@ class DraftDetailsInfo extends Component {
           <Row className="mt-3">
             <Col md="12" className="draftBodyRt">
               <p>{renderHTML(item.body_value.substring(0, 310) || '')}</p>
-                  <div className="addCommentForm">
+              <div className="addCommentForm">
                 <Rate
                   setStars={val => {
                     this.setState({ stars: val });
@@ -1228,7 +1228,7 @@ class DraftDetailsInfo extends Component {
 
                 <Button
                   className="button-comment w-min mr-0 ml-auto flex flex-end"
-                  onClick={() => this.saveDraftComment(this.props.draftId)}
+                  onClick={() => this.saveDraftComment(item.nid)}
                 >
                   {translate('draftDetails.shareIdeasModal.stepFourComment')}
                   <img
@@ -1240,7 +1240,7 @@ class DraftDetailsInfo extends Component {
               </div>
 
               {/* files and more */}
-              <Link href={`/draft-details-info/${this.props.draftId}`}>
+              <Link href={`/draft-details-info/${item.nid}`}>
                 <Button
                   className="btn-inline-block"
                   onMouseOut={() => {

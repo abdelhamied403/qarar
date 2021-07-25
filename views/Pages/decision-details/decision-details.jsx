@@ -796,9 +796,9 @@ class DecisionDetailsInfo extends Component {
           }
         >
           <Row className="mt-3">
-            <Col md="7" className="draftBodyRt">
+            <Col md="12" className="draftBodyRt">
               <p>{renderHTML(item.body || '')}</p>
-              <Link href={`/draft-details/${item.id}`}>
+              <Link href={`/decision-details-info/${item.id}`}>
                 <Button
                   className="btn-inline-block"
                   onMouseOut={() => {
@@ -823,7 +823,6 @@ class DecisionDetailsInfo extends Component {
                   size="lg"
                   onClick={() => window.open(item?.pdf_url)}
                 >
-                  {/* {translate('decisionDetails.attachment')} */}
                   {item.pdf_name}
                 </Button>
               )}

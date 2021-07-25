@@ -32,11 +32,10 @@ class DecisionDetails extends Component {
   }
 
   getDraft = async () => {
-    const { draftId } = this.props;
+    const { decisionId } = this.props;
     const draftResponse = await Api.get(
-      `/qarar_api/load/node/${draftId}?_format=json`
+      `/qarar_api/load/node/${decisionId}?_format=json`
     );
-
     if (draftResponse.ok) {
       const { items, data } = draftResponse.data;
       this.setState({ draft: data, items, loading: false });
@@ -57,37 +56,47 @@ class DecisionDetails extends Component {
           link="/decisions"
         />
         <Container>
-          <div className="dc-details-header ">
+          <div className="dc-details-header">
             <Row>
               <Col sm="12" md="8" lg="9">
                 <div className="header-content">
                   <h2>{draft.title}</h2>
                   <div className="sub-header">
-                    <Media
-                      object
-                      src="/static/img/vote-closed.svg"
-                      className="icon-small"
-                      dir={translate('dir')}
-                    />
-                    {/* <i className="fa fa-stop-circle "></i> */}
                     {draft.archived_date && (
-                      <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
+                      <div className="">
+                        <Media
+                          object
+                          src="/static/img/vote-closed.svg"
+                          className="icon-small"
+                          dir={translate('dir')}
+                        />
+                        <span>أغلق التصويت بتاريخ {draft.archived_date}</span>
+                      </div>
                     )}
                     {draft.end_date &&
                       !(draft.applied_date || draft.archived_date) && (
-                        <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                        <div className="">
+                          <Media
+                            object
+                            src="/static/img/vote-closed.svg"
+                            className="icon-small"
+                            dir={translate('dir')}
+                          />
+                          <span>يغلق التصويت بتاريخ {draft.end_date}</span>
+                        </div>
                       )}
                   </div>
                   <div className="sub-header">
-                    <Media
-                      object
-                      src="/static/img/Icon - most active - views Copy 3.svg"
-                      className="icon-small"
-                      dir={translate('dir')}
-                    />
-                    {/* <i className="fa fa-calendar "></i> */}
                     {draft.applied_date && (
-                      <span>أتم إقراره بتاريخ {draft.applied_date}</span>
+                      <div className="">
+                        <Media
+                          object
+                          src="/static/img/Icon - most active - views Copy 3.svg"
+                          className="icon-small"
+                          dir={translate('dir')}
+                        />
+                        <span>أتم إقراره بتاريخ {draft.applied_date}</span>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -98,21 +107,21 @@ class DecisionDetails extends Component {
                     <Col xs="6">
                       <CardInfo
                         type="صوت"
-                        number="5523"
+                        number="11"
                         icon="/static/img/draft activity -.svg"
                       />
                     </Col>
                     <Col xs="6">
                       <CardInfo
                         type="تعليق"
-                        number={draft.comments}
+                        number={11}
                         icon="/static/img/draft activity - comments.svg"
                       />
                     </Col>
                     <Col xs="12" className="users">
                       <CardInfo
                         type="مشترك"
-                        number={draft.likes - draft.dislikes}
+                        number={11}
                         icon="/static/img/Icon - draft activity - users.svg"
                       />
                     </Col>
@@ -124,11 +133,12 @@ class DecisionDetails extends Component {
           <div className="description">
             <h5>الوصف</h5>
             <CardDraftDetails
-              header=""
+              header={draft.title}
               content={draft.body}
-              tags={draft.tags.map(item => ({ tag: item.name, id: item.id }))}
-              date="12/4/2019"
-              dropdownList={items.map(item => item.title)}
+              tags={[]}
+              date={draft.publisheDate}
+              borderColor="#9D9D9D"
+              dropdownList={[]}
             />
           </div>
           <TextBox
