@@ -11,8 +11,7 @@ const Rate = props => {
     <div
       style={{
         display: 'flex',
-        flexFlow: 'column',
-        padding: '0 30px 0 30px'
+        flexFlow: 'column'
       }}
     >
       <h4 className="">{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
@@ -20,10 +19,6 @@ const Rate = props => {
         className="action-items-modal"
         onMouseLeave={e => setHoverIndex(stars)}
       >
-        <div
-          style={{ width: '10px' }}
-          onMouseOver={e => setHoverIndex(0)}
-        ></div>
         {new Array(5).fill(0).map((_, i) => (
           <div className="star">
             <img
