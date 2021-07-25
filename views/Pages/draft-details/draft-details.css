@@ -670,3 +670,16 @@ html {
 .artcomments {
   margin-top: 60px;
 }
+
+ .collapseDraftCard button{
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.addCommentForm {
+  margin: 48px 0;
+}
+
+.qchart .qpiechart svg{
+  max-height: 170px;
+}

@@ -11,7 +11,9 @@ const Rate = props => {
     <div
       style={{
         display: 'flex',
-        flexFlow: 'column'
+        flexFlow: 'column',
+        padding: '0',
+        marginBottom:'30px'
       }}
     >
       <h4 className="">{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
