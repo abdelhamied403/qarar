@@ -865,6 +865,14 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
+            {draft?.related_project ? (
+              <Card className="cardDraft">
+                <CardBody>
+                  <DraftTabs project={draft?.related_project} />
+                </CardBody>
+              </Card>
+            ) : null}
+
             <Card className="cardDraft">
               <CardHeader>{translate('draftDetails.charts')}</CardHeader>
               <CardBody>
@@ -1052,13 +1060,6 @@ class DraftDetailsInfo extends Component {
               </CardBody>
             </Card>
 
-            {draft?.related_project ? (
-              <Card className="cardDraft">
-                <CardBody>
-                  <DraftTabs project={draft?.related_project} />
-                </CardBody>
-              </Card>
-            ) : null}
             <div className="draftInfoShare d-flex justify-content-between mb-4">
               <div className="shareInfoLeft d-flex align-items-center">
                 <p>{translate('draftDetails.shareDraft')}</p>
