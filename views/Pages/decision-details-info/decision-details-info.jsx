@@ -1,6 +1,4 @@
-import React, { Component, useState } from 'react';
-import './decision-details.css';
-import { Line, Doughnut } from 'react-chartjs-2';
+import React, { Component } from 'react';
 import {
   Container,
   Col,
@@ -10,22 +8,17 @@ import {
   Card,
   CardBody,
   CardHeader,
-  DropdownItem,
-  UncontrolledTooltip,
-  Alert,
-  Badge,
-  TabContent,
-  TabPane
+  DropdownItem
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import renderHTML from 'react-render-html';
+import Skeleton from '../components/skeleton/skeleton';
+
 import {
   Link as ScrollLink,
-  DirectLink,
-  Element,
   Events,
   animateScroll as scroll,
   scroller
@@ -37,16 +30,9 @@ import {
   LinkedinShareButton,
   TwitterShareButton
 } from 'react-share';
-import ReactLoading from 'react-loading';
-import DraftTabs from './tabs';
-import Skeleton from '../components/skeleton/skeleton';
-import ArticleComment from '../components/ArticleComment';
 import DecisionEdits from '../components/decision-edit/decision-edit';
 import Api from '../../../api';
-import PartcipantModal from './partcipantModal';
-import CommentSteps from './comments-stetps';
 import { translate } from '../../../utlis/translation';
-import ShareIdeasModal from './shareIdeasModal';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -64,6 +50,7 @@ class DecisionDetailsInfo extends Component {
       decision: {
         tags: []
       },
+      parentDecision: {},
       items: [],
       comments: [],
       breadcrumbs: [],
@@ -86,7 +73,8 @@ class DecisionDetailsInfo extends Component {
       commentsActions: {},
       selectedSubject: null,
       modalOpen: false,
-      shareIdeasModalOpen: false
+      shareIdeasModalOpen: false,
+      allDecisionData: null
     };
   }
 
@@ -215,19 +203,20 @@ class DecisionDetailsInfo extends Component {
       const { items } = data;
       const openArticle =
         new Date(data.end_date).getTime() > new Date().getTime();
-      // if (items) {
-      // items.map(item => item.modified_id && this.getEdits(item.nid));
-      // items.map((item, index) => {
-      //   item.openArticle =
-      //     new Date(item.end_date).getTime() > new Date().getTime();
-      //   return item;
-      // });
-      // }
       this.setState(
-        { decision: data, items, loadingDecision: false, openArticle },
+        {
+          allDecisionData: itemResponse.data,
+          decision: data,
+          items,
+          loadingDecision: false,
+          openArticle
+        },
         () => {
           if (!breadcrumbs.length) {
-            this.getParent(data.parent_id);
+            let parent_id =
+              itemResponse.data.field_system_reference &&
+              itemResponse.data.field_system_reference[0].target_id;
+            this.getParent(parent_id);
           }
         }
       );
@@ -235,7 +224,6 @@ class DecisionDetailsInfo extends Component {
   };
 
   getParent = async id => {
-    if (!id) return;
     const { accessToken } = this.props;
     const { breadcrumbs } = this.state;
     const itemResponse = await Api.get(
@@ -247,11 +235,16 @@ class DecisionDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       const { data } = itemResponse.data;
+      this.setState({ parentDecision: itemResponse.data });
+
       this.setState({
         breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
       });
-      if (data.parent_id) {
-        this.getParent(data.parent_id);
+      let parent_id =
+        itemResponse.data.field_system_reference &&
+        itemResponse.data.field_system_reference[0].target_id;
+      if (parent_id) {
+        this.getParent(parent_id);
       }
     }
   };
@@ -555,6 +548,13 @@ class DecisionDetailsInfo extends Component {
                           <a>{translate('decisionsLibPage.title')}</a>
                         </Link>
                       </li>
+                      {breadcrumbs.map(item => (
+                        <li key={item.id}>
+                          <Link href={`/decision-details/${item.id}`}>
+                            <a>{item.title}</a>
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                     <h2>{decision && decision.title}</h2>
                     <div className="sub-header">
@@ -581,7 +581,11 @@ class DecisionDetailsInfo extends Component {
                           src="/static/img/decision/Group 1423.svg"
                         />
                       </div>
-                      <p>{(decision && decision.visits_number) || '260'}</p>
+                      <p>
+                        {this.state.allDecisionData &&
+                          this.state.allDecisionData.field_visits_number[0]
+                            .value}
+                      </p>
                       <h5>{translate('decisionDetails.views')}</h5>
                     </div>
                     <div>
@@ -592,19 +596,8 @@ class DecisionDetailsInfo extends Component {
                           src="/static/img/decision/Group 1424.svg"
                         />
                       </div>
-                      <p>{(decision && decision.modificationsCount) || '98'}</p>
-                      <h5>{translate('decisionDetails.modification')}</h5>
-                    </div>
-                    <div>
-                      <div className="icon-border">
-                        <Media
-                          className="image-icon"
-                          object
-                          src="/static/img/decision/Group 1425.svg"
-                        />
-                      </div>
-                      <p>{(decision && decision.itemsCount) || '12'}</p>
-                      <h5> {translate('decisionDetails.article')}</h5>
+                      <p>{decision && decision.ownername}</p>
+                      <h5>المسؤل</h5>
                     </div>
                   </div>
                 </Col>
@@ -673,10 +666,9 @@ class DecisionDetailsInfo extends Component {
                       className="btn-inline-block btn-ligh"
                       color="secondary"
                       size="sm"
-                      // disabled={!draft?.pdf_url}
                       onClick={() => window.open(decision?.pdf_url)}
                     >
-                      {decision.pdf_name}
+                      {decision.pdf_name || 'new file.pdf'}
                     </Button>
                   </div>
                 </Row>
@@ -684,29 +676,6 @@ class DecisionDetailsInfo extends Component {
             </Card>
 
             <div className="draftInfoShare d-flex justify-content-between mb-4">
-              <div className="shareInfoRight">
-                {items && (
-                  <>
-                    {' '}
-                    <Button
-                      onClick={() => {
-                        items.map(item => this.setState({ [item.id]: true }));
-                      }}
-                    >
-                      <span>+</span>
-                      {translate('decisionDetails.openAll')}
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        items.map(item => this.setState({ [item.id]: false }));
-                      }}
-                    >
-                      <span>-</span>
-                      {translate('decisionDetails.closeAll')}
-                    </Button>
-                  </>
-                )}
-              </div>
               <div className="shareInfoLeft d-flex align-items-center">
                 <p>{translate('decisionDetails.shareDecision')}</p>
                 <LinkedinShareButton url={window && window.location}>
@@ -720,112 +689,11 @@ class DecisionDetailsInfo extends Component {
                 </FacebookShareButton>
               </div>
             </div>
-            <div>
-              {items &&
-                items
-                  .filter(item => !item.openArticle)
-                  .map(item =>
-                    this.subjectsList(
-                      {
-                        ...item,
-                        modificationsCount: item.modificationsCount
-                      },
-                      openArticle,
-                      uid
-                    )
-                  )}
-            </div>
           </Container>
         </div>
       </>
     );
   }
-
-  subjectsList = (item, openArticle, uid) => {
-    return (
-      <Card key={item.id} className="cardDraft text-justify collapseDraftCard">
-        <CardHeader
-          className="d-flex justify-content-between"
-          onClick={() => this.setState({ [item.id]: !this.state[item.id] })}
-        >
-          <p>{item.title}</p>
-          <div className="dratCartTitlelt d-flex">
-            {item.modified_id && (
-              <>
-                <Button
-                  color="transparent"
-                  onClick={e => {
-                    e.stopPropagation();
-                    this.setState({
-                      [`modified-${item.id}`]: !this.state[
-                        `modified-${item.id}`
-                      ]
-                    });
-                  }}
-                  className="p-0 m-0 text-white border-0"
-                >
-                  سجل التعديلات
-                </Button>
-              </>
-            )}
-            <div className="manyComments d-flex align-items-center">
-              <span>
-                {translate('decisionDetails.modification')}{' '}
-                {item.modificationsCount}
-              </span>
-            </div>
-            <img
-              src="/static/img/interactive/whiteTabs.svg"
-              alt=""
-              className={this.state[item.id] ? 'rotated' : ''}
-            />
-          </div>
-        </CardHeader>
-        {this.state[`modified-${item.id}`] && (
-          <DecisionEdits edits={this.state[`edit-${item.id}`]?.modifications} />
-        )}
-        <CardBody
-          style={
-            this.state[item.id] ? { display: 'block' } : { display: 'none' }
-          }
-        >
-          <Row className="mt-3">
-            <Col md="12" className="draftBodyRt">
-              <p className="line-clamp-3">{renderHTML(item.body || '')}</p>
-              <Link href={`/decision-details-info/${item.id}`}>
-                <Button
-                  className="btn-inline-block"
-                  onMouseOut={() => {
-                    this.setState({
-                      img2: '/static/img/interactive/greenArrow.svg'
-                    });
-                  }}
-                  onMouseEnter={() =>
-                    this.setState({
-                      img2: '/static/img/interactive/whiteArrow.svg'
-                    })
-                  }
-                >
-                  {translate('decisionDetails.more')}
-                  <img src={this.state.img2} alt="" />
-                </Button>
-              </Link>
-              {item.pdf_url && (
-                <Button
-                  className="btn-inline-block"
-                  color="secondary"
-                  size="lg"
-                  onClick={() => window.open(item?.pdf_url)}
-                >
-                  {item.pdf_name}
-                </Button>
-              )}
-            </Col>
-          </Row>
-        </CardBody>
-      </Card>
-    );
-  };
 }
 
 const mapStateToProps = ({ auth: { uid, accessToken } }) => ({

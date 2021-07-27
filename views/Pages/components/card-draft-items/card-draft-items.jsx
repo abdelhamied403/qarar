@@ -166,7 +166,6 @@ class CardDraft extends Component {
       {list.map((item, index) => {
         const { uid } = this.props;
         const { collapse, heights } = this.state;
-        console.log(heights);
 
         return (
           <li>

@@ -67,17 +67,29 @@ class DecisionEdit extends Component {
         voting: { [v]: false }
       });
     }, 300);
-    console.log(this.state.voting);
   }
 
   handleChange(e) {
     this.props.checkBoxChange(e);
-    // console.log(e);
   }
 
   render() {
     // eslint-disable-next-line
-    const { header, subHeader, headerDDlist, tags, votes, date, link, borderColor, edits, items, subHeaderIcon, selected, setSelected } = this.props;
+    const {
+      header,
+      subHeader,
+      headerDDlist,
+      tags,
+      votes,
+      date,
+      link,
+      borderColor,
+      edits,
+      items,
+      subHeaderIcon,
+      selected,
+      setSelected
+    } = this.props;
     if (!edits.length) return null;
     return (
       <Card className="decision-edit" style={{ borderRightColor: borderColor }}>

@@ -668,6 +668,7 @@ pre code {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+  width: 100%;
 }
 
 .no-gutters {
@@ -20419,4 +20420,11 @@ a#loginWithBaladyLink img {
   .draftContainer.drafInfo .cardDraft .d-flex.line-right.flex-column {
     align-items: center;
   }
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

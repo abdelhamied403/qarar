@@ -95,7 +95,6 @@ class CardComments extends Component {
   render() {
     // eslint-disable-next-line
     const { commentsArray } = this.state;
-    console.log(commentsArray);
 
     return (
       <div>

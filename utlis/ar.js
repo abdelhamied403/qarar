@@ -363,6 +363,11 @@ export const ar = {
     more: 'المزيد'
   },
   draftDetails: {
+    errors: {
+      emptyFields: 'من فضلك ادخل الصفه الاعتباريه والمنظقه',
+      emptyInvestmentField: 'من فضلك ادخل مجال الاستثمار'
+    },
+    save: 'حفظ',
     decisions: 'التشريعات',
     votingDrafts: 'التشريعات تحت التصويت',
     plzPickLegalCapacity: 'من فضلك ادخل الصفه الاعتباريه',

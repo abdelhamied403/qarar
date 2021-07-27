@@ -12,6 +12,7 @@
 .comment-form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .comment-form .form-control {

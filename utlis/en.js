@@ -384,6 +384,7 @@ export const en = {
     more: 'More'
   },
   draftDetails: {
+    save: 'save',
     decisions: 'Decisions',
     plzPickLegalCapacity: 'please enter legal capacity',
     plzEnterComment: 'please enter a comment',

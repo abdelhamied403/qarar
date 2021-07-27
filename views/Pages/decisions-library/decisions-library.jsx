@@ -57,7 +57,6 @@ class DecisionsLibrary extends Component {
       `/qarar_api/load/vocabulary/tags?_format=json`
     );
     if (tagsResponse.ok) {
-      console.log({ tagsResponse });
       this.setState({ tags: tagsResponse.data });
     }
   };
@@ -124,7 +123,6 @@ class DecisionsLibrary extends Component {
           }${searchKey ? '&search_key=' + searchKey : ''}`
         );
     if (draftsResponse.ok) {
-      console.log(draftsResponse.data);
       this.setState({ drafts: draftsResponse.data, loading: false });
     }
   };
@@ -141,7 +139,6 @@ class DecisionsLibrary extends Component {
         )
       : await Api.get(`/qarar_api/load/vocabulary/systems_types?_format=json`);
     if (systemOptionsResponse.ok) {
-      console.log(systemOptionsResponse.data);
       this.setState({ systemOptions: systemOptionsResponse.data });
     }
 
@@ -155,10 +152,8 @@ class DecisionsLibrary extends Component {
         )
       : await Api.get(`/qarar_api/load/vocabulary/altshry_at?_format=json`);
     if (vocabularyOptionsResponse.ok) {
-      console.log('vocabulary', vocabularyOptionsResponse.data);
       this.setState({ vocabularyOptions: vocabularyOptionsResponse.data });
     }
-    console.log({ vocabularyOptionsResponse, systemOptionsResponse });
   };
 
   toggle(tabPane, tab) {

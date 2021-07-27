@@ -27,7 +27,6 @@ const ClientFooter = ({ isAuthentcated }) => {
         'https://qarar-backend.sharedt.com/qarar_api/footer-menu?lang=' + lang
       )
       .then(res => {
-        console.log(res.data);
         setFooter(res.data);
       })
       .catch(err => console.error(err));
