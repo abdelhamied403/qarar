@@ -666,9 +666,17 @@ class DecisionDetailsInfo extends Component {
                       className="btn-inline-block btn-ligh"
                       color="secondary"
                       size="sm"
-                      onClick={() => window.open(decision?.pdf_url)}
+                      onClick={() =>
+                        window.open(
+                          this.state.allDecisionData?.field_attachment[0].url
+                        )
+                      }
                     >
-                      {decision.pdf_name || 'new file.pdf'}
+                      {decision.pdf_name ||
+                        this.state.allDecisionData?.field_attachment[0].url
+                          .split('/')
+                          .slice(-1)[0] ||
+                        'new file.pdf'}
                     </Button>
                   </div>
                 </Row>
@@ -688,6 +696,50 @@ class DecisionDetailsInfo extends Component {
                   <img src="/static/img/interactive/facebookDraft.svg" alt="" />
                 </FacebookShareButton>
               </div>
+            </div>
+
+            <div className="edits my-5">
+              <h4 className="my-4">
+                {translate('cardDraft.modificationRequest')}
+              </h4>
+              <Editor
+                placeholder="اضف تعليقك هنا"
+                toolbar={{
+                  options: ['inline', 'image'],
+                  inline: {
+                    options: ['bold', 'underline']
+                  },
+                  image: {
+                    alignmentEnabled: false,
+                    uploadCallback: () => {},
+                    alt: { present: true, mandatory: false },
+                    previewImage: true
+                  }
+                }}
+                editorState={this.state.editorState}
+                wrapperClassName="demo-wrapper"
+                editorClassName="demo-editor"
+                onEditorStateChange={newData =>
+                  this.setState({ editorState: newData })
+                }
+              />
+              <Button
+                className="button-comment"
+                onClick={() =>
+                  console.log(
+                    draftToHtml(
+                      convertToRaw(this.state.editorState.getCurrentContent())
+                    )
+                  )
+                }
+              >
+                {translate('draftDetails.addCommentButton')}
+                <img
+                  dir={translate('dir')}
+                  src="/static/img/interactive/whiteArrow.svg"
+                  alt=""
+                />
+              </Button>
             </div>
           </Container>
         </div>
