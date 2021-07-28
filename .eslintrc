@@ -3,8 +3,9 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
-    "jsx-a11y/anchor-is-valid": 0
-	},
+    "jsx-a11y/anchor-is-valid": 0,
+    "react/jsx-props-no-spreading": false
+  },
   "globals": {
     "fetch": true,
     "window": true,

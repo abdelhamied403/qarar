@@ -73,7 +73,6 @@ const ShareIdeasModal = props => {
     const list = await getLegalCapacity();
     const list2 = await getCity();
     const list3 = await getInvestmentField();
-    console.log(list);
     setLegalCapacityList(list);
     setCityList(list2);
     setInvestmentFieldList(list3);
@@ -298,7 +297,6 @@ const ShareIdeasModal = props => {
   };
 
   const ChoseComment = props => {
-    console.log(ModalState.COMMENT);
     return (
       <div
         style={{

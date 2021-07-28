@@ -125,7 +125,6 @@ const Landing = () => {
       '/qarar_api/data/draft/4/DESC/1?_format=json'
     );
     if (draftsResponse.ok) {
-      console.log(draftsResponse.data);
       setDrafts(draftsResponse.data);
     }
     const activeDraftsResponse = await Api.get(
@@ -147,7 +146,6 @@ const Landing = () => {
       '/qarar_api/latest-decisions?limit=4'
     );
     if (decisionsResponse.ok) {
-      console.log(decisionsResponse.data);
       setDecisions(decisionsResponse.data);
     }
   };
@@ -195,7 +193,6 @@ const Landing = () => {
       .get('https://qarar-backend.sharedt.com/qarar_api/all-drafts-avg')
       .then(res => {
         setSatPercentages(Object.values(res.data));
-        console.log('satPercentages', Object.values(res.data));
       })
       .catch(err => {
         console.log(err.message);

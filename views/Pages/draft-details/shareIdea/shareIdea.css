@@ -2,3 +2,12 @@
   margin-left: auto;
   margin-right: 0;
 }
+
+.to-left-center {
+  margin: auto;
+  margin-left: 0;
+}
+
+.h-full {
+  height: 100%;
+}

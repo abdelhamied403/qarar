@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import DecisionDetailsInfoPage from '../../views/Pages/decision-details-2/decision-details';
+import DecisionDetailsInfoPage from '../../views/Pages/decision-details-info/decision-details-info';
 
 const DecisionDetailsInfo = () => {
   const router = useRouter();

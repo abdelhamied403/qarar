@@ -4,8 +4,8 @@ import { translate } from '../../../../utlis/translation';
 import './shareIdea.css';
 
 const Rate = props => {
-  const [stars, setStars] = useState(1);
-  const [hoverIndex, setHoverIndex] = useState(1);
+  const [stars, setStars] = useState(0);
+  const [hoverIndex, setHoverIndex] = useState(0);
 
   return (
     <div
@@ -13,7 +13,7 @@ const Rate = props => {
         display: 'flex',
         flexFlow: 'column',
         padding: '0',
-        marginBottom:'30px'
+        marginBottom: '30px'
       }}
     >
       <h4 className="">{translate('draftDetails.shareIdeasModal.stepOne')}</h4>
