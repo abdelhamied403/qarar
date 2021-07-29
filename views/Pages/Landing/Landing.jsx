@@ -327,9 +327,7 @@ const Landing = () => {
         <Container>
           <Row>
             <Col xs="12" md="12" lg="12">
-              <h2 className="header">
-                {translate('landingPage.recentlyQarars')}
-              </h2>
+              <h2 className="header">{translate('decisionsLibPage.title')}</h2>
 
               <Row
                 style={
@@ -384,7 +382,7 @@ const Landing = () => {
               <div className="text-right d-flex">
                 <Link href="/decisions-library">
                   <Button outline color="primary" size="md">
-                    {translate('landingPage.allQarars')}
+                    {translate('decisionsLibPage.title')}
                     <img
                       dir={translate('dir')}
                       src="/static/img/interactive/greenArrow.svg"
@@ -410,7 +408,6 @@ const Landing = () => {
               <h2 className="header">
                 {translate('landingPage.recentlyDrafts')}
               </h2>
-
               <Row
                 style={
                   activeBtn === 0 ? { display: 'flex' } : { display: 'none' }
@@ -499,7 +496,7 @@ const Landing = () => {
               <div className="text-right d-flex">
                 <Link href="/drafts">
                   <Button outline color="primary" size="md">
-                    {translate('landingPage.allDrafts')}
+                    {translate('draftsUnderVotePage.title')}
                     <img
                       dir={translate('dir')}
                       src="/static/img/interactive/greenArrow.svg"
