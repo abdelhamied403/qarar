@@ -11,3 +11,30 @@
 .h-full {
   height: 100%;
 }
+
+.action-items-modal,
+.action-items-modal-draft {
+  align-items: baseline;
+}
+
+@media screen and (max-width: 768px) {
+  .action-items-modal,
+  .action-items-modal-draft {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+  }
+  .action-items-modal .star,
+  .action-items-modal-draft .star-draft {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .action-items-modal .star span,
+  .action-items-modal-draft .star-draft span {
+    text-align: right;
+    margin-right: 10px;
+  }
+}

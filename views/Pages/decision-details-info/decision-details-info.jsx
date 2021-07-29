@@ -601,17 +601,6 @@ class DecisionDetailsInfo extends Component {
                       </p>
                       <h5>تعديل</h5>
                     </div>
-                    <div>
-                      <div className="icon-border">
-                        <Media
-                          className="image-icon"
-                          object
-                          src="/static/img/decision/Group 1425.svg"
-                        />
-                      </div>
-                      <p>{decision && decision.ownername}</p>
-                      <h5>المسؤل</h5>
-                    </div>
                   </div>
                 </Col>
               </Row>
