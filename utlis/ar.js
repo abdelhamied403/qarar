@@ -101,7 +101,7 @@ export const ar = {
     more: 'المزيد',
     update: 'تعديل',
     showDraft: 'استعراض التشريع',
-    recentlyDrafts: 'تشريعات نشرت حديثاً',
+    recentlyDrafts: 'تشريعات طرحت حديثاً',
     recentlyQarars: 'تشريعات نشرت حديثا',
     allDrafts: 'كل التشريعات',
     allQarars: 'كل التشريعات',
