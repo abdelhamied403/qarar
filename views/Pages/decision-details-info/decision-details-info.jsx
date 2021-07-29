@@ -582,9 +582,8 @@ class DecisionDetailsInfo extends Component {
                         />
                       </div>
                       <p>
-                        {this.state.allDecisionData &&
-                          this.state.allDecisionData.field_visits_number[0]
-                            .value}
+                        {this.state.parentDecision &&
+                          this.state.parentDecision?.data?.visits_number}
                       </p>
                       <h5>{translate('decisionDetails.views')}</h5>
                     </div>
@@ -594,6 +593,20 @@ class DecisionDetailsInfo extends Component {
                           className="image-icon"
                           object
                           src="/static/img/decision/Group 1424.svg"
+                        />
+                      </div>
+                      <p>
+                        {this.state.parentDecision &&
+                          this.state.parentDecision?.data?.modificationsCount}
+                      </p>
+                      <h5>تعديل</h5>
+                    </div>
+                    <div>
+                      <div className="icon-border">
+                        <Media
+                          className="image-icon"
+                          object
+                          src="/static/img/decision/Group 1425.svg"
                         />
                       </div>
                       <p>{decision && decision.ownername}</p>
@@ -611,7 +624,13 @@ class DecisionDetailsInfo extends Component {
               <CardHeader>{decision.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt text-justify line-bottom">
+                  <Col
+                    md="9"
+                    className={
+                      'draftBodyRt text-justify' +
+                      (decision.pdf_name ? ' line-bottom' : '')
+                    }
+                  >
                     <p>{renderHTML(decision.body || '')}</p>
                     <div className="d-flex">
                       {' '}
@@ -656,30 +675,24 @@ class DecisionDetailsInfo extends Component {
                     ) : null}
                   </Col>
                 </Row>
-                <Row style={{ padding: '20px' }}>
-                  <div className="uploads">
-                    <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
-                      {translate('decisionDetails.attachments')}
-                    </span>
+                {decision.pdf_name && (
+                  <Row style={{ padding: '20px' }}>
+                    <div className="uploads">
+                      <span style={{ marginLeft: '20px', fontWeight: 'bold' }}>
+                        {translate('decisionDetails.attachments')}
+                      </span>
 
-                    <Button
-                      className="btn-inline-block btn-ligh"
-                      color="secondary"
-                      size="sm"
-                      onClick={() =>
-                        window.open(
-                          this.state.allDecisionData?.field_attachment[0].url
-                        )
-                      }
-                    >
-                      {decision.pdf_name ||
-                        this.state.allDecisionData?.field_attachment[0].url
-                          .split('/')
-                          .slice(-1)[0] ||
-                        'new file.pdf'}
-                    </Button>
-                  </div>
-                </Row>
+                      <Button
+                        className="btn-inline-block btn-ligh"
+                        color="secondary"
+                        size="sm"
+                        onClick={() => window.open(pdf_url)}
+                      >
+                        {decision.pdf_name}
+                      </Button>
+                    </div>
+                  </Row>
+                )}
               </CardBody>
             </Card>
 

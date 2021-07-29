@@ -609,7 +609,7 @@ class DraftDetailsInfo extends Component {
                           src="/static/img/interactive/draft1 (3).svg"
                         />
                       </div>
-                      <p>{draft.satisfaction_percentage} %</p>
+                      <p>{draft.satisfaction_percentage}%</p>
                       <h5> {translate('draftDetails.generalVote')}</h5>
                     </div>
                   </div>
@@ -765,10 +765,7 @@ class DraftDetailsInfo extends Component {
                 <CardBody>
                   <Row className="qcharts">
                     {Object.keys(draft.voting_percentage).length > 0 && (
-                      <Col
-                        md="6"
-                        className="qchart flex flex-1 f-column max-100"
-                      >
+                      <Col md="4" className="qchart flex flex-1 f-column">
                         <p
                           style={{
                             color: '#81BD41',
