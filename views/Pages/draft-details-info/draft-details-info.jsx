@@ -765,7 +765,10 @@ class DraftDetailsInfo extends Component {
                 <CardBody>
                   <Row className="qcharts">
                     {Object.keys(draft.voting_percentage).length > 0 && (
-                      <Col md="4" className="qchart flex flex-1 f-column">
+                      <Col
+                        md="6"
+                        className="qchart flex flex-1 f-column max-100"
+                      >
                         <p
                           style={{
                             color: '#81BD41',
