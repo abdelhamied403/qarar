@@ -3,33 +3,6 @@ import { Col, Row, Button, Alert } from 'reactstrap';
 import Api from '../../../../api';
 import { translate } from '../../../../utlis/translation';
 
-const getLegalCapacity = async () => {
-  const itemResponse = await Api.get(
-    `/qarar_api/load/vocabulary/legal_capacity?_format=json`
-  );
-  if (itemResponse.ok) {
-    return itemResponse.data;
-  }
-};
-
-const getCity = async () => {
-  const itemResponse = await Api.get(
-    `/qarar_api/load/vocabulary/city?_format=json`
-  );
-  if (itemResponse.ok) {
-    return itemResponse.data;
-  }
-};
-
-const getInvestmentField = async () => {
-  const itemResponse = await Api.get(
-    `/qarar_api/load/vocabulary/investment_field?_format=json`
-  );
-  if (itemResponse.ok) {
-    return itemResponse.data;
-  }
-};
-
 const Job = props => {
   const { selectLegalCapacity, selectCity, selectInvestmentField, id } = props;
 
@@ -43,9 +16,9 @@ const Job = props => {
     jobDrafts[id]?.selectedInvestmentField
   );
 
-  const [allLegalCapacity, setAllLegalCapacity] = useState([]);
-  const [allCity, setAllCity] = useState([]);
-  const [allInvestmentField, setAllInvestmentField] = useState([]);
+  const [allLegalCapacity, setAllLegalCapacity] = useState(null);
+  const [allCity, setAllCity] = useState(null);
+  const [allInvestmentField, setAllInvestmentField] = useState(null);
 
   const [errMsg, setErrMsg] = useState(null);
   const [disable, setDisable] = useState(false);
@@ -56,14 +29,35 @@ const Job = props => {
     selectInvestmentField(selectedInvestmentField);
   }, [selectedLegalCapacity, selectedCity, selectedInvestmentField]);
 
-  useEffect(async () => {
-    let alc = await getLegalCapacity();
-    let ac = await getCity();
-    let aif = await getInvestmentField();
+  useEffect(() => {
+    const getLegalCapacity = async () => {
+      const itemResponse = await Api.get(
+        `/qarar_api/load/vocabulary/legal_capacity?_format=json`
+      );
+      if (itemResponse.ok) {
+        setAllLegalCapacity(itemResponse.data);
+      }
+    };
+    const getCity = async () => {
+      const itemResponse = await Api.get(
+        `/qarar_api/load/vocabulary/city?_format=json`
+      );
+      if (itemResponse.ok) {
+        setAllCity(itemResponse.data);
+      }
+    };
+    const getInvestmentField = async () => {
+      const itemResponse = await Api.get(
+        `/qarar_api/load/vocabulary/investment_field?_format=json`
+      );
+      if (itemResponse.ok) {
+        setAllInvestmentField(itemResponse.data);
+      }
+    };
 
-    setAllLegalCapacity(alc);
-    setAllCity(ac);
-    setAllInvestmentField(aif);
+    getLegalCapacity();
+    getCity();
+    getInvestmentField();
   }, []);
 
   const onSave = () => {
@@ -121,7 +115,7 @@ const Job = props => {
                     {translate('draftDetails.shareIdeasModal.choose')}{' '}
                     {translate('draftDetails.shareIdeasModal.legalCapacity')}
                   </option>
-                  {allLegalCapacity.map(option => (
+                  {allLegalCapacity?.map(option => (
                     <option value={option.id}>{option.name}</option>
                   ))}
                 </select>
@@ -142,7 +136,7 @@ const Job = props => {
                     {translate('draftDetails.shareIdeasModal.choose')}{' '}
                     {translate('draftDetails.shareIdeasModal.city')}
                   </option>
-                  {allCity.map(option => (
+                  {allCity?.map(option => (
                     <option value={option.id}>{option.name}</option>
                   ))}
                 </select>
@@ -165,7 +159,7 @@ const Job = props => {
                     {translate('draftDetails.shareIdeasModal.choose')}{' '}
                     {translate('draftDetails.shareIdeasModal.investmentField')}
                   </option>
-                  {allInvestmentField.map(option => (
+                  {allInvestmentField?.map(option => (
                     <option value={option.id}>{option.name}</option>
                   ))}
                 </select>

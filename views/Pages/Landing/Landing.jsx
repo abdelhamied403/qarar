@@ -514,7 +514,9 @@ const Landing = () => {
               <div className="satisfaction">
                 {/* satisfaction percentage charts */}
                 <Container className="homeChartContainer">
-                  <h2 className="header">{translate('draftDetails.vote')}</h2>
+                  <h2 className="header">
+                    {translate('draftDetails.generalVote')}
+                  </h2>
 
                   <Row>
                     <Col md="4">
