@@ -618,7 +618,10 @@ class DecisionDetailsInfo extends Component {
               <CardHeader>{decision.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt text-justify line-bottom">
+                  <Col
+                    md={decision?.related_project?.entity_logo ? '9' : '12'}
+                    className="draftBodyRt text-justify line-bottom"
+                  >
                     <p>{renderHTML(decision.body || '')}</p>
                     <div className="d-flex">
                       {' '}
@@ -637,31 +640,33 @@ class DecisionDetailsInfo extends Component {
                       </div>
                     </div>
                   </Col>
-                  <Col md="3" className="line-right just-center">
-                    <img
-                      style={{ marginBottom: '5px' }}
-                      src={
-                        decision?.related_project?.entity_logo ||
-                        '/static/img/logo.svg'
-                      }
-                      alt="qarar"
-                    />
-                    {decision?.related_project ? (
-                      <>
-                        <p className="bold m-0">
-                          {' '}
-                          {decision?.related_project?.entity_name}
-                        </p>
-                        <p className="m-0">
-                          {' '}
-                          <span className="bold">
-                            {translate('decisionDetails.projectType')}
-                          </span>
-                          {decision?.related_project?.project_type}
-                        </p>
-                      </>
-                    ) : null}
-                  </Col>
+
+                  {decision?.related_project && (
+                    <Col md="3" className="line-right just-center">
+                      {decision?.related_project?.entity_logo && (
+                        <img
+                          style={{ marginBottom: '5px' }}
+                          src={decision?.related_project?.entity_logo}
+                          alt="qarar"
+                        />
+                      )}
+                      {decision?.related_project ? (
+                        <>
+                          <p className="bold m-0">
+                            {' '}
+                            {decision?.related_project?.entity_name}
+                          </p>
+                          <p className="m-0">
+                            {' '}
+                            <span className="bold">
+                              {translate('decisionDetails.projectType')}
+                            </span>
+                            {decision?.related_project?.project_type}
+                          </p>
+                        </>
+                      ) : null}
+                    </Col>
+                  )}
                 </Row>
                 <Row style={{ padding: '20px' }}>
                   <div className="uploads">

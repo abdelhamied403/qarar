@@ -783,7 +783,14 @@ class DraftDetailsInfo extends Component {
               <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt text-justify line-bottom">
+                  <Col
+                    md={draft?.related_project?.entity_logo ? '9' : '12'}
+                    className={
+                      'draftBodyRt text-justify' +
+                      (draft?.pdf_url ? ' line-bottom' : '')
+                    }
+                  >
+                    {' '}
                     <p className="line-clamp-3">
                       {renderHTML(draft.body || '')}
                     </p>
@@ -821,31 +828,32 @@ class DraftDetailsInfo extends Component {
                       </div>
                     </div>
                   </Col>
-                  <Col md="3" className="qlogo line-right just-center">
-                    <img
-                      src={
-                        draft?.related_project?.entity_logo ||
-                        '/static/img/logo.svg'
-                      }
-                      alt="qarar"
-                    />
-                    {draft?.related_project ? (
-                      <>
-                        <p className="bold m-0">
-                          {' '}
-                          {draft?.related_project?.entity_name}
-                        </p>
-                        <p className="m-0">
-                          {' '}
-                          <span className="bold">
-                            {translate('draftDetails.projectType')}
-                          </span>
-                          {draft?.related_project?.project_type}
-                        </p>
-                        {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
-                      </>
-                    ) : null}
-                  </Col>
+                  {draft?.related_project && (
+                    <Col md="3" className="qlogo line-right just-center">
+                      {draft?.related_project?.entity_logo && (
+                        <img
+                          src={draft?.related_project?.entity_logo}
+                          alt="qarar"
+                        />
+                      )}
+                      {draft?.related_project ? (
+                        <>
+                          <p className="bold m-0">
+                            {' '}
+                            {draft?.related_project?.entity_name}
+                          </p>
+                          <p className="m-0">
+                            {' '}
+                            <span className="bold">
+                              {translate('draftDetails.projectType')}
+                            </span>
+                            {draft?.related_project?.project_type}
+                          </p>
+                          {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
+                        </>
+                      ) : null}
+                    </Col>
+                  )}
                 </Row>
                 <Row style={{ padding: '20px' }}>
                   {draft?.pdf_url && (
@@ -954,48 +962,58 @@ class DraftDetailsInfo extends Component {
                             <PieChart
                               data={[
                                 {
-                                  title: translate('draftDetails.chartTypeOne'),
+                                  title:
+                                    translate('draftDetails.chartTypeOne') +
+                                    ' ' +
+                                    draft.voting_percentage[5],
                                   value: parseInt(
                                     draft.voting_percentage[5].replace('%', '')
                                   ),
                                   color: '#81BD41'
                                 },
                                 {
-                                  title: translate('draftDetails.chartTypeTwo'),
+                                  title:
+                                    translate('draftDetails.chartTypeTwo') +
+                                    ' ' +
+                                    draft.voting_percentage[4],
                                   value: parseInt(
                                     draft.voting_percentage[4].replace('%', '')
                                   ),
                                   color: '#40C2CC'
                                 },
                                 {
-                                  title: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
+                                  title:
+                                    translate('draftDetails.chartTypeThree') +
+                                    ' ' +
+                                    draft.voting_percentage[3],
                                   value: parseInt(
                                     draft.voting_percentage[3].replace('%', '')
                                   ),
                                   color: '#006C68'
                                 },
                                 {
-                                  title: translate(
-                                    'draftDetails.chartTypeFour'
-                                  ),
+                                  title:
+                                    translate('draftDetails.chartTypeFour') +
+                                    ' ' +
+                                    draft.voting_percentage[2],
                                   value: parseInt(
                                     draft.voting_percentage[2].replace('%', '')
                                   ),
                                   color: '#F3F3F3'
                                 },
                                 {
-                                  title: translate(
-                                    'draftDetails.chartTypeFive'
-                                  ),
+                                  title:
+                                    translate('draftDetails.chartTypeFive') +
+                                    ' ' +
+                                    draft.voting_percentage[1],
                                   value: parseInt(
                                     draft.voting_percentage[1].replace('%', '')
                                   ),
                                   color: '#FF4A4A'
                                 }
                               ]}
-                            />
+                              animate
+                            ></PieChart>
                           </Col>
                         </Row>
                       </Col>
@@ -1055,9 +1073,12 @@ class DraftDetailsInfo extends Component {
                         >
                           {translate('draftDetails.mostVoted')}
                         </p>
-                        <Row>
+                        <Row style={{ 'justify-content': 'center' }}>
                           {draft.most_featured_users?.map(el => (
-                            <div className="p-2 flex-1">
+                            <div
+                              className="p-2"
+                              style={{ 'max-width': '120px' }}
+                            >
                               <div className="user-card">
                                 <img
                                   src={

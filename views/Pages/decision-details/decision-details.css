@@ -74,7 +74,7 @@
 }
 .newHeader .icons-group {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   padding: 20px 0 50px 0;
@@ -82,7 +82,7 @@
 .newHeader .icons-group > * {
   margin: 20px;
   padding: 5px;
-  justify-content: center;
+  justify-content: flex-end;
   display: flex;
   flex-direction: column;
   align-items: center;

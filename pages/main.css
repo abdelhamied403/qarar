@@ -15950,8 +15950,7 @@ a:hover {
   margin-bottom: 15px !important;
 }
 
-.sub-header,
-.sub-header:hover {
+.sub-header {
   color: #828a93;
   color: var(--dark-gray);
   font-size: 14px;
@@ -20427,4 +20426,14 @@ a#loginWithBaladyLink img {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.ArticleComment h1,
+.ArticleComment h2,
+.ArticleComment h3,
+.ArticleComment h4,
+.ArticleComment h5,
+.ArticleComment h6,
+.ArticleComment p {
+  font-family: 'Cairo' !important;
 }

@@ -624,7 +624,7 @@ class DraftDetailsInfo extends Component {
               <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt">
+                  <Col md="12" className="draftBodyRt">
                     <div
                       className="body"
                       dangerouslySetInnerHTML={{ __html: draft.body }}
@@ -637,18 +637,6 @@ class DraftDetailsInfo extends Component {
                       <p>
                         {moment(draft.end_date).format('dddd, D MMMM YYYY')}
                       </p>
-                    </div>
-                  </Col>
-                  <Col md="3">
-                    <div
-                      className="d-flex line-right  flex-column justify-items-start draftCardLt"
-                      style={{ height: '100%' }}
-                    >
-                      <img
-                        src="/static/img/logo.svg"
-                        alt=""
-                        style={{ height: '100%', width: '60%' }}
-                      />
                     </div>
                   </Col>
                 </Row>
@@ -764,10 +752,12 @@ class DraftDetailsInfo extends Component {
                 <CardHeader>{translate('draftDetails.charts')}</CardHeader>
                 <CardBody>
                   <Row className="qcharts">
-                    {Object.keys(draft.voting_percentage).length > 0 && (
+                    {Object.values(draft.voting_percentage).some(
+                      x => +x.replace('%', '') !== 0
+                    ) && (
                       <Col
                         md="6"
-                        className="qchart flex flex-1 f-column max-100"
+                        className="qchart flex flex-1 f-column max-100 border-left-line"
                       >
                         <p
                           style={{
@@ -880,7 +870,7 @@ class DraftDetailsInfo extends Component {
                     {draft.most_featured_users?.length > 0 && (
                       <Col
                         md="6"
-                        className="qchart border-right-line flex flex-1 f-column max-100"
+                        className="qchart flex flex-1 f-column max-100"
                         dir={translate('dir')}
                       >
                         <p

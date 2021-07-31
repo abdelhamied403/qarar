@@ -171,7 +171,7 @@
 }
 .newHeader .icons-group {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   padding: 20px 0 50px 0;
@@ -179,7 +179,7 @@
 .newHeader .icons-group > * {
   margin: 20px;
   padding: 5px;
-  justify-content: center;
+  justify-content: flex-end;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -671,7 +671,7 @@ html {
   margin-top: 60px;
 }
 
- .collapseDraftCard button{
+.collapseDraftCard button {
   margin-top: 10px;
   margin-bottom: 30px;
 }
@@ -680,6 +680,6 @@ html {
   margin: 48px 0;
 }
 
-.qchart .qpiechart svg{
+.qchart .qpiechart svg {
   max-height: 170px;
 }
