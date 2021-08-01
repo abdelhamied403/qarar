@@ -20434,6 +20434,18 @@ a#loginWithBaladyLink img {
 .ArticleComment h4,
 .ArticleComment h5,
 .ArticleComment h6,
-.ArticleComment p {
-  font-family: 'Cairo' !important;
+.ArticleComment p,
+.ArticleComment h1 span,
+.ArticleComment h2 span,
+.ArticleComment h3 span,
+.ArticleComment h4 span,
+.ArticleComment h5 span,
+.ArticleComment h6 span,
+.ArticleComment p span {
+  font-family: Cairo !important;
+  font-size: 16px !important;
+}
+
+.card-body {
+  font-size: 16px !important;
 }

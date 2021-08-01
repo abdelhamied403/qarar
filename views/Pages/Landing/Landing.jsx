@@ -189,8 +189,7 @@ const Landing = () => {
   };
 
   const getSatPercents = () => {
-    axios
-      .get('https://qarar-backend.sharedt.com/qarar_api/all-drafts-avg')
+    Api.get('/qarar_api/all-drafts-avg?_format=json')
       .then(res => {
         setSatPercentages(Object.values(res.data));
       })

@@ -559,8 +559,12 @@
     display: flex;
     align-items: center;
   }
+  .line-left {
+    display: flex;
+  }
   .line-right,
-  .line-bottom {
+  .line-bottom,
+  .line-left {
     position: relative;
   }
   .line-right::after {
@@ -579,6 +583,15 @@
     width: 90%;
     height: 2px;
     bottom: 0;
+    background-color: #06706d4d;
+  }
+  .line-left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 90%;
+    width: 2px;
     background-color: #06706d4d;
   }
 }
@@ -647,8 +660,10 @@
 }
 
 .user-card-name {
-  word-break: break-all;
-  text-overflow: ellipsis;
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
 }
 .draftNewComments .insideComment .comment-date {
   margin-bottom: 0;

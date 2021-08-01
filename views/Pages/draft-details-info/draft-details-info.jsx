@@ -43,6 +43,7 @@ import CommentType from '../draft-details/shareIdea/CommentType';
 import AddComment from '../draft-details/shareIdea/Comment';
 import Job from '../draft-details/shareIdea/Job';
 import ArticleComment from '../components/ArticleComment';
+import Chart from '../components/chart/chart';
 
 moment.locale('ar');
 class DraftDetailsInfo extends Component {
@@ -757,7 +758,7 @@ class DraftDetailsInfo extends Component {
                     ) && (
                       <Col
                         md="6"
-                        className="qchart flex flex-1 f-column max-100 border-left-line"
+                        className="qchart flex flex-1 f-column max-100 line-left"
                       >
                         <p
                           style={{
@@ -818,51 +819,7 @@ class DraftDetailsInfo extends Component {
                             </div>
                           </Col>
                           <Col md="6" className="qpiechart">
-                            <PieChart
-                              data={[
-                                {
-                                  title: translate('draftDetails.chartTypeOne'),
-                                  value: parseInt(
-                                    draft.voting_percentage[5].replace('%', '')
-                                  ),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  title: translate('draftDetails.chartTypeTwo'),
-                                  value: parseInt(
-                                    draft.voting_percentage[4].replace('%', '')
-                                  ),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[3].replace('%', '')
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFour'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[2].replace('%', '')
-                                  ),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFive'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[1].replace('%', '')
-                                  ),
-                                  color: '#FF4A4A'
-                                }
-                              ]}
-                            />
+                            <Chart data={draft.voting_percentage} />
                           </Col>
                         </Row>
                       </Col>
@@ -884,7 +841,10 @@ class DraftDetailsInfo extends Component {
                         </p>
                         <Row>
                           {draft.most_featured_users?.map(el => (
-                            <div className="p-2 flex-1">
+                            <div
+                              className="p-2"
+                              style={{ 'max-width': '120px' }}
+                            >
                               <div className="user-card">
                                 <img
                                   src={

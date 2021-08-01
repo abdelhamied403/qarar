@@ -52,6 +52,8 @@ import Rate from './shareIdea/Rate';
 import Job from './shareIdea/Job';
 import CommentType from './shareIdea/CommentType';
 import AddComment from './shareIdea/Comment';
+import ReactTooltip from 'react-tooltip';
+import Chart from '../components/chart/chart';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -959,61 +961,7 @@ class DraftDetailsInfo extends Component {
                             </div>
                           </Col>
                           <Col md="6" className="qpiechart">
-                            <PieChart
-                              data={[
-                                {
-                                  title:
-                                    translate('draftDetails.chartTypeOne') +
-                                    ' ' +
-                                    draft.voting_percentage[5],
-                                  value: parseInt(
-                                    draft.voting_percentage[5].replace('%', '')
-                                  ),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  title:
-                                    translate('draftDetails.chartTypeTwo') +
-                                    ' ' +
-                                    draft.voting_percentage[4],
-                                  value: parseInt(
-                                    draft.voting_percentage[4].replace('%', '')
-                                  ),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  title:
-                                    translate('draftDetails.chartTypeThree') +
-                                    ' ' +
-                                    draft.voting_percentage[3],
-                                  value: parseInt(
-                                    draft.voting_percentage[3].replace('%', '')
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  title:
-                                    translate('draftDetails.chartTypeFour') +
-                                    ' ' +
-                                    draft.voting_percentage[2],
-                                  value: parseInt(
-                                    draft.voting_percentage[2].replace('%', '')
-                                  ),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  title:
-                                    translate('draftDetails.chartTypeFive') +
-                                    ' ' +
-                                    draft.voting_percentage[1],
-                                  value: parseInt(
-                                    draft.voting_percentage[1].replace('%', '')
-                                  ),
-                                  color: '#FF4A4A'
-                                }
-                              ]}
-                              animate
-                            ></PieChart>
+                            <Chart data={draft.voting_percentage} />
                           </Col>
                         </Row>
                       </Col>
