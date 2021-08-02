@@ -74,7 +74,7 @@
 }
 .newHeader .icons-group {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   padding: 20px 0 50px 0;
@@ -82,7 +82,7 @@
 .newHeader .icons-group > * {
   margin: 20px;
   padding: 5px;
-  justify-content: center;
+  justify-content: flex-end;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -462,8 +462,12 @@
     display: flex;
     align-items: center;
   }
+  .line-left {
+    display: flex;
+  }
   .line-right,
-  .line-bottom {
+  .line-bottom,
+  .line-left {
     position: relative;
   }
   .line-right::after {
@@ -482,6 +486,15 @@
     width: 90%;
     height: 2px;
     bottom: 0;
+    background-color: #06706d4d;
+  }
+  .line-left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 90%;
+    width: 2px;
     background-color: #06706d4d;
   }
 }

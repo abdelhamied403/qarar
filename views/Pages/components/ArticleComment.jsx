@@ -107,9 +107,9 @@ class ArticleComment extends Component {
                     <h5>{comment.full_name || comment.ownername}</h5>
                   </a>
                 </Link>
-                <p>
+                <div className="date">
                   {moment(comment.createdcomment * 1000).format('YYYY/MM/DD')}
-                </p>
+                </div>
               </div>
             </div>
             <div>
@@ -144,11 +144,11 @@ class ArticleComment extends Component {
                           <h5>{reply.full_name || reply.ownername}</h5>
                         </a>
                       </Link>
-                      <p>
+                      <div className="date">
                         {moment(reply.createdcomment * 1000).format(
                           'YYYY/MM/DD'
                         )}
-                      </p>
+                      </div>
                     </div>
                     <div className="reply-body">
                       <p>{reply.comment_body}</p>

@@ -7,9 +7,6 @@
 }
 .reply .reply-info {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 .reply .about {
   width: 100%;
@@ -22,6 +19,9 @@
 .reply p {
   margin: 0;
   word-wrap: anywhere;
+}
+.ArticleComment .date {
+  font-size: 14px;
 }
 
 .subject-comments {

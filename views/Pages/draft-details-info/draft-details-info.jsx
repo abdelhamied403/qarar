@@ -43,6 +43,7 @@ import CommentType from '../draft-details/shareIdea/CommentType';
 import AddComment from '../draft-details/shareIdea/Comment';
 import Job from '../draft-details/shareIdea/Job';
 import ArticleComment from '../components/ArticleComment';
+import Chart from '../components/chart/chart';
 
 moment.locale('ar');
 class DraftDetailsInfo extends Component {
@@ -624,7 +625,7 @@ class DraftDetailsInfo extends Component {
               <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt">
+                  <Col md="12" className="draftBodyRt">
                     <div
                       className="body"
                       dangerouslySetInnerHTML={{ __html: draft.body }}
@@ -637,18 +638,6 @@ class DraftDetailsInfo extends Component {
                       <p>
                         {moment(draft.end_date).format('dddd, D MMMM YYYY')}
                       </p>
-                    </div>
-                  </Col>
-                  <Col md="3">
-                    <div
-                      className="d-flex line-right  flex-column justify-items-start draftCardLt"
-                      style={{ height: '100%' }}
-                    >
-                      <img
-                        src="/static/img/logo.svg"
-                        alt=""
-                        style={{ height: '100%', width: '60%' }}
-                      />
                     </div>
                   </Col>
                 </Row>
@@ -764,10 +753,12 @@ class DraftDetailsInfo extends Component {
                 <CardHeader>{translate('draftDetails.charts')}</CardHeader>
                 <CardBody>
                   <Row className="qcharts">
-                    {Object.keys(draft.voting_percentage).length > 0 && (
+                    {Object.values(draft.voting_percentage).some(
+                      x => +x.replace('%', '') !== 0
+                    ) && (
                       <Col
                         md="6"
-                        className="qchart flex flex-1 f-column max-100"
+                        className="qchart flex flex-1 f-column max-100 line-left"
                       >
                         <p
                           style={{
@@ -828,51 +819,7 @@ class DraftDetailsInfo extends Component {
                             </div>
                           </Col>
                           <Col md="6" className="qpiechart">
-                            <PieChart
-                              data={[
-                                {
-                                  title: translate('draftDetails.chartTypeOne'),
-                                  value: parseInt(
-                                    draft.voting_percentage[5].replace('%', '')
-                                  ),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  title: translate('draftDetails.chartTypeTwo'),
-                                  value: parseInt(
-                                    draft.voting_percentage[4].replace('%', '')
-                                  ),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[3].replace('%', '')
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFour'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[2].replace('%', '')
-                                  ),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFive'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[1].replace('%', '')
-                                  ),
-                                  color: '#FF4A4A'
-                                }
-                              ]}
-                            />
+                            <Chart data={draft.voting_percentage} />
                           </Col>
                         </Row>
                       </Col>
@@ -880,7 +827,7 @@ class DraftDetailsInfo extends Component {
                     {draft.most_featured_users?.length > 0 && (
                       <Col
                         md="6"
-                        className="qchart border-right-line flex flex-1 f-column max-100"
+                        className="qchart flex flex-1 f-column max-100"
                         dir={translate('dir')}
                       >
                         <p
@@ -894,7 +841,10 @@ class DraftDetailsInfo extends Component {
                         </p>
                         <Row>
                           {draft.most_featured_users?.map(el => (
-                            <div className="p-2 flex-1">
+                            <div
+                              className="p-2"
+                              style={{ 'max-width': '120px' }}
+                            >
                               <div className="user-card">
                                 <img
                                   src={
@@ -920,59 +870,65 @@ class DraftDetailsInfo extends Component {
                 </CardBody>
               </Card>
             )}
-
-            <div className="job" ref={this.jobRef}>
-              {this.state.legalCapError && (
-                <Alert color="danger">
-                  {translate('draftDetails.plzPickLegalCapacity')}
-                </Alert>
-              )}
-              <h4>{translate('draftDetails.shareIdeasModal.legalCapacity')}</h4>
-              <Job
-                selectLegalCapacity={val =>
-                  this.setState({ selectedLegalCapacity: val })
-                }
-                selectCity={val => this.setState({ selectedCity: val })}
-                selectInvestmentField={val =>
-                  this.setState({ selectedInvestmentField: val })
-                }
-                id={this.state.draft.parent_id}
-              />
-            </div>
-
-            <div className="addCommentForm">
-              <Rate
-                setStars={val => {
-                  this.setState({ stars: val });
-                }}
-              ></Rate>
-
-              <AddComment
-                setEditorState={val => this.setState({ editorState: val })}
-              ></AddComment>
-
-              {this.state.draftSuccess && (
-                <Alert color="success">
-                  {translate('draftDetails.commentAdded')}
-                </Alert>
-              )}
-              {this.state.draftErrMessage && (
-                <Alert color="danger">{this.state.draftErrMessage}</Alert>
-              )}
-              <div className="commentsBtn d-flex justify-content-end align-items-center">
-                <Button
-                  className="button-comment w-min mr-0 ml-auto flex flex-end"
-                  onClick={() => this.saveDraftComment(this.props.draftId)}
-                >
-                  {translate('draftDetails.shareIdeasModal.stepFourComment')}
-                  <img
-                    dir={translate('dir')}
-                    src="/static/img/interactive/whiteArrow.svg"
-                    alt=""
-                  />
-                </Button>
+            {draft.allow_comment && (
+              <div className="job" ref={this.jobRef}>
+                {this.state.legalCapError && (
+                  <Alert color="danger">
+                    {translate('draftDetails.plzPickLegalCapacity')}
+                  </Alert>
+                )}
+                <h4>
+                  {translate('draftDetails.shareIdeasModal.legalCapacity')}
+                </h4>
+                <Job
+                  selectLegalCapacity={val =>
+                    this.setState({ selectedLegalCapacity: val })
+                  }
+                  selectCity={val => this.setState({ selectedCity: val })}
+                  selectInvestmentField={val =>
+                    this.setState({ selectedInvestmentField: val })
+                  }
+                  id={this.state.draft.parent_id}
+                />
               </div>
-            </div>
+            )}
+
+            {draft.allow_comment && (
+              <div className="addCommentForm">
+                <Rate
+                  setStars={val => {
+                    this.setState({ stars: val });
+                  }}
+                ></Rate>
+
+                <AddComment
+                  setEditorState={val => this.setState({ editorState: val })}
+                ></AddComment>
+
+                {this.state.draftSuccess && (
+                  <Alert color="success">
+                    {translate('draftDetails.commentAdded')}
+                  </Alert>
+                )}
+                {this.state.draftErrMessage && (
+                  <Alert color="danger">{this.state.draftErrMessage}</Alert>
+                )}
+                <div className="commentsBtn d-flex justify-content-end align-items-center">
+                  <Button
+                    className="button-comment w-min mr-0 ml-auto flex flex-end"
+                    onClick={() => this.saveDraftComment(this.props.draftId)}
+                  >
+                    {translate('draftDetails.shareIdeasModal.stepFourComment')}
+                    <img
+                      dir={translate('dir')}
+                      src="/static/img/interactive/whiteArrow.svg"
+                      alt=""
+                    />
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {draft.comments > 0 && (
               <div className="artcomments">
                 <h4>{translate('draftDetails.comments')}</h4>

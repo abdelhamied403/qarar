@@ -52,6 +52,8 @@ import Rate from './shareIdea/Rate';
 import Job from './shareIdea/Job';
 import CommentType from './shareIdea/CommentType';
 import AddComment from './shareIdea/Comment';
+import ReactTooltip from 'react-tooltip';
+import Chart from '../components/chart/chart';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -783,7 +785,14 @@ class DraftDetailsInfo extends Component {
               <CardHeader>{draft.title}</CardHeader>
               <CardBody>
                 <Row>
-                  <Col md="9" className="draftBodyRt text-justify line-bottom">
+                  <Col
+                    md={draft?.related_project?.entity_logo ? '9' : '12'}
+                    className={
+                      'draftBodyRt text-justify' +
+                      (draft?.pdf_url ? ' line-bottom' : '')
+                    }
+                  >
+                    {' '}
                     <p className="line-clamp-3">
                       {renderHTML(draft.body || '')}
                     </p>
@@ -821,31 +830,32 @@ class DraftDetailsInfo extends Component {
                       </div>
                     </div>
                   </Col>
-                  <Col md="3" className="qlogo line-right just-center">
-                    <img
-                      src={
-                        draft?.related_project?.entity_logo ||
-                        '/static/img/logo.svg'
-                      }
-                      alt="qarar"
-                    />
-                    {draft?.related_project ? (
-                      <>
-                        <p className="bold m-0">
-                          {' '}
-                          {draft?.related_project?.entity_name}
-                        </p>
-                        <p className="m-0">
-                          {' '}
-                          <span className="bold">
-                            {translate('draftDetails.projectType')}
-                          </span>
-                          {draft?.related_project?.project_type}
-                        </p>
-                        {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
-                      </>
-                    ) : null}
-                  </Col>
+                  {draft?.related_project && (
+                    <Col md="3" className="qlogo line-right just-center">
+                      {draft?.related_project?.entity_logo && (
+                        <img
+                          src={draft?.related_project?.entity_logo}
+                          alt="qarar"
+                        />
+                      )}
+                      {draft?.related_project ? (
+                        <>
+                          <p className="bold m-0">
+                            {' '}
+                            {draft?.related_project?.entity_name}
+                          </p>
+                          <p className="m-0">
+                            {' '}
+                            <span className="bold">
+                              {translate('draftDetails.projectType')}
+                            </span>
+                            {draft?.related_project?.project_type}
+                          </p>
+                          {/*<p className="m-0"> <span className="bold">القطاع: </span>{draft?.related_project?.project_type}</p>*/}
+                        </>
+                      ) : null}
+                    </Col>
+                  )}
                 </Row>
                 <Row style={{ padding: '20px' }}>
                   {draft?.pdf_url && (
@@ -951,51 +961,7 @@ class DraftDetailsInfo extends Component {
                             </div>
                           </Col>
                           <Col md="6" className="qpiechart">
-                            <PieChart
-                              data={[
-                                {
-                                  title: translate('draftDetails.chartTypeOne'),
-                                  value: parseInt(
-                                    draft.voting_percentage[5].replace('%', '')
-                                  ),
-                                  color: '#81BD41'
-                                },
-                                {
-                                  title: translate('draftDetails.chartTypeTwo'),
-                                  value: parseInt(
-                                    draft.voting_percentage[4].replace('%', '')
-                                  ),
-                                  color: '#40C2CC'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeThree'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[3].replace('%', '')
-                                  ),
-                                  color: '#006C68'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFour'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[2].replace('%', '')
-                                  ),
-                                  color: '#F3F3F3'
-                                },
-                                {
-                                  title: translate(
-                                    'draftDetails.chartTypeFive'
-                                  ),
-                                  value: parseInt(
-                                    draft.voting_percentage[1].replace('%', '')
-                                  ),
-                                  color: '#FF4A4A'
-                                }
-                              ]}
-                            />
+                            <Chart data={draft.voting_percentage} />
                           </Col>
                         </Row>
                       </Col>
@@ -1055,9 +1021,12 @@ class DraftDetailsInfo extends Component {
                         >
                           {translate('draftDetails.mostVoted')}
                         </p>
-                        <Row>
+                        <Row style={{ 'justify-content': 'center' }}>
                           {draft.most_featured_users?.map(el => (
-                            <div className="p-2 flex-1">
+                            <div
+                              className="p-2"
+                              style={{ 'max-width': '120px' }}
+                            >
                               <div className="user-card">
                                 <img
                                   src={
@@ -1105,19 +1074,23 @@ class DraftDetailsInfo extends Component {
                     {translate('draftDetails.plzPickLegalCapacity')}
                   </Alert>
                 )}
-                <h4>
-                  {translate('draftDetails.shareIdeasModal.legalCapacity')}
-                </h4>
-                <Job
-                  selectLegalCapacity={val =>
-                    this.setState({ selectedLegalCapacity: val })
-                  }
-                  selectCity={val => this.setState({ selectedCity: val })}
-                  selectInvestmentField={val =>
-                    this.setState({ selectedInvestmentField: val })
-                  }
-                  id={draft.id}
-                />
+                {draft.allow_comment && (
+                  <div>
+                    <h4>
+                      {translate('draftDetails.shareIdeasModal.legalCapacity')}
+                    </h4>
+                    <Job
+                      selectLegalCapacity={val =>
+                        this.setState({ selectedLegalCapacity: val })
+                      }
+                      selectCity={val => this.setState({ selectedCity: val })}
+                      selectInvestmentField={val =>
+                        this.setState({ selectedInvestmentField: val })
+                      }
+                      id={draft.id}
+                    />
+                  </div>
+                )}
               </div>
               <h4> {translate('draftDetails.votable')}</h4>
               {under_voting_items &&
@@ -1150,17 +1123,19 @@ class DraftDetailsInfo extends Component {
             )}
           </Container>
         </div>
-        <CommentSteps
-          draft={draft}
-          title="المسودة"
-          open={modalOpen}
-          id={draft.id}
-          canVote={!!openArticle}
-          uid={uid}
-          getDraft={() => this.getDraft()}
-          getComments={() => this.getComments()}
-          accessToken={this.props.accessToken}
-        />
+        {draft.allow_comment && (
+          <CommentSteps
+            draft={draft}
+            title="المسودة"
+            open={modalOpen}
+            id={draft.id}
+            canVote={!!openArticle}
+            uid={uid}
+            getDraft={() => this.getDraft()}
+            getComments={() => this.getComments()}
+            accessToken={this.props.accessToken}
+          />
+        )}
         <PartcipantModal
           open={modalOpen}
           id={draft.id}
@@ -1233,14 +1208,20 @@ class DraftDetailsInfo extends Component {
                 {renderHTML(item.body_value || '')}
               </p>
               <div className="addCommentForm">
-                <Rate
-                  setStars={val => {
-                    this.setState({ stars: val });
-                  }}
-                ></Rate>
-                <AddComment
-                  setEditorState={val => this.setState({ editorState: val })}
-                ></AddComment>
+                {item.allow_comment && (
+                  <div>
+                    <Rate
+                      setStars={val => {
+                        this.setState({ stars: val });
+                      }}
+                    ></Rate>
+                    <AddComment
+                      setEditorState={val =>
+                        this.setState({ editorState: val })
+                      }
+                    ></AddComment>
+                  </div>
+                )}
 
                 {this.state.draftSuccess && (
                   <Alert color="success">

@@ -614,7 +614,7 @@ class DecisionDetailsInfo extends Component {
               <CardBody>
                 <Row>
                   <Col
-                    md="9"
+                    md={decision?.related_project?.entity_logo ? '9' : '12'}
                     className={
                       'draftBodyRt text-justify' +
                       (decision.pdf_name ? ' line-bottom' : '')
@@ -638,31 +638,32 @@ class DecisionDetailsInfo extends Component {
                       </div>
                     </div>
                   </Col>
-                  <Col md="3" className="line-right just-center">
-                    <img
-                      style={{ marginBottom: '5px' }}
-                      src={
-                        decision?.related_project?.entity_logo ||
-                        '/static/img/logo.svg'
-                      }
-                      alt="qarar"
-                    />
-                    {decision?.related_project ? (
-                      <>
-                        <p className="bold m-0">
-                          {' '}
-                          {decision?.related_project?.entity_name}
-                        </p>
-                        <p className="m-0">
-                          {' '}
-                          <span className="bold">
-                            {translate('decisionDetails.projectType')}
-                          </span>
-                          {decision?.related_project?.project_type}
-                        </p>
-                      </>
-                    ) : null}
-                  </Col>
+                  {decision?.related_project && (
+                    <Col md="3" className="line-right just-center">
+                      {decision?.related_project?.entity_logo && (
+                        <img
+                          style={{ marginBottom: '5px' }}
+                          src={decision?.related_project?.entity_logo}
+                          alt="qarar"
+                        />
+                      )}
+                      {decision?.related_project ? (
+                        <>
+                          <p className="bold m-0">
+                            {' '}
+                            {decision?.related_project?.entity_name}
+                          </p>
+                          <p className="m-0">
+                            {' '}
+                            <span className="bold">
+                              {translate('decisionDetails.projectType')}
+                            </span>
+                            {decision?.related_project?.project_type}
+                          </p>
+                        </>
+                      ) : null}
+                    </Col>
+                  )}
                 </Row>
                 {decision.pdf_name && (
                   <Row style={{ padding: '20px' }}>
@@ -700,7 +701,8 @@ class DecisionDetailsInfo extends Component {
               </div>
             </div>
 
-            <div className="edits my-5">
+            {/* modification request */}
+            {/* <div className="edits my-5">
               <h4 className="my-4">
                 {translate('cardDraft.modificationRequest')}
               </h4>
@@ -742,7 +744,7 @@ class DecisionDetailsInfo extends Component {
                   alt=""
                 />
               </Button>
-            </div>
+            </div> */}
           </Container>
         </div>
       </>
