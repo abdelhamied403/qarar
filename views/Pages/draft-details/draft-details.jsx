@@ -1074,19 +1074,23 @@ class DraftDetailsInfo extends Component {
                     {translate('draftDetails.plzPickLegalCapacity')}
                   </Alert>
                 )}
-                <h4>
-                  {translate('draftDetails.shareIdeasModal.legalCapacity')}
-                </h4>
-                <Job
-                  selectLegalCapacity={val =>
-                    this.setState({ selectedLegalCapacity: val })
-                  }
-                  selectCity={val => this.setState({ selectedCity: val })}
-                  selectInvestmentField={val =>
-                    this.setState({ selectedInvestmentField: val })
-                  }
-                  id={draft.id}
-                />
+                {draft.allow_comment && (
+                  <div>
+                    <h4>
+                      {translate('draftDetails.shareIdeasModal.legalCapacity')}
+                    </h4>
+                    <Job
+                      selectLegalCapacity={val =>
+                        this.setState({ selectedLegalCapacity: val })
+                      }
+                      selectCity={val => this.setState({ selectedCity: val })}
+                      selectInvestmentField={val =>
+                        this.setState({ selectedInvestmentField: val })
+                      }
+                      id={draft.id}
+                    />
+                  </div>
+                )}
               </div>
               <h4> {translate('draftDetails.votable')}</h4>
               {under_voting_items &&
@@ -1119,17 +1123,19 @@ class DraftDetailsInfo extends Component {
             )}
           </Container>
         </div>
-        <CommentSteps
-          draft={draft}
-          title="المسودة"
-          open={modalOpen}
-          id={draft.id}
-          canVote={!!openArticle}
-          uid={uid}
-          getDraft={() => this.getDraft()}
-          getComments={() => this.getComments()}
-          accessToken={this.props.accessToken}
-        />
+        {draft.allow_comment && (
+          <CommentSteps
+            draft={draft}
+            title="المسودة"
+            open={modalOpen}
+            id={draft.id}
+            canVote={!!openArticle}
+            uid={uid}
+            getDraft={() => this.getDraft()}
+            getComments={() => this.getComments()}
+            accessToken={this.props.accessToken}
+          />
+        )}
         <PartcipantModal
           open={modalOpen}
           id={draft.id}
@@ -1202,14 +1208,20 @@ class DraftDetailsInfo extends Component {
                 {renderHTML(item.body_value || '')}
               </p>
               <div className="addCommentForm">
-                <Rate
-                  setStars={val => {
-                    this.setState({ stars: val });
-                  }}
-                ></Rate>
-                <AddComment
-                  setEditorState={val => this.setState({ editorState: val })}
-                ></AddComment>
+                {item.allow_comment && (
+                  <div>
+                    <Rate
+                      setStars={val => {
+                        this.setState({ stars: val });
+                      }}
+                    ></Rate>
+                    <AddComment
+                      setEditorState={val =>
+                        this.setState({ editorState: val })
+                      }
+                    ></AddComment>
+                  </div>
+                )}
 
                 {this.state.draftSuccess && (
                   <Alert color="success">

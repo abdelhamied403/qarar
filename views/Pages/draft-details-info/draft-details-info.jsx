@@ -870,59 +870,65 @@ class DraftDetailsInfo extends Component {
                 </CardBody>
               </Card>
             )}
-
-            <div className="job" ref={this.jobRef}>
-              {this.state.legalCapError && (
-                <Alert color="danger">
-                  {translate('draftDetails.plzPickLegalCapacity')}
-                </Alert>
-              )}
-              <h4>{translate('draftDetails.shareIdeasModal.legalCapacity')}</h4>
-              <Job
-                selectLegalCapacity={val =>
-                  this.setState({ selectedLegalCapacity: val })
-                }
-                selectCity={val => this.setState({ selectedCity: val })}
-                selectInvestmentField={val =>
-                  this.setState({ selectedInvestmentField: val })
-                }
-                id={this.state.draft.parent_id}
-              />
-            </div>
-
-            <div className="addCommentForm">
-              <Rate
-                setStars={val => {
-                  this.setState({ stars: val });
-                }}
-              ></Rate>
-
-              <AddComment
-                setEditorState={val => this.setState({ editorState: val })}
-              ></AddComment>
-
-              {this.state.draftSuccess && (
-                <Alert color="success">
-                  {translate('draftDetails.commentAdded')}
-                </Alert>
-              )}
-              {this.state.draftErrMessage && (
-                <Alert color="danger">{this.state.draftErrMessage}</Alert>
-              )}
-              <div className="commentsBtn d-flex justify-content-end align-items-center">
-                <Button
-                  className="button-comment w-min mr-0 ml-auto flex flex-end"
-                  onClick={() => this.saveDraftComment(this.props.draftId)}
-                >
-                  {translate('draftDetails.shareIdeasModal.stepFourComment')}
-                  <img
-                    dir={translate('dir')}
-                    src="/static/img/interactive/whiteArrow.svg"
-                    alt=""
-                  />
-                </Button>
+            {draft.allow_comment && (
+              <div className="job" ref={this.jobRef}>
+                {this.state.legalCapError && (
+                  <Alert color="danger">
+                    {translate('draftDetails.plzPickLegalCapacity')}
+                  </Alert>
+                )}
+                <h4>
+                  {translate('draftDetails.shareIdeasModal.legalCapacity')}
+                </h4>
+                <Job
+                  selectLegalCapacity={val =>
+                    this.setState({ selectedLegalCapacity: val })
+                  }
+                  selectCity={val => this.setState({ selectedCity: val })}
+                  selectInvestmentField={val =>
+                    this.setState({ selectedInvestmentField: val })
+                  }
+                  id={this.state.draft.parent_id}
+                />
               </div>
-            </div>
+            )}
+
+            {draft.allow_comment && (
+              <div className="addCommentForm">
+                <Rate
+                  setStars={val => {
+                    this.setState({ stars: val });
+                  }}
+                ></Rate>
+
+                <AddComment
+                  setEditorState={val => this.setState({ editorState: val })}
+                ></AddComment>
+
+                {this.state.draftSuccess && (
+                  <Alert color="success">
+                    {translate('draftDetails.commentAdded')}
+                  </Alert>
+                )}
+                {this.state.draftErrMessage && (
+                  <Alert color="danger">{this.state.draftErrMessage}</Alert>
+                )}
+                <div className="commentsBtn d-flex justify-content-end align-items-center">
+                  <Button
+                    className="button-comment w-min mr-0 ml-auto flex flex-end"
+                    onClick={() => this.saveDraftComment(this.props.draftId)}
+                  >
+                    {translate('draftDetails.shareIdeasModal.stepFourComment')}
+                    <img
+                      dir={translate('dir')}
+                      src="/static/img/interactive/whiteArrow.svg"
+                      alt=""
+                    />
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {draft.comments > 0 && (
               <div className="artcomments">
                 <h4>{translate('draftDetails.comments')}</h4>
