@@ -363,6 +363,11 @@ export const ar = {
     more: 'المزيد'
   },
   draftDetails: {
+    types: {
+      archived: 'التشريعات المؤرشفة',
+      applied: 'التشريعات المطبقة',
+      voting: 'التشريعات تحت التصويت'
+    },
     errors: {
       emptyFields: 'من فضلك ادخل الصفه الاعتباريه والمنظقه',
       emptyInvestmentField: 'من فضلك ادخل مجال الاستثمار',
