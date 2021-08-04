@@ -43,6 +43,7 @@ import AddComment from '../draft-details/shareIdea/Comment';
 import Job from '../draft-details/shareIdea/Job';
 import ArticleComment from '../components/ArticleComment';
 import Chart from '../components/chart/chart';
+import CommentForm from '../components/CommentForm/commentForm';
 
 moment.locale('ar');
 class DraftDetailsInfo extends Component {
@@ -128,8 +129,11 @@ class DraftDetailsInfo extends Component {
     }
   };
 
-  saveDraftComment = async id => {
-    if (!this.state.editorState.getCurrentContent().hasText()) {
+  saveDraftComment = async draft => {
+    if (
+      !this.state.editorState.getCurrentContent().hasText() &&
+      draft.comment_required
+    ) {
       this.setState({
         draftErrMessage: translate('draftDetails.plzEnterComment')
       });
@@ -155,7 +159,7 @@ class DraftDetailsInfo extends Component {
       }, 3000);
     } else {
       const data = {
-        entity_id: [{ target_id: id }],
+        entity_id: [{ target_id: draft.id }],
         subject: [{ value: '' }],
         comment_body: [
           {
@@ -527,7 +531,10 @@ class DraftDetailsInfo extends Component {
       successComment,
       errorComment,
       loadingDraft,
-      breadcrumbs
+      breadcrumbs,
+      selectedLegalCapacity,
+      selectedCity,
+      selectedInvestmentField
     } = this.state;
     const { uid } = this.props;
     if (loadingDraft) {
@@ -893,38 +900,25 @@ class DraftDetailsInfo extends Component {
             )}
 
             {draft.allow_comment && (
-              <div className="addCommentForm">
-                <Rate
-                  setStars={val => {
-                    this.setState({ stars: val });
+              <div>
+                <CommentForm
+                  {...draft}
+                  job={{
+                    selectedLegalCapacity,
+                    selectedCity,
+                    selectedInvestmentField
                   }}
-                ></Rate>
-
-                <AddComment
+                  jobRef={this.jobRef}
+                  setStars={val => this.setState({ stars: val })}
                   setEditorState={val => this.setState({ editorState: val })}
-                ></AddComment>
-
+                  saveComment={() => this.saveDraftComment(draft)}
+                />
+                {/* alerts */}
                 {this.state.draftSuccess && (
                   <Alert color="success">
                     {translate('draftDetails.commentAdded')}
                   </Alert>
                 )}
-                {this.state.draftErrMessage && (
-                  <Alert color="danger">{this.state.draftErrMessage}</Alert>
-                )}
-                <div className="commentsBtn d-flex justify-content-end align-items-center">
-                  <Button
-                    className="button-comment w-min mr-0 ml-auto flex flex-end"
-                    onClick={() => this.saveDraftComment(this.props.draftId)}
-                  >
-                    {translate('draftDetails.shareIdeasModal.stepFourComment')}
-                    <img
-                      dir={translate('dir')}
-                      src="/static/img/interactive/whiteArrow.svg"
-                      alt=""
-                    />
-                  </Button>
-                </div>
               </div>
             )}
 

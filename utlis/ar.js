@@ -365,7 +365,12 @@ export const ar = {
   draftDetails: {
     errors: {
       emptyFields: 'من فضلك ادخل الصفه الاعتباريه والمنظقه',
-      emptyInvestmentField: 'من فضلك ادخل مجال الاستثمار'
+      emptyInvestmentField: 'من فضلك ادخل مجال الاستثمار',
+      noComment: 'من فضلك ادخل تعليق',
+      noRate: 'من فضلك ادخل تقييم',
+      noLegalCap: 'من فضلك ادخل الصفة الاعتباريه',
+      noCity: 'من فضلك ادخل المدينه',
+      noInvField: 'من فضلك ادخل مجال الاستثمار'
     },
     save: 'حفظ',
     decisions: 'التشريعات',

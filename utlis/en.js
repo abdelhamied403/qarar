@@ -384,6 +384,13 @@ export const en = {
     more: 'More'
   },
   draftDetails: {
+    errors: {
+      noComment: 'please enter comment',
+      noRate: 'please rate the legislation',
+      noLegalCap: 'please choose your legal capacity',
+      noCity: 'please choose your city',
+      noInvField: 'please choose your investment field'
+    },
     save: 'save',
     decisions: 'Decisions',
     plzPickLegalCapacity: 'please enter legal capacity',

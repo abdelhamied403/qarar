@@ -54,6 +54,7 @@ import CommentType from './shareIdea/CommentType';
 import AddComment from './shareIdea/Comment';
 import ReactTooltip from 'react-tooltip';
 import Chart from '../components/chart/chart';
+import CommentForm from '../components/CommentForm/commentForm';
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -486,8 +487,11 @@ class DraftDetailsInfo extends Component {
     }
   };
 
-  saveDraftComment = async id => {
-    if (!this.state.editorState.getCurrentContent().hasText()) {
+  saveDraftComment = async item => {
+    if (
+      !this.state.editorState.getCurrentContent().hasText() &&
+      item.comment_required
+    ) {
       this.setState({
         draftErrMessage: translate('draftDetails.plzEnterComment')
       });
@@ -499,7 +503,7 @@ class DraftDetailsInfo extends Component {
     } else if (
       !this.state.selectedLegalCapacity ||
       !this.state.selectedCity ||
-      (this.state.selectedLegalCapacity === 65 &&
+      (this.state.selectedLegalCapacity === 48 &&
         !this.state.selectedInvestmentField)
     ) {
       this.jobRef.current.scrollIntoView({
@@ -513,7 +517,7 @@ class DraftDetailsInfo extends Component {
       }, 3000);
     } else {
       const data = {
-        entity_id: [{ target_id: id }],
+        entity_id: [{ target_id: item.nid }],
         subject: [{ value: '' }],
         comment_body: [
           {
@@ -662,7 +666,10 @@ class DraftDetailsInfo extends Component {
       selectedSubject,
       modalOpen,
       shareIdeasModalOpen,
-      forced_adj_city_investemtn
+      forced_adj_city_investemtn,
+      selectedLegalCapacity,
+      selectedCity,
+      selectedInvestmentField
     } = this.state;
     const { uid, accessToken } = this.props;
     if (loadingDraft) {
@@ -1074,23 +1081,27 @@ class DraftDetailsInfo extends Component {
                     {translate('draftDetails.plzPickLegalCapacity')}
                   </Alert>
                 )}
-                {draft.allow_comment && (
-                  <div>
-                    <h4>
-                      {translate('draftDetails.shareIdeasModal.legalCapacity')}
-                    </h4>
-                    <Job
-                      selectLegalCapacity={val =>
-                        this.setState({ selectedLegalCapacity: val })
-                      }
-                      selectCity={val => this.setState({ selectedCity: val })}
-                      selectInvestmentField={val =>
-                        this.setState({ selectedInvestmentField: val })
-                      }
-                      id={draft.id}
-                    />
-                  </div>
-                )}
+                {draft.allow_comment &&
+                  under_voting_items.every(el => el.allow_comment) &&
+                  items.every(el => el.allow_comment) && (
+                    <div>
+                      <h4>
+                        {translate(
+                          'draftDetails.shareIdeasModal.legalCapacity'
+                        )}
+                      </h4>
+                      <Job
+                        selectLegalCapacity={val =>
+                          this.setState({ selectedLegalCapacity: val })
+                        }
+                        selectCity={val => this.setState({ selectedCity: val })}
+                        selectInvestmentField={val =>
+                          this.setState({ selectedInvestmentField: val })
+                        }
+                        id={draft.id}
+                      />
+                    </div>
+                  )}
               </div>
               <h4> {translate('draftDetails.votable')}</h4>
               {under_voting_items &&
@@ -1124,17 +1135,26 @@ class DraftDetailsInfo extends Component {
           </Container>
         </div>
         {draft.allow_comment && (
-          <CommentSteps
-            draft={draft}
-            title="المسودة"
-            open={modalOpen}
-            id={draft.id}
-            canVote={!!openArticle}
-            uid={uid}
-            getDraft={() => this.getDraft()}
-            getComments={() => this.getComments()}
-            accessToken={this.props.accessToken}
-          />
+          <div class="container">
+            <CommentForm
+              {...draft}
+              job={{
+                selectedLegalCapacity,
+                selectedCity,
+                selectedInvestmentField
+              }}
+              jobRef={this.jobRef}
+              setStars={val => this.setState({ stars: val })}
+              setEditorState={val => this.setState({ editorState: val })}
+              saveComment={() => this.saveDraftComment(draft)}
+            />
+            {/* alerts */}
+            {this.state.draftSuccess && (
+              <Alert color="success">
+                {translate('draftDetails.commentAdded')}
+              </Alert>
+            )}
+          </div>
         )}
         <PartcipantModal
           open={modalOpen}
@@ -1174,6 +1194,12 @@ class DraftDetailsInfo extends Component {
   }
 
   subjectsList = (item, openArticle, uid, voteable) => {
+    let {
+      selectedLegalCapacity,
+      selectedCity,
+      selectedInvestmentField
+    } = this.state;
+
     return (
       <Card key={item.nid} className="cardDraft text-justify collapseDraftCard">
         <CardHeader
@@ -1207,43 +1233,28 @@ class DraftDetailsInfo extends Component {
               <p className="line-clamp-3">
                 {renderHTML(item.body_value || '')}
               </p>
-              <div className="addCommentForm">
-                {item.allow_comment && (
-                  <div>
-                    <Rate
-                      setStars={val => {
-                        this.setState({ stars: val });
-                      }}
-                    ></Rate>
-                    <AddComment
-                      setEditorState={val =>
-                        this.setState({ editorState: val })
-                      }
-                    ></AddComment>
-                  </div>
-                )}
-
-                {this.state.draftSuccess && (
-                  <Alert color="success">
-                    {translate('draftDetails.commentAdded')}
-                  </Alert>
-                )}
-                {this.state.draftErrMessage && (
-                  <Alert color="danger">{this.state.draftErrMessage}</Alert>
-                )}
-
-                <Button
-                  className="button-comment w-min mr-0 ml-auto flex flex-end"
-                  onClick={() => this.saveDraftComment(item.nid)}
-                >
-                  {translate('draftDetails.shareIdeasModal.stepFourComment')}
-                  <img
-                    dir={translate('dir')}
-                    src="/static/img/interactive/greenArrow.svg"
-                    alt=""
+              {item.allow_comment && (
+                <div>
+                  <CommentForm
+                    {...item}
+                    job={{
+                      selectedLegalCapacity,
+                      selectedCity,
+                      selectedInvestmentField
+                    }}
+                    jobRef={this.jobRef}
+                    setStars={val => this.setState({ stars: val })}
+                    setEditorState={val => this.setState({ editorState: val })}
+                    saveComment={() => this.saveDraftComment(item)}
                   />
-                </Button>
-              </div>
+                  {/* alerts */}
+                  {this.state.draftSuccess && (
+                    <Alert color="success">
+                      {translate('draftDetails.commentAdded')}
+                    </Alert>
+                  )}
+                </div>
+              )}
 
               {/* files and more */}
               <Link href={`/draft-details-info/${item.nid}`}>
