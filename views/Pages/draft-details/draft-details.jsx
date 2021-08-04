@@ -1081,27 +1081,23 @@ class DraftDetailsInfo extends Component {
                     {translate('draftDetails.plzPickLegalCapacity')}
                   </Alert>
                 )}
-                {draft.allow_comment &&
-                  under_voting_items.every(el => el.allow_comment) &&
-                  items.every(el => el.allow_comment) && (
-                    <div>
-                      <h4>
-                        {translate(
-                          'draftDetails.shareIdeasModal.legalCapacity'
-                        )}
-                      </h4>
-                      <Job
-                        selectLegalCapacity={val =>
-                          this.setState({ selectedLegalCapacity: val })
-                        }
-                        selectCity={val => this.setState({ selectedCity: val })}
-                        selectInvestmentField={val =>
-                          this.setState({ selectedInvestmentField: val })
-                        }
-                        id={draft.id}
-                      />
-                    </div>
-                  )}
+                {(draft.allow_comment || under_voting_items.length > 0) && (
+                  <div>
+                    <h4>
+                      {translate('draftDetails.shareIdeasModal.legalCapacity')}
+                    </h4>
+                    <Job
+                      selectLegalCapacity={val =>
+                        this.setState({ selectedLegalCapacity: val })
+                      }
+                      selectCity={val => this.setState({ selectedCity: val })}
+                      selectInvestmentField={val =>
+                        this.setState({ selectedInvestmentField: val })
+                      }
+                      id={draft.id}
+                    />
+                  </div>
+                )}
               </div>
               <h4> {translate('draftDetails.votable')}</h4>
               {under_voting_items &&
