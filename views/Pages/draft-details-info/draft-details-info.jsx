@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import '../draft-details/draft-details.css';
 import './draft-details-info.css';
