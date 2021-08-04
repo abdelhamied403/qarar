@@ -12,7 +12,8 @@ import {
   CardBody,
   CardHeader,
   DropdownItem,
-  Alert
+  Alert,
+  Badge
 } from 'reactstrap';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -284,7 +285,6 @@ class DraftDetailsInfo extends Component {
 
   getDraft = async () => {
     const { draftId, accessToken } = this.props;
-    const { breadcrumbs } = this.state;
     const itemResponse = await Api.get(
       `/qarar_api/load/node/${draftId}?_format=json`,
       {},
@@ -294,11 +294,8 @@ class DraftDetailsInfo extends Component {
     );
     if (itemResponse.ok) {
       const { items, data } = itemResponse.data;
-      this.setState({ draft: data, items, loadingDraft: false }, () => {
-        if (!breadcrumbs.length) {
-          this.getParent(data.parent_id);
-        }
-      });
+      this.setState({ draft: data, items, loadingDraft: false });
+      this.getParent(data.parent_id);
     }
   };
 
@@ -318,9 +315,6 @@ class DraftDetailsInfo extends Component {
       this.setState({
         breadcrumbs: [...breadcrumbs, { id: data.id, title: data.title }]
       });
-      if (data.parent_id) {
-        this.getParent(data.parent_id);
-      }
     }
   };
 
@@ -534,9 +528,20 @@ class DraftDetailsInfo extends Component {
       breadcrumbs,
       selectedLegalCapacity,
       selectedCity,
-      selectedInvestmentField
+      selectedInvestmentField,
+      parentDraft
     } = this.state;
     const { uid } = this.props;
+    const statusColor = {
+      archived: 'light',
+      applied: 'info',
+      voting: 'success'
+    };
+    const draftUrls = {
+      archived: '/archived-drafts',
+      applied: '/drafts-applied',
+      voting: '/drafts-under-vote'
+    };
     if (loadingDraft) {
       return <Skeleton details />;
     }
@@ -550,8 +555,17 @@ class DraftDetailsInfo extends Component {
                   <div className="header-content">
                     <ul>
                       <li>
-                        <Link href="/drafts/">
-                          <a> {translate('draftDetails.votingDrafts')}</a>
+                        <Link
+                          href={
+                            draftUrls[parentDraft?.data.qarar_status] || '/'
+                          }
+                        >
+                          <a>
+                            {' '}
+                            {translate(
+                              `draftDetails.types.${parentDraft?.data.qarar_status}`
+                            )}
+                          </a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -563,6 +577,11 @@ class DraftDetailsInfo extends Component {
                       ))}
                     </ul>
                     <h2>{draft.title}</h2>
+                    <Badge color={statusColor[parentDraft?.data.qarar_status]}>
+                      {translate(
+                        `draftDetails.${parentDraft?.data.qarar_status}`
+                      )}
+                    </Badge>
                     <div className="sub-header">
                       <Media
                         object
