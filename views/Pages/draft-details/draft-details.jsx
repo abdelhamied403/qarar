@@ -1105,16 +1105,11 @@ class DraftDetailsInfo extends Component {
               </div>
               <h4> {translate('draftDetails.votable')}</h4>
               {under_voting_items &&
-                under_voting_items.map(item =>
-                  this.subjectsList(item, openArticle, uid, true)
-                )}
+                under_voting_items.map(item => this.subjectsList(item, true))}
               <hr style={{ borderColor: '#1e6f6d' }} />
 
               <h4>{translate('draftDetails.otherArticles')}</h4>
-              {items &&
-                items.map(item =>
-                  this.subjectsList(item, openArticle, uid, false)
-                )}
+              {items && items.map(item => this.subjectsList(item, false))}
             </div>
 
             {draft.comments > 0 && (
@@ -1134,7 +1129,7 @@ class DraftDetailsInfo extends Component {
             )}
           </Container>
         </div>
-        {draft.allow_comment && (
+        {draft.qarar_status === 'voting' && (
           <div class="container">
             <CommentForm
               {...draft}
@@ -1193,7 +1188,7 @@ class DraftDetailsInfo extends Component {
     );
   }
 
-  subjectsList = (item, openArticle, uid, voteable) => {
+  subjectsList = (item, voteable) => {
     let {
       selectedLegalCapacity,
       selectedCity,
@@ -1233,7 +1228,7 @@ class DraftDetailsInfo extends Component {
               <p className="line-clamp-3">
                 {renderHTML(item.body_value || '')}
               </p>
-              {item.allow_comment && (
+              {voteable && (
                 <div>
                   <CommentForm
                     {...item}
