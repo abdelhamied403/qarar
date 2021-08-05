@@ -128,7 +128,7 @@ class DraftDetailsInfo extends Component {
 
   async componentDidMount() {
     this.getDraft();
-    // this.getComments();
+    this.getComments();
     this.isFollowed();
     // this.getIsFlagged();
     Events.scrollEvent.register('begin', function() {});
@@ -1108,7 +1108,7 @@ class DraftDetailsInfo extends Component {
               {items && items.map(item => this.subjectsList(item, false))}
             </div>
 
-            {draft.comments > 0 && (
+            {this.state.comments.length > 0 && (
               <div className="artcomments">
                 <h4>{translate('draftDetails.comments')}</h4>
                 <div className="collapseDraftCard draftNewComments">
