@@ -517,7 +517,7 @@ class DraftDetailsInfo extends Component {
       }, 3000);
     } else {
       const data = {
-        entity_id: [{ target_id: item.nid }],
+        entity_id: [{ target_id: item.nid || item.id }],
         subject: [{ value: '' }],
         comment_body: [
           {
