@@ -508,6 +508,9 @@
   .newHeader .icons-group > * {
     width: 80%;
   }
+  .newHeader .icons-group {
+    justify-content: center;
+  }
   .newHeader {
     padding-top: 100px;
   }
@@ -516,6 +519,15 @@
   }
   .draftInfoShare button {
     margin-top: 5px;
+  }
+
+  .border-right-line {
+    border-right: 0;
+  }
+
+  .border-right-line[dir='ltr'] {
+    border-right: 0;
+    border-left: 0;
   }
 }
 

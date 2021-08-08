@@ -94,13 +94,13 @@ export const ar = {
     speakUp: 'ارفع صوتك',
     createAccount: 'أنشئ حساب',
     voteForDraft: 'صوت للتشريع التي تهمك',
-    draftDiscuss: ' تتم مناقشة المسودة',
-    draftDecision: 'يتم اتخاذ القرار بشأن المسودة',
+    draftDiscuss: ' تتم مناقشة التشريع',
+    draftDecision: 'يتم اتخاذ القرار بشأن التشريع',
 
     aboutQarar: 'عن قرار',
-    more: 'المزيد',
+    more: 'اقرأ المزيد',
     update: 'تعديل',
-    showDraft: 'استعراض المسودة',
+    showDraft: 'استعراض التشريع',
     recentlyDrafts: 'تشريعات طرحت حديثاً',
     recentlyQarars: 'تشريعات نشرت حديثا',
     allDrafts: 'كل التشريعات',
@@ -220,7 +220,7 @@ export const ar = {
   },
   draftsUnderVotePage: {
     title: 'التشريعات تحت التصويت',
-    decisionType: 'نوع المسودة',
+    decisionType: 'نوع التشريع',
     decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -238,7 +238,7 @@ export const ar = {
   },
   draftsAppliedPage: {
     title: 'تشريعات مطبقة',
-    decisionType: 'نوع المسودة',
+    decisionType: 'نوع التشريع',
     decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -256,7 +256,7 @@ export const ar = {
   },
   archivedDraftsPage: {
     title: 'تشريعات مؤرشفة',
-    decisionType: 'نوع المسودة',
+    decisionType: 'نوع التشريع',
     decisionOptionOne: 'تشريع نظام كامل',
     decisionOptionTwo: 'مادة',
     subtraction: 'وقت الطرح',
@@ -297,7 +297,7 @@ export const ar = {
     noArchivedDecisionsImplemented: 'لا توجد قرارات مؤرشفة'
   },
   cardDraft: {
-    more: 'المزيد',
+    more: 'اقرأ المزيد',
     yourOpinion: 'أبدِ رأيك',
     vote: ' صوت',
     modificationRequest: 'طلب تعديل'
@@ -308,7 +308,7 @@ export const ar = {
     oldestNews: 'أقدم الاخبار'
   },
   cardBlog: {
-    more: 'المزيد'
+    more: 'اقرأ المزيد'
   },
   reportsPage: {
     title: 'تقارير المشاركة المجتمعية',
@@ -360,10 +360,13 @@ export const ar = {
     closeAll: 'اغلاق الكل',
     shareDecision: 'شارك هذا القرار',
     published: 'تاريخ النشر',
-    more: 'المزيد'
+    more: 'اقرأ المزيد'
+  },
+  draftDetailsInfo: {
+    chartTitle: 'نسبة الرضا عن المادة'
   },
   draftDetails: {
-    types: {
+    breadcrumb: {
       archived: 'التشريعات المؤرشفة',
       applied: 'التشريعات المطبقة',
       voting: 'التشريعات تحت التصويت'
@@ -394,13 +397,13 @@ export const ar = {
     vote: 'نسبة الرضا عن التشريعات',
     generalVote: 'نسبة الرضا',
     createDate: 'تاريخ بداية الطرح',
-    closeDate: 'تاريخ اغلاق المسودة و النقاش',
+    closeDate: 'تاريخ اغلاق التشريع او التصويت',
     attachments: 'المرفقات',
     pdf: 'الاشتراكات المعمرية pdf',
     download: '  تحميل pdf',
     jpg: 'البيئة العمرانية JPG',
     charts: 'مؤشرات',
-    chartTitle: 'نسبة الرضا عن المسودة',
+    chartTitle: 'نسبة الرضا عن التشريع',
     chartTypeOne: 'مؤيد جدا',
     chartTypeTwo: 'مؤيد',
     chartTypeThree: 'محايد',

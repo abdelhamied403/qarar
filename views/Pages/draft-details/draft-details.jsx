@@ -680,10 +680,10 @@ class DraftDetailsInfo extends Component {
       applied: 'info',
       voting: 'success'
     };
-    const statusName = {
-      archived: 'archived',
-      applied: 'applied',
-      voting: 'voting'
+    const statusLinks = {
+      archived: '/archived-drafts',
+      applied: '/drafts-applied',
+      voting: '/drafts-under-vote'
     };
     return (
       <>
@@ -695,8 +695,12 @@ class DraftDetailsInfo extends Component {
                   <div className="header-content">
                     <ul>
                       <li>
-                        <Link href="/drafts/">
-                          <a>{translate('draftDetails.votingDrafts')}</a>
+                        <Link href={statusLinks[draft.qarar_status] || '/'}>
+                          <a>
+                            {translate(
+                              `draftDetails.breadcrumb.${draft.qarar_status}`
+                            )}
+                          </a>
                         </Link>
                       </li>
                       {breadcrumbs.map(item => (
@@ -709,9 +713,7 @@ class DraftDetailsInfo extends Component {
                     </ul>
                     <h2>{draft.title}</h2>
                     <Badge color={statusColor[draft.qarar_status]}>
-                      {translate(
-                        `draftDetails.${statusName[draft.qarar_status]}`
-                      )}
+                      {translate(`draftDetails.${draft.qarar_status}`)}
                     </Badge>
                     <div className="sub-header">
                       <Media
@@ -800,9 +802,7 @@ class DraftDetailsInfo extends Component {
                     }
                   >
                     {' '}
-                    <p className="line-clamp-3">
-                      {renderHTML(draft.body || '')}
-                    </p>
+                    <p>{renderHTML(draft.body || '')}</p>
                     <div className="dates d-flex">
                       {' '}
                       <div className="date dateDraft d-flex align-items-center lf-10">
@@ -815,12 +815,12 @@ class DraftDetailsInfo extends Component {
                             {translate('draftDetails.createDate')}
                           </strong>
                           :
+                          <span>
+                            {moment(draft.applied_date || new Date()).format(
+                              'dddd, D MMMM YYYY'
+                            )}
+                          </span>
                         </p>
-                        <span>
-                          {moment(draft.applied_date || new Date()).format(
-                            'dddd, D MMMM YYYY'
-                          )}
-                        </span>
                       </div>
                       <div className="date dateDraft d-flex align-items-center">
                         <img
@@ -830,10 +830,10 @@ class DraftDetailsInfo extends Component {
                         <p className="bold">
                           <strong>{translate('draftDetails.closeDate')}</strong>
                           :
+                          <span>
+                            {moment(draft.end_date).format('dddd, D MMMM YYYY')}
+                          </span>
                         </p>
-                        <span>
-                          {moment(draft.end_date).format('dddd, D MMMM YYYY')}
-                        </span>
                       </div>
                     </div>
                   </Col>
@@ -918,8 +918,8 @@ class DraftDetailsInfo extends Component {
                         >
                           {translate('draftDetails.chartTitle')}
                         </p>
-                        <Row>
-                          <Col md="6">
+                        <Row style={{ width: 'max-content' }}>
+                          <Col md="6" style={{ width: 'max-content' }}>
                             <div>
                               {[
                                 {

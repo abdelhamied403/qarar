@@ -668,7 +668,6 @@ pre code {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
-  width: 100%;
 }
 
 .no-gutters {
@@ -19196,9 +19195,6 @@ textarea.form-control {
   .args .btn {
     margin-top: 0;
   }
-  .collapseDraftCard .card-header {
-    flex-direction: column;
-  }
   .dratCartTitlelt {
     justify-content: flex-end;
   }
@@ -20417,6 +20413,10 @@ a#loginWithBaladyLink img {
   }
 
   .draftContainer.drafInfo .cardDraft .d-flex.line-right.flex-column {
+    align-items: center;
+  }
+
+  .row {
     align-items: center;
   }
 }

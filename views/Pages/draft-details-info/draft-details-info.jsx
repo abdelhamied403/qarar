@@ -563,7 +563,7 @@ class DraftDetailsInfo extends Component {
                           <a>
                             {' '}
                             {translate(
-                              `draftDetails.types.${parentDraft?.data.qarar_status}`
+                              `draftDetails.breadcrumb.${parentDraft?.data.qarar_status}`
                             )}
                           </a>
                         </Link>
@@ -792,10 +792,10 @@ class DraftDetailsInfo extends Component {
                             lineHeight: '16px'
                           }}
                         >
-                          {translate('draftDetails.chartTitle')}
+                          {translate('draftDetailsInfo.chartTitle')}
                         </p>
                         <Row>
-                          <Col md="6">
+                          <Col md="6" style={{ width: 'max-content' }}>
                             <div>
                               {[
                                 {
@@ -864,7 +864,7 @@ class DraftDetailsInfo extends Component {
                         >
                           {translate('draftDetails.mostVoted')}
                         </p>
-                        <Row>
+                        <Row style={{ justifyContent: 'center' }}>
                           {draft.most_featured_users?.map(el => (
                             <div
                               className="p-2"

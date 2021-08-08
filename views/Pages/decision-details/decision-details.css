@@ -420,6 +420,9 @@
   .draftInfoShare button {
     margin-top: 5px;
   }
+  .newHeader .icons-group {
+    justify-content: center;
+  }
 }
 
 .action-item {
