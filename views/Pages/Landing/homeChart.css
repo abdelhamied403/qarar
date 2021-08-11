@@ -4,6 +4,7 @@
 .homeChartContainer .row {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 .satpiechart {

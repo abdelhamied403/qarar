@@ -657,6 +657,9 @@
   .qchart {
     margin: 30px 0;
   }
+  .qchart:first-of-type {
+    margin-top: 0;
+  }
   .qpiechart {
     width: 200px !important;
     max-width: 200px !important;

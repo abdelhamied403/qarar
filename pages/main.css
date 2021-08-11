@@ -18738,6 +18738,7 @@ textarea.form-control {
 }
 .chart svg {
   max-width: 200px;
+  margin: 0 auto;
   margin-top: 24px;
 }
 .social-sharing .chart {
