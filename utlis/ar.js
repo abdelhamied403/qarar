@@ -197,7 +197,7 @@ export const ar = {
       votingCloses: 'يغلق التصويت بتاريخ ',
       publication: 'تاريخ النشر '
     },
-    noDecisions: 'لا يوجد قرارات متاحة الان. ',
+    noDecisions: 'لا يوجد تشريعات متاحة الان. ',
     archivedDecisions: 'التشريعات المؤرشفة'
   },
   draftsPage: {
