@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3000",
+    "export": "next build && next export -o build",
     "lint-staged": "lint-staged"
   },
   "pre-commit": "lint-staged",
