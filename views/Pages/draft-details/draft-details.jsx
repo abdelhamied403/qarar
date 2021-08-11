@@ -1081,7 +1081,8 @@ class DraftDetailsInfo extends Component {
                     {translate('draftDetails.plzPickLegalCapacity')}
                   </Alert>
                 )}
-                {(draft.allow_comment || under_voting_items.length > 0) && (
+                {(draft.qarar_status === 'voting' ||
+                  under_voting_items.length > 0) && (
                   <div>
                     <h4>
                       {translate('draftDetails.shareIdeasModal.legalCapacity')}
