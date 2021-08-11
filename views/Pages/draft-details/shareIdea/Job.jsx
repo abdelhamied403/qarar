@@ -71,7 +71,7 @@ const Job = props => {
     };
 
     if ((selectedLegalCapacity && selectedCity) || selectedInvestmentField) {
-      if (selectedLegalCapacity === '48' && !selectedInvestmentField) {
+      if (selectedLegalCapacity === '44' && !selectedInvestmentField) {
         setErrMsg(translate('draftDetails.errors.emptyInvestmentField'));
         setTimeout(() => {
           setErrMsg(null);
@@ -145,7 +145,7 @@ const Job = props => {
           </Row>
           <Row>
             <Col md="6">
-              {allInvestmentField && parseInt(selectedLegalCapacity) === 48 && (
+              {allInvestmentField && parseInt(selectedLegalCapacity) === 44 && (
                 <select
                   className="not-select2 form-control"
                   value={selectedInvestmentField}

@@ -503,7 +503,7 @@ class DraftDetailsInfo extends Component {
     } else if (
       !this.state.selectedLegalCapacity ||
       !this.state.selectedCity ||
-      (this.state.selectedLegalCapacity === 48 &&
+      (this.state.selectedLegalCapacity === 44 &&
         !this.state.selectedInvestmentField)
     ) {
       this.jobRef.current.scrollIntoView({
